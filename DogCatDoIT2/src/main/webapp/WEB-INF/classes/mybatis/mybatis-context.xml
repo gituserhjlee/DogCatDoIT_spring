@@ -64,8 +64,8 @@
 	</tx:advice>
 	
 	<aop:config proxy-target-class="true">
-	    <!-- com.sp.app 및 하위 패키지의 Service로 끝나는 클래스의 모든 메소드 -->
-	    <aop:pointcut id="serviceOperation" expression="execution(public * com.sp.app..*Service.*(..))" />
+	    <!-- com.pet.app 및 하위 패키지의 Service로 끝나는 클래스의 모든 메소드 -->
+	    <aop:pointcut id="serviceOperation" expression="execution(public * com.pet.app..*Service.*(..))" />
 	    <aop:advisor id="transactionAdvisor" pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
 	</aop:config>
 </beans>

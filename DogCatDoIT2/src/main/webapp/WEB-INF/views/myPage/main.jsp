@@ -2,8 +2,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
-<html lang='en'>
   <head>
     <meta charset='utf-8' />
     <link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
@@ -25,10 +23,7 @@
     	}
     </style>
   </head>
-  <body>
   	<div>
   		<h4>출석체크</h4>
   	</div>
     <div id='calendar'></div>
-  </body>
-</html>

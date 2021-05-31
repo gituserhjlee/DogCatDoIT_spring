@@ -73,7 +73,7 @@
 									<li><a href="#">강아지</a></li>
 									<li><a href="#">고양이</a></li>
 								</ul></li>
-							<li><a href="${pageContext.request.contextPath}/shopping/admin">Admin Page</a></li>
+							<li><a href="${pageContext.request.contextPath}/shopping/admin/dashboard">Admin Page</a></li>
 
 						</ul>
 					</nav>

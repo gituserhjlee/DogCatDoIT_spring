@@ -69,6 +69,7 @@
             <exclude-mapping path="/member/userIdCheck"/>
             <exclude-mapping path="/member/complete"/>
             <exclude-mapping path="/shopping/*"/>
+            <exclude-mapping path="/myPage/*"/>
             <beans:bean class="com.pet.app.member.LoginCheckInterceptor"/>
         </interceptor>
     </interceptors>	 

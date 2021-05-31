@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <head>
-	<meta charset='utf-8' />
+    <meta charset='utf-8' />
     <link href='${pageContext.request.contextPath}/resources/fullcalendar/lib/main.css' rel='stylesheet' />
     <script src='${pageContext.request.contextPath}/resources/fullcalendar/lib/main.js'></script>
     <script>
@@ -26,7 +26,7 @@
 <jsp:include page="template.jsp"/>
 <div>
   	<div>
-  		<h4>출석체크</h4>
+  		<h4>일정</h4>
   	</div>
     <div id='calendar'></div>
 </div>

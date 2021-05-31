@@ -9,6 +9,6 @@ public class MyPageController {
 	@RequestMapping(value = "attendance")
 	public String attendance() throws Exception{
 		
-		return "/myPage/main";
+		return "/myPage/attendance";
 	}
 }

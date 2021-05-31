@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   <head>
     <meta charset='utf-8' />
-    <link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
-    <script src='resources/fullcalendar/lib/main.js'></script>
+    <link href='${pageContext.request.contextPath}/resources/fullcalendar/lib/main.css' rel='stylesheet' />
+    <script src='${pageContext.request.contextPath}/resources/fullcalendar/lib/main.js'></script>
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {

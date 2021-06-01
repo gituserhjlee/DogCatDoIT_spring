@@ -7,7 +7,7 @@
 <tiles-definitions>
 <!-- 쇼핑몰 관리자 -->
 	<definition name=".shoppingLayout"
-		template="/WEB-INF/views/shopping/layout.jsp">
+		template="/WEB-INF/views/shopping/admin/layout.jsp">
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/main.jsp" />
 	</definition>

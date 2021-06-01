@@ -4,48 +4,62 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Item {
 
-	private long id;//시퀀스
-	private String name;
-	private long originalPrice;
-	private long salePrice;
-	private int discount;
+	private long itemId;//시퀀스
+	private long itemCategoryId;
+	private long shopStoreId;
+	private String itemName;
+	private long itemOriginalPrice;
+	private long itemSalePrice;
+	private int discountRate;
 	private int stock;
 	private String registered;//sysdate
 	private String saveFileName;
-	private String description;
+	private String des;
 	private String content;
 	private boolean enabled;//초기엔 1
 	private String manufacturer;
 	private MultipartFile upload;
-	public long getId() {
-		return id;
+	public long getItemId() {
+		return itemId;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public void setItemId(long itemId) {
+		this.itemId = itemId;
 	}
-	public String getName() {
-		return name;
+	public long getItemCategoryId() {
+		return itemCategoryId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setItemCategoryId(long itemCategoryId) {
+		this.itemCategoryId = itemCategoryId;
 	}
-	public long getOriginalPrice() {
-		return originalPrice;
+	public long getShopStoreId() {
+		return shopStoreId;
 	}
-	public void setOriginalPrice(long originalPrice) {
-		this.originalPrice = originalPrice;
+	public void setShopStoreId(long shopStoreId) {
+		this.shopStoreId = shopStoreId;
 	}
-	public long getSalePrice() {
-		return salePrice;
+	public String getItemName() {
+		return itemName;
 	}
-	public void setSalePrice(long salePrice) {
-		this.salePrice = salePrice;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
-	public int getDiscount() {
-		return discount;
+	public long getItemOriginalPrice() {
+		return itemOriginalPrice;
 	}
-	public void setDiscount(int discount) {
-		this.discount = discount;
+	public void setItemOriginalPrice(long itemOriginalPrice) {
+		this.itemOriginalPrice = itemOriginalPrice;
+	}
+	public long getItemSalePrice() {
+		return itemSalePrice;
+	}
+	public void setItemSalePrice(long itemSalePrice) {
+		this.itemSalePrice = itemSalePrice;
+	}
+	public int getDiscountRate() {
+		return discountRate;
+	}
+	public void setDiscountRate(int discountRate) {
+		this.discountRate = discountRate;
 	}
 	public int getStock() {
 		return stock;
@@ -65,11 +79,11 @@ public class Item {
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
 	}
-	public String getDescription() {
-		return description;
+	public String getDes() {
+		return des;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDes(String des) {
+		this.des = des;
 	}
 	public String getContent() {
 		return content;
@@ -94,7 +108,10 @@ public class Item {
 	}
 	public void setUpload(MultipartFile upload) {
 		this.upload = upload;
-	} 
+	}
+	
+	
+	
 
 	
 

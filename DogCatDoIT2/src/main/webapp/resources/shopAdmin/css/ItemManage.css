@@ -42,6 +42,7 @@
 	border-bottom: 1px solid #ffffff;
 }
 
-.Itemmain #tab1:checked ~ #content1,.Itemmain #tab2:checked ~ #content2{
+#tab1:checked ~ #content1, #tab12:checked ~ #content2  {
 	display: block;
 }
+

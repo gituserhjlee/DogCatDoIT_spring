@@ -11,6 +11,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/jquery/css/smoothness/jquery-ui.min.css"
+	type="text/css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap4/css/bootstrap.min.css"
 	type="text/css">
@@ -41,10 +50,6 @@
 <!-- simple line icon -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/shopAdmin/icon/simple-line-icons/css/simple-line-icons.css">
-
-<!-- Required Fremwork -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/shopAdmin/plugins/bootstrap/css/bootstrap.min.css">
 
 <!-- Chartlist chart css -->
 <link rel="stylesheet"
@@ -123,14 +128,11 @@
 				</ul>
 			</section>
 		</aside>
-
+</div>
 		<main class="container">
 			<tiles:insertAttribute name="body" />
 
 		</main>
-		<!-- Required Jqurey -->
-
-
 		<script
 			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/Jquery/dist/jquery.min.js"></script>
 		<script
@@ -138,37 +140,13 @@
 		<script
 			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/tether/dist/js/tether.min.js"></script>
 
-		<!-- Required Fremwork -->
 		<script
 			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/bootstrap/js/bootstrap.min.js"></script>
-
 		<!-- Scrollbar JS-->
 		<script
 			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/jquery.nicescroll/jquery.nicescroll.min.js"></script>
-
-		<!--classic JS-->
-		<script
-			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/classie/classie.js"></script>
-
-		<!-- notification -->
-		<script
-			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/notification/js/bootstrap-growl.min.js"></script>
-
-		<!-- Sparkline charts -->
-		<script
-			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/jquery-sparkline/dist/jquery.sparkline.js"></script>
-
-		<!-- Counter js  -->
-		<script
-			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/waypoints/jquery.waypoints.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/countdown/js/jquery.counterup.js"></script>
-
-		<!-- Echart js -->
-		<script
-			src="${pageContext.request.contextPath}/resources/shopAdmin/plugins/charts/echarts/js/echarts-all.js"></script>
 
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>

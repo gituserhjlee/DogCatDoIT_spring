@@ -23,8 +23,9 @@ public class AdminController {
 		model.addAttribute("mode","insert");
 		return ".shopping.admin.ItemManage";
 	}
-//	@PostMapping("admin/item/insert")
-//	public String insertItem() {
+	@PostMapping("admin/item/insert")
+	public String insertItem(Item item) {
 		
-//	}
+		return "redirect:/shopping/admin/ItemManage";
+	}
 }

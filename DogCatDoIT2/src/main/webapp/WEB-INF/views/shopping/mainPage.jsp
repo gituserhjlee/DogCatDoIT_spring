@@ -73,7 +73,9 @@
 									<li><a href="#">강아지</a></li>
 									<li><a href="#">고양이</a></li>
 								</ul></li>
-							<li><a href="${pageContext.request.contextPath}/shopping/admin/dashboard">Admin Page</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/shopping/admin/dashboard">Admin
+									Page</a></li>
 
 						</ul>
 					</nav>
@@ -106,17 +108,16 @@
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>All Items</span>
 						</div>
+						Dog
 						<ul>
-
-							<h5>Dog</h5>
 							<li style="list-style: disc;"><a href="#">사료</a></li>
 							<li style="list-style: disc;"><a href="#">간식</a></li>
 							<li style="list-style: disc;"><a href="#">위생/배변</a></li>
 							<li style="list-style: disc;"><a href="#">영양제</a></li>
 							<li style="list-style: disc;"><a href="#">용품</a></li>
-							<br>
-
-							<h5>Cat</h5>
+						</ul>
+						Cat
+						<ul>
 							<li style="list-style: disc;"><a href="#">사료</a></li>
 							<li style="list-style: disc;"><a href="#">간식</a></li>
 							<li style="list-style: disc;"><a href="#">위생/배변</a></li>

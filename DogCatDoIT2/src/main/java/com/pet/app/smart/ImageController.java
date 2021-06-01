@@ -1,4 +1,4 @@
-package com.pet.app.smartEditor;
+package com.pet.app.smart;
 
 import java.io.File;
 import java.io.InputStream;

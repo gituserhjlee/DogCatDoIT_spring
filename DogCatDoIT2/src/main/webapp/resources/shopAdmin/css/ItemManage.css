@@ -9,7 +9,7 @@
 }
 
 .Itemmain section {
-	display: none;
+	display: none; 
 	padding: 20px 0 0;
 	border-top: 1px solid #ddd;
 }
@@ -42,7 +42,7 @@
 	border-bottom: 1px solid #ffffff;
 }
 
-#tab1:checked ~ #content1, #tab12:checked ~ #content2  {
+#tab1:checked ~ #content1, #tab2:checked ~ #content2  {
 	display: block;
 }
 

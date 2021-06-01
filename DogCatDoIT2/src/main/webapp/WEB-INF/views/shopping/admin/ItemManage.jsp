@@ -124,6 +124,7 @@
 			</section>
 
 			<section id="content2">
+			 
 				<div
 					style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 					<c:forEach var="i" items="${items}">
@@ -140,6 +141,7 @@
 								<li class="list-group-item">등록일:${i.registered}</li>
 								<li class="list-group-item">설명:${i.des}</li>
 								<li class="list-group-item">제조사:${i.manufacturer}</li>
+								
 							</ul>
 						</div>
 					</c:forEach>
@@ -151,7 +153,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/shopAdmin/css/ItemManage.css">
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/smartEditor/js/HuskyEZCreator.js"
+	src="${pageContext.request.contextPath}/resources/se/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <script type="text/javascript">
 	function check() {
@@ -238,6 +240,25 @@
 
 		return true;
 	}
+</script>
+<script type="text/javascript">
+	var oEditors = [];
+	nhn.husky.EZCreator
+			.createInIFrame({
+				oAppRef : oEditors,
+				elPlaceHolder : "content",
+				sSkinURI : "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",
+				htParams : {
+					bUseToolbar : true,
+					fOnBeforeUnload : function() {
+					}
+				}, //boolean
+				fOnAppLoad : function() {
+					//예제 코드
+					//oEditors.getById["content"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+				},
+				fCreator : "createSEditor2"
+			});
 	function pasteHTML() {
 		var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
 		oEditors.getById["content"].exec("PASTE_HTML", [ sHTML ]);
@@ -270,24 +291,6 @@
 		$('#ItemManage').addClass('active');
 		$('#dashboard').removeClass('active');
 	})
-
-	var oEditors = [];
-	nhn.husky.EZCreator
-			.createInIFrame({
-				oAppRef : oEditors,
-				elPlaceHolder : "content",
-				sSkinURI : "${pageContext.request.contextPath}/resources/smartEditor/SmartEditor2Skin.html",
-				htParams : {
-					bUseToolbar : true,
-					fOnBeforeUnload : function() {
-					}
-				}, //boolean
-				fOnAppLoad : function() {
-					//예제 코드
-					//oEditors.getById["content"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-				},
-				fCreator : "createSEditor2"
-			});
 </script>
 
 

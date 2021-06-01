@@ -1,4 +1,4 @@
-package com.pet.app.smartEditor;
+package com.pet.app.smart;
 
 import org.springframework.web.multipart.MultipartFile;
 

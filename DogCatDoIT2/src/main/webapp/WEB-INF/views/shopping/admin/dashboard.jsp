@@ -75,34 +75,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-4 col-lg-12 grid-item">
-						<div class="card">
-							<div class="card-block horizontal-card-img d-flex">
-								<img class="media-object img-circle"
-									src="${pageContext.request.contextPath}/resources/shopAdmin/images/avatar-3.png"
-									alt="Generic placeholder image">
-								<div class="d-inlineblock  p-l-20">
-									<h6>Josephin Doe</h6>
-									<a href="#">contact@admin.com</a>
-								</div>
-								<h6 class="txt-warning rotate-txt">Designer</h6>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-12 grid-item">
-						<div class="card">
-							<div class="card-block horizontal-card-img d-flex">
-								<img class="media-object img-circle"
-									src="${pageContext.request.contextPath}/resources/shopAdmin/images/lockscreen.png"
-									alt="Generic placeholder image">
-								<div class="d-inlineblock  p-l-20">
-									<h6>Josephin Doe</h6>
-									<a href="#">contact@admin.com</a>
-								</div>
-								<h6 class="txt-danger rotate-txt">Developer</h6>
-							</div>
-						</div>
-					</div>
+				
+					
 				</div>
 				<!-- 1-3-block row end -->
 
@@ -132,14 +106,7 @@
 														14.9.2016
 													</p>
 												</td>
-												<td><span class="pie" style="display: none;">226,134</span>
-													<svg class="peity" height="30" width="30">
-														<path
-															d="M 15.000000000000002 0 A 15 15 0 1 1 4.209902994920235 25.41987555688496 L 15 15"
-															fill="#2196F3"></path>
-														<path
-															d="M 4.209902994920235 25.41987555688496 A 15 15 0 0 1 14.999999999999996 0 L 15 15"
-															fill="#ccc"></path></svg></td>
+											
 												<td>50%</td>
 												<td>October 21, 2015</td>
 											</tr>
@@ -153,14 +120,7 @@
 														20.10.2016
 													</p>
 												</td>
-												<td><span class="pie" style="display: none;">0.52/1.561</span>
-													<svg class="peity" height="30" width="30">
-														<path
-															d="M 15.000000000000002 0 A 15 15 0 0 1 28.00043211809656 22.482564048691025 L 15 15"
-															fill="#2196F3"></path>
-														<path
-															d="M 28.00043211809656 22.482564048691025 A 15 15 0 1 1 14.999999999999996 0 L 15 15"
-															fill="#ccc"></path></svg></td>
+												
 												<td>70%</td>
 												<td>November 21, 2015</td>
 											</tr>
@@ -174,14 +134,7 @@
 														20.10.2016
 													</p>
 												</td>
-												<td><span class="pie" style="display: none;">1,4</span>
-													<svg class="peity" height="30" width="30">
-														<path
-															d="M 15.000000000000002 0 A 15 15 0 0 1 29.265847744427305 10.36474508437579 L 15 15"
-															fill="#2196F3"></path>
-														<path
-															d="M 29.265847744427305 10.36474508437579 A 15 15 0 1 1 14.999999999999996 0 L 15 15"
-															fill="#ccc"></path></svg></td>
+												
 												<td>40%</td>
 												<td>September 21, 2015</td>
 											</tr>
@@ -195,14 +148,7 @@
 														20.10.2016
 													</p>
 												</td>
-												<td><span class="pie" style="display: none;">0.52/1.561</span>
-													<svg class="peity" height="30" width="30">
-														<path
-															d="M 15.000000000000002 0 A 15 15 0 0 1 28.00043211809656 22.482564048691025 L 15 15"
-															fill="#2196F3"></path>
-														<path
-															d="M 28.00043211809656 22.482564048691025 A 15 15 0 1 1 14.999999999999996 0 L 15 15"
-															fill="#ccc"></path></svg></td>
+												
 												<td>70%</td>
 												<td>November 21, 2015</td>
 											</tr>
@@ -216,14 +162,7 @@
 														20.10.2016
 													</p>
 												</td>
-												<td><span class="pie" style="display: none;">0.52/1.561</span>
-													<svg class="peity" height="30" width="30">
-														<path
-															d="M 15.000000000000002 0 A 15 15 0 0 1 28.00043211809656 22.482564048691025 L 15 15"
-															fill="#2196F3"></path>
-														<path
-															d="M 28.00043211809656 22.482564048691025 A 15 15 0 1 1 14.999999999999996 0 L 15 15"
-															fill="#ccc"></path></svg></td>
+												
 												<td>70%</td>
 												<td>November 21, 2015</td>
 											</tr>
@@ -237,14 +176,7 @@
 														20.10.2016
 													</p>
 												</td>
-												<td><span class="pie" style="display: none;">0.52/1.561</span>
-													<svg class="peity" height="30" width="30">
-														<path
-															d="M 15.000000000000002 0 A 15 15 0 0 1 28.00043211809656 22.482564048691025 L 15 15"
-															fill="#2196F3"></path>
-														<path
-															d="M 28.00043211809656 22.482564048691025 A 15 15 0 1 1 14.999999999999996 0 L 15 15"
-															fill="#ccc"></path></svg></td>
+												
 												<td>70%</td>
 												<td>November 21, 2015</td>
 											</tr>
@@ -255,7 +187,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-4 col-lg-12">
+					<!-- <div class="col-xl-4 col-lg-12">
 						<div class="card">
 							<div class="card-header">
 								<h5 class="card-header-text">Bar chart</h5>
@@ -265,7 +197,7 @@
 									style="min-width: 250px; height: 460px; margin: 0 auto"></div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<!-- 2-1 block end -->
 			</div>

@@ -115,7 +115,6 @@
 	</div>
 </div>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/shopAdmin/css/ItemManage.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 	function check() {

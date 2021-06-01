@@ -9,15 +9,15 @@ import com.pet.app.common.dao.CommonDAO;
 public class MyPageServiceImpl implements MyPageService{
 	@Autowired
 	private CommonDAO dao;
-	
+
 	@Override
-	public void insertUserProfile(UserProfile dto) throws Exception {
+	public void insertUserProfile(UserProfile dto, String pathname) throws Exception {
 		try {
-			
+			dao.insertData("myPage.insertUserProfile", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			// TODO: handle exception
 		}
+		
 	}
 
 }

@@ -5,6 +5,11 @@
 <jsp:include page="template.jsp"/>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
-		마이페이지 입니다.
+		<div>
+			예약내역
+		</div>
+		<div>
+			예약 내역입니다.
+		</div>
 	</div>
 </div>

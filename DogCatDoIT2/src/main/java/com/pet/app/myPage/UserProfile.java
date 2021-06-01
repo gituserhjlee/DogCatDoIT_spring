@@ -1,5 +1,7 @@
 package com.pet.app.myPage;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserProfile {
 	private int profileNum;
 	private int userNum;
@@ -9,7 +11,28 @@ public class UserProfile {
 	private String animalKind;
 	private String introduce;
 	private int orderNo;
+	private String animalPhoto;
+	private MultipartFile upload;
+	private int animalAge;
 	
+	public int getAnimalAge() {
+		return animalAge;
+	}
+	public void setAnimalAge(int animalAge) {
+		this.animalAge = animalAge;
+	}
+	public MultipartFile getUpload() {
+		return upload;
+	}
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
+	}
+	public String getAnimalPhoto() {
+		return animalPhoto;
+	}
+	public void setAnimalPhoto(String animalPhoto) {
+		this.animalPhoto = animalPhoto;
+	}
 	public int getProfileNum() {
 		return profileNum;
 	}

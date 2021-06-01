@@ -5,6 +5,15 @@
 <jsp:include page="template.jsp"/>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
-		마이페이지 입니다.
+		<div>
+			회원 탈퇴
+		</div>
+		<div>
+			<p>탈퇴를 원하시면 '독캣두잇 번창하세요'를 입력해주세요.</p>
+			<p>
+				<input type="text">
+				<button type="button">회원탈퇴</button>
+			</p>
+		</div>
 	</div>
 </div>

@@ -5,6 +5,8 @@
 <jsp:include page="template.jsp"/>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
-		마이페이지 입니다.
+		<div>
+			펫시터, 훈련사 프로필 설정
+		</div>
 	</div>
 </div>

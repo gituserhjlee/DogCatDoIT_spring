@@ -5,6 +5,11 @@
 <jsp:include page="template.jsp"/>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
-		마이페이지 입니다.
+		<div>
+			찜 목록
+		</div>
+		<div>
+			찜 목록입니다.
+		</div>
 	</div>
 </div>

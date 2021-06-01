@@ -2,6 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myPage">
+	<!-- 유저프로필 입력 -->
 	<insert id="insertUserProfile" parameterType="com.pet.app.myPage.UserProfile">
 		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, orderNum, userNum, animalPhoto)
 		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{orderNum}, #{userNum}, #{animalPhoto})

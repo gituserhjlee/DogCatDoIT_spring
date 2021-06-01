@@ -5,6 +5,24 @@
 <jsp:include page="template.jsp"/>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
-		마이페이지 입니다.
+		<div>
+			쿠폰
+		</div>
+		<div>
+			사용 가능한 쿠폰
+		</div>
+		<div>
+			쿠폰 사용 내역
+			<p>
+				조회기간
+				<select>
+					<option>기간</option>
+					<option>1개월</option>
+					<option>3개월</option>
+					<option>6개월</option>
+					<option>1년</option>
+				</select>
+			</p>
+		</div>
 	</div>
 </div>

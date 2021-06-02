@@ -13,14 +13,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pet.app.member.SessionInfo;
+
 @Controller
 @RequestMapping("/shopping/*")
 public class AdminController {
 	@Autowired
 	private AdminService service;
+	
+	private SessionInfo info;
+	
 
 	@GetMapping("main")
-	public String mainPage(Model model) {
+	public String mainPage(Model model,HttpSession session) {
 
 		List<Item> onsale = service.bestDiscountRate();
 		for (Item i : onsale) {
@@ -51,13 +56,20 @@ public class AdminController {
 	}
 
 	@GetMapping("admin/dashboard")
-	public String adminPage() {
+	public String adminPage(HttpSession session) {
+		info=(SessionInfo)session.getAttribute("member");
+		System.out.println(info.getUserId());
+		if(!info.getUserId().equals("admin"))
+			return ".error.error";
 		return ".shopping.admin.dashboard";
 	}
 
 	@GetMapping("admin/ItemManage")
 	public String ItemManage(Model model, HttpSession session) {
-
+		info=(SessionInfo)session.getAttribute("member");
+		if(!info.getUserId().equals("admin"))
+			return ".error.error";
+		
 		List<ShopStore> ss = service.listStore();
 		List<ItemCategory> ic = service.listCategory();
 		List<ItemCategory> newic = new ArrayList<ItemCategory>();
@@ -83,7 +95,10 @@ public class AdminController {
 
 	@PostMapping("admin/item/insert")
 	public String insertItem(Item item, HttpSession session) {
-
+		info=(SessionInfo)session.getAttribute("member");
+		if(!info.getUserId().equals("admin"))
+			return ".error.error";
+		
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
 		System.out.println("파일경로" + pathname);

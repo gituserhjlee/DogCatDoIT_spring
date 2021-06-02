@@ -57,7 +57,7 @@
     </beans:bean>
 
 	<!-- Interceptor 설정 -->
-	<!-- 
+	
     <interceptors>
         <interceptor>
             <mapping path="/**"/>
@@ -69,16 +69,15 @@
             <exclude-mapping path="/member/member"/>
             <exclude-mapping path="/member/userIdCheck"/>
             <exclude-mapping path="/member/complete"/>
-            <exclude-mapping path="/shopping/*"/>
-            <exclude-mapping path="/shopping/admin/*"/>
-            <exclude-mapping path="/shopping/admin/item/*"/>
+            <exclude-mapping path="/shopping/main"/>
+            <exclude-mapping path="/uploads/item/*"/>
             <exclude-mapping path="/myPage/*"/>
             <exclude-mapping path="/order/*"/>
 
             <beans:bean class="com.pet.app.member.LoginCheckInterceptor"/>
         </interceptor>
     </interceptors>	 
-	 -->
+	 
 	 
     <!-- 예외처리 -->
     <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

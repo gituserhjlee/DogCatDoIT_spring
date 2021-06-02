@@ -73,9 +73,12 @@
 									<li><a href="#">강아지</a></li>
 									<li><a href="#">고양이</a></li>
 								</ul></li>
-							<li><a
-								href="${pageContext.request.contextPath}/shopping/admin/dashboard">Admin
-									Page</a></li>
+							<c:if test="${sessionScope.member.userId=='admin'}">
+								<li><a
+									href="${pageContext.request.contextPath}/shopping/admin/dashboard">Admin
+										Page</a></li>
+							</c:if>
+
 
 						</ul>
 					</nav>
@@ -206,7 +209,8 @@
 		</div>
 	</section>
 	<!-- Categories Section End -->
-<br><br>
+	<br>
+	<br>
 	<!-- Banner Begin -->
 	<div class="banner">
 		<div class="container">
@@ -225,7 +229,7 @@
 							alt="">
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

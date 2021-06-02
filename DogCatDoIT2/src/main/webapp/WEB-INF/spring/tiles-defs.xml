@@ -15,6 +15,20 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/admin/{1}.jsp" />
 	</definition>
+	
+	<definition name=".shoppingLayout2"
+		template="/WEB-INF/views/shopping/shoppingLayout.jsp">
+		<put-attribute name="body"
+			value="/WEB-INF/views/shopping/main.jsp" />
+	</definition>
+	<definition name=".shopping.*" extends=".shoppingLayout2">
+		<put-attribute name="body"
+			value="/WEB-INF/views/shopping/{1}.jsp" />
+	</definition>
+	
+	
+	
+	
 	<definition name=".mainLayout"
 		template="/WEB-INF/views/layout/layout3.jsp">
 		<put-attribute name="title" value="spring" />
@@ -25,6 +39,8 @@
 		<put-attribute name="footer"
 			value="/WEB-INF/views/layout/footer.jsp" />
 	</definition>
+
+
 
 	<!-- 3단 관리자 -->
 	<definition name=".adminLayout"

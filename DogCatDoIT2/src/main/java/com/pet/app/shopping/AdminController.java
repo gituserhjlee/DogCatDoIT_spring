@@ -20,7 +20,7 @@ public class AdminController {
 	private AdminService service;
 	
 
-	@GetMapping("main")
+	@GetMapping("mainPage")
 	public String mainPage(Model model,HttpSession session) {
 
 		List<Item> onsale = service.bestDiscountRate();
@@ -52,7 +52,7 @@ public class AdminController {
 	}
 
 	@GetMapping("admin/dashboard")
-	public String adminPage(HttpSession session) {
+	public String adminPage() {
 		return ".shopping.admin.dashboard";
 	}
 
@@ -96,4 +96,11 @@ public class AdminController {
 		}
 		return "redirect:/shopping/admin/ItemManage";
 	}
+	
+	@GetMapping("dog")
+	public String dogPage() {
+		return ".shopping.dog";
+		
+	}
+	
 }

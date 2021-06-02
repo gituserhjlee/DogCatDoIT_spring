@@ -79,7 +79,7 @@
 	<div class="wrapper">
 		<!-- Navbar-->
 		<header class="main-header-top hidden-print">
-			<a href="${pageContext.request.contextPath}/shopping/main"
+			<a href="${pageContext.request.contextPath}/shopping/mainPage"
 				class="logo"><img class="img-fluid able-logo"
 				src="${pageContext.request.contextPath}/resources/shopAdmin/images/logo.png"
 				alt="Theme-logo"></a>

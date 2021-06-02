@@ -69,7 +69,9 @@
             <exclude-mapping path="/member/member"/>
             <exclude-mapping path="/member/userIdCheck"/>
             <exclude-mapping path="/member/complete"/>
-            <exclude-mapping path="/shopping/main"/>
+            <exclude-mapping path="/shopping/mainPage"/>
+            <exclude-mapping path="/shopping/dog"/>
+            <exclude-mapping path="/shopping/cat"/>
             <exclude-mapping path="/uploads/item/**"/>
             <exclude-mapping path="/myPage/*"/>
             <exclude-mapping path="/order/*"/>

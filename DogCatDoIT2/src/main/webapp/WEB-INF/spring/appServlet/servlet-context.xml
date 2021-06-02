@@ -70,11 +70,16 @@
             <exclude-mapping path="/member/userIdCheck"/>
             <exclude-mapping path="/member/complete"/>
             <exclude-mapping path="/shopping/main"/>
-            <exclude-mapping path="/uploads/item/*"/>
+            <exclude-mapping path="/uploads/item/**"/>
             <exclude-mapping path="/myPage/*"/>
             <exclude-mapping path="/order/*"/>
 
             <beans:bean class="com.pet.app.member.LoginCheckInterceptor"/>
+        </interceptor>
+        
+           <interceptor>
+            <mapping path="/shopping/admin/**"/>
+            <beans:bean class="com.pet.app.shopping.AdminInterceptor"/>
         </interceptor>
     </interceptors>	 
 	 

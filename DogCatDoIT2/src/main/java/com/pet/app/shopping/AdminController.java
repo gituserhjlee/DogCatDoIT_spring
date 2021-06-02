@@ -20,7 +20,33 @@ public class AdminController {
 	private AdminService service;
 
 	@GetMapping("main")
-	public String mainPage() {
+	public String mainPage(Model model) {
+
+		List<Item> onsale = service.bestDiscountRate();
+		for (Item i : onsale) {
+			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
+		}
+		List<Item> all = service.listRecentItem();
+		List<Item> dog = new ArrayList<Item>();
+		List<Item> cat = new ArrayList<Item>();
+
+		for (Item i : all) {
+			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
+
+			long result = service.isDogorCat(i.getItemId());
+			if (result == 1) {
+				dog.add(i);
+			} else {
+				cat.add(i);
+			}
+
+		}
+
+		model.addAttribute("onSale", onsale);
+		model.addAttribute("all", all);
+		model.addAttribute("dog", dog);
+		model.addAttribute("cat", cat);
+
 		return ".shopping.mainPage";
 	}
 
@@ -30,8 +56,8 @@ public class AdminController {
 	}
 
 	@GetMapping("admin/ItemManage")
-	public String ItemManage(Model model,HttpSession session) {
-		
+	public String ItemManage(Model model, HttpSession session) {
+
 		List<ShopStore> ss = service.listStore();
 		List<ItemCategory> ic = service.listCategory();
 		List<ItemCategory> newic = new ArrayList<ItemCategory>();
@@ -51,7 +77,7 @@ public class AdminController {
 		model.addAttribute("category", newic);
 		model.addAttribute("store", ss);
 		model.addAttribute("items", items);
-		
+
 		return ".shopping.admin.ItemManage";
 	}
 

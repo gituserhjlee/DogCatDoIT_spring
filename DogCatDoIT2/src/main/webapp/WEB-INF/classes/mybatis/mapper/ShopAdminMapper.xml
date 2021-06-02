@@ -4,31 +4,83 @@
 <mapper namespace="shop">
 	<insert id="insertItem"
 		parameterType="com.pet.app.shopping.Item">
-		insert into item(itemId, itemCategoryId, shopStoreId, itemName,
+		insert into item(itemId, itemCategoryId, shopStoreId,
+		itemName,
 		itemOriginalPrice, itemSalePrice,
-		discountRate, stock, registered, saveFileName, des, enabled, manufacturer,content)
-		 values (item_seq.NEXTVAL,#{itemCategoryId},#{shopStoreId},#{itemName},
-		#{itemOriginalPrice}, #{itemSalePrice}, #{discountRate}, #{stock}, SYSDATE, #{saveFileName}, #{des}, #{enabled}, #{manufacturer},#{content})
+		discountRate, stock,
+		registered, saveFileName, des, enabled, manufacturer,content)
+		values
+		(item_seq.NEXTVAL,#{itemCategoryId},#{shopStoreId},#{itemName},
+		#{itemOriginalPrice}, #{itemSalePrice}, #{discountRate}, #{stock},
+		SYSDATE, #{saveFileName}, #{des}, #{enabled},
+		#{manufacturer},#{content})
 
 	</insert>
-	
-	<select id="selectItemCategory" resultType="com.pet.app.shopping.ItemCategory">
-		select ItemCategoryId,ItemCategoryName,parentNum from ItemCategory
+
+	<select id="selectItemCategory"
+		resultType="com.pet.app.shopping.ItemCategory">
+		select ItemCategoryId,ItemCategoryName,parentNum from
+		ItemCategory
 	</select>
-	
-	<select id="findItemCategory" parameterType="long" resultType="com.pet.app.shopping.ItemCategory">
-		select ItemCategoryId,ItemCategoryName,parentNum from ItemCategory
+
+	<select id="findItemCategory" parameterType="long"
+		resultType="com.pet.app.shopping.ItemCategory">
+		select ItemCategoryId,ItemCategoryName,parentNum from
+		ItemCategory
 		where ItemCategoryId=${id}
 	</select>
-	
-	<select id="selectShopStore" resultType="com.pet.app.shopping.ShopStore">
-		select shopStoreId,shopStoreName,shopStoreTel,shopStoreAddress1,shopStoreAddress2,enabled
-		from shopStore
+
+	<select id="selectShopStore"
+		resultType="com.pet.app.shopping.ShopStore">
+		select
+		shopStoreId,shopStoreName,shopStoreTel,shopStoreAddress1,shopStoreAddress2,enabled
+		from shopStore where enabled='1'
 	</select>
-	
-	<select id="selectItemList" resultType="com.pet.app.shopping.Item">
+
+	<select id="selectItemList"
+		resultType="com.pet.app.shopping.Item">
+		select
+		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,stock,registered,saveFilename,des,content,enabled,manufacturer
+		from item
+	</select>
+
+	<select id="selectOnSale" resultType="com.pet.app.shopping.Item">
+		select
+		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,stock,registered,saveFilename,
+		des,content,enabled,manufacturer
+		from(
+		select
+		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,stock,registered,saveFilename,des,content,enabled,manufacturer
+		from item
+		where discountRate>0 and enabled='1'
+		order by discountRate
+		DESC)
+		where rowNum &lt;=5
+	</select>
+
+	<select id="selectRecentItem"
+		resultType="com.pet.app.shopping.Item">
+		select
+		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,stock,registered,saveFilename,
+		des,content,enabled,manufacturer
+		from(
 		select itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		 itemSalePrice,discountRate,stock,registered,saveFilename,des,content,enabled,manufacturer 
-		 from item
+		itemSalePrice,discountRate,stock,registered,saveFilename,
+		des,content,enabled,manufacturer
+		from item where enabled='1'
+		order by
+		registered DESC)
+		where rowNum &lt;=8
 	</select>
+	<select id="isDogOrCat" parameterType="long" resultType="long">
+		select c.parentNum
+		from item i join itemCategory c on i.itemcategoryId=c.itemcategoryId 
+		where enabled='1' and i.itemId=#{id}
+	</select>
+
+
 </mapper>

@@ -11,12 +11,13 @@ public class Item {
 	private long itemOriginalPrice;
 	private long itemSalePrice;
 	private int discountRate;
+	private long discountedPrice;
 	private int stock;
 	private String registered;//sysdate
 	private String saveFileName;
 	private String des;
 	private String content;
-	private boolean enabled;//초기엔 1
+	private boolean enabled;//초기엔 true
 	private String manufacturer;
 	private MultipartFile upload;
 	public long getItemId() {
@@ -109,6 +110,13 @@ public class Item {
 	public void setUpload(MultipartFile upload) {
 		this.upload = upload;
 	}
+	public long getDiscountedPrice() {
+		return discountedPrice;
+	}
+	public void setDiscountedPrice(long discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
+	
 	
 	
 	

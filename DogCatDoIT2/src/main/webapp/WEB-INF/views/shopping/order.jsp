@@ -13,6 +13,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
 
 <style type="text/css">
+* {
+	box-sizing: border-box;
+}
 .container {
 	width: 1110px;
 	margin: 0 auto;
@@ -54,7 +57,7 @@ table tr {
 	width: 120px;
 }
 .table1 thead tr{
-	height: 35px;
+	height: 38px;
 }
 .table1 td {
 	text-align: center;
@@ -82,6 +85,12 @@ table tr {
 	width: 935px;
 	padding: 12px 10px 11px 15px;
 }
+.no-margin-top {
+	margin-bottom: 0;
+}
+.no-margin-bot {
+	margin-top: 0;
+}
 
 /* 제출 버튼 */
 .btn-container {
@@ -94,7 +103,7 @@ input[type=text] {
 	width: 165px;
 }
 input[name*=Addr] {
-	width: 300px;
+	width: 400px;
 }
 input[name*=Tel] {
 	width: 65px; 
@@ -107,9 +116,106 @@ input[name=memo] {
 
 <script type="text/javascript">
 $(function() {
-	$("input[name=deliveryInfo]").click()
+	// 배송정보 raio버튼 선택 이벤트 
+	$("input[name=deliveryInfo]").change(function() {
+		const f = document.deliveryForm;
+		
+		if($("input[name=deliveryInfo]:checked").val()=="basic") { // 기본배송지(회원정보)
+			// 주문자 정보를 배송정보에 복사
+			$("#rcName").val($("#orName").val());
+			$("#rcZip").val("${mdto.zip}");
+			$("#rcAddr1").val("${mdto.addr1}");
+			$("#rcAddr2").val("${mdto.addr2}");
+			$("#rcTel1").val($("#orTel1").val());
+			$("#rcTel2").val($("#orTel2").val());
+			$("#rcTel3").val($("#orTel3").val());
+			
+			// 주소찾기 버튼 display:none;
+			$("#deliveryForm .searchAddrBtn").css("display","none");
+			// 인풋 요소들 disable:true
+			$("#deliveryForm input").not("input[name=memo]").prop("disabled", true);
+		} else { // 신규 배송지
+			// 주소찾기 버튼 display:inline-block
+			$("#deliveryForm .searchAddrBtn").css("display","inline-block");
+			// 인풋 요소들 reset, disable:false
+			$("#deliveryForm")[0].reset();
+			$("#deliveryForm input").not("input[name=memo], input[name=rcZip], input[name=rcAddr1]").prop("disabled", false);
+		}
+	});
+	
 });
 
+$(function() {
+	let totalAmount = 68000;
+	let point = ${mdto.point};
+
+	// 포인트 사용 keyup 이벤트 제어
+	$("#pointDiscount").keyup(function() {
+		let usePoint = $(this).val();
+		currentAmount = totalAmount - usePoint;
+		if(currentAmount < 0) {
+			alert("적용할 포인트가 결제하실 금액보다 많습니다.");
+			$(this).val("");
+			return false;
+		}
+	});
+	
+	// 포인트 사용 change 이벤트 제어
+	$("#pointDiscount").change(function() {
+		if($(this).val() > point) {
+			alert("포인트가 부족합니다.");
+			$(this).val("");
+			return false;
+		}
+	});
+	
+});
+</script>
+
+<!-- 다음 주소 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    function daumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementsByName('rcZip')[0].value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementsByName('rcAddr1')[0].value = fullAddr;
+
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementsByName('rcAddr2')[0].focus();
+            }
+        }).open();
+    }
 </script>
 
 </head>
@@ -161,27 +267,27 @@ $(function() {
 			<tr class="tr-top">
 				<td>주문하시는분</td>
 				<td>
-					<input type="text" name="orName" class="boxTF" value="구매자1" disabled="disabled">
+					<input type="text" name="orName" id="orName" value="${mdto.name}" class="boxTF" disabled="disabled">
 				</td>
 			</tr>
 			<tr>
 				<td>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
 				<td>
-					<input type="text" name="orAddr" class="boxTF" value="서울시 서대문구 연희동 1-1">
+					<input type="text" name="orAddr" id="orAddr" value="${mdto.addr}" class="boxTF" disabled="disabled">
 				</td>
 			</tr>
 			<tr>
 				<td>핸드폰번호</td>
 				<td>
-					<input type="text" name="orTel1" value="010" class="boxTF"> -
-					<input type="text" name="orTel2" value="1111" class="boxTF">-
-					<input type="text" name="orTel3" value="2222" class="boxTF">
+					<input type="text" name="orTel1" id="orTel1" value="${mdto.tel1}" class="boxTF"> -
+					<input type="text" name="orTel2" id="orTel2" value="${mdto.tel2}" class="boxTF">-
+					<input type="text" name="orTel3" id="orTel3" value="${mdto.tel3}" class="boxTF">
 				</td>
 			</tr>
 			<tr class="tr-bottom">
 				<td>이&nbsp;&nbsp;&nbsp;메&nbsp;&nbsp;&nbsp;일</td>
 				<td>
-					<input type="text" name="orEmail" class="boxTF" value="test@naver.com">
+					<input type="text" name="orEmail" id="orEmail" class="boxTF" value="${mdto.email}">
 				</td>
 			</tr>
 		</table>
@@ -189,54 +295,58 @@ $(function() {
 		<div>
 			<h2>배송정보</h2>
 		</div>
-		<table class="table2">
+		<table class="table2 no-margin-top">
 			<tr class="tr-top">
 				<td>배송지선택</td>
 				<td>
-					<input type="radio" id="radio1" name="deliveryInfo">
-					<label for="radio1">기본배송지(주문자정보와동일)</label>
-					<input type="radio" id="radio2" name="deliveryInfo">
-					<label for="radio2">신규배송지</label>
-				</td>
-			</tr>
-			<tr>
-				<td>받으실분</td>
-				<td>
-					<input type="text" name="rcName" class="boxTF">
-				</td>
-			</tr>
-			<tr>
-				<td rowspan="3">받으실곳</td>
-				<td>
-					<input type="text" name="rcZip" class="boxTF">
-					<button type="button" class="btn">우편번호검색</button>
-				</td>
-			</tr>
-			<tr>
-				<td class="td2">
-					<input type="text" name="rcAddr1" class="boxTF">
-				</td>
-			</tr>
-			<tr>
-				<td class="td2">
-					<input type="text" name="rcAddr2" class="boxTF">
-				</td>
-			</tr>
-			<tr>
-				<td>핸드폰번호</td>
-				<td>
-					<input type="text" name="rcTel1" class="boxTF"> -
-					<input type="text" name="rcTel2" class="boxTF"> -
-					<input type="text" name="rcTel3" class="boxTF">
-				</td>
-			</tr>
-			<tr class="tr-bottom">
-				<td>남기실 말씀</td>
-				<td>
-					<input type="text" name="memo" class="boxTF">
+					<input type="radio" id="basicDI" name="deliveryInfo" value="basic">
+					<label for="basicDI">기본배송지(주문자정보와동일)</label>
+					<input type="radio" id="newDI" name="deliveryInfo" value="new">
+					<label for="newDI">신규배송지</label>
 				</td>
 			</tr>
 		</table>
+		<form name="deliveryForm" id="deliveryForm">
+			<table class="table2 no-margin-bot">
+				<tr>
+					<td>받으실분</td>
+					<td>
+						<input type="text" name="rcName" id="rcName" class="boxTF">
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="3">받으실곳</td>
+					<td>
+						<input type="text" name="rcZip" id="rcZip" class="boxTF" disabled="disabled">
+						<button type="button" class="btn searchAddrBtn" onclick="daumPostcode()">우편번호검색</button>
+					</td>
+				</tr>
+				<tr>
+					<td class="td2">
+						<input type="text" name="rcAddr1" id="rcAddr1" class="boxTF" disabled="disabled">
+					</td>
+				</tr>
+				<tr>
+					<td class="td2">
+						<input type="text" name="rcAddr2" id="rcAddr2" class="boxTF">
+					</td>
+				</tr>
+				<tr>
+					<td>핸드폰번호</td>
+					<td>
+						<input type="text" name="rcTel1" id="rcTel1" class="boxTF"> -
+						<input type="text" name="rcTel2" id="rcTel2" class="boxTF"> -
+						<input type="text" name="rcTel3" id="rcTel3" class="boxTF">
+					</td>
+				</tr>
+				<tr class="tr-bottom">
+					<td>남기실 말씀</td>
+					<td>
+						<input type="text" name="memo" id="memo" class="boxTF">
+					</td>
+				</tr>
+			</table>
+		</form>
 		
 		<div>
 			<h2>결제금액</h2>
@@ -269,20 +379,20 @@ $(function() {
 			<tr>
 				<td>쿠폰적용</td>
 				<td>
-					<input type="text" name="couponDiscount" class="boxTF tright" placeholder="0"> 원 
+					<input type="text" name="couponDiscount" class="boxTF tright" placeholder="0" disabled="disabled"> 원 
 					<button type="button" class="btn">쿠폰적용및조회</button>
 				</td>
 			</tr>
 			<tr>
 				<td>포인트적용</td>
 				<td>
-					<input type="text" name="pointDiscount" class="boxTF tright" placeholder="0"> 원 (보유포인트: 0 원)
+					<input type="text" name="pointDiscount" id="pointDiscount" class="boxTF tright" placeholder="0"> 원 (보유포인트: ${mdto.point} 원)
 				</td>
 			</tr>
 			<tr class="tr-bottom">
 				<td>총 결제금액</td>
 				<td>
-					68,000 원
+					<span id="totalAmount">68000</span> 원
 				</td>
 			</tr>
 		</table>
@@ -294,9 +404,9 @@ $(function() {
 			<tr class="tr-top tr-bottom">
 				<td>결제방법</td>
 				<td>
-					<input type="radio" id="radio3" name="payMethod">
+					<input type="radio" id="radio3" name="payMethod" value="dob">
 					<label for="radio3">무통장입금</label>
-					<input type="radio" id="radio4" name="payMethod">
+					<input type="radio" id="radio4" name="payMethod" value="credit">
 					<label for="radio4">신용카드</label>
 				</td>
 			</tr>

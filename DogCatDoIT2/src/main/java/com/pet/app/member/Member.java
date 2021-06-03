@@ -6,9 +6,12 @@ public class Member {
 	private String name;
 	private String pwd;
 	private String zip;
+	private String addr;
 	private String addr1, addr2;
 	private String email;
 	private String tel;
+	private String tel1, tel2, tel3;
+	
 	private String reg_date;
 	private int point;
 	private int clevel;
@@ -41,9 +44,17 @@ public class Member {
 	public String getZip() {
 		return zip;
 	}
+	
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
 	public String getAddr1() {
 		return addr1;
 	}
@@ -64,6 +75,24 @@ public class Member {
 	}
 	public String getTel() {
 		return tel;
+	}
+	public String getTel1() {
+		return tel1;
+	}
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+	public String getTel2() {
+		return tel2;
+	}
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+	public String getTel3() {
+		return tel3;
+	}
+	public void setTel3(String tel3) {
+		this.tel3 = tel3;
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
@@ -92,6 +121,6 @@ public class Member {
 	public void setSlevel(int slevel) {
 		this.slevel = slevel;
 	}
-	
+
 
 }

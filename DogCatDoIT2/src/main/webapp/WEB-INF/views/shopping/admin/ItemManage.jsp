@@ -20,7 +20,9 @@
 						<div class="card" style="width: 40%">
 							<img class="card-img-top"
 								src="${pageContext.request.contextPath}/uploads/item/${i.saveFileName}"
-								alt="Card image cap" width="130px" height="130px">
+								alt="Card image cap" width="130px" height="130px" 
+								onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/article?num=${i.itemId}';"
+								>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item">${i.itemName}</li>
 								<li class="list-group-item">재고:${i.stock}</li>

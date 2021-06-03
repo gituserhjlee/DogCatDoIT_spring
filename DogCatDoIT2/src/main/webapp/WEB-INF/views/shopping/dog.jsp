@@ -121,7 +121,8 @@
 				</c:if>
 				<div class="featured__item">
 					<div class="product__discount__item__pic set-bg"
-						data-setbg="${pageContext.request.contextPath}/uploads/item/${d.saveFileName}">
+						data-setbg="${pageContext.request.contextPath}/uploads/item/${d.saveFileName}"
+						onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/article?num=${d.itemId}';">
 						<c:if test="${d.discountRate!=0}">
 							<div class="product__discount__percent">-${d.discountRate}%</div>
 						</c:if>

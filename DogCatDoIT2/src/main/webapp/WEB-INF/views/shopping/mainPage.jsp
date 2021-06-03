@@ -90,7 +90,8 @@
 					<div class="col-lg-3">
 
 						<div class="product__discount__item__pic set-bg "
-							data-setbg="${pageContext.request.contextPath}/uploads/item/${o.saveFileName}">
+							data-setbg="${pageContext.request.contextPath}/uploads/item/${o.saveFileName}"
+							onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/article?num=${o.itemId}';">
 							<div class="product__discount__percent">-${o.discountRate}%</div>
 
 						</div>
@@ -161,7 +162,8 @@
 				<div class="col-lg-3 col-md-4 col-sm-6 mix dog">
 					<div class="featured__item">
 						<div class="product__discount__item__pic set-bg"
-							data-setbg="${pageContext.request.contextPath}/uploads/item/${d.saveFileName}">
+							data-setbg="${pageContext.request.contextPath}/uploads/item/${d.saveFileName}"
+							onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/article?num=${d.itemId}';">
 							<c:if test="${d.discountRate!=0}">
 								<div class="product__discount__percent">-${d.discountRate}%</div>
 
@@ -199,7 +201,8 @@
 				<div class="col-lg-3 col-md-4 col-sm-6 mix cat">
 					<div class="featured__item">
 						<div class="product__discount__item__pic set-bg"
-							data-setbg="${pageContext.request.contextPath}/uploads/item/${c.saveFileName}">
+							data-setbg="${pageContext.request.contextPath}/uploads/item/${c.saveFileName}"
+							onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/article?num=${c.itemId}';">
 							<c:if test="${c.discountRate!=0}">
 								<div class="product__discount__percent">-${c.discountRate}%</div>
 

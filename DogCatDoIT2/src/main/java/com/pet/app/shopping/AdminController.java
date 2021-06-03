@@ -171,5 +171,13 @@ public class AdminController {
 		return ".shopping.cat";
 
 	}
-
+	@GetMapping("article")
+	public String article(@RequestParam long num, Model model) {
+		Item item=null;
+		System.out.println(num);
+		item=service.findById(num);
+		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
+		model.addAttribute("item", item);
+		return ".shopping.article";
+	}
 }

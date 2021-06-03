@@ -144,4 +144,14 @@ public class AdminService {
 		}
 		return result;
 	}
+	
+	public Item findById(long num) {
+		Item item=null;
+		try {
+			item=dao.selectOne("shop.readItem", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return item;
+	}
 }

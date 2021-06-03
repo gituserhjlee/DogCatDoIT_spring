@@ -109,7 +109,7 @@
 		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,i.itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,TO_CHAR(registered, 'YYYY-MM-DD')
+		itemSalePrice,discountRate,stock,
 		registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item i
@@ -117,5 +117,14 @@
 		where enabled='1' and c.parentNum=#{num}
 		ORDER BY registered DESC
 	
+	</select>
+	
+	<select id="readItem" parameterType="long" resultType="com.pet.app.shopping.Item">
+		select
+		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,stock,registered,saveFilename,
+		des,content,enabled,manufacturer
+		from item
+		where enabled='1' and itemId=#{num}
 	</select>
 </mapper>

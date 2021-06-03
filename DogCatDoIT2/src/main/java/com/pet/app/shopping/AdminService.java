@@ -2,6 +2,7 @@ package com.pet.app.shopping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,29 @@ public class AdminService {
 	@Autowired
 	private FileManager fileManager;
 
+	
+	public int dataCount() {
+		int result=0;	
+		try{
+			result=dao.selectOne("shop.dataCount");			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public int dataDogCatCount(int num) {
+		int result=0;	
+		try{
+			result=dao.selectOne("shop.dataCountDogCat",num);			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public void insertItem(Item dto, String pathname) throws Exception {
 		try {
 
@@ -64,10 +88,22 @@ public class AdminService {
 
 	}
 
-	public List<Item> listItem() {
+	public List<Item> listItem(Map<String, Object> map) {
 		List<Item> items = new ArrayList<Item>();
 		try {
-			items = dao.selectList("shop.selectItemList");
+			items = dao.selectList("shop.selectItemList",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return items;
+
+	}
+	
+	public List<Item> listCategoryItem(int num) {
+		List<Item> items = new ArrayList<Item>();
+		try {
+			items = dao.selectList("shop.selectCategoryItemList",num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -6,14 +6,36 @@
 <div class="content-wrapper">
 	<div class="container-fluid">
 		<div class="Itemmain">
-			<input id="tab1" type="radio" name="tabs" checked>
-			<!--디폴트 메뉴-->
-			<label for="tab1">상품 등록</label> <input id="tab2" type="radio"
-				name="tabs"> <label for="tab2">상품 현황</label>
+			<input id="tab1" type="radio" name="tabs" value="r1"
+				checked="checked"> <label for="tab1">상품 현황</label> <input
+				id="tab2" type="radio" name="tabs" value="r2"> <label
+				for="tab2">상품 등록</label>
 
 
+			<section id="c1">
+				${dataCount}개(${page}/${total_page} 페이지)
+				<div
+					style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+					<c:forEach var="i" items="${items}">
+						<div class="card" style="width: 40%">
+							<img class="card-img-top"
+								src="${pageContext.request.contextPath}/uploads/item/${i.saveFileName}"
+								alt="Card image cap" width="130px" height="130px">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">${i.itemName}</li>
+								<li class="list-group-item">재고:${i.stock}</li>
+								<li class="list-group-item">설명:${i.des}</li>
 
-			<section id="content1">
+
+							</ul>
+						</div>
+					</c:forEach>
+
+				</div>
+				${dataCount==0?"등록된 게시물이 없습니다.":paging}
+			</section>
+
+			<section id="c2">
 				<div class="body-main">
 					<form name="boardForm" method="post" enctype="multipart/form-data"
 						onsubmit="return submitContents(this);">
@@ -123,30 +145,7 @@
 				</div>
 			</section>
 
-			<section id="content2">
-			 
-				<div
-					style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-					<c:forEach var="i" items="${items}">
-						<div class="card" style="width: 40%">
-							<img class="card-img-top"
-								src="${pageContext.request.contextPath}/uploads/item/${i.saveFileName}"
-								alt="Card image cap" width="130px" height="130px">
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item">${i.itemName}</li>
-								<li class="list-group-item">정가:${i.itemOriginalPrice}</li>
-								<li class="list-group-item">판매가:${i.itemSalePrice}</li>
-								<li class="list-group-item">할인율:${i.discountRate}</li>
-								<li class="list-group-item">재고:${i.stock}</li>
-								<li class="list-group-item">등록일:${i.registered}</li>
-								<li class="list-group-item">설명:${i.des}</li>
-								<li class="list-group-item">제조사:${i.manufacturer}</li>
-								
-							</ul>
-						</div>
-					</c:forEach>
-				</div>
-			</section>
+
 		</div>
 	</div>
 </div>
@@ -242,6 +241,39 @@
 	}
 </script>
 <script type="text/javascript">
+	$(function() {
+		$('input:radio[name=tabs]').on(
+				'click',
+				function() {
+					var valueCheck = $("input[name=tabs]:checked").val(); // 체크된 Radio 버튼의 값을 가져옵니다.
+					if (valueCheck === 'r1') {
+						$('#c1').show(100)
+						$('#c2').hide(100)
+					} else {
+						$('#c1').hide(100)
+						$('#c2').show(100)
+						var textSpaceHeight = 270; //스마트에디터 높이
+
+						oEditors.getById["content"].exec(
+								"MSG_EDITING_AREA_RESIZE_STARTED", []);
+
+						oEditors.getById["content"].exec("RESIZE_EDITING_AREA",
+								[ 0, textSpaceHeight ]); //타입은 px단위의 Number입니다. 
+
+						oEditors.getById["content"].exec(
+								"MSG_EDITING_AREA_RESIZE_ENDED", []);
+
+						oEditors.getById["content"].exec("SE_FIT_IFRAME", []);
+
+					}
+				});
+	})
+	$(function() {
+		$('#c1').show(100)
+		$('#c2').hide(100)
+		$('#content').height(270);
+
+	});
 	var oEditors = [];
 	nhn.husky.EZCreator
 			.createInIFrame({
@@ -256,6 +288,7 @@
 				fOnAppLoad : function() {
 					//예제 코드
 					//oEditors.getById["content"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+					//$("#content").hide();
 				},
 				fCreator : "createSEditor2"
 			});
@@ -290,10 +323,9 @@
 	$(function() {
 		$('#ItemManage').addClass('active');
 		$('#dashboard').removeClass('active');
+
 	})
 </script>
-
-
 
 <style type="text/css">
 .body-container {

@@ -1041,7 +1041,7 @@ ol {
 .breadcrumb-section {
 	display: flex;
 	align-items: center;
-	padding: 45px 0 40px;
+	padding: 45px 0 150px;
 }
 
 .breadcrumb__text h2 {

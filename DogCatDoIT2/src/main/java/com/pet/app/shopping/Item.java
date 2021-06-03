@@ -26,6 +26,7 @@ public class Item {
 	public void setItemId(long itemId) {
 		this.itemId = itemId;
 	}
+	
 	public long getItemCategoryId() {
 		return itemCategoryId;
 	}

@@ -61,12 +61,12 @@
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
-	data-setbg="${pageContext.request.contextPath}/resources/img/dog.png">
+	data-setbg="${pageContext.request.contextPath}/resources/img/cat.jpg">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<div class="breadcrumb__text">
-					<h2>Dog</h2>
+					<h2>Cat</h2>
 
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="section-title">
-					<h2>Dog Product</h2>
+					<h2>Cat Product</h2>
 					<br> <br>
 					<h4>total ${dataCount} products</h4>
 				</div>
@@ -101,22 +101,22 @@
 		</div>
 		<div class="row featured__filter">
 			<c:forEach var="d" items="${items}">
-				<c:if test="${3 eq d.itemCategoryId}">
+				<c:if test="${5 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix saro">
 				</c:if>
-				<c:if test="${4 eq d.itemCategoryId}">
+				<c:if test="${10 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix gansic">
 				</c:if>
-				<c:if test="${6 eq d.itemCategoryId}">
+				<c:if test="${11 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix clean">
 				</c:if>
-				<c:if test="${7 eq d.itemCategoryId}">
+				<c:if test="${12 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix yak">
 				</c:if>
-				<c:if test="${8 eq d.itemCategoryId}">
+				<c:if test="${13 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix products">
 				</c:if>
-				<c:if test="${9 eq d.itemCategoryId}">
+				<c:if test="${14 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix fashion">
 				</c:if>
 				<div class="featured__item">

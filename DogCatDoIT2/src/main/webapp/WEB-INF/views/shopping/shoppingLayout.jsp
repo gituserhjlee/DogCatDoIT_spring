@@ -70,7 +70,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="./index.html">Shopping Home</a></li>
+							<li class="active"><a href="${pageContext.request.contextPath}/shopping/mainPage">Shopping Home</a></li>
 							<li><a href="#">Category</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="${pageContext.request.contextPath}/shopping/dog">강아지</a></li>

@@ -99,7 +99,7 @@
                 <div class="col">
                     <div class="header-logo justify-content-center">
                     	<!-- <a href="index.jsp"><img src="resources/mainResources/images/logo/logo.png" alt="DogCatDoIt Logo"></a> -->
-                        <a href="index.jsp"><span class="logotitle" style="font-family: Jua; font-size: 65px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 65px; margin-bottom: -10px;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->

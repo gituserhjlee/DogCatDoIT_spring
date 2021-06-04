@@ -3,156 +3,759 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="container">
-	<div class="header-top">
-		<div class="header-brand"><a href="${pageContext.request.contextPath}/"><span class="logo">SPRING</span></a></div>
-				
-		<div class="login header-login">
-			<c:if test="${empty sessionScope.member}">
-				<a href="javascript:dialogLogin();">로그인</a>
-				<i></i>
-				<a href="${pageContext.request.contextPath}/member/member">회원가입</a>
-			</c:if>
-			<c:if test="${not empty sessionScope.member}">
-				<span style="color:blue;">${sessionScope.member.userName}</span>님 <i></i>
-				<c:if test="${sessionScope.member.userId=='admin'}">
-					<a href="${pageContext.request.contextPath}/admin">관리자</a> <i></i>
-				</c:if>
-				<a href="${pageContext.request.contextPath}/member/logout"> 로그아웃 </a>
-			</c:if>
-		</div>
-	</div>
-</div>
 
-<div class="container">
-	<nav class="navbar navbar-expand-sm bg-light navbar-light">
-		<a class="navbar-brand" href="#"><i class="bi bi-app-indicator"></i></a>
-		
-		<ul class="navbar-nav">
-			 <li class="nav-item">
-			 	 <a class="nav-link" href="#">회사 소개</a>
-			 </li>
-			 
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown">
-					커뮤니티
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbardrop1">
-					<li><a class="dropdown-item" href="#">방명록</a></li>
-					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/bbs/list">게시판</a></li>
-					<li><a class="dropdown-item" href="#">답변형 게시판</a></li>
-					<li><a class="dropdown-item" href="#">포토갤러리</a></li>
-					<li><hr class="dropdown-divider"></li>
-					<li><a class="dropdown-item" href="#">자료실</a></li>
-					<li><a class="dropdown-item" href="#">채팅</a></li>
-				</ul>
-			</li>
+    <!-- Topbar Section Start -->
+    <div class="topbar-section section" style="background-color: #F79F81;">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-auto col-12">
+                    <p class="text-white text-center text-md-left my-2">날씨 23°C 맑음 | 산책하기 딱 좋은 날씨네요!</p>
+                </div>
+                <div class="col-auto d-none d-md-block">
+                    <div class="topbar-menu">
+                        <ul>
+                            <li><a href="#" class="text-white"><i class="fa fa-map-marker-alt"></i>서울 마포구</a></li>
+                            <li><a href="#" class="text-white"><i class="fa fa-truck"></i>배송안내</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar Section End -->
+    <!-- Header Section Start -->
+    <div class="header-section section bg-white d-none d-xl-block">
+        <div class="container">
+            <div class="row row-cols-lg-3 align-items-center">
 
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">
-					스터디룸
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbardrop2">
-					<li><a class="dropdown-item" href="#">프로그래밍</a></li>
-					<li><a class="dropdown-item" href="#">데이터베이스</a></li>
-					<li><a class="dropdown-item" href="#">웹</a></li>
-					<li><a class="dropdown-item" href="#">질문과 답변</a></li>
-					<li><a class="dropdown-item" href="#">스케쥴러</a></li>
-				</ul>
-			</li>
-			
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop3" data-toggle="dropdown">
-					고객 센터
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbardrop3">
-					<li><a class="dropdown-item" href="#">자주하는질문</a></li>
-					<li><a class="dropdown-item" href="#">공지사항</a></li>
-					<li><a class="dropdown-item" href="#">1:1문의</a></li>
-					<li><a class="dropdown-item" href="#">질문과답변</a></li>
-					<li><a class="dropdown-item" href="#">이벤트</a></li>
-				</ul>
-			</li>
-		</ul>
-			
-		<ul class="navbar-nav ml-auto">
-			<c:if test="${not empty sessionScope.member}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbardrop4" data-toggle="dropdown">
-						마이 페이지
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbardrop4">
-						<li><a class="dropdown-item" href="#">정보확인</a></li>
-						<li><a class="dropdown-item" href="#">일정관리</a></li>
-						<li><a class="dropdown-item" href="#">포토 앨범</a></li>
-						<li><a class="dropdown-item" href="#">쪽지</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwd">정보수정</a></li>
-					</ul>
-				</li>
-			</c:if>
-			<li class="nav-item">
-				<a class="nav-link" href="#"><i class="bi bi-grid-3x3-gap-fill"></i></a>
-			</li>
-		</ul>
-	</nav>
-</div>
+                <!-- Header Language & Currency Start -->
+                <div class="col">
+                    <ul class="header-lan-curr">
+                        <li><a href="#">고객센터</a>
+                            <ul class="curr-lan-sub-menu">
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">자주묻는질문</a></li>
+                                <li><a href="#">1:1문의</a></li>
+                                <li><a href="#">제휴문의</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">마이페이지</a>
+                            <ul class="curr-lan-sub-menu">
+                                <li><a href="#">내정보관리</a></li>
+                                <li><a href="#">내가쓴글</a></li>
+                                <li><a href="#">주문배송</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Header Language & Currency End -->
 
-<script>
-function dialogLogin() {
-    $("#modalUserId").val("");
-    $("#modalUserPwd").val("");
-	$("#modalLogin").modal("show");	
-    $("#modalUserId").focus();
-}
+                <!-- Header Logo Start -->
+                <div class="col">
+                    <div class="header-logo justify-content-center">
+                    	<!-- <a href="index.jsp"><img src="resources/mainResources/images/logo/logo.png" alt="DogCatDoIt Logo"></a> -->
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 65px; margin-bottom: -10px;">독캣두잇</span></a>
+                    </div>
+                </div>
+                <!-- Header Logo End -->
 
-function modalSendLogin() {
-	var f=document.modalLoginForm;
-	
-    if(!f.userId.value) {
-    	f.userId.focus();
-    	return false;
-    }	
+                <!-- Header Tools Start -->
+                <div class="col">
+                    <div class="header-tools justify-content-end">
+                        <div class="header-login">
+                        <c:if test="${empty sessionScope.member}">
+                        	<a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+						</c:if>
+						<c:if test="${not empty sessionScope.member}">
+							<span style="color:blue;">${sessionScope.member.userName}</span>님 <i></i>
+							<c:if test="${sessionScope.member.userId=='admin'}">
+								<a href="${pageContext.request.contextPath}/admin">관리자</a> <i></i>
+							</c:if>
+							<a href="${pageContext.request.contextPath}/member/logout"> 로그아웃 </a>
+						</c:if>
+                        </div>
+                        <div class="header-search">
+                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
+                        </div>
+                        <div class="header-wishlist">
+                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
+                        </div>
+                        <div class="header-cart">
+                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Tools End -->
 
-    if(!f.userPwd.value) {
-    	f.userPwd.focus();
-    	return false;
-    }	
+            </div>
+        </div>
 
-   f.action="${pageContext.request.contextPath}/member/login"; 
-   f.submit();
-}
-</script>
+        <!-- Site Menu Section Start -->
+        <div class="site-menu-section section">
+            <div class="container">
+                <nav class="site-main-menu justify-content-center">
+                    <ul>
+                        <li class="has-children"><a href="#"><span class="menu-text">모두보기</span></a>
+                            <ul class="sub-menu mega-menu">
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">홈페이지</span></a>
+                                </li>
+                                <li>
+                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
+                                    <ul>
+                                        <li><a href="index-5.html"><span class="menu-text">강아지 용품</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">고양이 용품</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">사료</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">장난감</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
+                                    <ul>
+                                        <li><a href="index-5.html"><span class="menu-text">미용</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">훈련사</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">펫시터</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
+                                    <ul>
+                                        <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><a href="#"><span class="menu-text">두잇몰</span></a>
+                            <ul class="sub-menu mega-menu">
+                            	<li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">강아지</span></a>
+                                    <ul>
+                                        <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
+                                        <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
+                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">고양이</span></a>
+                                    <ul>
+                                        <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
+                                        <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
+                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">기획전</span></a>
+                                    <ul>
+                                        <li><a href="product-details-background.html"><span class="menu-text">여름특집! 더위 탈출 넘버원</span></a></li>
+                                        <li><a href="shopping-cart.html"><span class="menu-text">묘확행</span></a></li>
+                                        <li><a href="checkout.html"><span class="menu-text">위트있는 신상 둘러보기</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><a href="#"><span class="menu-text">제휴업체</span></a>
+                            <ul class="sub-menu mega-menu">
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">미용</span></a>
+                                    <ul>
+                                        <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">펫시터</span></a>
+                                    <ul>
+                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">애견호텔</span></a>
+                                    <ul>
+                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><a href="#"><span class="menu-text">커뮤니티</span></a>
+                            <ul class="sub-menu">
+                                <li class="has-children"><a href="blog-right-sidebar.html"><span class="menu-text">자유게시판</span></a>
+                                </li>
+                                <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
+                                </li>
+                                <li class="has-children"><a href="blog-list-right-sidebar.html"><span class="menu-text">정보공유게시판</span></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="blog-list-right-sidebar.html"><span class="menu-text">훈련정보</span></a></li>
+                                        <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
+                                        <li><a href="blog-list-fullwidth.html"><span class="menu-text">꿀팁모음</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children"><a href="blog-masonry-right-sidebar.html"><span class="menu-text">산책메이트게시판</span></a>
+                                </li>
+                                <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- Site Menu Section End -->
 
-<div id="modalLogin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title text-center" style="font-family: 나눔고딕, 맑은 고딕, sans-serif;">회원 로그인</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<div class="modal-body">
-				<form name="modalLoginForm" method="post">
-					<div class="form-group">
-						<label for="modalUserId">아이디</label>
-						<input class="form-control" id="modalUserId" name="userId" type="text" placeholder="아이디">
-					</div>
-					<div class="form-group">
-						<label for="modalUserPwd">패스워드</label>
-						<input class="form-control" id="modalUserPwd" name="userPwd" type="password" placeholder="패스워드">
-					</div>
-			        
-					<div class="form-group">
-						<button class="btn btn-lg btn-primary btn-block" type="button" onclick="modalSendLogin();">로그인 <i class="bi bi-check2"></i></button>
-					</div>
-                    
-					<div class="text-center">
-						<button type="button" class="btn btn-link" onclick="location.href='${pageContext.request.contextPath}/member/member';">회원가입</button>
-						<button type="button" class="btn btn-link">아이디찾기</button>
-						<button type="button" class="btn btn-link">패스워드찾기</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+    </div>
+    <!-- Header Section End -->
+
+    <!-- Header Sticky Section Start -->
+    <div class="sticky-header header-menu-center section bg-white d-none d-xl-block">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- Header Logo Start -->
+                <div class="col">
+                    <div class="header-logo">
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 50px; margin-bottom: -10px;">독캣두잇</span></a>
+                    </div>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Search Start -->
+                <div class="col d-none d-xl-block">
+                    <nav class="site-main-menu justify-content-center">
+                        <ul>
+                            <li class="has-children"><a href="#"><span class="menu-text">모두보기</span></a>
+                                <ul class="sub-menu mega-menu">
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">홈페이지</span></a>
+                                </li>
+                                <li>
+                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
+                                    <ul>
+                                        <li><a href="index-5.html"><span class="menu-text">강아지 용품</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">고양이 용품</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">사료</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">장난감</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
+                                    <ul>
+                                        <li><a href="index-5.html"><span class="menu-text">미용</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">훈련사</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">펫시터</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
+                                    <ul>
+                                        <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
+                                        <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </li>
+                            <li class="has-children"><a href="#"><span class="menu-text">두잇몰</span></a>
+                                <ul class="sub-menu mega-menu">
+                            	<li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">강아지</span></a>
+                                    <ul>
+                                        <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
+                                        <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
+                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">고양이</span></a>
+                                    <ul>
+                                        <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
+                                        <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
+                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">기획전</span></a>
+                                    <ul>
+                                        <li><a href="product-details-background.html"><span class="menu-text">여름특집! 더위 탈출 넘버원</span></a></li>
+                                        <li><a href="shopping-cart.html"><span class="menu-text">묘확행</span></a></li>
+                                        <li><a href="checkout.html"><span class="menu-text">위트있는 신상 둘러보기</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </li>
+                            <li class="has-children"><a href="#"><span class="menu-text">제휴업체</span></a>
+                                <ul class="sub-menu mega-menu">
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">미용</span></a>
+                                    <ul>
+                                        <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">펫시터</span></a>
+                                    <ul>
+                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">애견호텔</span></a>
+                                    <ul>
+                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </li>
+                            <li class="has-children"><a href="#"><span class="menu-text">커뮤니티</span></a>
+                                <ul class="sub-menu">
+                                <li class="has-children"><a href="blog-right-sidebar.html"><span class="menu-text">자유게시판</span></a>
+                                </li>
+                                <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
+                                </li>
+                                <li class="has-children"><a href="blog-list-right-sidebar.html"><span class="menu-text">정보공유게시판</span></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="blog-list-right-sidebar.html"><span class="menu-text">훈련정보</span></a></li>
+                                        <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
+                                        <li><a href="blog-list-fullwidth.html"><span class="menu-text">꿀팁모음</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children"><a href="blog-masonry-right-sidebar.html"><span class="menu-text">산책메이트게시판</span></a>
+                                </li>
+                                <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Search End -->
+
+                <!-- Header Tools Start -->
+                <div class="col-auto">
+                    <div class="header-tools justify-content-end">
+                        <div class="header-login">
+                            <a href="my-account.html"><i class="fal fa-user"></i></a>
+                        </div>
+                        <div class="header-search d-none d-sm-block">
+                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
+                        </div>
+                        <div class="header-wishlist">
+                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
+                        </div>
+                        <div class="header-cart">
+                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+                        </div>
+                        <div class="mobile-menu-toggle d-xl-none">
+                            <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                                <svg viewBox="0 0 800 600">
+                                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
+                                    <path d="M300,320 L540,320" id="middle"></path>
+                                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Tools End -->
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Header Sticky Section End -->
+    <!-- Mobile Header Section Start -->
+    <div class="mobile-header bg-white section d-xl-none">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- Header Logo Start -->
+                <div class="col">
+                    <div class="header-logo">
+                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
+                    </div>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Header Tools Start -->
+                <div class="col-auto">
+                    <div class="header-tools justify-content-end">
+                        <div class="header-login d-none d-sm-block">
+                            <a href="my-account.html"><i class="fal fa-user"></i></a>
+                        </div>
+                        <div class="header-search d-none d-sm-block">
+                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
+                        </div>
+                        <div class="header-wishlist d-none d-sm-block">
+                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
+                        </div>
+                        <div class="header-cart">
+                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+                        </div>
+                        <div class="mobile-menu-toggle">
+                            <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                                <svg viewBox="0 0 800 600">
+                                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
+                                    <path d="M300,320 L540,320" id="middle"></path>
+                                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Tools End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Header Section End -->
+
+    <!-- Mobile Header Section Start -->
+    <div class="mobile-header sticky-header bg-white section d-xl-none">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- Header Logo Start -->
+                <div class="col">
+                    <div class="header-logo">
+                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
+                    </div>
+                </div>
+                <!-- Header Logo End -->
+
+                <!-- Header Tools Start -->
+                <div class="col-auto">
+                    <div class="header-tools justify-content-end">
+                        <div class="header-login d-none d-sm-block">
+                            <a href="my-account.html"><i class="fal fa-user"></i></a>
+                        </div>
+                        <div class="header-search d-none d-sm-block">
+                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
+                        </div>
+                        <div class="header-wishlist d-none d-sm-block">
+                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
+                        </div>
+                        <div class="header-cart">
+                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+                        </div>
+                        <div class="mobile-menu-toggle">
+                            <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                                <svg viewBox="0 0 800 600">
+                                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
+                                    <path d="M300,320 L540,320" id="middle"></path>
+                                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Tools End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Header Section End -->
+    <!-- OffCanvas Search Start -->
+    <div id="offcanvas-search" class="offcanvas offcanvas-search">
+        <div class="inner">
+            <div class="offcanvas-search-form">
+                <button class="offcanvas-close">Ã</button>
+                <form action="#">
+                    <div class="row mb-n3">
+                        <div class="col-lg-8 col-12 mb-3"><input type="text" style="font-family: Jua;" placeholder="통합검색..."></div>
+                        <div class="col-lg-4 col-12 mb-3">
+                            <select class="search-select select2-basic">
+                                <option value="0">모든 카테고리</option>
+                                <option value="community">커뮤니티</option>
+                                <option value="shopping">두잇몰</option>
+                                <option value="store">입점업체</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <p class="search-description text-body-light mt-2"> <span style="font-family: Jua;"># 최소 한 글자 이상 입력해주세요.</span> <span style="font-family: Jua;"># 엔터 키를 눌러 검색 / ESC 키로 나가기</span></p>
+
+        </div>
+    </div>
+    <!-- OffCanvas Search End -->
+
+    <!-- OffCanvas Wishlist Start -->
+    <div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
+        <div class="inner">
+            <div class="head">
+                <span class="title">찜 목록</span>
+                <button class="offcanvas-close">Ã</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                    <li>
+                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="product-details.html" class="title">고무 신발</a>
+                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
+                            <a href="#" class="remove">Ã</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-2.jpg" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="product-details.html" class="title">구름 매트</a>
+                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
+                            <a href="#" class="remove">Ã</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-3.jpg" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="product-details.html" class="title">볼던지기 도구</a>
+                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
+                            <a href="#" class="remove">Ã</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="foot">
+                <div class="buttons">
+                    <a href="wishlist.html" class="btn btn-dark btn-hover-primary">찜 목록 바로가기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Wishlist End -->
+
+    <!-- OffCanvas Cart Start -->
+    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+        <div class="inner">
+            <div class="head">
+                <span class="title">장바구니</span>
+                <button class="offcanvas-close">Ã</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                    <li>
+                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="product-details.html" class="title">스텐 식기</a>
+                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
+                            <a href="#" class="remove">Ã</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-2.jpg" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="product-details.html" class="title">수제 사료</a>
+                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
+                            <a href="#" class="remove">Ã</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-3.jpg" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="product-details.html" class="title">소프트츄 10개입</a>
+                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
+                            <a href="#" class="remove">Ã</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="foot">
+                <div class="sub-total">
+                    <strong>총 구매금액 :</strong>
+                    <span class="amount">₩60,000</span>
+                </div>
+                <div class="buttons">
+                    <a href="shopping-cart.html" class="btn btn-dark btn-hover-primary">장바구니 바로가기</a>
+                    <a href="checkout.html" class="btn btn-outline-dark">결제하기</a>
+                </div>
+                <p class="minicart-message">5만원 이상 구매 시 무료 배송!</p>
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Cart End -->
+
+    <!-- OffCanvas Search Start -->
+    <div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
+        <div class="inner customScroll">
+        	<!--  
+            <div class="offcanvas-menu-search-form">
+                <form action="#">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fal fa-search"></i></button>
+                </form>
+            </div>
+            -->
+            <div class="offcanvas-menu">
+                <ul>
+                    <li><a href="#"><span class="menu-text">모두보기</span></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="#"><span class="menu-text">두잇몰</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="index.html"><span class="menu-text">강아지 용품</span></a></li>
+                                    <li><a href="index-2.html"><span class="menu-text">고양이 용품</span></a></li>
+                                    <li><a href="index-3.html"><span class="menu-text">사료</span></a></li>
+                                    <li><a href="index-4.html"><span class="menu-text">장난감</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span class="menu-text">제휴업체</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="index-5.html"><span class="menu-text">미용</span></a></li>
+                                    <li><a href="index-6.html"><span class="menu-text">펫시터</span></a></li>
+                                    <li><a href="index-7.html"><span class="menu-text">훈련사</span></a></li>
+                                    <li><a href="index-8.html"><span class="menu-text">애견 호텔</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span class="menu-text">커뮤니티</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="index-9.html"><span class="menu-text">자유게시판</span></a></li>
+                                    <li><a href="index-10.html"><span class="menu-text">중고거래게시판</span></a></li>
+                                    <li><a href="index-11.html"><span class="menu-text">정보공유게시판</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><span class="menu-text">두잇몰</span></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="#"><span class="menu-text">강아지</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
+                                    <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                    <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
+                                    <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
+                                    <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
+                                    <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                    <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span class="menu-text">고양이</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
+                                    <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                    <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
+                                    <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
+                                    <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
+                                    <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                    <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="mega-menu-title"><span class="menu-text">기획전</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="shopping-cart.html"><span class="menu-text">여름특집 더위탈출 넘버원!</span></a></li>
+                                    <li><a href="checkout.html"><span class="menu-text">묘확행</span></a></li>
+                                    <li><a href="order-tracking.html"><span class="menu-text">신상 둘러보기</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><span class="menu-text">제휴업체</span></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="mega-menu-title"><span class="menu-text">미용</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                    <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="mega-menu-title"><span class="menu-text">펫시터</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                    <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="mega-menu-title"><span class="menu-text">애견 호텔</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
+                                    <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><span class="menu-text">커뮤니티</span></a>
+                        <ul class="sub-menu">
+                            <li><a href="#"><span class="menu-text">자유게시판</span></a>
+                            </li>
+                            <li><a href="#"><span class="menu-text">중고거래게시판</span></a>
+                            </li>
+                            <li><a href="#"><span class="menu-text">정보공유게시판</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="blog-list-right-sidebar.html"><span class="menu-text">훈련정보</span></a></li>
+                                    <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
+                                    <li><a href="blog-list-fullwidth.html"><span class="menu-text">꿀팁모음</span></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><span class="menu-text">산책메이트게시판</span></a>
+                            </li>
+                            <li><a href="#"><span class="menu-text">반려동물행사</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="offcanvas-buttons">
+                <div class="header-tools">
+                    <div class="header-login">
+                        <a href="my-account.html"><i class="fal fa-user"></i></a>
+                    </div>
+                    <div class="header-wishlist">
+                        <a href="wishlist.html"><span>3</span><i class="fal fa-heart"></i></a>
+                    </div>
+                    <div class="header-cart">
+                        <a href="shopping-cart.html"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="offcanvas-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Search End -->
+
+    <div class="offcanvas-overlay"></div>

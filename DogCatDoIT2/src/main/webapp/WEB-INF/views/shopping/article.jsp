@@ -46,7 +46,7 @@
 								</select>
 
 							</div>
-							<input type="text" placeholder="검색어를 입력하세요">
+							<input type="text" placeholder="검색어를 입력하세요" style="width:70%; padding-left: 20px;">
 							<button type="submit" class="site-btn">SEARCH</button>
 						</form>
 					</div>
@@ -83,7 +83,7 @@
 					<div class="product__details__price">
 
 						<c:if test="${item.discountRate!=0}">
-							<h5 style="color: #7fad39;">할인율: -${item.discountRate}%</h5>
+							<h5 style="color: #F79F81;">할인율: -${item.discountRate}%</h5>
 							<h5 style="color: gray; text-decoration: line-through;">${item.itemSalePrice}원</h5>
 							<h5 style="color: red;">${item.discountedPrice}원</h5>
 						</c:if>
@@ -104,14 +104,14 @@
 					</div> 
 
 
-					<div class="product__details__quantity" style="clear:both">
+					<div class="product__details__quantity" style="clear:both;">
 						<div class="quantity">
-							<div class="pro-qty">
-								<input type="text" value="1">
+							<div class="pro-qty" style="background: white">
+								<input type="text" value="1" style="border:none; background: #F79F81; color:white;">
 							</div>
 						</div>
 					</div>
-					<div>
+					<div style="margin-top: 10px;">
 						<a href="#" class="primary-btn">ADD TO CARD</a> <a href="#"
 							class="primary-btn">BUY NOW</a> <a href="#" class="heart-icon"><span
 							class="icon_heart_alt"></span></a>

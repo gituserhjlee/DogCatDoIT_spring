@@ -5,30 +5,36 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-<!-- 쇼핑몰 관리자 -->
+	<!-- 쇼핑몰 관리자 -->
 	<definition name=".shoppingLayout"
 		template="/WEB-INF/views/shopping/admin/layout.jsp">
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/main.jsp" />
 	</definition>
-	<definition name=".shopping.admin.*" extends=".shoppingLayout">
+	<definition name=".shopping.admin.*"
+		extends=".shoppingLayout">
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/admin/{1}.jsp" />
 	</definition>
-	
+
+
 	<definition name=".shoppingLayout2"
 		template="/WEB-INF/views/shopping/shoppingLayout.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views/layout/header.jsp" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/main.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/layout/footer.jsp" />
 	</definition>
 	<definition name=".shopping.*" extends=".shoppingLayout2">
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/{1}.jsp" />
 	</definition>
-	
-	
-	
-	
+
+
+
+
 	<definition name=".mainLayout"
 		template="/WEB-INF/views/layout/layout3.jsp">
 		<put-attribute name="title" value="spring" />
@@ -80,5 +86,5 @@
 			value="/WEB-INF/views/{1}.jsp" />
 	</definition>
 
-	
+
 </tiles-definitions>

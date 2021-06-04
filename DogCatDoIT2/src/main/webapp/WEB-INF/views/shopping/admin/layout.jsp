@@ -38,7 +38,8 @@
 <!-- Google font-->
 <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"
 	rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Jua:400"
+	rel="stylesheet">
 <!-- themify -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/shopAdmin/icon/themify-icons/themify-icons.css">
@@ -78,12 +79,15 @@
 	</div>
 	<div class="wrapper">
 		<!-- Navbar-->
-		<header class="main-header-top hidden-print">
+		<header class="main-header-top hidden-print" style="background: #F79F81;">
 			<a href="${pageContext.request.contextPath}/shopping/mainPage"
-				class="logo"><img class="img-fluid able-logo"
+				class="logo">
+				<span style="font-family: Jua;  color: #696969; font-size:x-large;">독켓두잇</span>
+				<%-- <img class="img-fluid able-logo"
 				src="${pageContext.request.contextPath}/resources/shopAdmin/images/logo.png"
-				alt="Theme-logo"></a>
-			<nav class="navbar navbar-static-top">
+				alt="Theme-logo"> --%></a>
+				
+			<nav class="navbar navbar-static-top" style="background: #F79F81;">
 				<!-- Sidebar toggle button-->
 				<a href="#!" data-toggle="offcanvas" class="sidebar-toggle"></a>
 

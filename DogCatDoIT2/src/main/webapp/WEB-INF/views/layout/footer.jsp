@@ -2,16 +2,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html class="no-js" lang="en">
 
-<body>
 <div class="footer1-section section section-padding">
         <div class="container">
             <div class="row text-center row-cols-1">
 
                 <div class="footer1-logo col text-center">
-                    <span class="logotitle" style="font-family: Jua; font-size: 65px; margin-bottom: -10px;">독캣두잇</span></a>
+                    <span class="logotitle" style="font-family: Jua; font-size: 65px; margin-bottom: -10px;">독캣두잇</span>
                 </div>
 
                 <div class="footer1-menu col">
@@ -51,7 +48,5 @@
             </div>
         </div>
     </div>
-  
-</body>
 
-</html>
+

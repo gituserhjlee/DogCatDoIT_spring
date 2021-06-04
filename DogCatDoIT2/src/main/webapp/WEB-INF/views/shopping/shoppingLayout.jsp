@@ -1,4 +1,4 @@
-  
+
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,11 +9,13 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>독캣두잇</title>
+<meta name="robots" content="noindex, follow" />
+<meta name="description" content="">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Ogani | Template</title>
 
 <!-- Google Font -->
@@ -43,38 +45,76 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/slicknav.min.css"
 	type="text/css">
+
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	href="${pageContext.request.contextPath}resources/mainResources/images/favicon.png">
+
+<!-- CSS
+	============================================ -->
+<!-- Main Style CSS -->
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/style.css">
+	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style.css"
 	type="text/css">
+<!-- 독캣두잇 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Jua:400"
+	rel="stylesheet">
+<!-- Vendor CSS (Bootstrap & Icon Font) -->
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/vendor/font-awesome-pro.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/vendor/themify-icons.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/vendor/customFonts.css">
+
+<!-- Plugins CSS (All Plugins Files) -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/select2.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/perfect-scrollbar.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/swiper.min.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/ion.rangeSlider.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/photoswipe.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/photoswipe-default-skin.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/magnific-popup.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/slick.css">
+
+
+
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
+	<tiles:insertAttribute name="header" />
 
 	<!-- Header Section Begin -->
 	<header class="header">
 
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3">
-					<div class="header__logo">
-						<a href="./index.html"><img
-							src="${pageContext.request.contextPath}/resources/img/logo.png"
-							alt=""></a>
-					</div>
-				</div>
+			
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="${pageContext.request.contextPath}/shopping/mainPage">Shopping Home</a></li>
+							<li class="active"><a
+								href="${pageContext.request.contextPath}/shopping/mainPage">Shopping
+									Home</a></li>
 							<li><a href="#">Category</a>
 								<ul class="header__menu__dropdown">
-									<li><a href="${pageContext.request.contextPath}/shopping/dog">강아지</a></li>
-									<li><a href="${pageContext.request.contextPath}/shopping/cat">고양이</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/shopping/dog">강아지</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/shopping/cat">고양이</a></li>
 								</ul></li>
 							<c:if test="${sessionScope.member.userId=='admin'}">
 								<li><a
@@ -86,7 +126,7 @@
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-3">
+				<div class="col-lg-6">
 					<div class="header__cart">
 						<ul>
 							<li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>
@@ -104,13 +144,11 @@
 		</div>
 	</header>
 	<!-- Header Section End -->
-			
+
 	<!-- Hero Section End -->
-	
-		<tiles:insertAttribute name="body" />
 
-	
-
+	<tiles:insertAttribute name="body" />
+	<tiles:insertAttribute name="footer" />
 
 
 	<!-- Js Plugins -->
@@ -129,6 +167,63 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<!-- Vendors JS -->
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/modernizr-3.6.0.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/jquery-3.4.1.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/jquery-migrate-3.1.0.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/bootstrap.bundle.min.js"></script>
+
+	<!-- Plugins JS -->
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/select2.min.js"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/perfect-scrollbar.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/swiper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/slick.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/mo.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.instagramFeed.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.ajaxchimp.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.countdown.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/imagesloaded.pkgd.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/isotope.pkgd.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.matchHeight-min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/ion.rangeSlider.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/photoswipe.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/photoswipe-ui-default.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.zoom.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/ResizeSensor.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.sticky-sidebar.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/product360.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.magnific-popup.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/jquery.scrollUp.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/plugins/scrollax.min.js"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/mainResources/js/main.js"></script>
 
 </body>
 </html>

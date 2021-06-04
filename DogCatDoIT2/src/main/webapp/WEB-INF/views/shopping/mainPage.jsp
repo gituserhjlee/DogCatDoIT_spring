@@ -45,24 +45,26 @@
 								</select>
 
 							</div>
-							<input type="text" placeholder="검색어를 입력하세요">
+							<input type="text" placeholder="검색어를 입력하세요" style="width:70%; padding-left: 20px;">
 							<button type="submit" class="site-btn">SEARCH</button>
 						</form>
 					</div>
 
 				</div>
 				<br> <br>
+
+				
 				<div class="hero__item set-bg"
 					data-setbg="${pageContext.request.contextPath}/resources/img/hero/mainpets.jpg">
 					<div class="hero__text">
-						<br> <span>shopping together</span>
+						<br> <span style="color:white;">shopping together</span>
 						<h2>
 							Dog Cat do it!! <br />shopping mall
 						</h2>
 						<a href="${pageContext.request.contextPath}/shopping/dog"
-							class="primary-btn">Dog</a> <a
+							class="primary-btn" style="background:#696969">Dog</a> <a
 							href="${pageContext.request.contextPath}/shopping/cat"
-							class="primary-btn">Cat</a>
+							class="primary-btn" style="background:#696969">Cat</a>
 					</div>
 				</div>
 			</div>
@@ -178,7 +180,7 @@
 							<h6>
 								<a href="#">${d.itemName}</a>
 							</h6>
-							<c:if test="${c.discountRate!=0}">
+							<c:if test="${d.discountRate!=0}">
 								<h5 style="color: gray; text-decoration: line-through;">${d.itemSalePrice}원</h5>
 								<h5 style="color: red;">${d.discountedPrice}원</h5>
 							</c:if>

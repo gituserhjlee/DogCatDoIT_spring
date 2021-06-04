@@ -1764,7 +1764,7 @@ ol {
 }
 
 .product__details__quantity {
-	display: inline-block;
+	display:block;
 	margin-right: 6px;
 }
 
@@ -1776,6 +1776,7 @@ ol {
 	text-align: center;
 	background: #f5f5f5;
 	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 .pro-qty input {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.app.common.MyUtil;
 
@@ -136,6 +137,60 @@ public class AdminController {
 		return "redirect:/shopping/admin/ItemManage";
 	}
 
+	@GetMapping("admin/optionManage")
+		public String optionManage(@RequestParam long num, Model model) {
+		model.addAttribute("num", num);
+		return ".shopping.admin.optionManage";
+	}
+	@GetMapping("admin/itemOption")
+	public String insertOption(@RequestParam long itemid, Model model) {
+		List<ItemOption> options=new ArrayList<ItemOption>();
+		options= service.listoptions(itemid);
+		model.addAttribute("options", options);
+		return "shopping/admin/itemoption";	
+	}
+
+	
+	@PostMapping("admin/itemOption")
+	public String insertOption(@RequestParam long itemid , @RequestParam String optionName, Model model) {
+		List<ItemOption> options=new ArrayList<ItemOption>();
+		
+		try {
+			service.insertOption(itemid, optionName);
+			options= service.listoptions(itemid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("options", options);
+		System.out.println(options.size());
+		return "shopping/admin/itemoption";
+	}
+	@GetMapping("admin/itemdetailOption")
+	public String detailOption(@RequestParam long itemoptionid, Model model) {
+		List<DetailOption> options=new ArrayList<DetailOption>();
+		options= service.listdetailoptions(itemoptionid);
+		model.addAttribute("options", options);
+		return "shopping/admin/detailoption";	
+	}
+	@PostMapping("admin/itemdetailOption")
+	@ResponseBody
+	public Map<String, Object> insertdetailOption(@RequestParam long itemoptionid,@RequestParam int stock, @RequestParam String detailname) {
+		String state="false";
+
+		try {
+			service.insertdetailoptions(itemoptionid, stock, detailname);
+			state="true";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		return model;
+	}
+	
+	
 	@GetMapping("dog")
 	public String dogPage(HttpServletRequest req, Model model) {	
 		int dataCount = 0;
@@ -174,10 +229,14 @@ public class AdminController {
 	@GetMapping("article")
 	public String article(@RequestParam long num, Model model) {
 		Item item=null;
+		List<DetailOption> d=new ArrayList<DetailOption>();
 		System.out.println(num);
 		item=service.findById(num);
 		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
+		d=service.listAllOptions(num);
+		
 		model.addAttribute("item", item);
+		model.addAttribute("options", d);
 		return ".shopping.article";
 	}
 }

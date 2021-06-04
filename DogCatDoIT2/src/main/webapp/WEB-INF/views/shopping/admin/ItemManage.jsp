@@ -20,9 +20,8 @@
 						<div class="card" style="width: 40%">
 							<img class="card-img-top"
 								src="${pageContext.request.contextPath}/uploads/item/${i.saveFileName}"
-								alt="Card image cap" width="130px" height="130px" 
-								onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/article?num=${i.itemId}';"
-								>
+								alt="Card image cap" width="130px" height="130px"
+								onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/admin/optionManage?num=${i.itemId}';">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item">${i.itemName}</li>
 								<li class="list-group-item">재고:${i.stock}</li>
@@ -48,6 +47,22 @@
 									<td><input type="text" name="itemName"
 										class="form-control" value=""></td>
 								</tr>
+								<!-- <tr>
+									<td>옵션 <button type="button" class="btn btn-danger" name="optionplus">
+											추가</button></td>
+									<td><input type="text" name="optionName"
+										class="form-control" value="" placeholder="옵션명을 입력하세요(ex. 색상, 맛 등 )">
+										
+									<div>
+									<input type="text" name="detailoption"
+										class="form-control" value=""
+										placeholder="상세옵션명을 입력하세요 (ex. S,M,L )"> <input
+										type="number" name="itemstock" class="form-control" value=""
+										placeholder="수량을 입력하세요">
+										<button type="button" class="btn btn-danger" name="detailplus">
+											상세 옵션 추가</button></div></td>
+								</tr>
+ -->
 								<tr>
 									<td>카테고리</td>
 									<td><select class="custom-select" name="itemCategoryId">
@@ -107,6 +122,7 @@
 									<td><textarea name="content" id="content"
 											style="height: 270px;">${dto.content}</textarea></td>
 								</tr>
+								
 
 								<c:if test="${mode=='update' }">
 									<tr>
@@ -243,6 +259,25 @@
 	}
 </script>
 <script type="text/javascript">
+/* $(function(){
+	$('button[name=optionplus]').on('click',function(){
+		var $tr=$(this).closest("tr").clone(true);//이벤트도 복제 
+		$tr.find("input").val("");
+
+		$(this).closest("tr").after($tr);
+		
+	})
+}) 
+$(function(){
+	$('button[name=detailplus]').on('click',function(){
+		var $tr=$(this).closest("div").clone(true);//이벤트도 복제 
+		$tr.find("input").val("");
+
+		$(this).closest("div").after($tr);
+		
+	})
+})  */
+
 	$(function() {
 		$('input:radio[name=tabs]').on(
 				'click',
@@ -327,6 +362,8 @@
 		$('#dashboard').removeClass('active');
 
 	})
+	
+
 </script>
 
 <style type="text/css">

@@ -1,6 +1,7 @@
 package com.pet.app.shopping;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,61 @@ public class AdminService {
 			throw e;
 		}
 	}
+	public void insertOption(long num, String name) throws Exception {
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("num", num);
+			map.put("name", name);
+			dao.insertData("shop.insertOption", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	public List<ItemOption> listoptions(long num) {
+		List<ItemOption> ic = new ArrayList<ItemOption>();
+		try {
+			ic = dao.selectList("shop.selectOptions", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ic;
+	}
+	public List<DetailOption> listdetailoptions(long num) {
+		List<DetailOption> ic = new ArrayList<DetailOption>();
+		try {
+			ic = dao.selectList("shop.selectdetailOptions", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ic;
+	}
+	
+	public void insertdetailoptions(long optionNum,int stock, String name) throws Exception {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("optionNum", optionNum);
+		map.put("stock", stock);
+		map.put("name", name);
+				
+		try {
+			dao.insertData("shop.insertdetailOptions", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
+	}
+	public List<DetailOption> listAllOptions(long num) {
+		List<DetailOption> ic = new ArrayList<DetailOption>();
+		try {
+			ic = dao.selectList("shop.selectAllOptions", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ic;
+	}
+	
+	
 	public List<ItemCategory> listCategory() {
 		List<ItemCategory> ic = new ArrayList<ItemCategory>();
 		try {

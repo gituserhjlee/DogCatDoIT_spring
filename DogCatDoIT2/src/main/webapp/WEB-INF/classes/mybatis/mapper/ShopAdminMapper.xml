@@ -7,11 +7,13 @@
 		SELECT COUNT(*)
 		FROM item
 	</select>
-	<select id="dataCountDogCat"  parameterType="Integer"  resultType="Integer">
+	<select id="dataCountDogCat" parameterType="Integer"
+		resultType="Integer">
 		SELECT COUNT(*)
-		FROM item i join itemcategory c on i.itemcategoryid=c.itemcategoryid
+		FROM item i join itemcategory c on
+		i.itemcategoryid=c.itemcategoryid
 		where c.parentNum=#{num}
-		
+
 	</select>
 	<insert id="insertItem"
 		parameterType="com.pet.app.shopping.Item">
@@ -27,7 +29,35 @@
 		#{manufacturer},#{content})
 
 	</insert>
+	
+	<insert id="insertOption" parameterType="map">
+		insert into itemoption(optionId, itemid, optionname)
+		values(itemoption_seq.NEXTVAL, #{num}, #{name})
 
+	</insert>
+	
+	<select id="selectOptions" parameterType="long"
+		resultType="com.pet.app.shopping.ItemOption">
+		select optionId, itemid, optionname from itemoption where itemid=#{num}
+	</select>
+	
+	<select id="selectdetailOptions" parameterType="long"
+		resultType="com.pet.app.shopping.DetailOption">
+		select detailId, itemoptionId, stock, detailname from detailitemoption where
+		itemoptionid=#{num}
+	</select>
+	
+	<insert id="insertdetailOptions" parameterType="map">
+	insert into detailitemoption(detailId,itemoptionid,stock,detailname) values(itemdetailoption_seq.NEXTVAL, #{optionNum}, #{stock}, #{name})
+	</insert>
+	
+	<select id="selectAllOptions" parameterType="long" resultType="com.pet.app.shopping.DetailOption">
+	select detailId, itemoptionId, stock, detailName, optionname
+	from detailitemoption d join itemoption o on d.itemoptionid=o.optionid
+	where o.itemid=#{num}
+	</select>
+	
+	
 	<select id="selectItemCategory"
 		resultType="com.pet.app.shopping.ItemCategory">
 		select ItemCategoryId,ItemCategoryName,parentNum from
@@ -99,7 +129,8 @@
 		des,content,enabled,manufacturer
 		from item
 		where enabled='1'
-		ORDER BY registered DESC
+		ORDER BY
+		registered DESC
 		OFFSET #{offset} ROWS FETCH FIRST
 		#{rows} ROWS ONLY
 	</select>
@@ -113,18 +144,22 @@
 		registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item i
-		join itemcategory c on i.itemcategoryId=c.itemcategoryId
-		where enabled='1' and c.parentNum=#{num}
+		join itemcategory c on
+		i.itemcategoryId=c.itemcategoryId
+		where enabled='1' and
+		c.parentNum=#{num}
 		ORDER BY registered DESC
-	
+
 	</select>
-	
-	<select id="readItem" parameterType="long" resultType="com.pet.app.shopping.Item">
+
+	<select id="readItem" parameterType="long"
+		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
 		itemSalePrice,discountRate,stock,registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item
-		where enabled='1' and itemId=#{num}
+		where enabled='1' and
+		itemId=#{num}
 	</select>
 </mapper>

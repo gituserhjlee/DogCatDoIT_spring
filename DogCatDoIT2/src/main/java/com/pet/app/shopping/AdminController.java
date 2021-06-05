@@ -123,7 +123,7 @@ public class AdminController {
 	}
 
 	@PostMapping("admin/item/insert")
-	public String insertItem(Item item, HttpSession session) {
+	public String insertItem(Item item, HttpSession session, Model model) {
 
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
@@ -132,6 +132,7 @@ public class AdminController {
 			service.insertItem(item, pathname);
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("msg","상품등록실패");
 			return ".error.error";
 		}
 		return "redirect:/shopping/admin/ItemManage";
@@ -238,5 +239,18 @@ public class AdminController {
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
 		return ".shopping.article";
+	}
+	
+	@GetMapping("orderForm")
+	public String orderForm(@RequestParam long detailId, @RequestParam int count, Model model) {
+		DetailOption d=new DetailOption();
+		d=service.findbydetailOptionid(detailId);
+		if(d.getStock()<count) {
+			model.addAttribute("msg","수량초과");
+			return ".error.error";
+		}
+		model.addAttribute("item", d);
+		model.addAttribute("count", count);
+		return ".shopping.order";
 	}
 }

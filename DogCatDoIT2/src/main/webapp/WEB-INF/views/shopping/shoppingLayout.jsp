@@ -107,7 +107,7 @@
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a
-								href="${pageContext.request.contextPath}/shopping/mainPage">Shopping
+								href="${pageContext.request.contextPath}/shopping/mainPage">DotCatMall
 									Home</a></li>
 							<li><a href="#">Category</a>
 								<ul class="header__menu__dropdown">

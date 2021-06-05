@@ -117,7 +117,7 @@
 
 		
 		$("body").on("click", ".btnDetailOptionLayout", function(){
-			var $tr = $(this).closest("tr").next();
+			var $tr = $(this).closest("tr").next().next();
 			var isVisible = $tr.is(":visible");
 			var itemoptionid = $(this).attr("data-optionNum");
 			if (isVisible) {

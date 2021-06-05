@@ -13,14 +13,14 @@
 					</div>
 
 					<ul>
-						<li style="color: red">Dog</li>
+						<li style="color: #F79F81; font-weight: bolder;">Dog</li>
 						<li><a href="#">사료</a></li>
 						<li><a href="#">간식</a></li>
 						<li><a href="#">위생/배변</a></li>
 						<li><a href="#">영양제</a></li>
 						<li><a href="#">용품</a></li>
 						<li><a href="#">패션</a></li>
-						<li style="color: red">Cat</li>
+						<li style="color: #F79F81; font-weight: bolder;">Cat</li>
 						<li><a href="#">사료</a></li>
 						<li><a href="#">간식</a></li>
 						<li><a href="#">위생/배변</a></li>
@@ -93,9 +93,10 @@
 
 					</div>
 					<div>${item.des}</div>
-
+					
+					<form action="${pageContext.request.contextPath}/shopping/orderForm">	
 				 	<div>
-						<select>
+						<select name="detailId">
 							<c:forEach var="o" items="${options}">
 								<option value="${o.detailId}">(${o.optionName})
 									${o.detailname} (주문가능:${o.stock} 개)</option>
@@ -107,15 +108,17 @@
 					<div class="product__details__quantity" style="clear:both;">
 						<div class="quantity">
 							<div class="pro-qty" style="background: white">
-								<input type="text" value="1" style="border:none; background: #F79F81; color:white;">
+								<input type="text" name="count" value="1" style="border:none; background: #F79F81; color:white;">
 							</div>
 						</div>
 					</div>
 					<div style="margin-top: 10px;">
-						<a href="#" class="primary-btn">ADD TO CARD</a> <a href="#"
-							class="primary-btn">BUY NOW</a> <a href="#" class="heart-icon"><span
-							class="icon_heart_alt"></span></a>
+						<a href="#" class="primary-btn">ADD TO CARD</a>
+						 <button class="primary-btn">BUY NOW</button>
+						 <a href="#" class="heart-icon">
+						 <span class="icon_heart_alt"></span></a>
 					</div>
+					</form>
 
 				</div>
 

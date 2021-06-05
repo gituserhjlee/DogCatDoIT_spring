@@ -47,6 +47,12 @@
 		itemoptionid=#{num}
 	</select>
 	
+	<select id="findbydetailOptionid" parameterType="long"
+		resultType="com.pet.app.shopping.DetailOption">
+		select detailId, itemoptionId, stock, detailname from detailitemoption where
+		detailId=#{num}
+	</select>
+	
 	<insert id="insertdetailOptions" parameterType="map">
 	insert into detailitemoption(detailId,itemoptionid,stock,detailname) values(itemdetailoption_seq.NEXTVAL, #{optionNum}, #{stock}, #{name})
 	</insert>

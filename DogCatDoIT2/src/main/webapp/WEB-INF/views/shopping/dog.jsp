@@ -13,14 +13,14 @@
 					</div>
 
 					<ul>
-						<li style="color: red">Dog</li>
+						<li style="color: #F79F81; font-weight: bolder;">Dog</li>
 						<li><a href="#">사료</a></li>
 						<li><a href="#">간식</a></li>
 						<li><a href="#">위생/배변</a></li>
 						<li><a href="#">영양제</a></li>
 						<li><a href="#">용품</a></li>
 						<li><a href="#">패션</a></li>
-						<li style="color: red">Cat</li>
+						<li style="color: #F79F81; font-weight: bolder;">Cat</li>
 						<li><a href="#">사료</a></li>
 						<li><a href="#">간식</a></li>
 						<li><a href="#">위생/배변</a></li>

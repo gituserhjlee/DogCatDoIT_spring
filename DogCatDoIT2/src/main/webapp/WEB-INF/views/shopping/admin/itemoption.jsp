@@ -8,25 +8,24 @@
 	
 	<tbody id='listReplyBody'>
 	<c:forEach var="vo" items="${options}">
-	  
-	    <tr>
-	        <td colspan='2' valign='top' style='padding:5px 5px; border-top: 2px solid #555555;'>
-				<h5>옵션명: ${vo.optionName}</h5>
-	        </td>
-	    </tr>
-	    
 	    <tr>
 	        <td style='padding:7px 5px;'>
 	            <button type='button' class='btn btnDetailOptionLayout btn-danger' data-optionNum='${vo.optionId}'>상세옵션</button>
 				<button class="deleteReply btn btn-outline-danger" style="cursor: pointer;" data-optionNum='${vo.optionId}' >삭제</button>
 	        </td>
 	
-	    
+	    </tr>  
+	    <tr>
+	        <td colspan='2' valign='top' style='padding:5px 5px; border: 2px solid #F79F81; background: #F79F81; color:#696969; text-align: center;'>
+				<span style="font-family: 'Ubuntu', sans-serif;">${vo.optionName}</span>
+	        </td>
 	    </tr>
+	    
+	
 	
 	    <tr class='replyAnswer' style='display: none;'>
-	        <td colspan='2' style=' border:1px solid #555555;'>
-	            <div id='listdetailoption${vo.optionId}' class='answerList' style='border-top: 1px solid #ccc;'>
+	        <td colspan='2' style=' border:1px solid #F79F81;'>
+	            <div id='listdetailoption${vo.optionId}' class='answerList' style='border-top: 1px solid #F79F81;'>
 	            
 	            </div>
 	            <div style='clear: both; padding: 10px 10px;'>

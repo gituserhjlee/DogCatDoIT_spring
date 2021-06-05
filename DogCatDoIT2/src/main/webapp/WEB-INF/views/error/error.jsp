@@ -8,6 +8,9 @@
     color:#b94a48;
     background-color:#f2dede;
     border-color:#eed3d7;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
 }
 
 .boxLayout {
@@ -25,9 +28,10 @@
 
 <div class="body-container">
 	<div class="boxLayout">  
-		<div class="alert alert-error">
-			<h4><strong>에러!</strong></h4>
-			시스템에 에러가 발생 했습니다. 잠시후 다시 시도 하시기 바랍니다.
+		<div class="alert-error">
+			<strong>ERROR</strong><br>
+			시스템에 에러가 발생 했습니다. <br>잠시후 다시 시도 하시기 바랍니다.<br>
+			에러사유: <strong>${msg}</strong>
 		</div>
 
 		<p>

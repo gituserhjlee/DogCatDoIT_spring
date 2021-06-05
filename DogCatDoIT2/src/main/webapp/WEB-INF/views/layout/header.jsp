@@ -228,7 +228,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 50px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 50px; margin-bottom: -10px;color: #696969;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -402,7 +402,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;color: #696969;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -448,7 +448,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px; color: #696969;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->

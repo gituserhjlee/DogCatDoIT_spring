@@ -20,11 +20,11 @@
 		insert into item(itemId, itemCategoryId, shopStoreId,
 		itemName,
 		itemOriginalPrice, itemSalePrice,
-		discountRate, stock,
+		discountRate,
 		registered, saveFileName, des, enabled, manufacturer,content)
 		values
 		(item_seq.NEXTVAL,#{itemCategoryId},#{shopStoreId},#{itemName},
-		#{itemOriginalPrice}, #{itemSalePrice}, #{discountRate}, #{stock},
+		#{itemOriginalPrice}, #{itemSalePrice}, #{discountRate}, 
 		SYSDATE, #{saveFileName}, #{des}, #{enabled},
 		#{manufacturer},#{content})
 
@@ -54,7 +54,7 @@
 	<select id="selectAllOptions" parameterType="long" resultType="com.pet.app.shopping.DetailOption">
 	select detailId, itemoptionId, stock, detailName, optionname
 	from detailitemoption d join itemoption o on d.itemoptionid=o.optionid
-	where o.itemid=#{num}
+	where o.itemid=#{num} order by itemoptionId
 	</select>
 	
 	
@@ -82,12 +82,12 @@
 	<select id="selectOnSale" resultType="com.pet.app.shopping.Item">
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,registered,saveFilename,
+		itemSalePrice,discountRate,registered,saveFilename,
 		des,content,enabled,manufacturer
 		from(
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,registered,saveFilename,des,content,enabled,manufacturer
+		itemSalePrice,discountRate,registered,saveFilename,des,content,enabled,manufacturer
 		from item
 		where discountRate>0 and enabled='1'
 		order by discountRate
@@ -99,12 +99,12 @@
 		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,registered,saveFilename,
+		itemSalePrice,discountRate,registered,saveFilename,
 		des,content,enabled,manufacturer
 		from(
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,registered,saveFilename,
+		itemSalePrice,discountRate,registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item where enabled='1'
 		order by
@@ -125,7 +125,7 @@
 		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,registered,saveFilename,
+		itemSalePrice,discountRate,registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item
 		where enabled='1'
@@ -140,7 +140,7 @@
 		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,i.itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,
+		itemSalePrice,discountRate,
 		registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item i
@@ -156,7 +156,7 @@
 		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
-		itemSalePrice,discountRate,stock,registered,saveFilename,
+		itemSalePrice,discountRate,registered,saveFilename,
 		des,content,enabled,manufacturer
 		from item
 		where enabled='1' and

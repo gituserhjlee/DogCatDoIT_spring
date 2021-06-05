@@ -12,7 +12,6 @@ public class Item {
 	private long itemSalePrice;
 	private int discountRate;
 	private long discountedPrice;
-	private int stock;
 	private String registered;//sysdate
 	private String saveFileName;
 	private String des;
@@ -62,12 +61,6 @@ public class Item {
 	}
 	public void setDiscountRate(int discountRate) {
 		this.discountRate = discountRate;
-	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
 	}
 	public String getRegistered() {
 		return registered;

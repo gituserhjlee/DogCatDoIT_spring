@@ -24,7 +24,6 @@
 								onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/admin/optionManage?num=${i.itemId}';">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item">${i.itemName}</li>
-								<li class="list-group-item">재고:${i.stock}</li>
 								<li class="list-group-item">설명:${i.des}</li>
 
 
@@ -47,22 +46,7 @@
 									<td><input type="text" name="itemName"
 										class="form-control" value=""></td>
 								</tr>
-								<!-- <tr>
-									<td>옵션 <button type="button" class="btn btn-danger" name="optionplus">
-											추가</button></td>
-									<td><input type="text" name="optionName"
-										class="form-control" value="" placeholder="옵션명을 입력하세요(ex. 색상, 맛 등 )">
-										
-									<div>
-									<input type="text" name="detailoption"
-										class="form-control" value=""
-										placeholder="상세옵션명을 입력하세요 (ex. S,M,L )"> <input
-										type="number" name="itemstock" class="form-control" value=""
-										placeholder="수량을 입력하세요">
-										<button type="button" class="btn btn-danger" name="detailplus">
-											상세 옵션 추가</button></div></td>
-								</tr>
- -->
+								
 								<tr>
 									<td>카테고리</td>
 									<td><select class="custom-select" name="itemCategoryId">
@@ -100,11 +84,6 @@
 									<td>할인율(%)</td>
 									<td><input type="number" name="discountRate"
 										class="form-control" value="" placeholder="숫자만 입력"></td>
-								</tr>
-								<tr>
-									<td>재고량</td>
-									<td><input type="number" name="stock" class="form-control"
-										value="" placeholder="숫자만 입력"></td>
 								</tr>
 								<tr>
 									<td>상품제조사</td>
@@ -225,12 +204,6 @@
 			return false;
 		}
 
-		str = f.stock.value;
-		if (!str) {
-			alert("재고량을 입력하세요. ");
-			f.stock.focus();
-			return false;
-		}
 
 		str = f.manufacturer.value;
 		if (!str) {
@@ -259,24 +232,6 @@
 	}
 </script>
 <script type="text/javascript">
-/* $(function(){
-	$('button[name=optionplus]').on('click',function(){
-		var $tr=$(this).closest("tr").clone(true);//이벤트도 복제 
-		$tr.find("input").val("");
-
-		$(this).closest("tr").after($tr);
-		
-	})
-}) 
-$(function(){
-	$('button[name=detailplus]').on('click',function(){
-		var $tr=$(this).closest("div").clone(true);//이벤트도 복제 
-		$tr.find("input").val("");
-
-		$(this).closest("div").after($tr);
-		
-	})
-})  */
 
 	$(function() {
 		$('input:radio[name=tabs]').on(
@@ -325,7 +280,6 @@ $(function(){
 				fOnAppLoad : function() {
 					//예제 코드
 					//oEditors.getById["content"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-					//$("#content").hide();
 				},
 				fCreator : "createSEditor2"
 			});

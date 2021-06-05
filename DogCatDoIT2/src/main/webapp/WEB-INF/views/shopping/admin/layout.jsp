@@ -82,7 +82,7 @@
 		<header class="main-header-top hidden-print" style="background: #F79F81;">
 			<a href="${pageContext.request.contextPath}/shopping/mainPage"
 				class="logo">
-				<span style="font-family: Jua;  color: #696969; font-size:x-large;">독켓두잇</span>
+				<span style="font-family: Jua;  color: #696969; font-size:x-large;">독캣두잇</span>
 				<%-- <img class="img-fluid able-logo"
 				src="${pageContext.request.contextPath}/resources/shopAdmin/images/logo.png"
 				alt="Theme-logo"> --%></a>

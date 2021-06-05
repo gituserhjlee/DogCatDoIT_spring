@@ -113,12 +113,6 @@
                         <div class="header-search">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
                         </div>
-                        <div class="header-wishlist">
-                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
-                        </div>
-                        <div class="header-cart">
-                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Header Tools End -->
@@ -167,10 +161,10 @@
                         <li class="has-children"><a href="#"><span class="menu-text">두잇몰</span></a>
                             <ul class="sub-menu mega-menu">
                             	<li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">강아지</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/dog" class="mega-menu-title"><span class="menu-text">강아지</span></a>
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
@@ -182,7 +176,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">고양이</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/cat" class="mega-menu-title"><span class="menu-text">고양이</span></a>
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>

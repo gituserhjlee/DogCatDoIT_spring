@@ -113,12 +113,6 @@
                         <div class="header-search">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
                         </div>
-                        <div class="header-wishlist">
-                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
-                        </div>
-                        <div class="header-cart">
-                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Header Tools End -->
@@ -167,10 +161,10 @@
                         <li class="has-children"><a href="#"><span class="menu-text">두잇몰</span></a>
                             <ul class="sub-menu mega-menu">
                             	<li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">강아지</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/dog" class="mega-menu-title"><span class="menu-text">강아지</span></a>
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
@@ -182,7 +176,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">고양이</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/cat" class="mega-menu-title"><span class="menu-text">고양이</span></a>
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
@@ -409,12 +403,6 @@
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
                         </div>
-                        <div class="header-wishlist">
-                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
-                        </div>
-                        <div class="header-cart">
-                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
-                        </div>
                         <div class="mobile-menu-toggle d-xl-none">
                             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
                                 <svg viewBox="0 0 800 600">
@@ -455,12 +443,6 @@
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
                         </div>
-                        <div class="header-wishlist d-none d-sm-block">
-                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
-                        </div>
-                        <div class="header-cart">
-                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
-                        </div>
                         <div class="mobile-menu-toggle">
                             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
                                 <svg viewBox="0 0 800 600">
@@ -500,12 +482,6 @@
                         </div>
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
-                        </div>
-                        <div class="header-wishlist d-none d-sm-block">
-                            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
-                        </div>
-                        <div class="header-cart">
-                            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
                         </div>
                         <div class="mobile-menu-toggle">
                             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
@@ -549,99 +525,7 @@
     </div>
     <!-- OffCanvas Search End -->
 
-    <!-- OffCanvas Wishlist Start -->
-    <div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
-        <div class="inner">
-            <div class="head">
-                <span class="title">찜 목록</span>
-                <button class="offcanvas-close">Ã</button>
-            </div>
-            <div class="body customScroll">
-                <ul class="minicart-product-list">
-                    <li>
-                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">고무 신발</a>
-                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
-                            <a href="#" class="remove">Ã</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-2.jpg" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">구름 매트</a>
-                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
-                            <a href="#" class="remove">Ã</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-3.jpg" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">볼던지기 도구</a>
-                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
-                            <a href="#" class="remove">Ã</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="foot">
-                <div class="buttons">
-                    <a href="wishlist.html" class="btn btn-dark btn-hover-primary">찜 목록 바로가기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- OffCanvas Wishlist End -->
-
-    <!-- OffCanvas Cart Start -->
-    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-        <div class="inner">
-            <div class="head">
-                <span class="title">장바구니</span>
-                <button class="offcanvas-close">Ã</button>
-            </div>
-            <div class="body customScroll">
-                <ul class="minicart-product-list">
-                    <li>
-                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">스텐 식기</a>
-                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
-                            <a href="#" class="remove">Ã</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-2.jpg" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">수제 사료</a>
-                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
-                            <a href="#" class="remove">Ã</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-details.html" class="image"><img src="resources/mainResources/images/product/cart-product-3.jpg" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">소프트츄 10개입</a>
-                            <span class="quantity-price">1 x <span class="amount">₩20,000</span></span>
-                            <a href="#" class="remove">Ã</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="foot">
-                <div class="sub-total">
-                    <strong>총 구매금액 :</strong>
-                    <span class="amount">₩60,000</span>
-                </div>
-                <div class="buttons">
-                    <a href="shopping-cart.html" class="btn btn-dark btn-hover-primary">장바구니 바로가기</a>
-                    <a href="checkout.html" class="btn btn-outline-dark">결제하기</a>
-                </div>
-                <p class="minicart-message">5만원 이상 구매 시 무료 배송!</p>
-            </div>
-        </div>
-    </div>
-    <!-- OffCanvas Cart End -->
+    
 
     <!-- OffCanvas Search Start -->
     <div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
@@ -776,12 +660,6 @@
                     <div class="header-login">
                         <a href="my-account.html"><i class="fal fa-user"></i></a>
                     </div>
-                    <div class="header-wishlist">
-                        <a href="wishlist.html"><span>3</span><i class="fal fa-heart"></i></a>
-                    </div>
-                    <div class="header-cart">
-                        <a href="shopping-cart.html"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
-                    </div>
                 </div>
             </div>
             <div class="offcanvas-social">
@@ -795,6 +673,81 @@
     <!-- OffCanvas Search End -->
 
     <div class="offcanvas-overlay"></div>
+    
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xl-7 col-lg-8 col-12 mx-auto">
+                    <div class="about-us2">
+                        <div class="inner">
+                            <h2 class="title" style="font-family: Jua; font-size: 60px; color: gray">함께 누리는 반려 생활</h2>
+                            <h5 class="sub-title">WELCOME TO DOG CAT DO IT</h5>
+                            <div class="desc">
+                                <p>독캣두잇과 함께라면 바쁜 일상 속에서도 필요한 모든 것을 손쉽게 누리는 새로운 생활이 펼쳐질 거에요.<br>기대하세요! 누릴 수 있는 것들이 생각 이상으로 많을테니까요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- About us Section End -->
+
+    <!-- Category Banner Section Start -->
+    <div class="section section-padding pt-0">
+        <div class="container">
+            <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 learts-mb-n40">
+
+                <div class="col learts-mb-40">
+                    <div class="category-banner4">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="resources/mainResources/images/banner/category/banner-s4-1.jpg" alt=""></div>
+                            <div class="content" data-bg-color="#f4ede7">
+                                <h3 class="title">커뮤니티 최신글</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col learts-mb-40">
+                    <div class="category-banner4">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="${pageContext.request.contextPath}/resources/mainResources/images/banner/category/banner-s4-2.jpg" alt=""></div>
+                            <div class="content" data-bg-color="#e8f5f2">
+                                <h3 class="title">커뮤니티 인기글</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col learts-mb-40">
+                    <div class="category-banner4">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="resources/mainResources/images/banner/category/banner-s4-3.jpg" alt=""></div>
+                            <div class="content" data-bg-color="#e3e4f5">
+                                <h3 class="title">두잇몰</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col learts-mb-40">
+                    <div class="category-banner4">
+                        <a href="shop.html" class="inner">
+                            <div class="image"><img src="resources/mainResources/images/banner/category/banner-s4-4.jpg" alt=""></div>
+                            <div class="content" data-bg-color="#faf5e5">
+                                <h3 class="title">제휴업체</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Category Banner Section End -->
 
     <!-- Slider main container Start -->
     <div class="home1-slider swiper-container">

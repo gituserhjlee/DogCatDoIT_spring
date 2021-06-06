@@ -94,7 +94,7 @@
 					</div>
 					<div>${item.des}</div>
 					
-					<form action="${pageContext.request.contextPath}/shopping/orderForm">	
+					<form action="${pageContext.request.contextPath}/order/orderForm">	
 				 	<div>
 						<select name="detailId">
 							<c:forEach var="o" items="${options}">

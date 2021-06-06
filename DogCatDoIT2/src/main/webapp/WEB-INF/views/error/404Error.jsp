@@ -36,6 +36,8 @@
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/mainResources/css/style.css">
+    <!-- 독캣두잇 폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Jua:400" rel="stylesheet">
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/mainResources/css/vendor/vendor.min.css">
@@ -52,7 +54,7 @@
                 <h2 class="sub-title" style="font-family: Jua;">페이지를 찾을 수 없어요!</h2>
                 <p style="font-family: Jua;">버튼을 눌러 홈페이지로 돌아가세요.</p>
                 <div class="buttons">
-                    <a class="btn btn-dark btn-outline-hover-dark" href="${pageContext.request.contextPath}/">홈페이지</a>
+                    <a class="btn btn-dark btn-outline-hover-dark" href="${pageContext.request.contextPath}/" style="font-family: Jua;">홈페이지</a>
                 </div>
             </div>
         </div>

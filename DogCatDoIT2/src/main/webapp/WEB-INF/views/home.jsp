@@ -60,7 +60,6 @@
                     <div class="topbar-menu">
                         <ul>
                             <li><a href="#" class="text-white"><i class="fa fa-map-marker-alt"></i>서울 마포구</a></li>
-                            <li><a href="#" class="text-white"><i class="fa fa-truck"></i>배송안내</a></li>
                         </ul>
                     </div>
                 </div>

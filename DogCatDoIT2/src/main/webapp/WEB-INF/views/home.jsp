@@ -107,8 +107,19 @@
                 <!-- Header Tools Start -->
                 <div class="col">
                     <div class="header-tools justify-content-end">
-                        <div class="header-login">
-                            <a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+                        <div class="header-login" style="font-size: 16px; font-weight: 400; color: gray;">
+                        <c:if test="${empty sessionScope.member}">
+                        	<a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+						</c:if>
+						<c:if test="${not empty sessionScope.member}">
+							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
+							<p style="display: inline; color: lightgray;">|</p>
+							<c:if test="${sessionScope.member.userId=='admin'}">
+								<a href="${pageContext.request.contextPath}/admin" style="display: inline; color: gray;">관리자</a> <i></i>
+							</c:if>
+							<p style="display: inline; color: lightgray;">|</p>
+							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
+						</c:if>
                         </div>
                         <div class="header-search">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
@@ -261,7 +272,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 50px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 50px; margin-bottom: -10px;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -397,8 +408,15 @@
                 <!-- Header Tools Start -->
                 <div class="col-auto">
                     <div class="header-tools justify-content-end">
-                        <div class="header-login">
-                            <a href="my-account.html"><i class="fal fa-user"></i></a>
+                        <div class="header-login" style="font-size: 16px; font-weight: 400; color: gray;">
+                        <c:if test="${empty sessionScope.member}">
+                        	<a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+						</c:if>
+						<c:if test="${not empty sessionScope.member}">
+							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
+							<p style="display: inline; color: lightgray;">|</p>
+							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
+						</c:if>
                         </div>
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
@@ -429,7 +447,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -437,8 +455,15 @@
                 <!-- Header Tools Start -->
                 <div class="col-auto">
                     <div class="header-tools justify-content-end">
-                        <div class="header-login d-none d-sm-block">
-                            <a href="my-account.html"><i class="fal fa-user"></i></a>
+                        <div class="header-login" style="font-size: 16px; font-weight: 400; color: gray;">
+                        <c:if test="${empty sessionScope.member}">
+                        	<a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+						</c:if>
+						<c:if test="${not empty sessionScope.member}">
+							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
+							<p style="display: inline; color: lightgray;">|</p>
+							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
+						</c:if>
                         </div>
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
@@ -469,7 +494,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
+                        <a href="${pageContext.request.contextPath}/"><span class="logotitle" style="font-family: Jua; font-size: 40px; margin-bottom: -10px;">독캣두잇</span></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -477,8 +502,15 @@
                 <!-- Header Tools Start -->
                 <div class="col-auto">
                     <div class="header-tools justify-content-end">
-                        <div class="header-login d-none d-sm-block">
-                            <a href="my-account.html"><i class="fal fa-user"></i></a>
+                        <div class="header-login" style="font-size: 16px; font-weight: 400; color: gray;">
+                        <c:if test="${empty sessionScope.member}">
+                        	<a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+						</c:if>
+						<c:if test="${not empty sessionScope.member}">
+							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
+							<p style="display: inline; color: lightgray;">|</p>
+							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
+						</c:if>
                         </div>
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
@@ -657,9 +689,16 @@
             </div>
             <div class="offcanvas-buttons">
                 <div class="header-tools">
-                    <div class="header-login">
-                        <a href="my-account.html"><i class="fal fa-user"></i></a>
-                    </div>
+                    <div class="header-login" style="font-size: 16px; font-weight: 400; color: gray;">
+                        <c:if test="${empty sessionScope.member}">
+                        	<a href="${pageContext.request.contextPath}/member/login"><i class="fal fa-user"></i></a>
+						</c:if>
+						<c:if test="${not empty sessionScope.member}">
+							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
+							<p style="display: inline; color: lightgray;">|</p>
+							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
+						</c:if>
+                        </div>
                 </div>
             </div>
             <div class="offcanvas-social">

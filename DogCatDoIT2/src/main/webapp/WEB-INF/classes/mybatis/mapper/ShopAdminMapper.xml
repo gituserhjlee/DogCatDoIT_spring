@@ -49,7 +49,9 @@
 	
 	<select id="findbydetailOptionid" parameterType="long"
 		resultType="com.pet.app.shopping.DetailOption">
-		select detailId, itemoptionId, stock, detailname from detailitemoption where
+		select detailId, itemoptionId, stock, detailname, optionname
+		 from detailitemoption d join itemoption o on d.itemoptionid=o.optionid
+		 where
 		detailId=#{num}
 	</select>
 	
@@ -79,7 +81,7 @@
 	</select>
 
 	<select id="findItemByItemOption" parameterType="long" resultType="com.pet.app.shopping.Item">
-	select itemId, itemCategoryId, shopStoreId,
+	select i.itemId, itemCategoryId, shopStoreId,
 		itemName,
 		itemOriginalPrice, itemSalePrice,
 		discountRate,

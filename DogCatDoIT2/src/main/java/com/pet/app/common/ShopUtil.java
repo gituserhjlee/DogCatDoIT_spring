@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.pet.app.member.Member;
 
 @Service("orderUtil")
-public class OrderUtil {
+public class ShopUtil {
 	/**
 	 * 전화번호와 주소 형식 변환 메소드
 	 * tel : 'tel1'-'tel2'-'tel3'

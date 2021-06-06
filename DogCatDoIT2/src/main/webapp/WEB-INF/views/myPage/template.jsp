@@ -12,7 +12,7 @@
 			<li><a href="${pageContext.request.contextPath}/myPage/attendance">출석체크</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/calendar">캘린더</a></li>
 			<li>회원정보</li>
-			<li><a href="${pageContext.request.contextPath}/myPage/setUserProfile">프로필설정</a></li>
+			<li><a href="${pageContext.request.contextPath}/myPage/userProfile">프로필</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/qualification">자격신청</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/setMasterProfile">펫시터, 훈련사 프로필</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/setCompanyProfile">업체 프로필</a></li>
@@ -20,7 +20,7 @@
 			<li><a href="${pageContext.request.contextPath}/myPage/checkPwd">회원탈퇴</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/written">내가 쓴 글</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/reserve">예약 내역</a></li>
-			<li>포인트 및 쿠폰</a></li>
+			<li>포인트 및 쿠폰</li>
 			<li><a href="${pageContext.request.contextPath}/myPage/point">포인트</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/cupon">쿠폰</a></li>
 			<li>쇼핑</li>

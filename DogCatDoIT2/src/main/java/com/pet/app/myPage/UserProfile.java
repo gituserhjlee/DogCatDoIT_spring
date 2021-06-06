@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UserProfile {
 	private int profileNum;
-	private int userNum;
+	private String userId;
 	private String animalName;
 	private String animalBirth;
 	private String region;
@@ -39,11 +39,11 @@ public class UserProfile {
 	public void setProfileNum(int profileNum) {
 		this.profileNum = profileNum;
 	}
-	public int getUserNum() {
-		return userNum;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getAnimalName() {
 		return animalName;

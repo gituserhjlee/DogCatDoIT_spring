@@ -2,7 +2,7 @@ package com.pet.app.myPage;
 
 public class Qualification {
 	private int requestNum;
-	private int userNum;
+	private String userId;
 	private String originalFilename;
 	private String saveFilename;
 	private String gubun;
@@ -14,11 +14,11 @@ public class Qualification {
 	public void setRequestNum(int requestNum) {
 		this.requestNum = requestNum;
 	}
-	public int getUserNum() {
-		return userNum;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getOriginalFilename() {
 		return originalFilename;

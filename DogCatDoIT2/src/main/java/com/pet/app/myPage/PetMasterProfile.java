@@ -2,7 +2,7 @@ package com.pet.app.myPage;
 
 public class PetMasterProfile {
 	private int masterNum;
-	private int userNum;
+	private String userId;
 	private String introduce;
 	private String qualification;
 	private String reg_date;
@@ -14,11 +14,11 @@ public class PetMasterProfile {
 	public void setMasterNum(int masterNum) {
 		this.masterNum = masterNum;
 	}
-	public int getUserNum() {
-		return userNum;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getIntroduce() {
 		return introduce;

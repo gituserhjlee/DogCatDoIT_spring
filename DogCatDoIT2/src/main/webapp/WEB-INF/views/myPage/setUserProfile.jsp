@@ -10,6 +10,12 @@ $(function () {
 		$(".setUserProfile-file").click();
 	});
 });
+function sendOk() {
+	var f = document.userProfileForm;
+	
+	f.action = "${pageContext.request.contextPath}/myPage/setUserProfile";
+	f.submit();
+}
 </script>
 <jsp:include page="template.jsp"/>
 <div class="myPage-body">
@@ -18,20 +24,22 @@ $(function () {
 			프로필 설정
 		</div>
 		<div>
-			<div>
-				<div class="setUserProfile-photo">
-					사진
+			<form name="userProfileForm" method="post">
+				<div>
+					<div class="setUserProfile-photo">
+						사진
+					</div>
+					<input type="file" class="setUserProfile-file" name="animalPhoto">
 				</div>
-				<input type="file" class="setUserProfile-file">
-			</div>
-			<ul>
-				<li>이름 : <input type="text"></li>
-				<li>생일 : <input type="date"></li>
-				<li>종 : <input type="text"></li>
-				<li>지역 : <input type="text"></li>
-				<li>소개 : <textarea></textarea></li>
-				<li><button type="button">완료</button></li>
-			</ul>
+				<ul>
+					<li>이름 : <input type="text" name="animalName"></li>
+					<li>생일 : <input type="date" name="animalBirth"></li>
+					<li>종 : <input type="text" name="animalKind"></li>
+					<li>지역 : <input type="text" name="region"></li>
+					<li>소개 : <textarea name="introduce"></textarea></li>
+					<li><button type="button" onclick="sendOk();">완료</button></li>
+				</ul>
+			</form>
 		</div>
 	</div>
 </div>

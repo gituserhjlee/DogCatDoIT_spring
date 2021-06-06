@@ -2,7 +2,7 @@ package com.pet.app.myPage;
 
 public class MasterReserve {
 	private int reserveNum;
-	private int userNum;
+	private String userId;
 	private int serviceNum;
 	private String reserveTime;
 	private String memo;
@@ -14,11 +14,11 @@ public class MasterReserve {
 	public void setReserveNum(int reserveNum) {
 		this.reserveNum = reserveNum;
 	}
-	public int getUserNum() {
-		return userNum;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public int getServiceNum() {
 		return serviceNum;

@@ -1,14 +1,15 @@
 package com.pet.app.myPage;
 
 public class Attendance {
-	private int userNum;
+	private String userId;
 	private int count;
 	
-	public int getUserNum() {
-		return userNum;
+	
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public int getCount() {
 		return count;

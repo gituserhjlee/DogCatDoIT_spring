@@ -4,7 +4,228 @@
 <mapper namespace="myPage">
 	<!-- 유저프로필 입력 -->
 	<insert id="insertUserProfile" parameterType="com.pet.app.myPage.UserProfile">
-		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, orderNum, userNum, animalPhoto)
-		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{orderNum}, #{userNum}, #{animalPhoto})
+		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, orderNo, userId, animalPhoto)
+		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{orderNo}, #{userId}, #{animalPhoto})
 	</insert>
+	
+	<!-- 생일로 나이 구하기(1살 이상) -->
+	<select id="getAge1" resultType="Integer">
+		SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, animalBirth)/12) age FROM userProfile
+	</select>
+	
+	<!-- 생일로 나이 구하기(1살 이하) -->
+	<select id="getAge2" resultType="Integer">
+		SELECT TRUNC(MOD(MONTHS_BETWEEN(SYSDATE, animalBirth),12)) age FROM userProfile
+	</select>
+	
+	<!-- 유저프로필 -->
+	<select id="readUserProfile" parameterType="map" resultType="com.pet.app.myPage.UserProfile">
+		SELECT profileNum, animalName, animalBirth, region, animalKind, introduce, orderNo, userId, animalPhoto 
+		FROM userProfile 
+		WHERE userId = #{userId} AND orderNo = #{orderNo}
+	</select>
+	
+	<!-- 유저프로필 수정 -->
+	<update id="updateUserProfile" parameterType="com.pet.app.myPage.UserProfile">
+		UPDATE userProfile SET animalName=#{animalName}, animalBirth=#{animalBirth}, region=#{region}, animalKind=#{animalKind}, introduce=#{introduce}, orderNum=#{orderNum}, animalPhoto=#{animalPhoto} 
+		WHERE profileNum = #{profileNum}
+	</update>
+	
+	<!-- 유저프로필 삭제 -->
+	<delete id="deleteUserProfile" parameterType="Integer">
+		DELETE userProfile WHERE profileNum = #{profileNum}
+	</delete>
+	
+	<!-- 자격 신청 입력 -->
+	<insert id="insertRequestQualification" parameterType="com.pet.app.myPage.Qualification">
+		INSERT INTO requestQualification (requestNum, userId, originalFilename, saveFilename, gubun, state)
+		VALUES (request_seq.NEXTVAL, #{userId}, #{originalFilename}, #{saveFilename}, #{gubun}, 'requesting')
+	</insert>
+	
+	<!-- 자격 신청 내역 -->
+	<select id="readRequestQualification" parameterType="String" resultType="com.pet.app.myPage.Qualification">
+		SELECT requestNum, userId, originalFilename, saveFilename, gubun, state 
+		FROM requestQualification
+		WHERE userId = #{userId}
+	</select>
+	
+	<!-- 자격 신청 수정 -->
+	<update id="updateRequestQualification" parameterType="Integer">
+		UPDATE requestQualification SET originalFilename=#{originalFilename}, saveFilename=#{saveFilename}, gubun=#{gubun}
+		WHERE requestNum = #{requestNum}
+	</update>
+	
+	<!-- 자격 신청 삭제 -->
+	<delete id="deleteRequestQualification" parameterType="Integer">
+		DELETE requestQualification WHERE requestNum = #{requestNum}
+	</delete>
+	
+	<!-- 자격 신청 승인 -->
+	<update id="approveRequestQualification" parameterType="Integer">
+		UPDATE requestQualification SET state=#{state}
+		WHERE requestNum = #{requestNum}
+	</update>
+	
+	<!-- 펫시터, 훈련사 프로필 입력 -->
+	<insert id="insertMasterProfile" parameterType="com.pet.app.myPage.PetMasterProfile">
+		INSERT INTO petMaster (masterNum, userId, introduce, qualification, reg_date, region)
+		VALUES (master_seq.NEXTVAL, #{userId}, #{introduce}, #{qualification}, SYSDATE, #{region})
+	</insert>
+	
+	<!-- 펫시터, 훈련사 프로필 -->
+	<select id="readMasterProfile" parameterType="String" resultType="com.pet.app.myPage.PetMasterProfile">
+		SELECT masterNum, userName, introduce, qualification, reg_date, region
+		FROM petMaster pm
+		JOIN member m ON m.userId = pm.userId
+		WHERE m.userId = #{userId}
+	</select>
+	
+	<!-- 펫시터, 훈련사 프로필 수정 -->
+	<update id="updateMasterProfile" parameterType="Integer">
+		UPDATE petMaster SET introduce=#{introduce}, qualification=#{qualification}, region=#{region} 
+		WHERE masterNum = #{masterNum}
+	</update>
+	
+	<!-- 펫시터, 훈련사 프로필 삭제(관리자) -->
+	<delete id="deleteMasterProfile" parameterType="Integer">
+		DELETE petMaster WHERE masterNum = #{masterNum}
+	</delete>
+	
+	<!-- 업체 프로필 입력 -->
+
+	
+	<!-- 업체 프로필 -->
+	
+	
+	<!-- 업체 프로필 수정 -->
+	
+	
+	<!-- 업체 프로필 삭제(관리자) -->
+	
+	
+	<!-- 리뷰, 별점 입력 -->
+	<insert id="insertMasterRnR" parameterType="com.pet.app.myPage.MasterRnR">
+		INSERT INTO masterRnR (reviewNum, review, rating, reserveNum)
+		VALUES (review_seq.NEXTVAL, #{review}, #{rating}, #{reserveNum})
+	</insert>
+	
+	<!-- 리뷰, 별점 조회(업체 측) -->
+	<select id="readMasterRnR1" parameterType="Integer" resultType="com.pet.app.myPage.MasterRnR">
+		SELECT reviewNum, review, rating, userName FROM masterRnR mrr
+		JOIN masterReserve mr ON mr.reserveNum = mrr.reserveNum
+		JOIN masterService ms ON ms.serviceNum = mr.serviceNum
+		JOIN petMaster pm ON pm.masterNum = ms.masterNum
+		WHERE pm.masterNum = #{masterNum}
+	</select>
+	
+	<!-- 리뷰, 별점 조회(사용자 측) -->
+	<select id="readMasterRnR2" parameterType="String" resultType="com.pet.app.myPage.MasterRnR">
+		SELECT reviewNum, review, rating FROM masterRnR
+		WHERE userId = #{userId}
+	</select>
+	
+	
+	<!-- 리뷰, 별점 수정 -->
+	<update id="updateMasterRnR" parameterType="Integer">
+		UPDATE masterRnR SET review = #{review}, rating = #{rating} WHERE reviewNum = #{reviewNum}
+	</update>
+	
+	<!-- 리뷰, 별점 삭제 -->
+	<delete id="deleteMasterRnR" parameterType="Integer">
+		DELETE masterRnR WHERE reviewNum = #{reviewNum}
+	</delete>
+	
+	<!-- 회원 등급 업데이트(member 테이블) -->
+	<update id="updateCLevel" parameterType="String">
+		UPDATE member SET cLevel=cLevel+1 WHERE userId=#{userId}
+	</update>
+	
+	<!-- 자격 업데이트(qualification 테이블) -->
+	
+	
+	<!-- 포인트 지급 (출석) (member 테이블 업데이트) -->
+	<update id="attendancePoint" parameterType="map">
+		UPDATE member SET point=#{point}
+	</update>
+	
+	<!-- 포인트 지급 (게시글 좋아요 10 달성시) (member 테이블 업데이트) -->
+	<update id="goodPoint" parameterType="String">
+		UPDATE member SET point=point+500 WHERE userId=#{userId}
+	</update>
+	
+	
+	<!-- 포인트 사용(member 테이블 업데이트) -->
+	<update id="usePoint" parameterType="map">
+		UPDATE member SET point=#{point} WHERE userId=#{userId}
+	</update>
+	
+	<!-- 포인트 조회 -->
+	<select id="readPoint" parameterType="String" resultType="Integer">
+		SELECT point FROM member WHERE userId=#{userId}
+	</select>
+	
+	<!-- 쿠폰 지급 -->
+	
+	
+	<!-- 쿠폰 사용 -->
+	
+	
+	<!-- 쿠폰 조회 -->
+	
+	
+	<!-- 출석체크 입력(가입시 한번만) -->
+	<insert id="insertAttendance" parameterType="String">
+		INSERT INTO attendance (userId, count) VALUES (#{userId}, 1)
+	</insert>
+	
+	<!-- 출석체크 -->
+	<update id="countAttendance" parameterType="String">
+		UPDATE attendance SET count=count+1 WHERE userId = #{userId}
+	</update>
+	
+	<!-- 출석체크 일 수 -->
+	<select id="readAttendance" parameterType="String" resultType="Integer">
+		SELECT count FROM attendance WHERE userId = #{userId}
+	</select>
+	
+	<!-- 출석체크 초기화(매월 1일마다) -->
+	<update id="resetAttendance">
+		UPDATE attendance SET count = 1
+	</update>
+	
+	<!-- 캘린더에 추가 -->
+	
+	
+	<!-- 캘린더에서 수정 -->
+	
+	
+	<!-- 캘린더에서 삭제 -->
+	
+	
+	<!-- 캘린더에 예약추가 -->
+	
+	
+	<!-- 캘린더에 예약수정 -->
+	
+	
+	<!-- 캘린더에 예약삭제 -->
+	
+	
+	<!-- 예약내역 -->
+	
+	
+	<!-- 글 쓴 내역 -->
+	
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="com.pet.app.member.Member">
+		UPDATE member SET pwd=#{pwd}, name=#{name}, addr1=#{addr1}, addr2=#{addr2}, email=#{email}, tel=#{tel} 
+		WHERE userId=#{userId}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteMember" parameterType="String">
+		DELETE member WHERE userId = #{userId}
+	</delete>
+	
 </mapper>

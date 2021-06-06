@@ -1143,7 +1143,7 @@
                 <div class="footer1-subscribe d-flex flex-column col">
                     <form id="mc-form" class="mc-form widget-subscibe">
                         <input id="mc-email" autocomplete="off" type="email" placeholder="이메일 주소를 입력해주세요.">
-                        <button id="mc-submit" class="btn btn-dark" style="font-family: Jua;">1:1 문의</button>
+                        <button id="mc-submit" class="btn btn-dark" style="font-family: Jua; font-size: 18px;">1:1 문의</button>
                     </form>
                     <!-- mailchimp-alerts Start -->
                     <div class="mailchimp-alerts text-centre">

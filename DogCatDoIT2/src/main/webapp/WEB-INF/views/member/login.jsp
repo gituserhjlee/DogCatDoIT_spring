@@ -43,7 +43,7 @@
 														<input type="password" name="pwd" class="loginTF"
 															maxlength="20" tabindex="2" placeholder="비밀번호를 입력하세요"></div>
 													<div class="col-12 text-center learts-mb-50">
-														<button class="btn btn-dark btn-outline-hover-dark" type="button" onclick="sendLogin();">로그인</button>
+														<button class="btn btn-dark btn-outline-hover-dark" type="button" onclick="sendLogin();" style="font-family: Jua; font-size: 18px;">로그인</button>
 													</div>
 													<div class="col-12 learts-mb-50">
 														<div class="row learts-mb-n20">
@@ -77,7 +77,7 @@
 														<p>독캣두잇은 고객의 개인정보 수집 시 동의 받은 보유 · 이용 기간 내에서 개인정보를 처리 및 보유하며, 원칙적으로 개인정보의 처리 목적이 달성되면 지체 없이 파기합니다.</p>
 													</div>
 													<div class="col-12 text-center learts-mb-50">
-														<button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member'">회원가입하러 가기</button>
+														<button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member'" style="font-family: Jua; font-size: 18px;">회원가입하러 가기</button>
 													</div>
 												</div>
 											</form>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+	<select id="getOrderSeq" resultType="Long">
+		SELECT shopOrder_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertOrder" parameterType="com.pet.app.shopping.Order">
+		INSERT INTO shopOrder(orderIdx, userIdx, state, order_date, 
+			totalItemPrice, deliveryPrice, couponDiscount, pointDiscount,
+			totalDiscount, totalPayment, orderMemo)
+		VALUES(#{orderIdx}, #{userIdx}, 1, SYSDATE, #{totalItemPrice}, 
+			#{deliveryPrice}, #{couponDiscount}, #{pointDiscount}, 
+			#{totalDiscount}, #{totalPayment}, #{orderMemo})
+	</insert>
+	
+	<insert id="insertDeliveryInfo" parameterType="com.pet.app.shopping.Order">
+		INSERT INTO deliveryInfo(orderIdx, diName, diZip, diAddr1, diAddr2, diTel)
+		VALUES(#{orderIdx}, #{diName}, #{diZip}, #{diAddr1}, #{diAddr2}, #{diTel})
+	</insert>
+	
+	<insert id="insertPayInfo" parameterType="com.pet.app.shopping.Order">
+		INSERT INTO payInfo(payIdx, orderIdx, pay_date, payCondition)
+		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE, #{payCondition})
+	</insert>
+	
+</mapper>

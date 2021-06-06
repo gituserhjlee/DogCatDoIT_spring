@@ -9,7 +9,7 @@ public class OrderUtil {
 	/**
 	 * 전화번호와 주소 형식 변환 메소드
 	 * tel : 'tel1'-'tel2'-'tel3'
-	 * addr : 'addr' + 'addr' 
+	 * addr : 'addr1' + 'addr2' 
 	 * @param dto 변환하려는 Member 객체
 	 * @return dto 변환된 member 객체
 	 */

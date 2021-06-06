@@ -242,7 +242,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("orderForm")
-	public String orderForm(@RequestParam long detailId, @RequestParam int count, Model model) {
+	public String orderForm(@RequestParam long detailId, @RequestParam int count, @RequestParam String str, Model model) {
 		DetailOption d=new DetailOption();
 		d=service.findbydetailOptionid(detailId);
 		
@@ -256,6 +256,13 @@ public class AdminController {
 		model.addAttribute("detailitem", d);
 		model.addAttribute("item", item);
 		model.addAttribute("count", count);
-		return ".shopping.order";
+		if(str.equals("cart")) {
+			return ".shopping.cart";
+		}else if(str.equals("buy")) {
+			return ".shopping.order";
+			
+		}else {
+			return ".shopping.jjim";
+		}
 	}
 }

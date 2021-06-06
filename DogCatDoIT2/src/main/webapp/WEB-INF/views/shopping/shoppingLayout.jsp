@@ -15,6 +15,7 @@
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 <title>Ogani | Template</title>
 
 <!-- Google Font -->
@@ -148,7 +149,15 @@
 
 	<tiles:insertAttribute name="body" />
 	<tiles:insertAttribute name="footer" />
+<script>
+function addCart(str){
+	var f=document.oform;
+	$("#str").val(str);
+	f.action="${pageContext.request.contextPath}/order/orderForm";
+	f.submit();
+}
 
+</script>
 
 	<!-- Js Plugins -->
 	<script

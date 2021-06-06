@@ -2,6 +2,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
 <!-- Hero Section Begin -->
 <section class="hero hero-normal">
 	<div class="container">
@@ -46,7 +48,8 @@
 								</select>
 
 							</div>
-							<input type="text" placeholder="검색어를 입력하세요" style="width:70%; padding-left: 20px;">
+							<input type="text" placeholder="검색어를 입력하세요"
+								style="width: 70%; padding-left: 20px;">
 							<button type="submit" class="site-btn">SEARCH</button>
 						</form>
 					</div>
@@ -93,31 +96,34 @@
 
 					</div>
 					<div>${item.des}</div>
-					
-					<form action="${pageContext.request.contextPath}/order/orderForm">	
-				 	<div>
-						<select name="detailId">
-							<c:forEach var="o" items="${options}">
-								<option value="${o.detailId}">(${o.optionName})
-									${o.detailname} (주문가능:${o.stock} 개)</option>
-							</c:forEach>
-						</select>
-					</div> 
+
+					<form name="oform">
+						<input type="hidden" id="str" name="str">
+						<div>
+							<select name="detailId" id="detailId">
+								<c:forEach var="o" items="${options}">
+									<option value="${o.detailId}">(${o.optionName})
+										${o.detailname} (주문가능:${o.stock} 개)</option>
+								</c:forEach>
+							</select>
+						</div>
 
 
-					<div class="product__details__quantity" style="clear:both;">
-						<div class="quantity">
-							<div class="pro-qty" style="background: white">
-								<input type="text" name="count" value="1" style="border:none; background: #F79F81; color:white;">
+						<div class="product__details__quantity" style="clear: both;">
+							<div class="quantity">
+								<div class="pro-qty" style="background: white">
+									<input type="text" name="count" id="count" value="1"
+										style="border: none; background: #F79F81; color: white;">
+								</div>
 							</div>
 						</div>
-					</div>
-					<div style="margin-top: 10px;">
-						<a href="#" class="primary-btn">ADD TO CARD</a>
-						 <button class="primary-btn">BUY NOW</button>
-						 <a href="#" class="heart-icon">
-						 <span class="icon_heart_alt"></span></a>
-					</div>
+						<div style="margin-top: 10px;">
+							<button type="button" class="primary-btn"
+								onclick="addCart('cart')">ADD TO CARD</button>
+							<button type="button" class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
+							<a class="heart-icon" onclick="addCart('jjim')"> <span
+								class="icon_heart_alt"></span></a>
+						</div>
 					</form>
 
 				</div>

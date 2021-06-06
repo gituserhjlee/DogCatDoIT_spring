@@ -96,6 +96,16 @@ public class AdminService {
 		return d;
 	}
 	
+	public Item findItemByItemOption(long num) {
+		Item d=new Item();
+		try {
+			d=dao.selectOne("shop.findItemByItemOption", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return d;
+	}
+	
 	
 	public void insertdetailoptions(long optionNum,int stock, String name) throws Exception {
 		Map<String, Object> map=new HashMap<String, Object>();

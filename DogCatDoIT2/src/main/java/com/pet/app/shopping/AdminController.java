@@ -245,11 +245,16 @@ public class AdminController {
 	public String orderForm(@RequestParam long detailId, @RequestParam int count, Model model) {
 		DetailOption d=new DetailOption();
 		d=service.findbydetailOptionid(detailId);
+		
+		Item item=new Item();
+		item=service.findItemByItemOption(detailId);
+		
 		if(d.getStock()<count) {
 			model.addAttribute("msg","수량초과");
 			return ".error.error";
 		}
-		model.addAttribute("item", d);
+		model.addAttribute("detailitem", d);
+		model.addAttribute("item", item);
 		model.addAttribute("count", count);
 		return ".shopping.order";
 	}

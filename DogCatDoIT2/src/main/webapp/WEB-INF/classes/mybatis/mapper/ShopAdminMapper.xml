@@ -78,6 +78,17 @@
 		where ItemCategoryId=${id}
 	</select>
 
+	<select id="findItemByItemOption" parameterType="long" resultType="com.pet.app.shopping.Item">
+	select itemId, itemCategoryId, shopStoreId,
+		itemName,
+		itemOriginalPrice, itemSalePrice,
+		discountRate,
+		registered, saveFileName, des, enabled, manufacturer,content
+		from item i join itemoption o on i.itemid=o.itemid 
+		join detailitemoption d on o.optionId=d.itemoptionId
+		where d.detailId=#{num}
+	</select>
+
 	<select id="selectShopStore"
 		resultType="com.pet.app.shopping.ShopStore">
 		select

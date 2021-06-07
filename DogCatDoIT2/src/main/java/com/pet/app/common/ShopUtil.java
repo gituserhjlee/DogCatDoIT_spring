@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.pet.app.member.Member;
 
-@Service("orderUtil")
+@Service("shopUtil")
 public class ShopUtil {
 	/**
 	 * 전화번호와 주소 형식 변환 메소드 

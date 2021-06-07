@@ -13,7 +13,7 @@
 		SELECT COUNT(*)
 		FROM item i join itemcategory c on
 		i.itemcategoryid=c.itemcategoryid
-		where c.parentNum=#{num}
+		where c.parentNum=#{num} and i.enabled='1'
 
 	</select>
 	<insert id="insertItem"
@@ -32,8 +32,15 @@
 	</insert>
 	
 	<delete id="deleteItem" parameterType="long">
-	update item set enabled='0' where itemId=#{num}
+	update item set enabled='0', saveFileName='' where itemId=#{num}
 	</delete>
+	
+	<update id="updateItem" parameterType="com.pet.app.shopping.Item">
+	update item set itemcategoryId=#{itemCategoryId},shopStoreId=#{shopStoreId},itemName=#{itemName}, itemOriginalPrice=#{itemOriginalPrice},
+	itemSalePrice=#{itemSalePrice}, discountRate=#{discountRate}, saveFileName=#{saveFileName}, des=#{des}, content=#{content},
+	manufacturer=#{manufacturer}
+	where itemId=#{itemId}
+	</update> 
 	
 	<insert id="insertOption" parameterType="map">
 		insert into itemoption(optionId, itemid, optionname)
@@ -101,6 +108,13 @@
 		select
 		shopStoreId,shopStoreName,shopStoreTel,shopStoreAddress1,shopStoreAddress2,enabled
 		from shopStore where enabled='1'
+	</select>
+	
+	<select id="findByShopStoreId"
+		resultType="com.pet.app.shopping.ShopStore">
+		select
+		shopStoreId,shopStoreName,shopStoreTel,shopStoreAddress1,shopStoreAddress2,enabled
+		from shopStore where shopStoreId=#{num}
 	</select>
 
 	<select id="selectOnSale" resultType="com.pet.app.shopping.Item">

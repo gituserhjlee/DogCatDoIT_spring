@@ -57,6 +57,7 @@ function listShopStore(){
 		$('#dashboard').removeClass('active');
 		$('#orderManage').removeClass('active');
 		$('#ItemManage').removeClass('active');
+		$('#ItemInsert').removeClass('active');
 		$('#couponManage').removeClass('active');
 		$('#stockManage').removeClass('active');
 		$('#levelManage').removeClass('active');

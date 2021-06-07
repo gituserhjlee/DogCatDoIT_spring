@@ -68,9 +68,15 @@
 			<div class="col-lg-6 col-md-6">
 				<div class="product__details__pic">
 					<div class="product__details__pic__item">
+					<c:if test="${empty item.saveFileName }">
+					<img class="product__details__pic__item--large"
+							src="${pageContext.request.contextPath}/resources/img/hero/mainpets.jpg"
+							alt="사진">
+					</c:if>
+					
 						<img class="product__details__pic__item--large"
 							src="${pageContext.request.contextPath}/uploads/item/${item.saveFileName}"
-							alt="사진">
+							alt="사진이 등록되지 않았어요">
 					</div>
 
 				</div>

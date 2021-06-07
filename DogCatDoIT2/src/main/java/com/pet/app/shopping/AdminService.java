@@ -56,11 +56,30 @@ public class AdminService {
 			throw e;
 		}
 	}
-	public void deleteItem(long num) throws Exception {
+	public void deleteItem(long num, String pathname) throws Exception {
 		try {
-
+			Item dto=findById(num);
+			if(dto==null)
+				return;
+			fileManager.doFileDelete(dto.getSaveFileName(), pathname);
 			dao.updateData("shop.deleteItem", num);
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	public void updateItem(Item dto, String pathname) throws Exception{
+		try{
+			String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename != null) {
+				if(dto.getSaveFileName()!=null && dto.getSaveFileName().length()!=0)
+					fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+				
+				dto.setSaveFileName(saveFilename);
+			}
+			
+			dao.updateData("shop.updateItem", dto);
+		} catch(Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
@@ -259,5 +278,14 @@ public class AdminService {
 			e.printStackTrace();
 		}
 		return shops;
+	}
+	public ShopStore findByShopStoreId(long num) {
+		ShopStore ss=new ShopStore();
+		try {
+			ss=dao.selectOne("findByShopStoreId", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ss;
 	}
 }

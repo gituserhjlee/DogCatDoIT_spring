@@ -8,7 +8,7 @@ public class Member {
 	private String zip;
 	private String addr;
 	private String addr1, addr2;
-	private String email;
+	private String email, email1, email2;
 	private String tel;
 	private String tel1, tel2, tel3;
 	
@@ -73,6 +73,18 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getEmail1() {
+		return email1;
+	}
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+	public String getEmail2() {
+		return email2;
+	}
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
 	public String getTel() {
 		return tel;
 	}
@@ -121,6 +133,7 @@ public class Member {
 	public void setSlevel(int slevel) {
 		this.slevel = slevel;
 	}
+
 
 
 }

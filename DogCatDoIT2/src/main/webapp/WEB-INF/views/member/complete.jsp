@@ -1,15 +1,20 @@
 <%@ page  contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="body-container">
+	<div>
+		<div style="text-align: center;">
+				<span style="font-weight: bold;">${title}</span>
+		</div>
+		
+		<div class="messageBox">
+			<div>${message}
+			</div>
+		<div>
+			<button type="button" onclick="javascript:location.href='${pageContext.request.contextPath}/';" class="btnConfirm">메인화면으로 이동</button>
+		</div>
+		</div>
+	</div>
+</div>

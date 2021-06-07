@@ -141,12 +141,10 @@
                                     <a href="#" class="mega-menu-title"><span class="menu-text">홈페이지</span></a>
                                 </li>
                                 <li>
-                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
                                     <ul>
-                                        <li><a href="index-5.html"><span class="menu-text">강아지 용품</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">고양이 용품</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">사료</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/shopping/dog"><span class="menu-text">강아지 용품</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/shopping/cat"><span class="menu-text">고양이 용품</span></a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -178,10 +176,9 @@
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
-                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
-                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
-                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
-                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">위생/배변</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">영양제</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">용품</span></a></li>
                                         <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
                                     </ul>
                                 </li>
@@ -190,10 +187,9 @@
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
-                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
-                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
-                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
-                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">위생/배변</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">영양제</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">용품</span></a></li>
                                         <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
                                     </ul>
                                 </li>
@@ -286,12 +282,10 @@
                                     <a href="#" class="mega-menu-title"><span class="menu-text">홈페이지</span></a>
                                 </li>
                                 <li>
-                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
                                     <ul>
-                                        <li><a href="index-5.html"><span class="menu-text">강아지 용품</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">고양이 용품</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">사료</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/shopping/dog"><span class="menu-text">강아지 용품</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/shopping/cat"><span class="menu-text">고양이 용품</span></a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -316,29 +310,27 @@
                             <li class="has-children"><a href="#"><span class="menu-text">두잇몰</span></a>
                                 <ul class="sub-menu mega-menu">
                             	<li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰 홈</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">강아지</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/dog" class="mega-menu-title"><span class="menu-text">강아지</span></a>
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
-                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
-                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
-                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
-                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">위생/배변</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">영양제</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">용품</span></a></li>
                                         <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">고양이</span></a>
+                                    <a href="${pageContext.request.contextPath}/shopping/cat" class="mega-menu-title"><span class="menu-text">고양이</span></a>
                                     <ul>
                                         <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
                                         <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
-                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
-                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
-                                        <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
-                                        <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">위생/배변</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">영양제</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">용품</span></a></li>
                                         <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
                                     </ul>
                                 </li>
@@ -574,13 +566,11 @@
                     <li><a href="#"><span class="menu-text">모두보기</span></a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="#"><span class="menu-text">두잇몰</span></a>
-                                <ul class="sub-menu">
-                                    <li><a href="index.html"><span class="menu-text">강아지 용품</span></a></li>
-                                    <li><a href="index-2.html"><span class="menu-text">고양이 용품</span></a></li>
-                                    <li><a href="index-3.html"><span class="menu-text">사료</span></a></li>
-                                    <li><a href="index-4.html"><span class="menu-text">장난감</span></a></li>
-                                </ul>
+                                <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
+                                    <ul>
+                                        <li><a href="${pageContext.request.contextPath}/shopping/dog"><span class="menu-text">강아지 용품</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/shopping/cat"><span class="menu-text">고양이 용품</span></a></li>
+                                    </ul>
                             </li>
                             <li>
                                 <a href="#"><span class="menu-text">제휴업체</span></a>
@@ -607,24 +597,22 @@
                                 <a href="#"><span class="menu-text">강아지</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
-                                    <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
-                                    <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
-                                    <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
-                                    <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
-                                    <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
-                                    <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                        <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">위생/배변</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">영양제</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">용품</span></a></li>
+                                        <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#"><span class="menu-text">고양이</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="shop.html"><span class="menu-text">사료</span></a></li>
-                                    <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
-                                    <li><a href="shop-right-sidebar.html"><span class="menu-text">케어</span></a></li>
-                                    <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">리빙</span></a></li>
-                                    <li><a href="shop-fullwidth.html"><span class="menu-text">외출</span></a></li>
-                                    <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">장난감</span></a></li>
-                                    <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
+                                        <li><a href="shop-left-sidebar.html"><span class="menu-text">간식</span></a></li>
+                                        <li><a href="shop-right-sidebar.html"><span class="menu-text">위생/배변</span></a></li>
+                                        <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">영양제</span></a></li>
+                                        <li><a href="shop-fullwidth.html"><span class="menu-text">용품</span></a></li>
+                                        <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">패션</span></a></li>
                                 </ul>
                             </li>
                             <li>

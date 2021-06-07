@@ -21,5 +21,38 @@
 		INSERT INTO member(userIdx, point) VALUES (#{userIdx}, 1)		
 	</insert>
 	
+	<insert id="insertMember1" parameterType="com.pet.app.member.Member">
+	<!-- modify_date : 수정 날짜 -->
+		INSERT INTO member1(userIdx, userId, name, pwd, reg_date, modify_date, failure_cnt )
+		VALUES (#{userIdx}, #{userId}, #{name}, #{pwd}, SYSDATE, SYSDATE, 0)
+	</insert>
+	
+	<update id="insertMember12" parameterType="com.pet.app.member.Member">
+	
+	</update>
+	
+	<select id="readMember" parameterType="String" resultType="com.pet.app.member.Member">
+	
+	</select>
+	
+	<select id="readMember2" parameterType="String" resultType="com.pet.app.member.Member">
+	
+	</select>
+	
+	<update id="updateMembership" parameterType="map">
+		UPDATE member SET point = #{point}
+		WHERE userIdx=#{userIdx}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

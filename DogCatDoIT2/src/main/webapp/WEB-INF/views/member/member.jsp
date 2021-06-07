@@ -116,6 +116,7 @@ function changeEmail(){
 		f.email2.readOnly = false;
 		f.email1.focus();
 	}
+
 }
 
 function userIdCheck(){
@@ -248,30 +249,138 @@ function userIdCheck(){
 				</td>
 				<td>
 					<p>
-						<select class="selectField" id="tel1">
-							<option value=""></option>
+						<select class="selectField" id="tel1" name="tel1">
+							<option value="">선택</option>
+							<option value="010" ${dto.tel1=="010" ? "selected='selected'" : ""}>010</option>
+							<option value="02" ${dto.tel1=="02" ? "selected='selected'" : ""}>02</option>
+							<option value="031" ${dto.tel1=="031" ? "selected='selected'" : ""}>031</option>
+							<option value="032" ${dto.tel1=="032" ? "selected='selected'" : ""}>032</option>
+							<option value="033" ${dto.tel1=="033" ? "selected='selected'" : ""}>033</option>
+							<option value="041" ${dto.tel1=="041" ? "selected='selected'" : ""}>041</option>
+							<option value="042" ${dto.tel1=="042" ? "selected='selected'" : ""}>042</option>
+							<option value="043" ${dto.tel1=="043" ? "selected='selected'" : ""}>043</option>
+							<option value="044" ${dto.tel1=="044" ? "selected='selected'" : ""}>044</option>
+							<option value="051" ${dto.tel1=="051" ? "selected='selected'" : ""}>051</option>
+							<option value="052" ${dto.tel1=="052" ? "selected='selected'" : ""}>052</option>
+							<option value="053" ${dto.tel1=="053" ? "selected='selected'" : ""}>053</option>
+							<option value="054" ${dto.tel1=="054" ? "selected='selected'" : ""}>054</option>
+							<option value="055" ${dto.tel1=="055" ? "selected='selected'" : ""}>055</option>
+							<option value="061" ${dto.tel1=="061" ? "selected='selected'" : ""}>061</option>
+							<option value="062" ${dto.tel1=="062" ? "selected='selected'" : ""}>062</option>
+							<option value="063" ${dto.tel1=="063" ? "selected='selected'" : ""}>063</option>
+							<option value="064" ${dto.tel1=="064" ? "selected='selected'" : ""}>064</option>
+							<option value="070" ${dto.tel1=="070" ? "selected='selected'" : ""}>070</option>
+						
 						</select>
+						<span>-</span>
+						<input type="text" name="tel2" class="boxTF sm" maxlength="4" value="${dto.tel2}">
+						<span>-</span>
+						<input type="text" name="tel3" class="boxTF sm" maxlength="4" value="${dto.tel3}">
+						 
 					</p>
 				</td>
 			</tr>
 			
+			<tr>
+				<td>
+					<label>우편번호</label>
+				</td>
+				<td>
+					<p>
+						<input type="text" name="zip" id="zip" class="boxTF sm" value="${dto.zip}"
+							readonly="readonly">
+						<button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
+					</p>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td>
+					<label>주소</label>
+				</td>
+				<td>
+					<p>
+						<input type="text" name="addr1" id="addr1" maxlength="50" 
+							class="boxTF lg" readonly="readonly" value="${dto.addr1}"
+							placeholder="기본 주소">
+					</p>
+					<p>
+						<input type="text" name="addr2" id="addr2" maxlength="50" 
+							class="boxTF lg" value="${dto.addr2}"  placeholder="나머지 주소">
+					</p>
+				</td>
+			</tr>
+			
+			<c:if test="${mode=='member'}">
+				<tr>
+					<td>
+						<label>약관동의</label>
+					</td>
+					<td>
+						<p style="padding-top: 5px;">
+							<label>
+								<input id="agree" name="agree" type="checkbox" checked="checked"
+									onchange="form.sendButton.disabled = !checked"> <a href="#">이용약관</a>에 동의합니다.
+							</label>
+						</p>
+					</td>
+				</tr>
+			</c:if>
 		</table>
+		<table class="table table-footer">
+			<tr> 
+				<td>
+					<button type="button" name="sendButton" class="btn" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
+					<button type="reset" class="btn">다시입력</button>
+					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/';">${mode=="member"?"가입취소":"수정취소"}</button>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: blue;">${message}</td>
+			</tr>
+		</table>
+		
 		</form>
 	</div>
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    function daumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                if (data.userSelectedType === 'R') { 
+                    fullAddr = data.roadAddress;
+
+                } else { 
+                    fullAddr = data.jibunAddress;
+                }
+
+
+				    if(data.userSelectedType === 'R'){
+                    
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                document.getElementById('zip').value = data.zonecode; //5자리 새우편번호
+                document.getElementById('addr1').value = fullAddr;
+
+                document.getElementById('addr2').focus();
+            }
+        }).open();
+    }
+</script>	
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

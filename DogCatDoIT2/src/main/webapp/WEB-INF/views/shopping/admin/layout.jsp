@@ -104,27 +104,27 @@
 						href="${pageContext.request.contextPath}/shopping/admin/dashboard">
 							<i class="icon-speedometer"></i><span> Dashboard</span>
 					</a></li>
-					<li class="treeview"><a class="waves-effect waves-dark"
+					<li class="treeview" id="orderManage"><a class="waves-effect waves-dark"
 						href="#!"><i class="icon-book-open"></i><span> 주문조회</span></a></li>
 					<li class="treeview" id="ItemManage"><a
 						class="waves-effect waves-dark"
 						href="${pageContext.request.contextPath}/shopping/admin/ItemManage"><i
 							class="icon-briefcase"></i><span> 상품관리</span></a></li>
 
-					<li class="treeview"><a class="waves-effect waves-dark"
+					<li class="treeview" id="couponManage"><a class="waves-effect waves-dark"
 						href="#!"><i class="icon-list"></i><span> 쿠폰관리</span></a></li>
 
 
 
-					<li class="treeview"><a class="waves-effect waves-dark"
-						href="basic-table.html"> <i class="icon-list"></i><span>
-								발주 업체관리</span>
+					<li class="treeview" id="balju"><a class="waves-effect waves-dark"
+						href="${pageContext.request.contextPath}/shopping/admin/Balju"> <i class="icon-list"></i><span>
+								발주 업체 관리</span>
 					</a></li>
-					<li class="treeview"><a class="waves-effect waves-dark"
+					<li class="treeview" id="stockManage"><a class="waves-effect waves-dark"
 						href="basic-table.html"> <i class="icon-list"></i><span>
 								재고관리</span>
 					</a></li>
-					<li class="treeview"><a class="waves-effect waves-dark"
+					<li class="treeview" id="levelManage"><a class="waves-effect waves-dark"
 						href="basic-table.html"> <i class="icon-list"></i><span>
 								쇼핑몰 등급 관리</span>
 					</a></li>
@@ -155,6 +155,8 @@
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		
 
 		<!-- custom js -->
 		<script type="text/javascript"
@@ -176,6 +178,7 @@
 				}
 			});
 		</script>
+		
 </body>
 
 </html>

@@ -4,6 +4,7 @@ public class ShopStore {
 	private long shopStoreId;
 	private String shopStoreName;
 	private String shopStoreTel;
+	private String zip;
 	private String shopStoreAddress1;
 	private String shopStoreAddress2;
 	private boolean enabled;
@@ -42,6 +43,12 @@ public class ShopStore {
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 	
 	

@@ -13,21 +13,39 @@
 
 
 			<section id="c1">
-				${dataCount}개(${page}/${total_page} 페이지)
+				<div style="text-align: center; font-weight: bolder; padding: 20px;">
+					${dataCount}개(${page}/${total_page} 페이지)</div>
 				<div
 					style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 					<c:forEach var="i" items="${items}">
-						<div class="card" style="width: 40%">
+						<div class="card" style="width: 40%; border: 2px solid #F79F81;">
 							<img class="card-img-top"
 								src="${pageContext.request.contextPath}/uploads/item/${i.saveFileName}"
 								alt="Card image cap" width="130px" height="130px"
 								onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/admin/optionManage?num=${i.itemId}';">
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item">${i.itemName}</li>
-								<li class="list-group-item">설명:${i.des}</li>
-
-
+								<li class="list-group-item"
+									style="background: #F79F81; color: white;">${i.itemName}</li>
+								<li class="list-group-item"
+									style="background: #F79F81; color: white;">설명:${i.des}</li>
 							</ul>
+							<div
+								style="display: flex; flex-direction: row; justify-content: center;">
+								<form method="post"
+									action="${pageContext.request.contextPath}/shopping/admin/item/delete"
+									onsubmit="return deletecheck();">
+									<input type="hidden" name="num" value="${i.itemId}">
+									<button type='submit' class='btn btn-outline-danger'
+										style='padding: 10px 20px; border-radius: 10px;  margin-right: 10px;'>삭제</button>
+								</form>
+								<form>
+									<button type='button' class='btn btn-outline-danger'
+										style='padding: 10px 20px; border-radius: 10px; '>수정</button>
+
+								</form>
+
+							</div>
+
 						</div>
 					</c:forEach>
 
@@ -46,7 +64,7 @@
 									<td><input type="text" name="itemName"
 										class="form-control" value=""></td>
 								</tr>
-								
+
 								<tr>
 									<td>카테고리</td>
 									<td><select class="custom-select" name="itemCategoryId">
@@ -101,7 +119,7 @@
 									<td><textarea name="content" id="content"
 											style="height: 270px;">${dto.content}</textarea></td>
 								</tr>
-								
+
 
 								<c:if test="${mode=='update' }">
 									<tr>
@@ -204,7 +222,6 @@
 			return false;
 		}
 
-
 		str = f.manufacturer.value;
 		if (!str) {
 			alert("제조사를 입력하세요. ");
@@ -232,7 +249,6 @@
 	}
 </script>
 <script type="text/javascript">
-
 	$(function() {
 		$('input:radio[name=tabs]').on(
 				'click',
@@ -314,10 +330,24 @@
 	$(function() {
 		$('#ItemManage').addClass('active');
 		$('#dashboard').removeClass('active');
-
+		$('#orderManage').removeClass('active');
+		$('#balju').removeClass('active');
+		$('#couponManage').removeClass('active');
+		$('#stockManage').removeClass('active');
+		$('#levelManage').removeClass('active');
 	})
-	
+function deletecheck(){
+		if(confirm("정말 삭제하시겠습니까 ? ") == true){
+	        alert("삭제되었습니다");
+	        return true;
+	    }
+	    else{
+	        return false ;
+	    }
 
+
+	}
+	
 </script>
 
 <style type="text/css">

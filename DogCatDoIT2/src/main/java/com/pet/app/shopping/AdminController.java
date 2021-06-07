@@ -76,6 +76,7 @@ public class AdminController {
 
 		// 전체 페이지 수
 		dataCount = service.dataCount();
+		System.out.println("개수는"+dataCount);
 		if (dataCount != 0)
 			total_page = myUtil.pageCount(rows, dataCount);
 
@@ -127,7 +128,6 @@ public class AdminController {
 
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
-		System.out.println("파일경로" + pathname);
 		try {
 			service.insertItem(item, pathname);
 		} catch (Exception e) {
@@ -137,6 +137,19 @@ public class AdminController {
 		}
 		return "redirect:/shopping/admin/ItemManage";
 	}
+	
+	@PostMapping("admin/item/delete")
+	public String deleteItem(@RequestParam long num) {
+		
+		try {
+			service.deleteItem(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ".error.error";
+		}
+		return "redirect:/shopping/admin/ItemManage";
+	}
+
 
 	@GetMapping("admin/optionManage")
 		public String optionManage(@RequestParam long num, Model model) {
@@ -190,7 +203,33 @@ public class AdminController {
 		model.put("state", state);
 		return model;
 	}
+	@GetMapping("admin/BaljuStore")
+	public String BaljuStoreList(Model model) {
+		List<ShopStore> shops=service.selectAllShopStore();
+		model.addAttribute("shops", shops);
+		return "shopping/admin/BaljuStoreList";
+	}
 	
+	@GetMapping("admin/Balju")
+	public String baljuPage(Model model) {
+	
+		return ".shopping.admin.Balju";
+	}
+	
+	@PostMapping("admin/Balju")
+	public String insertBalju(ShopStore shop, Model model) {
+		List<ShopStore> shops=new ArrayList<ShopStore>();
+		try {
+			service.insertShopStore(shop);
+			shops=service.selectAllShopStore();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("shops", shops);
+		return "shopping/admin/BaljuStoreList";
+		
+	}
 	
 	@GetMapping("dog")
 	public String dogPage(HttpServletRequest req, Model model) {	
@@ -241,28 +280,5 @@ public class AdminController {
 		return ".shopping.article";
 	}
 	
-	@GetMapping("orderForm")
-	public String orderForm(@RequestParam long detailId, @RequestParam int count, @RequestParam String str, Model model) {
-		DetailOption d=new DetailOption();
-		d=service.findbydetailOptionid(detailId);
-		
-		Item item=new Item();
-		item=service.findItemByItemOption(detailId);
-		
-		if(d.getStock()<count) {
-			model.addAttribute("msg","수량초과");
-			return ".error.error";
-		}
-		model.addAttribute("detailitem", d);
-		model.addAttribute("item", item);
-		model.addAttribute("count", count);
-		if(str.equals("cart")) {
-			return ".shopping.cart";
-		}else if(str.equals("buy")) {
-			return ".shopping.order";
-			
-		}else {
-			return ".shopping.jjim";
-		}
-	}
+
 }

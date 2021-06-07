@@ -6,6 +6,7 @@
 	<select id="dataCount" resultType="Integer">
 		SELECT COUNT(*)
 		FROM item
+		where enabled='1'
 	</select>
 	<select id="dataCountDogCat" parameterType="Integer"
 		resultType="Integer">
@@ -29,6 +30,10 @@
 		#{manufacturer},#{content})
 
 	</insert>
+	
+	<delete id="deleteItem" parameterType="long">
+	update item set enabled='0' where itemId=#{num}
+	</delete>
 	
 	<insert id="insertOption" parameterType="map">
 		insert into itemoption(optionId, itemid, optionname)
@@ -180,5 +185,17 @@
 		from item
 		where enabled='1' and
 		itemId=#{num}
+	</select>
+	
+	<insert id="insertShopStore" parameterType="com.pet.app.shopping.ShopStore">
+	insert into shopstore(shopStoreId,shopStoreName,shopStoreTel,zip,shopStoreAddress1,shopStoreAddress2,enabled) 
+	values(shopStore_seq.NEXTVAL,#{shopStoreName},#{shopStoreTel},#{zip}, #{shopStoreAddress1}, #{shopStoreAddress2},#{enabled}) 
+	</insert>
+	
+	
+	<select id="selectAllShopStore" resultType="com.pet.app.shopping.ShopStore">
+	select shopStoreId,shopStoreName,shopStoreTel,zip,shopStoreAddress1,shopStoreAddress2,enabled
+	 from shopStore 
+	 order by shopStoreId
 	</select>
 </mapper>

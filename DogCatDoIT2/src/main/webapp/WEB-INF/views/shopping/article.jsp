@@ -119,7 +119,7 @@
 						</div>
 						<div style="margin-top: 10px;">
 							<button type="button" class="primary-btn"
-								onclick="addCart('cart')">ADD TO CARD</button>
+								onclick="addCart('cart')">ADD TO CART</button>
 							<button type="button" class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
 							<a class="heart-icon" onclick="addCart('jjim')"> <span
 								class="icon_heart_alt"></span></a>

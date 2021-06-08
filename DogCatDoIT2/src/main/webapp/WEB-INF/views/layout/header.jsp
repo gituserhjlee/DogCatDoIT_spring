@@ -38,12 +38,7 @@
                                 <li><a href="#">제휴문의</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">마이페이지</a>
-                            <ul class="curr-lan-sub-menu">
-                                <li><a href="#">내정보관리</a></li>
-                                <li><a href="#">내가쓴글</a></li>
-                                <li><a href="#">주문배송</a></li>
-                            </ul>
+                        <li><a href="${pageContext.request.contextPath}/myPage/main">마이페이지</a>
                         </li>
                     </ul>
                 </div>

@@ -27,17 +27,7 @@
 		VALUES (#{userIdx}, #{userId}, #{name}, #{pwd}, SYSDATE, SYSDATE, 0)
 	</insert>
 	
-	<update id="insertMember12" parameterType="com.pet.app.member.Member">
-	
-	</update>
-	
-	<select id="readMember" parameterType="String" resultType="com.pet.app.member.Member">
-	
-	</select>
-	
-	<select id="readMember2" parameterType="String" resultType="com.pet.app.member.Member">
-	
-	</select>
+
 	
 	<update id="updateMembership" parameterType="map">
 		UPDATE member SET point = #{point}

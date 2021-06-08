@@ -111,12 +111,11 @@ function changeEmail(){
 		f.email2.readOnly = true;
 		f.email1.focus();
 	} 
-	else{
+	else {
 		f.email2.value="";
 		f.email2.readOnly = false;
 		f.email1.focus();
 	}
-
 }
 
 function userIdCheck(){
@@ -331,9 +330,9 @@ function userIdCheck(){
 		<table class="table table-footer">
 			<tr> 
 				<td>
-					<button type="button" name="sendButton" class="btn" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
-					<button type="reset" class="btn">다시입력</button>
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/';">${mode=="member"?"가입취소":"수정취소"}</button>
+					<button type="button" style="font-family: Jua; font-size: 18px;" name="sendButton" class="btn" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
+					<button type="reset" style="font-family: Jua; font-size: 18px;" class="btn">다시입력</button>
+					<button type="button" style="font-family: Jua; font-size: 18px;" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/';">${mode=="member"?"가입취소":"수정취소"}</button>
 				</td>
 			</tr>
 			<tr>

@@ -20,29 +20,28 @@ public class AdminService {
 	@Autowired
 	private FileManager fileManager;
 
-	
 	public int dataCount() {
-		int result=0;	
-		try{
-			result=dao.selectOne("shop.dataCount");			
-		} catch(Exception e) {
+		int result = 0;
+		try {
+			result = dao.selectOne("shop.dataCount");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
+
 	public int dataDogCatCount(int num) {
-		int result=0;	
-		try{
-			result=dao.selectOne("shop.dataCountDogCat",num);			
-		} catch(Exception e) {
+		int result = 0;
+		try {
+			result = dao.selectOne("shop.dataCountDogCat", num);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
+
 	public void insertItem(Item dto, String pathname) throws Exception {
 		try {
 
@@ -57,9 +56,37 @@ public class AdminService {
 			throw e;
 		}
 	}
+	public void deleteItem(long num, String pathname) throws Exception {
+		try {
+			Item dto=findById(num);
+			if(dto==null)
+				return;
+			fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+			dao.updateData("shop.deleteItem", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	public void updateItem(Item dto, String pathname) throws Exception{
+		try{
+			String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename != null) {
+				if(dto.getSaveFileName()!=null && dto.getSaveFileName().length()!=0)
+					fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+				
+				dto.setSaveFileName(saveFilename);
+			}
+			
+			dao.updateData("shop.updateItem", dto);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	public void insertOption(long num, String name) throws Exception {
 		try {
-			Map<String, Object> map=new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("num", num);
 			map.put("name", name);
 			dao.insertData("shop.insertOption", map);
@@ -68,6 +95,7 @@ public class AdminService {
 			throw e;
 		}
 	}
+
 	public List<ItemOption> listoptions(long num) {
 		List<ItemOption> ic = new ArrayList<ItemOption>();
 		try {
@@ -77,6 +105,7 @@ public class AdminService {
 		}
 		return ic;
 	}
+
 	public List<DetailOption> listdetailoptions(long num) {
 		List<DetailOption> ic = new ArrayList<DetailOption>();
 		try {
@@ -86,33 +115,33 @@ public class AdminService {
 		}
 		return ic;
 	}
+
 	public DetailOption findbydetailOptionid(long num) {
-		DetailOption d=new DetailOption();
+		DetailOption d = new DetailOption();
 		try {
-			d=dao.selectOne("shop.findbydetailOptionid", num);
+			d = dao.selectOne("shop.findbydetailOptionid", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return d;
 	}
-	
+
 	public Item findItemByItemOption(long num) {
-		Item d=new Item();
+		Item d = new Item();
 		try {
-			d=dao.selectOne("shop.findItemByItemOption", num);
+			d = dao.selectOne("shop.findItemByItemOption", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return d;
 	}
-	
-	
-	public void insertdetailoptions(long optionNum,int stock, String name) throws Exception {
-		Map<String, Object> map=new HashMap<String, Object>();
+
+	public void insertdetailoptions(long optionNum, int stock, String name) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("optionNum", optionNum);
 		map.put("stock", stock);
 		map.put("name", name);
-				
+
 		try {
 			dao.insertData("shop.insertdetailOptions", map);
 		} catch (Exception e) {
@@ -121,6 +150,7 @@ public class AdminService {
 		}
 
 	}
+
 	public List<DetailOption> listAllOptions(long num) {
 		List<DetailOption> ic = new ArrayList<DetailOption>();
 		try {
@@ -130,8 +160,7 @@ public class AdminService {
 		}
 		return ic;
 	}
-	
-	
+
 	public List<ItemCategory> listCategory() {
 		List<ItemCategory> ic = new ArrayList<ItemCategory>();
 		try {
@@ -166,7 +195,7 @@ public class AdminService {
 	public List<Item> listItem(Map<String, Object> map) {
 		List<Item> items = new ArrayList<Item>();
 		try {
-			items = dao.selectList("shop.selectItemList",map);
+			items = dao.selectList("shop.selectItemList", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,11 +203,11 @@ public class AdminService {
 		return items;
 
 	}
-	
+
 	public List<Item> listCategoryItem(int num) {
 		List<Item> items = new ArrayList<Item>();
 		try {
-			items = dao.selectList("shop.selectCategoryItemList",num);
+			items = dao.selectList("shop.selectCategoryItemList", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -198,6 +227,7 @@ public class AdminService {
 		return items;
 
 	}
+
 	public List<Item> listRecentItem() {
 		List<Item> items = new ArrayList<Item>();
 		try {
@@ -209,24 +239,53 @@ public class AdminService {
 		return items;
 
 	}
-	
+
 	public long isDogorCat(long id) {
-		long result=0;
+		long result = 0;
 		try {
-			result=dao.selectOne("shop.isDogOrCat",id);
+			result = dao.selectOne("shop.isDogOrCat", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	public Item findById(long num) {
-		Item item=null;
+		Item item = null;
 		try {
-			item=dao.selectOne("shop.readItem", num);
+			item = dao.selectOne("shop.readItem", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return item;
+	}
+
+	public void insertShopStore(ShopStore shop) throws Exception {
+		try {
+			shop.setEnabled(true);
+			dao.insertData("shop.insertShopStore", shop);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public List<ShopStore> selectAllShopStore(){
+		List<ShopStore> shops=new ArrayList<ShopStore>();
+		try {
+			shops=dao.selectList("shop.selectAllShopStore");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return shops;
+	}
+	public ShopStore findByShopStoreId(long num) {
+		ShopStore ss=new ShopStore();
+		try {
+			ss=dao.selectOne("findByShopStoreId", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ss;
 	}
 }

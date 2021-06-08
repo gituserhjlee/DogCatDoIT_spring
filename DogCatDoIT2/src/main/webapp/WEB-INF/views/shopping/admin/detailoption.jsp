@@ -9,7 +9,7 @@
 			style='height: 50px; clear: both; padding: 5px 5px;  text-align: center;'>
 			<span style="font-family: 'Ubuntu', sans-serif; color: #696969;">
 				<button class="deleteDetailOption btn btn-outline-danger"
-					style="cursor: pointer;" data-optionNum='${vo.detailId}'>삭제</button>
+					style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.detailId}'>삭제</button>
 				상세옵션명: ${vo.detailname} / 재고: ${vo.stock}개
 			</span>
 			<br>

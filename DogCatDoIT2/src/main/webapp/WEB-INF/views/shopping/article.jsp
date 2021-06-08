@@ -68,9 +68,15 @@
 			<div class="col-lg-6 col-md-6">
 				<div class="product__details__pic">
 					<div class="product__details__pic__item">
+					<c:if test="${empty item.saveFileName }">
+					<img class="product__details__pic__item--large"
+							src="${pageContext.request.contextPath}/resources/img/hero/mainpets.jpg"
+							alt="사진">
+					</c:if>
+					
 						<img class="product__details__pic__item--large"
 							src="${pageContext.request.contextPath}/uploads/item/${item.saveFileName}"
-							alt="사진">
+							alt="사진이 등록되지 않았어요">
 					</div>
 
 				</div>
@@ -119,7 +125,7 @@
 						</div>
 						<div style="margin-top: 10px;">
 							<button type="button" class="primary-btn"
-								onclick="addCart('cart')">ADD TO CARD</button>
+								onclick="addCart('cart')">ADD TO CART</button>
 							<button type="button" class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
 							<a class="heart-icon" onclick="addCart('jjim')"> <span
 								class="icon_heart_alt"></span></a>

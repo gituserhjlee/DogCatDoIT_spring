@@ -17,7 +17,7 @@
 				<tr>
 					<td align='right'>
 						<button type='button' class='btn btnSendOption btn-danger'
-							style='padding: 10px 20px;'>옵션 등록</button>
+							style='padding: 10px 20px; border-radius:10px; '>옵션 등록</button>
 					</td>
 				</tr>
 			</table>
@@ -47,7 +47,13 @@
 <script>
 	$(function() {
 		$('#ItemManage').addClass('active');
+		$('#ItemInsert').removeClass('active');
 		$('#dashboard').removeClass('active');
+		$('#orderManage').removeClass('active');
+		$('#balju').removeClass('active');
+		$('#couponManage').removeClass('active');
+		$('#stockManage').removeClass('active');
+		$('#levelManage').removeClass('active');
 		//옵션 리스트 자동으로 불러오기
 		listOption();
 	})

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.app.common.FileManager;
 import com.pet.app.common.MyUtil;
 
 @Controller
@@ -28,6 +29,9 @@ public class AdminController {
 
 	@Autowired
 	private MyUtil myUtil;
+
+	@Autowired
+	FileManager fileManager;
 
 	@GetMapping("mainPage")
 	public String mainPage(Model model, HttpSession session) {
@@ -70,12 +74,13 @@ public class AdminController {
 			@RequestParam(value = "page", defaultValue = "1") int current_page) {
 		String cp = req.getContextPath();
 
-		int rows = 10; // 한 화면에 보여주는 게시물 수
+		int rows = 12; // 한 화면에 보여주는 게시물 수
 		int total_page = 0;
 		int dataCount = 0;
 
 		// 전체 페이지 수
 		dataCount = service.dataCount();
+		System.out.println("개수는" + dataCount);
 		if (dataCount != 0)
 			total_page = myUtil.pageCount(rows, dataCount);
 
@@ -116,72 +121,186 @@ public class AdminController {
 		model.addAttribute("items", items);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
-        model.addAttribute("total_page", total_page);
-        model.addAttribute("paging", paging);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
 
 		return ".shopping.admin.ItemManage";
 	}
 
+	@GetMapping("admin/item/insert")
+	public String ItemInsert(Model model) {
+
+		List<ShopStore> ss = service.listStore();
+		List<ItemCategory> ic = service.listCategory();
+		List<ItemCategory> newic = new ArrayList<ItemCategory>();
+		
+		for (ItemCategory i : ic) {
+			if (i.getParentNum() != 0) {
+				newic.add(i);
+			}
+		}
+
+		for (ItemCategory i : newic) {
+			String parent = service.findByCategoryId(i.getParentNum()).getItemCategoryName();
+			i.setItemCategoryName('(' + parent + ')' + i.getItemCategoryName());
+		}
+	
+		model.addAttribute("mode", "insert");
+		model.addAttribute("category", newic);
+		model.addAttribute("store", ss);
+
+		return ".shopping.admin.ItemInsert";
+	}
+	@GetMapping("admin/item/update")
+	public String ItemInsert(Model model, @RequestParam long id) {
+
+		List<ShopStore> ss = service.listStore();
+		List<ShopStore> ss2=new ArrayList<ShopStore>();
+		List<ItemCategory> ic = service.listCategory();
+		List<ItemCategory> newic = new ArrayList<ItemCategory>();
+		Item item = service.findById(id);
+		ItemCategory c=service.findByCategoryId(item.getItemCategoryId());
+		String p = service.findByCategoryId(c.getParentNum()).getItemCategoryName();
+		c.setItemCategoryName('(' + p + ')' + c.getItemCategoryName());
+		
+		ShopStore s=service.findByShopStoreId(item.getShopStoreId());
+		for (ItemCategory i : ic) {
+			if (i.getParentNum() != 0 && i.getItemCategoryId()!=item.getItemCategoryId()) {
+				newic.add(i);
+			}
+		}
+		for(ShopStore a:ss) {
+			if(a.getShopStoreId()!=item.getShopStoreId()) {
+				ss2.add(a);
+			}
+		}
+
+		for (ItemCategory i : newic) {
+			String parent = service.findByCategoryId(i.getParentNum()).getItemCategoryName();
+			i.setItemCategoryName('(' + parent + ')' + i.getItemCategoryName());
+		}
+		model.addAttribute("mode", "update");
+		model.addAttribute("category", newic);
+		model.addAttribute("store", ss2);
+		model.addAttribute("item", item);
+		model.addAttribute("itemCategoryName", c.getItemCategoryName());
+		model.addAttribute("shopStoreName", s.getShopStoreName());
+
+		return ".shopping.admin.ItemInsert";
+	}
 	@PostMapping("admin/item/insert")
 	public String insertItem(Item item, HttpSession session, Model model) {
 
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
-		System.out.println("파일경로" + pathname);
 		try {
 			service.insertItem(item, pathname);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg","상품등록실패");
+			model.addAttribute("msg", "상품등록실패! 모든 내용을 채우셨나요?");
 			return ".error.error";
 		}
 		return "redirect:/shopping/admin/ItemManage";
 	}
 
-	@GetMapping("admin/optionManage")
-		public String optionManage(@RequestParam long num, Model model) {
-		model.addAttribute("num", num);
-		return ".shopping.admin.optionManage";
-	}
-	@GetMapping("admin/itemOption")
-	public String insertOption(@RequestParam long itemid, Model model) {
-		List<ItemOption> options=new ArrayList<ItemOption>();
-		options= service.listoptions(itemid);
-		model.addAttribute("options", options);
-		return "shopping/admin/itemoption";	
+	@PostMapping("admin/item/delete")
+	public String deleteItem(@RequestParam long num, HttpSession session) {
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "item";
+		try {
+			service.deleteItem(num, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ".error.error";
+		}
+		return "redirect:/shopping/admin/ItemManage";
 	}
 
-	
-	@PostMapping("admin/itemOption")
-	public String insertOption(@RequestParam long itemid , @RequestParam String optionName, Model model) {
-		List<ItemOption> options=new ArrayList<ItemOption>();
-		
-		try {
-			service.insertOption(itemid, optionName);
-			options= service.listoptions(itemid);
+	@PostMapping("admin/item/update")
+	  public String updateItem(Item dto, HttpSession session) throws Exception {
+	  
+	  String root=session.getServletContext().getRealPath("/");
+	  String pathname =root + "uploads" + File.separator + "item";
+	  
+	  try { 
+		  	service.updateItem(dto, pathname);
+		  } 
+	  catch (Exception e) { 
+		  e.printStackTrace();
+	  }
+	  
+		return "redirect:/shopping/admin/ItemManage";
+	  }
+
+	@RequestMapping("admin/deleteFile")
+	public String deleteFile(@RequestParam long num, HttpSession session) {
+		 String root=session.getServletContext().getRealPath("/");
+		  String pathname =root + "uploads" + File.separator + "item";
+		  
+		  Item dto=service.findById(num);
+		  if(dto==null) {
+				return "redirect:/shopping/admin/ItemManage";
+			}
+		  try {
+			if(dto.getSaveFileName()!=null) {
+				fileManager.doFileDelete(dto.getSaveFileName(), pathname);
+				dto.setSaveFileName("");
+				service.updateItem(dto, pathname);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+			return "redirect:/shopping/admin/item/update?id="+num;
+
+	}
+
+	@GetMapping("admin/optionManage")
+	public String optionManage(@RequestParam long num, Model model) {
+		model.addAttribute("num", num);
+		return ".shopping.admin.optionManage";
+	}
+
+	@GetMapping("admin/itemOption")
+	public String insertOption(@RequestParam long itemid, Model model) {
+		List<ItemOption> options = new ArrayList<ItemOption>();
+		options = service.listoptions(itemid);
+		model.addAttribute("options", options);
+		return "shopping/admin/itemoption";
+	}
+
+	@PostMapping("admin/itemOption")
+	public String insertOption(@RequestParam long itemid, @RequestParam String optionName, Model model) {
+		List<ItemOption> options = new ArrayList<ItemOption>();
+
+		try {
+			service.insertOption(itemid, optionName);
+			options = service.listoptions(itemid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		model.addAttribute("options", options);
 		System.out.println(options.size());
 		return "shopping/admin/itemoption";
 	}
+
 	@GetMapping("admin/itemdetailOption")
 	public String detailOption(@RequestParam long itemoptionid, Model model) {
-		List<DetailOption> options=new ArrayList<DetailOption>();
-		options= service.listdetailoptions(itemoptionid);
+		List<DetailOption> options = new ArrayList<DetailOption>();
+		options = service.listdetailoptions(itemoptionid);
 		model.addAttribute("options", options);
-		return "shopping/admin/detailoption";	
+		return "shopping/admin/detailoption";
 	}
+
 	@PostMapping("admin/itemdetailOption")
 	@ResponseBody
-	public Map<String, Object> insertdetailOption(@RequestParam long itemoptionid,@RequestParam int stock, @RequestParam String detailname) {
-		String state="false";
+	public Map<String, Object> insertdetailOption(@RequestParam long itemoptionid, @RequestParam int stock,
+			@RequestParam String detailname) {
+		String state = "false";
 
 		try {
 			service.insertdetailoptions(itemoptionid, stock, detailname);
-			state="true";
+			state = "true";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,10 +309,37 @@ public class AdminController {
 		model.put("state", state);
 		return model;
 	}
-	
-	
+
+	@GetMapping("admin/BaljuStore")
+	public String BaljuStoreList(Model model) {
+		List<ShopStore> shops = service.selectAllShopStore();
+		model.addAttribute("shops", shops);
+		return "shopping/admin/BaljuStoreList";
+	}
+
+	@GetMapping("admin/Balju")
+	public String baljuPage(Model model) {
+
+		return ".shopping.admin.Balju";
+	}
+
+	@PostMapping("admin/Balju")
+	public String insertBalju(ShopStore shop, Model model) {
+		List<ShopStore> shops = new ArrayList<ShopStore>();
+		try {
+			service.insertShopStore(shop);
+			shops = service.selectAllShopStore();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("shops", shops);
+		return "shopping/admin/BaljuStoreList";
+
+	}
+
 	@GetMapping("dog")
-	public String dogPage(HttpServletRequest req, Model model) {	
+	public String dogPage(HttpServletRequest req, Model model) {
 		int dataCount = 0;
 		// 전체 페이지 수
 		dataCount = service.dataDogCatCount(1);
@@ -202,16 +348,16 @@ public class AdminController {
 		for (Item i : items) {
 			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
 		}
-		
+
 		model.addAttribute("items", items);
 		model.addAttribute("dataCount", dataCount);
-     
+
 		return ".shopping.dog";
 
 	}
-	
+
 	@GetMapping("cat")
-	public String catPage(HttpServletRequest req, Model model) {	
+	public String catPage(HttpServletRequest req, Model model) {
 		int dataCount = 0;
 		// 전체 페이지 수
 		dataCount = service.dataDogCatCount(2);
@@ -220,49 +366,26 @@ public class AdminController {
 		for (Item i : items) {
 			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
 		}
-		
+
 		model.addAttribute("items", items);
 		model.addAttribute("dataCount", dataCount);
-     
+
 		return ".shopping.cat";
 
 	}
+
 	@GetMapping("article")
 	public String article(@RequestParam long num, Model model) {
-		Item item=null;
-		List<DetailOption> d=new ArrayList<DetailOption>();
+		Item item = null;
+		List<DetailOption> d = new ArrayList<DetailOption>();
 		System.out.println(num);
-		item=service.findById(num);
+		item = service.findById(num);
 		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
-		d=service.listAllOptions(num);
-		
+		d = service.listAllOptions(num);
+
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
 		return ".shopping.article";
 	}
-	
-	@GetMapping("orderForm")
-	public String orderForm(@RequestParam long detailId, @RequestParam int count, @RequestParam String str, Model model) {
-		DetailOption d=new DetailOption();
-		d=service.findbydetailOptionid(detailId);
-		
-		Item item=new Item();
-		item=service.findItemByItemOption(detailId);
-		
-		if(d.getStock()<count) {
-			model.addAttribute("msg","수량초과");
-			return ".error.error";
-		}
-		model.addAttribute("detailitem", d);
-		model.addAttribute("item", item);
-		model.addAttribute("count", count);
-		if(str.equals("cart")) {
-			return ".shopping.cart";
-		}else if(str.equals("buy")) {
-			return ".shopping.order";
-			
-		}else {
-			return ".shopping.jjim";
-		}
-	}
+
 }

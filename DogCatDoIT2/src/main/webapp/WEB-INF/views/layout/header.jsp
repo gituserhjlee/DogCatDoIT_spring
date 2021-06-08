@@ -29,7 +29,7 @@
 
                 <!-- Header Language & Currency Start -->
                 <div class="col">
-                    <ul class="header-lan-curr">
+                    <ul class="header-lan-curr" style="float: left; margin-top: 1px;">
                         <li><a href="#">고객센터</a>
                             <ul class="curr-lan-sub-menu">
                                 <li><a href="#">공지사항</a></li>
@@ -38,9 +38,9 @@
                                 <li><a href="#">제휴문의</a></li>
                             </ul>
                         </li>
-                        <li><a href="${pageContext.request.contextPath}/myPage/main">마이페이지</a>
-                        </li>
                     </ul>
+                    <p style="display: inline; color: lightgray;">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
+                    <a href="${pageContext.request.contextPath}/myPage/main" style="display: inline; font-size: 16px; font-weight: 400; color: gray;">마이페이지</a>
                 </div>
                 <!-- Header Language & Currency End -->
 

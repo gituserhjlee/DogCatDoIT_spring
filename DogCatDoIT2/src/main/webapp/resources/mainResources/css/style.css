@@ -3082,12 +3082,12 @@ fieldset legend {
 }
 
 /* Topbar Language & Currency */
-.header-lan-curr ~ ul li:last-child {
+.header-lan-curr ~ ul li a:last-child {
   margin-right: 15px;
   padding-right: 15px;
 }
 
-.header-lan-curr ~ ul li:last-child::after {
+.header-lan-curr ~ ul li a:last-child::after {
   display: block !important;
 }
 

@@ -8,7 +8,7 @@
 function memberOk(){
 	var f = document.memberForm;
 	var str;
-	
+
 	str = f.userId.value;
 	if(!str){
 		alert("아이디를 입력하세요.");
@@ -106,7 +106,7 @@ function changeEmail(){
 	var f = document.memberForm;
 	
 	var str = f.selectEmail.value;
-	if(str!="direct")
+	if(str!="direct") {
 		f.email2.value=str;
 		f.email2.readOnly = true;
 		f.email1.focus();
@@ -188,7 +188,7 @@ function userIdCheck(){
 				</td>
 				<td>
 					<p>
-						<input type="password" name="pwd" maxlength="15" class="boxTF lg"
+						<input type="password" name="pwdCheck" maxlength="15" class="boxTF lg"
 							placeholder="패스워드 확인">
 					</p>
 					<p class="help-block">패스워드를 한번 더 입력해주세요.</p>

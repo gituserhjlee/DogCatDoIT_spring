@@ -78,9 +78,9 @@
 													</div>
 													<div class="col-12 text-center learts-mb-50">
 	
-							<a href="${pageContext.request.contextPath}/member/member">회원가입</a>
+							<a class="btn btn-dark btn-outline-hover-dark" href="${pageContext.request.contextPath}/member/member">회원가입</a>
 
-<!-- 	<button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member'" style="font-family: Jua; font-size: 18px;">회원가입하러 가기</button> -->													
+<!-- 	<button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member';" style="font-family: Jua; font-size: 18px;">회원가입하러 가기</button> -->													
 													</div>
 												</div>
 											</form>

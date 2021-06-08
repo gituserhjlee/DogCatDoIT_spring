@@ -29,7 +29,7 @@
 	<table>
 		<tr>
 			<td style="text-align: left;">
-			
+				정보보호를 위해 패스워드를 다시 한 번 입력해주세요.
 			</td>
 		</tr>
 		
@@ -65,7 +65,11 @@
 	</table>
 	</form>
 	
-	<table style=""></table>
+	<table style="border-collapse: collapse;">
+		<tr align="center">
+			<td><span>${message}</span> </td>
+		</tr>
+	</table>
 </div>
 </div>
 

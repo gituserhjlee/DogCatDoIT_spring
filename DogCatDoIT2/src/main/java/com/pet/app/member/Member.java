@@ -1,7 +1,7 @@
 package com.pet.app.member;
 
 public class Member {
-	private String userIdx;
+	private Long userIdx;
 	private String userId;
 	private String name;
 	private String pwd;
@@ -17,10 +17,10 @@ public class Member {
 	private int clevel;
 	private int slevel;
 	
-	public String getUserIdx() {
+	public Long getUserIdx() {
 		return userIdx;
 	}
-	public void setUserIdx(String userIdx) {
+	public void setUserIdx(Long userIdx) {
 		this.userIdx = userIdx;
 	}
 	public String getUserId() {

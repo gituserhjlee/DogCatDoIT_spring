@@ -8,7 +8,7 @@
 function memberOk(){
 	var f = document.memberForm;
 	var str;
-	
+
 	str = f.userId.value;
 	if(!str){
 		alert("아이디를 입력하세요.");
@@ -106,17 +106,16 @@ function changeEmail(){
 	var f = document.memberForm;
 	
 	var str = f.selectEmail.value;
-	if(str!="direct")
+	if(str!="direct") {
 		f.email2.value=str;
 		f.email2.readOnly = true;
 		f.email1.focus();
 	} 
-	else{
+	else {
 		f.email2.value="";
 		f.email2.readOnly = false;
 		f.email1.focus();
 	}
-
 }
 
 function userIdCheck(){
@@ -189,7 +188,7 @@ function userIdCheck(){
 				</td>
 				<td>
 					<p>
-						<input type="password" name="pwd" maxlength="15" class="boxTF lg"
+						<input type="password" name="pwdCheck" maxlength="15" class="boxTF lg"
 							placeholder="패스워드 확인">
 					</p>
 					<p class="help-block">패스워드를 한번 더 입력해주세요.</p>
@@ -331,9 +330,9 @@ function userIdCheck(){
 		<table class="table table-footer">
 			<tr> 
 				<td>
-					<button type="button" name="sendButton" class="btn" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
-					<button type="reset" class="btn">다시입력</button>
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/';">${mode=="member"?"가입취소":"수정취소"}</button>
+					<button type="button" style="font-family: Jua; font-size: 18px;" name="sendButton" class="btn" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
+					<button type="reset" style="font-family: Jua; font-size: 18px;" class="btn">다시입력</button>
+					<button type="button" style="font-family: Jua; font-size: 18px;" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/';">${mode=="member"?"가입취소":"수정취소"}</button>
 				</td>
 			</tr>
 			<tr>

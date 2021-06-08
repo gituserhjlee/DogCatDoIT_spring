@@ -27,22 +27,10 @@
 		VALUES (#{userIdx}, #{userId}, #{name}, #{pwd}, SYSDATE, SYSDATE, 0)
 	</insert>
 	
-
-	
 	<update id="updateMembership" parameterType="map">
 		UPDATE member SET point = #{point}
 		WHERE userIdx=#{userIdx}
 	</update>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 </mapper>

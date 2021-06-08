@@ -5,8 +5,9 @@
 <div class="content-wrapper">
 	<div class="container-fluid">
 		<div class="optionMain">
-			<span style='font-weight: bold;'>상품 옵션 등록 </span>
-				
+		<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+			<span >상품 옵션 등록 </span>
+			</div>	
 				<table class="table">
 				
 					

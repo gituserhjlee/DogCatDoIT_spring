@@ -95,7 +95,7 @@ public class AdminService {
 			throw e;
 		}
 	}
-
+	
 	public List<ItemOption> listoptions(long num) {
 		List<ItemOption> ic = new ArrayList<ItemOption>();
 		try {
@@ -103,6 +103,16 @@ public class AdminService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return ic;
+	}
+	public List<DetailOption> Alldetailoptions(){
+		List<DetailOption> ic = new ArrayList<DetailOption>();
+		try {
+			ic=dao.selectList("shop.AlldetailOptions");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return ic;
 	}
 
@@ -190,6 +200,14 @@ public class AdminService {
 		}
 		return ss;
 
+	}
+	public void deleteShopStore(long shopStoreId) throws Exception {
+		try {
+			dao.updateData("shop.deleteShopStore", shopStoreId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	public List<Item> listItem(Map<String, Object> map) {
@@ -282,10 +300,31 @@ public class AdminService {
 	public ShopStore findByShopStoreId(long num) {
 		ShopStore ss=new ShopStore();
 		try {
-			ss=dao.selectOne("findByShopStoreId", num);
+			ss=dao.selectOne("shop.findByShopStoreId", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ss;
+	}
+	public List<ShopStoreOrder> selectShopStoreOrder(){
+		List<ShopStoreOrder> list=new ArrayList<ShopStoreOrder>();
+		try {
+			list=dao.selectList("shop.selectShopStoreOrder");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public void insertShopStoreOrder(long detailid, int count) throws Exception {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("detailid", detailid);
+		map.put("count", count);
+		try {
+			dao.insertData("shop.insertShopStoreOrder", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+			
+		}
 	}
 }

@@ -129,8 +129,8 @@
 				<div class="col-lg-6">
 					<div class="header__cart">
 						<ul>
-							<li><a href="#"><i class="fa fa-heart"></i> <span>10</span></a></li>
-							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>2</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/order/wishlist"><i class="fa fa-heart"></i> <span>10</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/views/order/cartlist"><i class="fa fa-shopping-bag"></i> <span>2</span></a></li>
 						</ul>
 						<div class="header__cart__price">
 							담긴금액: <span>56000원</span>

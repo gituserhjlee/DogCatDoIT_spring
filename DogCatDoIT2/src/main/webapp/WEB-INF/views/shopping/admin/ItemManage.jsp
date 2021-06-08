@@ -30,11 +30,12 @@
 									action="${pageContext.request.contextPath}/shopping/admin/item/delete"
 									onsubmit="return deletecheck();">
 									<input type="hidden" name="num" value="${i.itemId}">
+									<input type="hidden" name="page" value="${page}">
 									<button type='submit' class='btn btn-outline-danger'
 										style='padding: 10px 20px; border-radius: 10px;  margin-right: 10px;'>삭제</button>
 								</form>
 								
-									<button type='button' class='btn btn-outline-danger' onclick="location.href='${pageContext.request.contextPath}/shopping/admin/item/update?id=${i.itemId}';"
+									<button type='button' class='btn btn-outline-danger' onclick="location.href='${pageContext.request.contextPath}/shopping/admin/item/update?id=${i.itemId}&page=${page}';"
 										 style='padding: 10px 20px; border-radius: 10px; '>수정</button>
 
 								

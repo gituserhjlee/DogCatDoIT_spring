@@ -151,8 +151,24 @@ public class AdminController {
 
 		return ".shopping.admin.ItemInsert";
 	}
+	
+	@PostMapping("admin/item/insert")
+	public String insertItem(Item item, HttpSession session, Model model) {
+
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "item";
+		try {
+			service.insertItem(item, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "상품등록실패! 모든 내용을 채우셨나요?");
+			return ".error.error";
+		}
+		return "redirect:/shopping/admin/ItemManage";
+	}
+	
 	@GetMapping("admin/item/update")
-	public String ItemInsert(Model model, @RequestParam long id) {
+	public String ItemInsert(Model model, @RequestParam long id, @RequestParam int page) {
 
 		List<ShopStore> ss = service.listStore();
 		List<ShopStore> ss2=new ArrayList<ShopStore>();
@@ -179,6 +195,7 @@ public class AdminController {
 			String parent = service.findByCategoryId(i.getParentNum()).getItemCategoryName();
 			i.setItemCategoryName('(' + parent + ')' + i.getItemCategoryName());
 		}
+		model.addAttribute("page", page);
 		model.addAttribute("mode", "update");
 		model.addAttribute("category", newic);
 		model.addAttribute("store", ss2);
@@ -188,36 +205,9 @@ public class AdminController {
 
 		return ".shopping.admin.ItemInsert";
 	}
-	@PostMapping("admin/item/insert")
-	public String insertItem(Item item, HttpSession session, Model model) {
-
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "item";
-		try {
-			service.insertItem(item, pathname);
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "상품등록실패! 모든 내용을 채우셨나요?");
-			return ".error.error";
-		}
-		return "redirect:/shopping/admin/ItemManage";
-	}
-
-	@PostMapping("admin/item/delete")
-	public String deleteItem(@RequestParam long num, HttpSession session) {
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "item";
-		try {
-			service.deleteItem(num, pathname);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ".error.error";
-		}
-		return "redirect:/shopping/admin/ItemManage";
-	}
-
+	
 	@PostMapping("admin/item/update")
-	  public String updateItem(Item dto, HttpSession session) throws Exception {
+	  public String updateItem(Item dto, @RequestParam int page, HttpSession session) throws Exception {
 	  
 	  String root=session.getServletContext().getRealPath("/");
 	  String pathname =root + "uploads" + File.separator + "item";
@@ -229,8 +219,24 @@ public class AdminController {
 		  e.printStackTrace();
 	  }
 	  
-		return "redirect:/shopping/admin/ItemManage";
+		return "redirect:/shopping/admin/ItemManage?page="+page;
 	  }
+	
+
+	@PostMapping("admin/item/delete")
+	public String deleteItem(@RequestParam long num,@RequestParam int page, HttpSession session) {
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "item";
+		try {
+			service.deleteItem(num, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ".error.error";
+		}
+		return "redirect:/shopping/admin/ItemManage?page="+page;
+	}
+
+	
 
 	@RequestMapping("admin/deleteFile")
 	public String deleteFile(@RequestParam long num, HttpSession session) {
@@ -316,6 +322,17 @@ public class AdminController {
 		model.addAttribute("shops", shops);
 		return "shopping/admin/BaljuStoreList";
 	}
+	@PostMapping("admin/BaljuStore")
+	public String BaljuStoreDelete(Model model, @RequestParam long shopStoreId) {
+		try {
+			service.deleteShopStore(shopStoreId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<ShopStore> shops = service.selectAllShopStore();
+		model.addAttribute("shops", shops);
+		return "shopping/admin/BaljuStoreList";
+	}
 
 	@GetMapping("admin/Balju")
 	public String baljuPage(Model model) {
@@ -337,7 +354,38 @@ public class AdminController {
 		return "shopping/admin/BaljuStoreList";
 
 	}
+	@GetMapping("admin/stockManage")
+	public String stockManage(Model model){
+		List<DetailOption> ic = new ArrayList<DetailOption>();
+		ic=service.Alldetailoptions();
+		model.addAttribute("options", ic);
+		System.out.println(ic.size());
+		return ".shopping.admin.stockManage";
+	}
+	@PostMapping("admin/insertBalju")
+	public String insertBalju(@RequestParam long id, @RequestParam int count, Model model) {
+		List<ShopStoreOrder> list=new ArrayList<ShopStoreOrder>();
+		try {
+			service.insertShopStoreOrder(id, count);
+			list=service.selectShopStoreOrder();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("list", list);
+		return "redirect:/shopping/admin/BaljuOrder";
+	}
+	@GetMapping("admin/BaljuOrder")
+	public String baljuorder(Model model) {
+		List<ShopStoreOrder> list=new ArrayList<ShopStoreOrder>();
+		try {
+			list=service.selectShopStoreOrder();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("list", list);
 
+		return ".shopping.admin.BaljuOrder";
+	}
 	@GetMapping("dog")
 	public String dogPage(HttpServletRequest req, Model model) {
 		int dataCount = 0;

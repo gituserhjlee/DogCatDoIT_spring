@@ -4,15 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <table class="table">
-	<thead class="thead-dark">
+	<thead class="thead-dark" style="text-align: center;">
 		<tr>
-			<th scope="col">번호</th>
-			<th scope="col">업체명</th>
-			<th scope="col">업체 연락처</th>
-			<th scope="col">우편번호</th>
-			<th scope="col">기본주소</th>
-			<th scope="col">상세주소</th>
-			<th scope="col">거래여부</th>
+			<th scope="col" style="vertical-align: middle"></th>
+			<th scope="col" style="vertical-align: middle">업체명</th>
+			<th scope="col" style="vertical-align: middle">연락처</th>
+			<th scope="col" style="vertical-align: middle">우편<br>번호
+			</th>
+			<th scope="col" style="vertical-align: middle">기본주소</th>
+			<th scope="col" style="vertical-align: middle">상세주소</th>
+			<th scope="col" style="vertical-align: middle">거래<br>여부
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,18 +22,33 @@
   		등록된 업체가 없습니다.
   		</c:if>
 		<c:forEach var="s" items="${shops}">
+			<tr style="<c:if test="${s.enabled eq '0' }">
+				color:gray; text-decoration:line-through ;
+			</c:if> ">
 
-			<tr>
-				<th scope="row">${s.shopStoreId }</th>
+				<th scope="row">
+				<c:if test="${s.enabled eq true}">
+				<button class="btn btn-outline-danger"
+						style="border-radius: 10px;"
+						onclick='deleteShop(${s.shopStoreId});'>중단</button>
+						</c:if></th>
 				<td>${s.shopStoreName }</td>
 				<td>${s.shopStoreTel }</td>
 				<td>${s.zip }</td>
 				<td>${s.shopStoreAddress1 }</td>
 				<td>${s.shopStoreAddress2 }</td>
-				<td>${s.enabled}</td>
+
+				<c:if test="${s.enabled eq true}">
+					<td>거래중</td>
+				</c:if>
+				<c:if test="${s.enabled eq false}">
+					<td>중단</td>
+				</c:if>
 			</tr>
+
 		</c:forEach>
 
 
 	</tbody>
 </table>
+

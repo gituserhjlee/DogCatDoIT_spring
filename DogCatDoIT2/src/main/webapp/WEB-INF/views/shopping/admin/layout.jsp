@@ -125,8 +125,8 @@
 								발주 업체 관리</span>
 					</a></li>
 					<li class="treeview" id="stockManage"><a class="waves-effect waves-dark"
-						href="basic-table.html"> <i class="icon-list"></i><span>
-								재고관리</span>
+						href="${pageContext.request.contextPath}/shopping/admin/stockManage"> <i class="icon-list"></i><span>
+								발주</span>
 					</a></li>
 					<li class="treeview" id="levelManage"><a class="waves-effect waves-dark"
 						href="basic-table.html"> <i class="icon-list"></i><span>

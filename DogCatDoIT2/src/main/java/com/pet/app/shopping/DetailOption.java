@@ -1,12 +1,20 @@
 package com.pet.app.shopping;
 
 public class DetailOption {
+	private String itemName;
 	private long detailId;
 	private long itemoptionid;
 	private int stock;
 	private String detailname;
 	private String optionName;
+	private String shopStoreName;
 	
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 	public long getDetailId() {
 		return detailId;
 	}
@@ -37,6 +45,14 @@ public class DetailOption {
 	public void setOptionName(String optionName) {
 		this.optionName = optionName;
 	}
+	public String getShopStoreName() {
+		return shopStoreName;
+	}
+	public void setShopStoreName(String shopStoreName) {
+		this.shopStoreName = shopStoreName;
+	}
+
+
 	
 	
 	

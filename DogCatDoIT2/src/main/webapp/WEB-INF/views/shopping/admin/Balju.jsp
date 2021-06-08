@@ -6,10 +6,9 @@
 	<div class="container-fluid">
 		<div class="baljuMain">
 			<form name="BaljuForm" id="BaljuForm">
-				<span
-					style='font-weight: bold; display: inline-block; margin: 0 0 -1px; padding: 15px 25px; color: #555555;'>발주
-					업체 관리 </span>
-
+			<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+				<span>발주 업체 관리 </span>
+			</div>
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="업체명을 입력하세요"
 						name="shopStoreName"> 
@@ -43,6 +42,27 @@ function listShopStore(){
 	$.ajax({
 		url:"${pageContext.request.contextPath}/shopping/admin/BaljuStore",
 		type:"GET",
+		dataType:'html',
+		success:function(data){
+			$(".storelist").html(data);
+		}
+	})
+}
+</script>
+<script>
+function deleteShop(shopStoreId){
+	if(confirm("정말 중단하시겠습니까 ? ") == true){
+        alert("중단되었습니다");
+    }
+    else{
+        return false ;
+    }
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/shopping/admin/BaljuStore",
+		type:"POST",
+		data:"shopStoreId="+shopStoreId,
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
 		dataType:'html',
 		success:function(data){
 			$(".storelist").html(data);

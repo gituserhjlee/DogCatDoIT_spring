@@ -126,6 +126,7 @@
 									<input type="hidden" name="itemId" value="${item.itemId}">
 									<input type="hidden" name="saveFileName"
 										value="${item.saveFileName}">
+									<input type="hidden" name="page" value="${page}">
 								</c:if>
 							</td>
 						</tr>

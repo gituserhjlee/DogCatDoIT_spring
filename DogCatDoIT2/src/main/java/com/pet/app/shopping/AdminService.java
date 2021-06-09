@@ -355,4 +355,24 @@ public class AdminService {
 		}
 		return list;
 	}
+	
+	public void insertReview(ShopReview review) throws Exception {
+		try {
+			dao.insertData("shop.insertReview", review);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public List<ShopReview> selectReview(long itemId){
+		List<ShopReview> review=new ArrayList<ShopReview>();
+		try {
+			review=dao.selectList("shop.selectReview", itemId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return review;
+		
+	}
 }

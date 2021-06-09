@@ -124,9 +124,9 @@
 							</div>
 						</div>
 						<div style="margin-top: 10px;">
-							<button type="button" class="primary-btn"
+							<button type="button" class="primary-btn" style="border: 2px solid #F79F81;"
 								onclick="addCart('cart')">ADD TO CART</button>
-							<button type="button" class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
+							<button type="button" style="border: 2px solid #F79F81;"  class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
 							<a class="heart-icon" onclick="addCart('jjim')"> <span
 								class="icon_heart_alt"></span></a>
 						</div>
@@ -143,7 +143,7 @@
 						</li>
 
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-2" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
+							href="#tabs-2" role="tab" aria-selected="false" onclick="reviewlist();">Reviews <span>(1)</span></a>
 						</li>
 					</ul>
 					<div class="tab-content">
@@ -156,8 +156,32 @@
 
 						<div class="tab-pane" id="tabs-2" role="tabpanel">
 							<div class="product__details__tab__desc">
-								<h6>Products Infomation</h6>
-								<p>리뷰입니다</p>
+								<h6>Reviews</h6>
+								<form name="reviewForm">
+									<input type="hidden" name="itemId" id="itemId" value="${item.itemId}">
+									<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+										<span>별점을 선택해주세요 </span>
+										<div class="starRev">
+										  <span class="starR on">별1</span>
+										  <span class="starR on">별2</span>
+										  <span class="starR on">별3</span>
+										  <span class="starR on">별4</span>
+										  <span class="starR on">별5</span>
+										 
+									</div>
+									
+									<div>
+										<span>느낀점을 입력해주세요 </span>
+										<textarea name="content" id="content" style="height: 100px; display: block; border:2px solid #F79F81; border-radius:10px; "></textarea>
+									</div> 
+									<button type="button" class="primary-btn" style="border: 2px solid #F79F81; border-radius:10px;"
+									onclick="addReview()">Submit</button>
+									</div>
+									
+								</form>		
+			
+			
+							<div class="reviewList"></div>
 							</div>
 						</div>
 					</div>
@@ -167,4 +191,52 @@
 	</div>
 </section>
 <!-- Product Details Section End -->
+<script>
+function reviewlist(){
+	var itemId=$('#itemId').val();
+	$.ajax({
+		url:"${pageContext.request.contextPath}/shopping/review?itemId="+itemId,
+		type:"GET",
+		dataType:'html',
+		success:function(data){
+			$(".reviewList").html(data);
+			
+		}
+	})
+}
+</script>
+
+<script>
+function addReview(){
+	var score=$('.on').length;
+	var itemId=$('#itemId').val();
+	var content=$('#content').val();
+	var f = document.reviewForm;
+
+	var str = f.content.value;
+	if (!str) {
+		f.content.focus();
+		return false;
+	}
+	
+	if(confirm("등록하시겠습니까 ? ") == true){
+        alert("등록되었습니다");
+    }
+    else{
+        return false ;
+    }
+	//에이잭스로 처리 
+	$.ajax({
+			url:"${pageContext.request.contextPath}/shopping/review",
+			type:"POST",
+			data:{"score":score, "itemId":itemId, "content":content},
+			dataType:'html',
+			success:function(data){
+				$(".reviewList").html(data);
+				f.reset();
+			}
+		})
+	
+}
+</script>
 

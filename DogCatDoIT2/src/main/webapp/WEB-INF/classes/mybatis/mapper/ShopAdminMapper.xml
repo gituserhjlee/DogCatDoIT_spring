@@ -252,4 +252,14 @@
 	from shopcoupon 
 	order by deadline desc
 	</select>
+	
+	<insert id="insertReview" parameterType="com.pet.app.shopping.ShopReview">
+	insert into review(reviewNum,useridx, itemId, score,content, registered) values(review_seq.NEXTVAL,#{useridx}, #{itemId}, #{score}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="selectReview" parameterType="long" resultType="com.pet.app.shopping.ShopReview">
+	select reviewNum, useridx, itemId, score,content, registered from review 
+	where itemId=#{itemId}
+	
+	</select>
 </mapper>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.app.common.FileManager;
 import com.pet.app.common.MyUtil;
+import com.pet.app.member.SessionInfo;
 
 @Controller
 @RequestMapping("/shopping/*")
@@ -63,6 +64,7 @@ public class AdminController {
 
 		return ".shopping.mainPage";
 	}
+	
 
 	@GetMapping("admin/dashboard")
 	public String adminPage() {
@@ -460,6 +462,35 @@ public class AdminController {
 		model.addAttribute("options", d);
 		return ".shopping.article";
 	}
+	
+	@GetMapping("review")
+	public String listReview(@RequestParam long itemId, Model model) {
+		System.out.println("아이템번호"+itemId);
+		List<ShopReview> reviews=new ArrayList<ShopReview>();
+		try {
+			reviews=service.selectReview(itemId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("reviews", reviews);
+		return "/shopping/reviewList";
+	}
+	@PostMapping("review")
+	public String insertReview(ShopReview review,HttpServletRequest req, Model model) {
+		List<ShopReview> reviews=new ArrayList<ShopReview>();
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		review.setUseridx(info.getUserIdx());
+		try {
+			service.insertReview(review);
+			reviews=service.selectReview(review.getItemId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("reviews", reviews);
+		return "/shopping/reviewList";
+	}
+	
 	@GetMapping("admin/CouponList")
 	public String CouponList(Model model) {
 		List<Coupon> coupons=new ArrayList<Coupon>();

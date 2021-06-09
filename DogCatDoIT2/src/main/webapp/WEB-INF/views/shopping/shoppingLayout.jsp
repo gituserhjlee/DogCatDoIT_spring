@@ -90,7 +90,27 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/slick.css">
 
+<style>
+.starR{
+  background: url('${pageContext.request.contextPath}/resources/shopAdmin/images/star.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.starR.on{
+  background: url('${pageContext.request.contextPath}/resources/shopAdmin/images/star2.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
 
+</style>
 
 <title>Insert title here</title>
 </head>
@@ -149,6 +169,7 @@
 
 	<tiles:insertAttribute name="body" />
 	<tiles:insertAttribute name="footer" />
+	
 <script>
 function addCart(str){
 	var f=document.oform;
@@ -232,6 +253,15 @@ function addCart(str){
 
 	<script
 		src="${pageContext.request.contextPath}/resources/mainResources/js/main.js"></script>
-
+	
+	
+	<script>
+	$('.starRev span').click(function(){
+		  $(this).parent().children('span').removeClass('on');
+		  $(this).addClass('on').prevAll('span').addClass('on');
+		  return false;
+		});
+	
+	</script>
 </body>
 </html>

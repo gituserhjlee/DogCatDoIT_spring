@@ -116,7 +116,7 @@
 							class="icon-briefcase"></i><span> 상품등록</span></a></li>
 
 					<li class="treeview" id="couponManage"><a class="waves-effect waves-dark"
-						href="#!"><i class="icon-list"></i><span> 쿠폰관리</span></a></li>
+						href="${pageContext.request.contextPath}/shopping/admin/CouponManage"><i class="icon-list"></i><span> 쿠폰관리</span></a></li>
 
 
 

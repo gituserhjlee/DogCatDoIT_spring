@@ -218,6 +218,11 @@
 	values(shopStore_seq.NEXTVAL,#{shopStoreName},#{shopStoreTel},#{zip}, #{shopStoreAddress1}, #{shopStoreAddress2},#{enabled}) 
 	</insert>
 	
+	<update id="updateShopStore" parameterType="com.pet.app.shopping.ShopStore">
+	update shopstore set shopStoreName=#{shopStoreName}, shopStoreTel=#{shopStoreTel}, 
+	zip=#{zip}, shopStoreAddress1=#{shopStoreAddress1}, shopStoreAddress2=#{shopStoreAddress2} 
+	where shopStoreId=#{shopStoreId} 
+	</update>
 	
 	<select id="selectAllShopStore" resultType="com.pet.app.shopping.ShopStore">
 	select shopStoreId,shopStoreName,shopStoreTel,zip,shopStoreAddress1,shopStoreAddress2,enabled
@@ -232,7 +237,19 @@
 		join item i on o.itemid=i.itemid 
 		order by registered desc
 	</select>
+	
 	<insert id="insertShopStoreOrder" parameterType="map">
 	insert into shopstoreorder(id, detailid, count, registered) values(shopstoreorder_seq.NEXTVAL, #{detailid}, #{count}, SYSDATE)
 	</insert>
+	
+	<insert id="insertCoupon" parameterType="com.pet.app.shopping.Coupon">
+	insert into shopcoupon(couponNum,couponName,deadline,stock,rate) 
+	values (shopcoupon_seq.NEXTVAL, #{couponName},#{deadline},#{stock},#{rate})
+	</insert>
+	
+	<select id="selectCouponList" resultType="com.pet.app.shopping.Coupon">
+	select couponNum,couponName, to_char(deadline,'YYYY-MM-DD') deadline ,stock,rate 
+	from shopcoupon 
+	order by deadline desc
+	</select>
 </mapper>

@@ -6,7 +6,8 @@
 	<div class="container-fluid">
 		<div style="padding:20px;">
 		<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
-				<span>발주 가능 목록 </span><button class="btn btn-outline-danger" onclick="location.href='${pageContext.request.contextPath}/shopping/admin/BaljuOrder'">발주 현황보기</button>
+				<span>발주 가능 목록 </span>
+				<button class="btn btn-outline-danger" style="float:right;  border-radius:10px; font-family:Ubuntu, sans-serif;" onclick="location.href='${pageContext.request.contextPath}/shopping/admin/BaljuOrder'">발주 현황보기</button>
 			</div>
 			<table class="table" style="text-align: center;">
 				<thead class="thead-dark" style="text-align: center;">

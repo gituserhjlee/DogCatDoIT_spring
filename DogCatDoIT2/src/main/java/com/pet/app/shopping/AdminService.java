@@ -288,6 +288,15 @@ public class AdminService {
 		}
 	}
 	
+	public void updateShopStore(ShopStore shop) throws Exception{
+		try {
+			dao.updateData("shop.updateShopStore", shop);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	public List<ShopStore> selectAllShopStore(){
 		List<ShopStore> shops=new ArrayList<ShopStore>();
 		try {
@@ -326,5 +335,24 @@ public class AdminService {
 			throw e;
 			
 		}
+	}
+	
+	public void insertCoupon(Coupon coupon) throws Exception {
+		try {
+			dao.insertData("shop.insertCoupon", coupon);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public List<Coupon> couponList(){
+		List<Coupon> list=new ArrayList<Coupon>();
+		try {
+			list=dao.selectList("shop.selectCouponList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

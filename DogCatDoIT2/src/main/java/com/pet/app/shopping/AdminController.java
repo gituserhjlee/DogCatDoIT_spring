@@ -336,11 +336,11 @@ public class AdminController {
 
 	@GetMapping("admin/Balju")
 	public String baljuPage(Model model) {
-
+		model.addAttribute("mode", "insert");
 		return ".shopping.admin.Balju";
 	}
 
-	@PostMapping("admin/Balju")
+	@PostMapping("admin/Balju/insert")
 	public String insertBalju(ShopStore shop, Model model) {
 		List<ShopStore> shops = new ArrayList<ShopStore>();
 		try {
@@ -352,6 +352,31 @@ public class AdminController {
 		}
 		model.addAttribute("shops", shops);
 		return "shopping/admin/BaljuStoreList";
+
+	}
+	
+	@GetMapping("admin/BaljuUpdate")
+	public String updateBaljuForm(@RequestParam long id, Model model) {
+		ShopStore store=new ShopStore();
+		store=service.findByShopStoreId(id);
+		model.addAttribute("mode", "update");
+		model.addAttribute("store", store);
+		return ".shopping.admin.Balju";
+	}
+	
+	@PostMapping("admin/Balju/update")
+	public String updateBalju(ShopStore shop, Model model) {
+		List<ShopStore> shops = new ArrayList<ShopStore>();
+		try {
+			service.updateShopStore(shop);
+			shops = service.selectAllShopStore();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("shops", shops);
+		System.out.println("성공");
+		return "redirect:/shopping/admin/Balju";
 
 	}
 	@GetMapping("admin/stockManage")
@@ -434,6 +459,34 @@ public class AdminController {
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
 		return ".shopping.article";
+	}
+	@GetMapping("admin/CouponList")
+	public String CouponList(Model model) {
+		List<Coupon> coupons=new ArrayList<Coupon>();
+		coupons=service.couponList();
+		model.addAttribute("coupons", coupons);
+
+		return "/shopping/admin/CouponList";
+	}
+	
+	
+	@GetMapping("admin/CouponManage")
+	public String couponManage() {
+	
+		return ".shopping.admin.CouponManage";
+	}
+	
+	@PostMapping("admin/CouponManage")
+	public String couponinsert(Coupon coupon, Model model) {
+		List<Coupon> coupons=new ArrayList<Coupon>();
+		try {
+			service.insertCoupon(coupon);
+			coupons=service.couponList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("coupons", coupons);
+		return "/shopping/admin/CouponList";
 	}
 
 }

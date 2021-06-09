@@ -5,70 +5,117 @@
 <div class="content-wrapper">
 	<div class="container-fluid">
 		<div class="baljuMain">
-			<form name="BaljuForm" id="BaljuForm">
-			<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
-				<span>발주 업체 관리 </span>
-			</div>
+			<form name="BaljuForm" id="BaljuForm" method="post">
+			
+				<div
+					style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+					<span>발주 업체 관리 </span>
+				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="업체명을 입력하세요"
-						name="shopStoreName"> 
-						<input type="tel"
-						class="form-control" placeholder="업체 연락처를 입력하세요"
-						name="shopStoreTel">
+						name="shopStoreName" value="${store.shopStoreName}"> <input
+						type="tel" class="form-control" placeholder="업체 연락처를 입력하세요"
+						name="shopStoreTel" value="${store.shopStoreTel}">
 				</div>
 
 				<div class="form-group">
 					<button type="button" class="btn btn-outline-danger"
 						onclick="daumPostcode();" style="border-radius: 10px;">우편번호</button>
-					<input class="form-control" type="text" name="zip"
-						id="zip" readonly="readonly" placeholder="우편번호"> <input
-						type="text" name="shopStoreAddress1" id="addr1" class="form-control"
-						placeholder="기본주소를 입력하세요" readonly="readonly"> <input
-						type="text" name="shopStoreAddress2" id="addr2"
-						class="form-control" placeholder="상세주소를 입력하세요">
+					<input class="form-control" type="text" name="zip" id="zip"
+						readonly="readonly" placeholder="우편번호" value="${store.zip}">
+					<input type="text" name="shopStoreAddress1" id="addr1"
+						class="form-control" placeholder="기본주소를 입력하세요" readonly="readonly"
+						value="${store.shopStoreAddress1}"> <input type="text"
+						name="shopStoreAddress2" id="addr2" class="form-control"
+						placeholder="상세주소를 입력하세요" value="${store.shopStoreAddress2}">
 				</div>
 				<div class="form-group">
+					<c:if test="${mode eq 'insert'}">
+						<button type='button' class='btn btnSendOption btn-danger'
+							onclick="insertStore()"
+							style='padding: 10px 20px; border-radius: 10px;'>발주 업체
+							등록</button>
+					</c:if>
+					<c:if test="${mode eq 'update'}">
+					<input type="hidden" name="shopStoreId" value="${store.shopStoreId}">
+					
 					<button type='button' class='btn btnSendOption btn-danger'
-						onclick="insertStore()"
-						style='padding: 10px 20px; border-radius: 10px;'>발주 업체 등록</button>
+							onclick="updateStore()"
+							style='padding: 10px 20px; border-radius: 10px;'>발주 업체
+							수정</button>
+					
+					</c:if>
 				</div>
 			</form>
+			
 		</div>
 		<div class="storelist"></div>
 	</div>
 </div>
 <script>
-function listShopStore(){
-	$.ajax({
-		url:"${pageContext.request.contextPath}/shopping/admin/BaljuStore",
-		type:"GET",
-		dataType:'html',
-		success:function(data){
-			$(".storelist").html(data);
-		}
-	})
+	function listShopStore() {
+		$
+				.ajax({
+					url : "${pageContext.request.contextPath}/shopping/admin/BaljuStore",
+					type : "GET",
+					dataType : 'html',
+					success : function(data) {
+						$(".storelist").html(data);
+					}
+				})
+	}
+</script>
+<script>
+function updateStore(){
+	var f = document.BaljuForm;
+	var str = f.shopStoreName.value;
+	if (!str) {
+		f.shopStoreName.focus();
+		return false;
+	}
+	str = f.shopStoreTel.value;
+	if (!str) {
+		f.shopStoreTel.focus();
+		return false;
+	}
+	str = f.zip.value;
+	if (!str) {
+		f.zip.focus();
+		return false;
+	}
+	str = f.shopStoreAddress1.value;
+	if (!str) {
+		f.shopStoreAddress1.focus();
+		return false;
+	}
+	str = f.shopStoreAddress2.value;
+	if (!str) {
+		f.shopStoreAddress2.focus();
+		return false;
+	}
+	f.action="${pageContext.request.contextPath}/shopping/admin/Balju/update";
+	f.submit();
 }
 </script>
 <script>
-function deleteShop(shopStoreId){
-	if(confirm("정말 중단하시겠습니까 ? ") == true){
-        alert("중단되었습니다");
-    }
-    else{
-        return false ;
-    }
-	
-	$.ajax({
-		url:"${pageContext.request.contextPath}/shopping/admin/BaljuStore",
-		type:"POST",
-		data:"shopStoreId="+shopStoreId,
-		contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
-		dataType:'html',
-		success:function(data){
-			$(".storelist").html(data);
+	function deleteShop(shopStoreId) {
+		if (confirm("정말 중단하시겠습니까 ? ") == true) {
+			alert("중단되었습니다");
+		} else {
+			return false;
 		}
-	})
-}
+
+		$.ajax({
+					url : "${pageContext.request.contextPath}/shopping/admin/BaljuStore",
+					type : "POST",
+					data : "shopStoreId=" + shopStoreId,
+					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					dataType : 'html',
+					success : function(data) {
+						$(".storelist").html(data);
+					}
+				})
+	}
 </script>
 <script>
 	$(function() {
@@ -121,50 +168,45 @@ function deleteShop(shopStoreId){
 </script>
 <script>
 	function insertStore() {
-		var f=document.BaljuForm;
-		var str=f.shopStoreName.value;
-		if(!str){
+		var f = document.BaljuForm;
+		var str = f.shopStoreName.value;
+		if (!str) {
 			f.shopStoreName.focus();
 			return false;
 		}
-		 str=f.shopStoreTel.value;
-		if(!str){
+		str = f.shopStoreTel.value;
+		if (!str) {
 			f.shopStoreTel.focus();
 			return false;
 		}
-		 str=f.zip.value;
-		if(!str){
+		str = f.zip.value;
+		if (!str) {
 			f.zip.focus();
 			return false;
 		}
-		 str=f.shopStoreAddress1.value;
-		if(!str){
+		str = f.shopStoreAddress1.value;
+		if (!str) {
 			f.shopStoreAddress1.focus();
 			return false;
 		}
-		 str=f.shopStoreAddress2.value;
-			if(!str){
-				f.shopStoreAddress2.focus();
-				return false;
-			}
-		
-		
-		
-		var params=$("#BaljuForm").serialize();
-		$.ajax({
-			url:"${pageContext.request.contextPath}/shopping/admin/Balju",
-			type:"POST",
-			data:params,
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
-			dataType:'html',
-			success:function(data){
-				$(".storelist").html(data);
-				f.shopStoreName.value="";
-				f.shopStoreTel.value="";
-				f.zip.value="";
-				f.shopStoreAddress1.value="";
-				f.shopStoreAddress2.value="";
-			}
-		});
+		str = f.shopStoreAddress2.value;
+		if (!str) {
+			f.shopStoreAddress2.focus();
+			return false;
+		}
+
+		var params = $("#BaljuForm").serialize();
+		$
+				.ajax({
+					url : "${pageContext.request.contextPath}/shopping/admin/Balju/insert",
+					type : "POST",
+					data : params,
+					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					dataType : 'html',
+					success : function(data) {
+						$(".storelist").html(data);
+						f.reset();
+					}
+				});
 	}
 </script>

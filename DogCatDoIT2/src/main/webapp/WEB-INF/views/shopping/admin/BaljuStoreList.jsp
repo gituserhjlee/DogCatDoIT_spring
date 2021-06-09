@@ -7,6 +7,7 @@
 	<thead class="thead-dark" style="text-align: center;">
 		<tr>
 			<th scope="col" style="vertical-align: middle"></th>
+			<th scope="col" style="vertical-align: middle"></th>
 			<th scope="col" style="vertical-align: middle">업체명</th>
 			<th scope="col" style="vertical-align: middle">연락처</th>
 			<th scope="col" style="vertical-align: middle">우편<br>번호
@@ -28,10 +29,20 @@
 
 				<th scope="row">
 				<c:if test="${s.enabled eq true}">
-				<button class="btn btn-outline-danger"
+				<button class="btn btn-danger"
 						style="border-radius: 10px;"
 						onclick='deleteShop(${s.shopStoreId});'>중단</button>
-						</c:if></th>
+				</c:if>
+				</th>
+				<th>
+				<c:if test="${s.enabled eq true}">
+					
+					<button class="btn btn-outline-danger"
+							style="border-radius: 10px;"
+							onclick="location.href='${pageContext.request.contextPath}/shopping/admin/BaljuUpdate?id=${s.shopStoreId}'">수정</button>	
+						
+				</c:if>
+				</th>		
 				<td>${s.shopStoreName }</td>
 				<td>${s.shopStoreTel }</td>
 				<td>${s.zip }</td>

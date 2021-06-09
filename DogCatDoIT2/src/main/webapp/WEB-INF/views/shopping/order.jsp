@@ -12,10 +12,28 @@
 * {
 	box-sizing: border-box;
 }
+#orderForm {
+	box-sizing: border-box;
 
+}
 .container {
 	width: 1110px;
 	margin: 0 auto;
+}
+#orderForm input, #orderForm label {
+	display: inline-block;
+}
+#orderForm .boxTF {
+	border:1px solid #999;
+	padding:3px 5px 5px;
+	border-radius:4px;
+	background-color:#fff;
+	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+}
+#orderForm .boxTF[readonly] {
+	background-color:#eee;
+}
+#orderForm label {
 }
 
 table {
@@ -103,23 +121,18 @@ table tr {
 	height: 55px;
 }
 
-.table2 td:first-child:not (.td2 ) {
+.table2 td:first-child:not(.td2 ) {
 	width: 175px;
 	background: #eee;
 	text-align: center;
 }
 
 .table2 td:last-child {
-	width: 935px;
+	width: 910px;
 	padding: 12px 10px 11px 15px;
 }
-
-.no-margin-top {
-	margin-bottom: 0;
-}
-
-.no-margin-bot {
-	margin-top: 0;
+.table2 td:firstst-child {
+	width: 170px;
 }
 
 /* 제출 버튼 */
@@ -131,26 +144,29 @@ table tr {
 	text-align: right;
 }
 
-input[type=text] {
+#orderForm input[type=text] {
 	width: 165px;
 }
 
-input[name*=Addr] {
+#orderForm input[name*=Addr] {
 	width: 400px;
 }
+#orderForm input[name=orAddr] {
+	width: 500px;
+}
 
-input[name*=Tel] {
+#orderForm input[name*=Tel] {
 	width: 65px;
 }
 
-input[name=orderMemo] {
-	width: 900px;
+#orderForm input[name=orderMemo] {
+	width: 800px;
 }
-.orName {
-	width: 100px;
-}
+
 .product-img {
-	
+	width: 60px;
+	height: 60px;
+	object-fit: cover;
 }
 </style>
 
@@ -175,16 +191,16 @@ $(function() {
 					
 			// 인풋 요소들 disable:true
 			$("#deliveryForm input").not("input[name=orderMemo]")
-									.prop("disabled", true);
+									.prop("readonly", true);
 		} else { // 신규 배송지
 			// 주소찾기 버튼 display:inline-block
 			$("#deliveryForm .searchAddrBtn").css("display", "inline-block");
 					
 			// 인풋 요소들 reset, disable:false
-			$("#deliveryForm input").each(function() {$(this).val("");});
+			$("#deliveryForm input").each(function() {$(this).not("input:radio").val("");});
 			
 			$("#deliveryForm input").not("input[name=orderMemo], input[name=diZip], input[name=diAddr1]")
-									.prop("disabled", false);
+									.prop("readonly", false);
 		}
 	});
 });
@@ -199,7 +215,7 @@ $(function() {
 		currentAmount = totalAmount - usePoint;
 		if (currentAmount < 0) {
 			alert("적용할 포인트가 결제하실 금액보다 많습니다.");
-			$(this).val("");
+			$(this).val("0");
 			return false;
 		}
 	});
@@ -208,7 +224,7 @@ $(function() {
 	$("#pointDiscount").change(function() {
 		if ($(this).val() > point) {
 			alert("포인트가 부족합니다.");
-			$(this).val("");
+			$(this).val("0");
 			return false;
 		}
 	});
@@ -221,8 +237,6 @@ $(function() {
 		$("input[name=totalAmount]").val("68000");
 		
 		let f = document.orderForm;
-		// 모든 데이터를 보내기위해 disabled: false
-		$("input:disabled").prop("disabled",false);
 		
 		let url = "${pageContext.request.contextPath}/order/insert";
 		let query = new FormData(f);
@@ -312,6 +326,10 @@ $(function() {
 		    }
 		});
 		
+		$(".btnConfirm3").click(function() {
+			// 구매완료 테스트용
+		});
+		
 	});
 });
 
@@ -366,7 +384,7 @@ $(function() {
 	}
 </script>
 
-	<div class="container">
+<div class="container">
 	<form id="orderForm" name="orderForm" method="post">
 		<div>
 			<h2>상품 리스트</h2>
@@ -386,7 +404,7 @@ $(function() {
 				<tr>
 					<td>
 						<a href="${pageContext.request.contextPath}/shopping/article?num=${item.itemId}">
-							<img class="product-img" height="60" width="60"
+							<img class="product-img"
 								src="${pageContext.request.contextPath}/uploads/item/${item.saveFileName}"
 								alt="사진">
 						</a>
@@ -424,13 +442,13 @@ $(function() {
 			<tr class="tr-top">
 				<td>주문하시는분</td>
 				<td>
-					<input type="text" name="orName" id="orName" value="${mdto.name}" class="boxTF orName" disabled="disabled">
+					<input type="text" name="orName" id="orName" value="${mdto.name}" class="boxTF orName" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<td>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
 				<td>
-					<input type="text" name="orAddr" id="orAddr" value="${mdto.addr}" class="boxTF" disabled="disabled">
+					<input type="text" name="orAddr" id="orAddr" value="${mdto.addr}" class="boxTF" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
@@ -452,19 +470,17 @@ $(function() {
 		<div>
 			<h2>배송정보</h2>
 		</div>
-		<table class="table2 no-margin-top">
-			<tr class="tr-top">
-				<td>배송지선택</td>
-				<td>
-					<input type="radio" id="basicDI" name="deliveryInfo" value="basic">
-					<label for="basicDI">기본배송지(주문자정보와동일)</label>
-					<input type="radio" id="newDI" name="deliveryInfo" value="new">
-					<label for="newDI">신규배송지</label>
-				</td>
-			</tr>
-		</table>
 		<div id="deliveryForm">
-			<table class="table2 no-margin-bot">
+			<table class="table2">
+				<tr class="tr-top">
+					<td>배송지선택</td>
+					<td>
+						<input type="radio" id="basicDI" name="deliveryInfo" value="basic">
+						<label for="basicDI">기본배송지(주문자정보와동일)</label>
+						<input type="radio" id="newDI" name="deliveryInfo" value="new">
+						<label for="newDI">신규배송지</label>
+					</td>
+				</tr>
 				<tr>
 					<td>받으실분</td>
 					<td>
@@ -474,13 +490,13 @@ $(function() {
 				<tr>
 					<td rowspan="3">받으실곳</td>
 					<td>
-						<input type="text" name="diZip" id="diZip" class="boxTF" disabled="disabled">
+						<input type="text" name="diZip" id="diZip" class="boxTF" readonly="readonly">
 						<button type="button" class="btn searchAddrBtn" onclick="daumPostcode()">우편번호검색</button>
 					</td>
 				</tr>
 				<tr>
 					<td class="td2">
-						<input type="text" name="diAddr1" id="diAddr1" class="boxTF" disabled="disabled">
+						<input type="text" name="diAddr1" id="diAddr1" class="boxTF" readonly="readonly">
 					</td>
 				</tr>
 				<tr>
@@ -532,7 +548,7 @@ $(function() {
 			<tr>
 				<td>쿠폰적용</td>
 				<td>
-					<input type="text" name="couponDiscount" class="boxTF tright" value="0" disabled="disabled"> 원
+					<input type="text" name="couponDiscount" class="boxTF tright" value="0" readonly="readonly"> 원
 					<button type="button" class="btn">쿠폰적용및조회</button>
 				</td>
 			</tr>
@@ -569,7 +585,8 @@ $(function() {
 		<div class="btn-container" align="center">
 			<button type="button" class="btnConfirm">결제하기</button>
 			<button type="button" class="btnConfirm2">결제하기2</button>
+			<button type="button" class="btnConfirm3">완료</button>
 		</div>
 
 	</form>
-	</div>
+</div>

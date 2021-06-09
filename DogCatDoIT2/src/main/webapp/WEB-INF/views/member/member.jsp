@@ -45,13 +45,14 @@ function memberOk(){
 		f.name.focus();
 		return;
 	}
-	
+
 	str = f.birth.value;
-	if(!str || isValidDateFormat(str)){
+	if(!str){
         alert("생년월일를 입력하세요[YYYY-MM-DD]. ");
         f.birth.focus();
         return;		
 	}
+
 	
 	str = f.tel1.value;
 	if(!str){

@@ -1,5 +1,7 @@
 package com.pet.app.myPage;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Qualification {
 	private int requestNum;
 	private String userId;
@@ -7,6 +9,7 @@ public class Qualification {
 	private String saveFilename;
 	private String gubun;
 	private String state;
+	private MultipartFile upload;
 	
 	public int getRequestNum() {
 		return requestNum;
@@ -43,5 +46,11 @@ public class Qualification {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public MultipartFile getUpload() {
+		return upload;
+	}
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
 	}
 }

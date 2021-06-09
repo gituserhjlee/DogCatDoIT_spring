@@ -6,8 +6,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +28,42 @@ public class MemberController {
 	public String memberForm(Model model) {
 		model.addAttribute("mode", "member");
 		return ".member.member";
+	}
+	
+	@RequestMapping(value = "member", method = RequestMethod.POST)
+	public String memberSubmit(Member dto, final RedirectAttributes reAttr,
+			Model model) {
+		try {
+			service.insertMember(dto);
+		} catch (DuplicateKeyException e) {
+			model.addAttribute("mode", "member");
+			model.addAttribute("message", "아이디 중복으로 회원가입을 실패했습니다.");
+			return ".member.member";
+		} catch (DataIntegrityViolationException e) {
+			model.addAttribute("mode", "member");
+			model.addAttribute("message", "제약 조건 위반으로 회원가입을 실패했습니다.");
+			return ".member.member";
+		} catch (Exception e) {
+			model.addAttribute("mode", "member");
+			model.addAttribute("message", "회원가입을 실패했습니다.");
+			return ".member.member";
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(dto.getName()+ "님의 회원 가입이 정상적으로 처리되었습니다.<br>");
+		sb.append("메인화면으로 이동하여 로그인 하시기 바랍니다.<br>");
+		
+		reAttr.addFlashAttribute("message", sb.toString());
+		reAttr.addFlashAttribute("title", "회원가입");
+		
+		return "redirect:/member/complete";
+	}
+	
+	@RequestMapping(value="complete")
+	public String complete(@ModelAttribute("message")String message) throws Exception{
+		if(message==null || message.length()==0)
+			return "redirect:/";
+		
+		return ".member.complete";
 	}
 	
 	@RequestMapping(value="login", method = RequestMethod.GET)
@@ -50,6 +89,7 @@ public class MemberController {
 		SessionInfo info = new SessionInfo();
 		info.setUserId(dto.getUserId());
 		info.setUserName(dto.getName());
+		info.setUserIdx(dto.getUserIdx());
 	
 		session.setMaxInactiveInterval(30*60); // 세션 유지 : 30분간 
 		

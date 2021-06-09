@@ -2,7 +2,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPage.css" type="text/css">
 <div class="myPageMenu">
 	<div>
 		<h3>마이페이지</h3>
@@ -12,7 +11,7 @@
 			<li><a href="${pageContext.request.contextPath}/myPage/attendance">출석체크</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/calendar">캘린더</a></li>
 			<li>회원정보</li>
-			<li><a href="${pageContext.request.contextPath}/myPage/userProfile">프로필</a></li>
+			<li><a href="${pageContext.request.contextPath}/myPage/userProfile?orderNum=1">프로필</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/qualification">자격신청</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/setMasterProfile">펫시터, 훈련사 프로필</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/setCompanyProfile">업체 프로필</a></li>

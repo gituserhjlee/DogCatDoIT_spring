@@ -16,7 +16,6 @@
       });
 
     </script>
-<jsp:include page="template.jsp"/>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
 	  	<div>

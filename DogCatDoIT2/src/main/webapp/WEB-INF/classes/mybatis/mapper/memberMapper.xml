@@ -13,9 +13,19 @@
 		WHERE userId=#{userId}
 	</update>
 	
+	
 	<select id="memberSeq" resultType="Int">
 		SELECT member_seq.NEXTVAL FROM dual
 	</select>
+	
+	<!-- ★★★★★★★★★★★★★★★★★★★★★★★★ -->	
+	<select id="readMember" parameterType="String" resultType="com.pet.app.member.Member">
+		SELECT userIdx, userId, name, pwd, zip, addr1, addr2, email, tel, 
+			reg_date, point, clevel, slevel
+		FROM member m
+		WHERE m.userId = #{userId}
+	</select>
+	
 	
 	<insert id="insertMember" parameterType="Long">
 		INSERT INTO member(userIdx, point) VALUES (#{userIdx}, 1)		

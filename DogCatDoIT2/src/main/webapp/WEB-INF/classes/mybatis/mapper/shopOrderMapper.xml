@@ -25,4 +25,60 @@
 		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE, #{payCondition})
 	</insert>
 	
+	
+	
+	<select id="getOrderDetailByDetailId" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+		SELECT 
+		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
+		    optionId, optionName, detailId, detailName
+		FROM item i 
+		JOIN itemOption io ON i.itemId=io.itemId
+		JOIN detailItemoption do ON io.optionId=do.itemoptionId
+		WHERE detailId = #{detailId}
+	</select>
+	<!-- 찜, 장바구니 -->
+	
+	<insert id="insertCart" parameterType="com.pet.app.shopping.Cart">
+		INSERT INTO cart(cartIdx, userIdx, cart_date, count, detailId)
+		VALUES (cart_seq.NEXTVAL, #{userIdx}, SYSDATE, #{count}, #{detailId})
+	</insert>
+	
+	<insert id="insertWish" parameterType="com.pet.app.shopping.Wish">
+		INSERT INTO wish(wishIdx, userIdx, wish_date, detailId)
+		VALUES (wish_seq.NEXTVAL, #{userIdx}, SYSDATE, #{detailId})
+	</insert>
+	
+	<select id="wishListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+		SELECT
+		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
+		    optionId, optionName, detailId, detailName
+		FROM item i 
+		JOIN itemOption io ON i.itemId=io.itemId
+		JOIN detailItemoption do ON io.optionId=do.itemoptionId
+		JOIN cart c ON c.detailId=do.detailId
+		WHERE userIdx=#{userIdx}
+	</select>
+	
+	<select id="cartListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+		SELECT
+		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
+		    optionId, optionName, do.detailId, detailName, count
+		FROM item i 
+		JOIN itemOption io ON i.itemId=io.itemId
+		JOIN detailItemoption do ON io.optionId=do.itemoptionId
+		JOIN cart c ON c.detailId=do.detailId
+		WHERE userIdx=#{userIdx}
+		ORDER BY cart_date DESC
+	</select>
+	
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM cart
+		WHERE userIdx=#{userIdx} AND detailId IN (${detailIds})
+	</delete>
+	
+	<select id="cartCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM cart WHERE userIdx=#{userIdx}
+	</select>
+	
+	
 </mapper>

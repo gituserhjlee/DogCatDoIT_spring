@@ -1,6 +1,5 @@
 package com.pet.app.shopping;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.app.common.ShopUtil;
 import com.pet.app.member.Member;
+import com.pet.app.member.MemberService;
+import com.pet.app.member.SessionInfo;
 
 @Controller("shopping.orderContoroller")
 @RequestMapping("/order/*")
@@ -27,9 +30,14 @@ public class OrderControlloer {
 	private OrderService orderService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private MemberService memberService;
 
 	@GetMapping("orderForm")
-	public String orderForm(@RequestParam long detailId, @RequestParam int count, @RequestParam String str,
+	public String orderForm(
+			@RequestParam long detailId, 
+			@RequestParam int count, 
+			HttpSession session,
 			Model model) {
 		// 상품 옵션 가져오기
 		DetailOption itemOption = new DetailOption();
@@ -55,28 +63,10 @@ public class OrderControlloer {
 		model.addAttribute("itemOption", itemOption);
 		model.addAttribute("count", count);
 
-		// 주문자 정보 가져오기
-		// 테스트 케이스 작성 시작
-		Member mdto = new Member();
-		mdto.setName("테스터");
-		mdto.setEmail("test@naver.com");
-		mdto.setTel("010-1234-5678");
-		mdto.setZip("123456");
-		mdto.setAddr1("서울특별시 마포구 월드컵로 14길");
-		mdto.setAddr2("마포아파트 1002동 802호");
-		mdto.setPoint(10000);
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		Member mdto = memberService.readMember(info.getUserId());
 		mdto = shopUtil.transformTelAddr(mdto);
-		// 테스트 케이스 작성 끝
 		model.addAttribute("mdto", mdto);
-
-		if (str.equals("cart")) {
-			return ".shopping.cart";
-		} else if (str.equals("jjim")) {
-			return ".shopping.jjim";
-		}
-		
-		// 테스트용
-		System.out.println(shopUtil.getDiscountedPrice(3, 3700));
 		
 		return ".shopping.order";
 	}
@@ -88,63 +78,141 @@ public class OrderControlloer {
 //		dto.setUserIdx(info.getMemberIdx());
 		dto.setUserIdx(1);
 		orderService.insertOrder(dto);
-
-		return "redirect:/";
+		
+		return "redirect:/shopping/complete";
 	}
 
-	@RequestMapping(value = "wish")
-	public String wish(
-
-	) throws Exception {
-		return "";
+	
+	
+	@RequestMapping("wishlist")
+	public String wish(HttpSession session) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		
+		return "shopping/jjim";
 	}
-
-	@RequestMapping("test")
-	public String test(Model model) {
-		// 입력 예시
-		// 1. 맵이 제품 1개를 의미
-		Map<String, Object> m1 = new HashMap<String, Object>();
-		Map<String, Object> m2 = new HashMap<String, Object>();
-		m1.put("detailId", 18);
-		m1.put("count", 3);
-		m2.put("detailId", 4);
-		m2.put("count", 1);
-
-		// 2. 제품을 담은 맵을 리스트에 담아서 호출
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		list.add(m1);
-		list.add(m2);
-
-		// 상품 옵션 가져오기
-		DetailOption itemOption = null;
-		Item item = null;
+	
+	@RequestMapping("insertCart")
+	@ResponseBody
+	public Map<String, Object> insertCart(
+			Cart cart,
+			HttpSession session
+			) throws Exception {
+		
+		// Cart 객체에 userIdx 담기
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		cart.setUserIdx(info.getUserIdx());
+		Map<String, Object> model = new HashMap<String, Object>();
 		try {
-			for (Map<String, Object> m : list) {
-				long detailId = (long)m.get("detailId");
-				itemOption = adminService.findbydetailOptionid(detailId);
-				item = adminService.findItemByItemOption(detailId);
-			}
+			orderService.insertCart(cart);
 			
+			model.put("state", true);
+		} catch (Exception e) {
+			model.put("state", false);
+		}
+		
+		return model;
+	}
+	
+	@GetMapping("cart")
+	public String cart() throws Exception {
+		return ".shopping.cart";
+	}
+	
+	@RequestMapping(value = "cartList", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cartList(
+			String str,
+			HttpSession session
+			) throws Exception {
+		
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		long userIdx = info.getUserIdx();
+		pMap.put("userIdx", userIdx);
+		pMap.put("detailIds", str);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<OrderDetail> itemList = null;
+		int cartCount = 0;
+		try {
+			cartCount = orderService.cartCount(userIdx);
+			itemList = orderService.listItem(userIdx);
+			
+			model.put("state", "true");
+			model.put("cartCount",cartCount);
+			model.put("itemList",itemList);
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.put("state", "false");
 		}
-		// 상품 정보 가져오기
-//		Item item = adminService.findItemByItemOption(detailId);
-//		if(item == null) {
-//			model.addAttribute("msg", "잘못된 접근입니다. - OrderController:41 line");
-//			return ".error.error";
-//		}
-//		
-//		// 재고검사
-//		if(itemOption.getStock()<count) {
-//			model.addAttribute("msg","수량초과");
-//			return ".error.error";
-//		}
-//		model.addAttribute("item", item);
-//		model.addAttribute("itemOption", itemOption);
-//		model.addAttribute("count", count); 
-//
-		return ".shopping.order2";
+		
+		return model;
 	}
-
+	
+	@RequestMapping("test1")
+	public String test1() throws Exception {
+		return ".shopping.test";
+	}
+	
+	@RequestMapping("deleteCart")
+	@ResponseBody
+	public Map<String, Object> deleteCart(
+			String detailIds,
+			HttpSession session
+			) throws Exception {
+		
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		long userIdx = memberService.readMember(info.getUserId()).getUserIdx();
+		pMap.put("userIdx", userIdx);
+		pMap.put("detailIds", detailIds);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		try {
+			orderService.deleteCart(pMap);
+			
+			model.put("state", "true");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("state", "false");
+		}
+		
+		return model;
+	}
+	
+	@RequestMapping("testCart")
+	@ResponseBody
+	public Map<String, Object> testCart(
+			String str,
+			HttpSession session
+			) throws Exception {
+		
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		long userIdx = info.getUserIdx();
+		pMap.put("userIdx", userIdx);
+		pMap.put("detailIds", str);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<OrderDetail> itemList = null;
+		int cartCount = 0;
+		try {
+			cartCount = orderService.cartCount(userIdx);
+			itemList = orderService.listItem(userIdx);
+			
+			model.put("state", "true");
+			model.put("cartCount",cartCount);
+			model.put("itemList",itemList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("state", "false");
+		}
+		
+		return model;
+	}
+	
+	
+	
 }

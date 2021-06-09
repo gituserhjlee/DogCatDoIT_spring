@@ -81,15 +81,71 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Item findItemBydetailId(long detailId) {
-		Item dto = null;
+	public OrderDetail getOrderDetailByDetailId(long detailId) {
+		OrderDetail dto = null;
 		try {
-			dto = dao.selectOne("order.itemfindBydetailId", detailId);
+			dto = dao.selectOne("order.getOrderDetailByDetailId", detailId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return dto;
 	}
+
+	@Override
+	public void insertWish(Wish wish) throws Exception {
+		try {
+			dao.insertData("order.insertWish", wish);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void insertCart(Cart cart) throws Exception {
+		try {
+			dao.insertData("order.insertCart", cart);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public List<OrderDetail> listItem(long userIdx) {
+		List<OrderDetail> itemlist = null;
+		try {
+			itemlist = dao.selectList("order.cartListOrderDetail", userIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemlist;
+	}
+
+	@Override
+	public void deleteCart(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("order.deleteCart", map);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public int cartCount(long userIdx) {
+		int result = 0;
+		try {
+			result = dao.selectOne("order.cartCount", userIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+
+	
 	
 	
 }

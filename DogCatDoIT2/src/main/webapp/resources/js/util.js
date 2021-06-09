@@ -139,3 +139,8 @@ function isValidSpecialChar(str) {
         return true; // 존재 하면
     return false;
 }
+
+// 숫자 가격 표시 (3자리마다 콤마 출력)
+function toLocaleString(number) {
+	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

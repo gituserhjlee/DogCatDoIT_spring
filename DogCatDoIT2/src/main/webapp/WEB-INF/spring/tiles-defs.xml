@@ -32,8 +32,21 @@
 			value="/WEB-INF/views/shopping/{1}.jsp" />
 	</definition>
 
-
-
+	<definition name=".myPageLayout"
+		template="/WEB-INF/views/myPage/layout.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views/layout/header.jsp" />
+		<put-attribute name="left"
+			value="/WEB-INF/views/myPage/template.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/myPage/main.jsp"/>
+		<put-attribute name="footer"
+			value="/WEB-INF/views/layout/footer.jsp" />
+	</definition>
+	<definition name=".myPage.*" extends=".myPageLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/myPage/{1}.jsp" />
+	</definition>
 
 	<definition name=".mainLayout"
 		template="/WEB-INF/views/layout/layout3.jsp">

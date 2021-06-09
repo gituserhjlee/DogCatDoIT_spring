@@ -1,5 +1,9 @@
 package com.pet.app.myPage;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class PetMasterProfile {
 	private int masterNum;
 	private String userId;
@@ -7,6 +11,8 @@ public class PetMasterProfile {
 	private String qualification;
 	private String reg_date;
 	private String region;
+	private String imageFilename;
+	private List<MultipartFile> uploads;
 	
 	public int getMasterNum() {
 		return masterNum;
@@ -44,4 +50,17 @@ public class PetMasterProfile {
 	public void setRegion(String region) {
 		this.region = region;
 	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+	public List<MultipartFile> getUploads() {
+		return uploads;
+	}
+	public void setUploads(List<MultipartFile> uploads) {
+		this.uploads = uploads;
+	}
+	
 }

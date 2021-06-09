@@ -4,25 +4,30 @@
 <mapper namespace="myPage">
 	<!-- 유저프로필 입력 -->
 	<insert id="insertUserProfile" parameterType="com.pet.app.myPage.UserProfile">
-		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, orderNo, userId, animalPhoto)
-		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{orderNo}, #{userId}, #{animalPhoto})
+		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, orderNum, userId, animalPhoto)
+		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{orderNum}, #{userId}, #{animalPhoto})
 	</insert>
 	
 	<!-- 생일로 나이 구하기(1살 이상) -->
-	<select id="getAge1" resultType="Integer">
-		SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, animalBirth)/12) age FROM userProfile
+	<select id="getAge1" parameterType="Integer" resultType="Integer">
+		SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, animalBirth)/12) age FROM userProfile WHERE profileNum = #{profileNum}
 	</select>
 	
 	<!-- 생일로 나이 구하기(1살 이하) -->
-	<select id="getAge2" resultType="Integer">
-		SELECT TRUNC(MOD(MONTHS_BETWEEN(SYSDATE, animalBirth),12)) age FROM userProfile
+	<select id="getAge2" parameterType="Integer" resultType="Integer">
+		SELECT TRUNC(MOD(MONTHS_BETWEEN(SYSDATE, animalBirth),12)) age FROM userProfile WHERE profileNum = #{profileNum}
+	</select>
+	
+	<!-- 프로필 개수 -->
+	<select id="countUserProfile" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM userProfile WHERE userId=#{userId}
 	</select>
 	
 	<!-- 유저프로필 -->
 	<select id="readUserProfile" parameterType="map" resultType="com.pet.app.myPage.UserProfile">
-		SELECT profileNum, animalName, animalBirth, region, animalKind, introduce, orderNo, userId, animalPhoto 
+		SELECT profileNum, animalName, TO_CHAR(animalBirth, 'YYYY-MM-DD') animalBirth, region, animalKind, introduce, orderNum, userId, animalPhoto 
 		FROM userProfile 
-		WHERE userId = #{userId} AND orderNo = #{orderNo}
+		WHERE userId = #{userId} AND orderNum = #{orderNum}
 	</select>
 	
 	<!-- 유저프로필 수정 -->
@@ -50,7 +55,7 @@
 	</select>
 	
 	<!-- 자격 신청 수정 -->
-	<update id="updateRequestQualification" parameterType="Integer">
+	<update id="updateRequestQualification" parameterType="com.pet.app.myPage.Qualification">
 		UPDATE requestQualification SET originalFilename=#{originalFilename}, saveFilename=#{saveFilename}, gubun=#{gubun}
 		WHERE requestNum = #{requestNum}
 	</update>
@@ -61,28 +66,28 @@
 	</delete>
 	
 	<!-- 자격 신청 승인 -->
-	<update id="approveRequestQualification" parameterType="Integer">
+	<update id="approveRequestQualification" parameterType="map">
 		UPDATE requestQualification SET state=#{state}
 		WHERE requestNum = #{requestNum}
 	</update>
 	
 	<!-- 펫시터, 훈련사 프로필 입력 -->
 	<insert id="insertMasterProfile" parameterType="com.pet.app.myPage.PetMasterProfile">
-		INSERT INTO petMaster (masterNum, userId, introduce, qualification, reg_date, region)
-		VALUES (master_seq.NEXTVAL, #{userId}, #{introduce}, #{qualification}, SYSDATE, #{region})
+		INSERT INTO petMaster (masterNum, userId, introduce, qualification, reg_date, region, imageFilename)
+		VALUES (master_seq.NEXTVAL, #{userId}, #{introduce}, #{qualification}, SYSDATE, #{region}, #{imageFilename})
 	</insert>
 	
 	<!-- 펫시터, 훈련사 프로필 -->
 	<select id="readMasterProfile" parameterType="String" resultType="com.pet.app.myPage.PetMasterProfile">
-		SELECT masterNum, userName, introduce, qualification, reg_date, region
+		SELECT masterNum, userName, introduce, qualification, reg_date, region, imageFilename
 		FROM petMaster pm
 		JOIN member m ON m.userId = pm.userId
 		WHERE m.userId = #{userId}
 	</select>
 	
 	<!-- 펫시터, 훈련사 프로필 수정 -->
-	<update id="updateMasterProfile" parameterType="Integer">
-		UPDATE petMaster SET introduce=#{introduce}, qualification=#{qualification}, region=#{region} 
+	<update id="updateMasterProfile" parameterType="com.pet.app.myPage.PetMasterProfile">
+		UPDATE petMaster SET introduce=#{introduce}, qualification=#{qualification}, region=#{region}, imageFilename=#{imageFilename} 
 		WHERE masterNum = #{masterNum}
 	</update>
 	
@@ -126,7 +131,7 @@
 	
 	
 	<!-- 리뷰, 별점 수정 -->
-	<update id="updateMasterRnR" parameterType="Integer">
+	<update id="updateMasterRnR" parameterType="com.pet.app.myPage.MasterRnR">
 		UPDATE masterRnR SET review = #{review}, rating = #{rating} WHERE reviewNum = #{reviewNum}
 	</update>
 	

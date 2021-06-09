@@ -10,7 +10,7 @@ public class UserProfile {
 	private String region;
 	private String animalKind;
 	private String introduce;
-	private int orderNo;
+	private int orderNum;
 	private String animalPhoto;
 	private MultipartFile upload;
 	private int animalAge;
@@ -75,10 +75,10 @@ public class UserProfile {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-	public int getOrderNo() {
-		return orderNo;
+	public int getOrderNum() {
+		return orderNum;
 	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}	
 }

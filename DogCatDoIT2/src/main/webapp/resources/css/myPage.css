@@ -25,12 +25,12 @@
 	width: 70%;
 }
 .setUserProfile-photo{
-	width: 50px;
-	height: 50px;
+	width: 200px;
+	height: 200px;
 	border-radius: 50%;
-	background: gray;
+	background: #eee;
 	text-align: center;
-	line-height: 50px;
+	line-height: 200px;
 }
 .setUserProfile-file{
 	display: none;

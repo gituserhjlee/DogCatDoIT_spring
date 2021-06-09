@@ -1,6 +1,5 @@
 package com.pet.app.myPage;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,8 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired
 	private FileManager fileManager;
-
+	
+	// 프로필 입력
 	@Override
 	public void insertUserProfile(UserProfile dto, String pathname) throws Exception {
 		try {
@@ -31,86 +31,73 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 강아지 나이 계산
 	@Override
-	public void setAge(UserProfile dto) throws Exception {
-		int age = dao.selectOne("myPage.getAge1");
+	public int setAge(int profileNum) throws Exception {
+		int age = dao.selectOne("myPage.getAge1", profileNum);
 		if(age==0) {
-			age = dao.selectOne("myPage.getAge2");
+			age = dao.selectOne("myPage.getAge2", profileNum);
 		}
-		dto.setAnimalAge(age);
+		return age;
 	}
-
+	
+	// 프로필 업데이트
 	@Override
-	public void updateUserProfile(int profileNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+	public void updateUserProfile(UserProfile dto, String pathname) throws Exception {
+		try {
+			String saveFilename = fileManager.doFileUpload(dto.getUpload(), pathname);
+			
+			if(saveFilename != null) {
+				if(dto.getAnimalPhoto().length()!=0	) {
+					fileManager.doFileDelete(dto.getAnimalPhoto(), pathname);
+				}
+				
+				dto.setAnimalPhoto(saveFilename);
+			}
+			
+			dao.updateData("myPage.updateUserProfile", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
-
+	
+	// 프로필 삭제
 	@Override
-	public void deleteUserProfile(int profileNum) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void deleteUserProfile(int profileNum, String pathname) throws Exception {
+		try {
+			if(pathname != null) {
+				fileManager.doFileDelete(pathname);
+			}
+			
+			dao.deleteData("myPage.deleteUserProfile", profileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
-
+	
+	// 프로필 읽기
 	@Override
-	public List<UserProfile> readUserProfile(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserProfile readUserProfile(Map<String, Object> map) {
+		UserProfile dto = null;
+		try {
+			dto = dao.selectOne("myPage.readUserProfile", map);
+		} catch (Exception e) {
+		}
+		return dto;
 	}
-
+	
+	// 프로필 개수 구하기
 	@Override
-	public void insertRequestQualification(Qualification dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public int countUserProfile(String userId) {
+		int result=0;
+		try {
+			result = dao.selectOne("myPage.countUserProfile", userId);
+		} catch (Exception e) {
+		}
+		return result;
 	}
-
-	@Override
-	public List<Qualification> readRequestQualification(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateRequestQualification(int requestNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteRequestQualification(int requestNum) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void approveRequestQualification(int requestNum) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insertMasterProfile(PetMasterProfile dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public PetMasterProfile readPetMasterProfile(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateMasterProfile(int masterNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteMasterProfile(int masterNum) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -375,4 +375,58 @@ public class AdminService {
 		return review;
 		
 	}
+	
+	public int countReview(long itemId) {
+		int result=0;
+		try {
+			result=dao.selectOne("shop.countReview", itemId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	public int sumReview(long itemId) {
+		int result=0;
+		try {
+			result=dao.selectOne("shop.sumReview", itemId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public void deleteReview(long reviewNum, long useridx) throws Exception {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("reviewNum", reviewNum);
+		map.put("useridx", useridx);
+		try {
+			dao.deleteData("shop.deletereview", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+	public ShopReview findByReviewId(long reviewNum) {
+		ShopReview review=null;
+		try {
+			review=dao.selectOne("shop.findByReviewId", reviewNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return review;
+		
+	}
+	
+	public void updateReview(ShopReview review) throws Exception {
+		try {
+			dao.updateData("shop.updateReview", review);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

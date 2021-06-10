@@ -1,11 +1,20 @@
 package com.pet.app.shopping;
 
 public class ShopReview {
+	private long reviewNum;
 	private long useridx;
+	private String name;
 	private long itemId;
 	private int score;
 	private String content;
 	private String registered;
+	
+	public long getReviewNum() {
+		return reviewNum;
+	}
+	public void setReviewNum(long reviewNum) {
+		this.reviewNum = reviewNum;
+	}
 	public long getUseridx() {
 		return useridx;
 	}
@@ -35,6 +44,12 @@ public class ShopReview {
 	}
 	public void setRegistered(String registered) {
 		this.registered = registered;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	

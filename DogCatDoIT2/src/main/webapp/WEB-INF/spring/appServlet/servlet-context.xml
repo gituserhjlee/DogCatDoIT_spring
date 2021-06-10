@@ -72,7 +72,6 @@
             <exclude-mapping path="/shopping/mainPage"/>
             <exclude-mapping path="/shopping/dog"/>
             <exclude-mapping path="/shopping/cat"/>
-            <exclude-mapping path="/shopping/article/**"/>
             <exclude-mapping path="/uploads/item/**"/>
             <!-- <exclude-mapping path="/myPage/*"/> -->
             <exclude-mapping path="/order/*"/>

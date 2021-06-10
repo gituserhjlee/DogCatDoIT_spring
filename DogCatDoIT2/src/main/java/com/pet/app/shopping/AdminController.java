@@ -453,13 +453,20 @@ public class AdminController {
 	public String article(@RequestParam long num, Model model) {
 		Item item = null;
 		List<DetailOption> d = new ArrayList<DetailOption>();
-		System.out.println(num);
+		int count=0;
+		double average=0;
 		item = service.findById(num);
 		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
 		d = service.listAllOptions(num);
-
+		count=service.countReview(num);
+		average=(double)service.sumReview(num)/count;
+		
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
+		model.addAttribute("count", count);
+		model.addAttribute("average", Double.parseDouble(String.format("%.2f",average)));
+		model.addAttribute("mode", "insert");
+
 		return ".shopping.article";
 	}
 	
@@ -467,29 +474,110 @@ public class AdminController {
 	public String listReview(@RequestParam long itemId, Model model) {
 		System.out.println("아이템번호"+itemId);
 		List<ShopReview> reviews=new ArrayList<ShopReview>();
+		
 		try {
 			reviews=service.selectReview(itemId);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("reviews", reviews);
+		
 		return "/shopping/reviewList";
 	}
 	@PostMapping("review")
 	public String insertReview(ShopReview review,HttpServletRequest req, Model model) {
 		List<ShopReview> reviews=new ArrayList<ShopReview>();
+		
 		HttpSession session=req.getSession();
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		review.setUseridx(info.getUserIdx());
 		try {
 			service.insertReview(review);
 			reviews=service.selectReview(review.getItemId());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("reviews", reviews);
+
 		return "/shopping/reviewList";
 	}
+	
+	@GetMapping("updatereview")
+	public String updateReviewForm(@RequestParam long reviewNum,@RequestParam long useridx, @RequestParam long itemId, HttpServletRequest req, Model model) {
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		if(info.getUserIdx()!=useridx) {
+			model.addAttribute("msg", "자신의 글만 수정 가능합니다");
+			return ".error.error";
+		}
+		
+		ShopReview review=service.findByReviewId(reviewNum);
+		Item item = null;
+		List<DetailOption> d = new ArrayList<DetailOption>();
+		int count=0;
+		double average=0;
+		item = service.findById(itemId);
+		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
+		d = service.listAllOptions(itemId);
+		count=service.countReview(itemId);
+		average=(double)service.sumReview(itemId)/count;
+		
+		model.addAttribute("item", item);
+		model.addAttribute("options", d);
+		model.addAttribute("count", count);
+		model.addAttribute("average", Double.parseDouble(String.format("%.2f",average)));
+		model.addAttribute("review", review);
+		model.addAttribute("mode", "update");
+		return ".shopping.article";
+	}
+	
+	@PostMapping("updatereview")
+	public String updateReview(ShopReview review,HttpServletRequest req, Model model) {
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		if(info.getUserIdx()!=review.getUseridx()) {
+			model.addAttribute("msg", "자신의 글만 수정 가능합니다");
+			return ".error.error";
+		}
+		List<ShopReview> reviews=new ArrayList<ShopReview>();
+
+		try {
+			service.updateReview(review);
+			reviews=service.selectReview(review.getItemId());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("reviews", reviews);
+
+		return "/shopping/reviewList";
+
+	}
+	
+	@PostMapping("deletereview")
+	public String deleteReview(@RequestParam long reviewNum, @RequestParam long useridx,@RequestParam long itemId,HttpServletRequest req, Model model) {
+		List<ShopReview> reviews=new ArrayList<ShopReview>();
+		HttpSession session=req.getSession();
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		if(info.getUserIdx()!=useridx) {
+			model.addAttribute("msg", "자신의 글만 삭제 가능합니다");
+			return "/error/error";
+		}
+		
+		try {
+			service.deleteReview(reviewNum, info.getUserIdx());
+			reviews=service.selectReview(itemId);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("reviews", reviews);
+
+		return "/shopping/reviewList";
+	}
+	
 	
 	@GetMapping("admin/CouponList")
 	public String CouponList(Model model) {

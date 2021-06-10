@@ -85,9 +85,7 @@
 				<div class="product__details__text">
 					<h3>${item.itemName}</h3>
 					<div class="product__details__rating">
-						<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-							class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-							class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
+						평점: ${average} <span>(${count} reviews)</span>
 					</div>
 					<div class="product__details__price">
 
@@ -138,23 +136,23 @@
 			<div class="col-lg-12">
 				<div class="product__details__tab">
 					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item"><a class="nav-link active"
-							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Description</a>
+						<li class="nav-item"><a class="nav-link"
+							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="false">Description</a>
 						</li>
 
-						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-2" role="tab" aria-selected="false" onclick="reviewlist();">Reviews <span>(1)</span></a>
+						<li class="nav-item"><a class="nav-link active" data-toggle="tab"
+							href="#tabs-2" role="tab" aria-selected="true" >Reviews <span>(${count})</span></a>
 						</li>
 					</ul>
 					<div class="tab-content">
-						<div class="tab-pane active" id="tabs-1" role="tabpanel">
+						<div class="tab-pane " id="tabs-1" role="tabpanel">
 							<div class="product__details__tab__desc">
 								<h6>Products Infomation</h6>
 								<p>${item.content}</p>
 							</div>
 						</div>
 
-						<div class="tab-pane" id="tabs-2" role="tabpanel">
+						<div class="tab-pane active" id="tabs-2" role="tabpanel">
 							<div class="product__details__tab__desc">
 								<h6>Reviews</h6>
 								<form name="reviewForm">
@@ -172,14 +170,22 @@
 									
 									<div>
 										<span>느낀점을 입력해주세요 </span>
-										<textarea name="content" id="content" style="height: 100px; display: block; border:2px solid #F79F81; border-radius:10px; "></textarea>
+										<textarea name="content" id="content" style="height: 100px; display: block; border:2px solid #F79F81; border-radius:10px; ">
+										${review.content}</textarea>
 									</div> 
+									<c:if test="${mode eq 'insert' }">
 									<button type="button" class="primary-btn" style="border: 2px solid #F79F81; border-radius:10px;"
 									onclick="addReview()">Submit</button>
+									</c:if>
+									<c:if test="${mode eq 'update'}">
+									<button type="button" class="primary-btn" style="border: 2px solid #F79F81; border-radius:10px;"
+									onclick="updateReview(${review.reviewNum}, ${review.itemId}, ${review.useridx});">Update</button>
+									</c:if>
 									</div>
 									
 								</form>		
-			
+								<button type="button" class="primary-btn" style="border: 2px solid #F79F81; border-radius:10px; font-family: Jua"
+									onclick="reviewlist();">모든 리뷰 보기</button>
 			
 							<div class="reviewList"></div>
 							</div>
@@ -191,7 +197,9 @@
 	</div>
 </section>
 <!-- Product Details Section End -->
+
 <script>
+
 function reviewlist(){
 	var itemId=$('#itemId').val();
 	$.ajax({
@@ -239,4 +247,59 @@ function addReview(){
 	
 }
 </script>
+<script>
+function updateReview(reviewNum,itemId, useridx){
+	var score=$('.on').length;
+	var content=$('#content').val();
+	var f = document.reviewForm;
+
+	var str = f.content.value;
+	if (!str) {
+		f.content.focus();
+		return false;
+	}
+	
+	if(confirm("수정하시겠습니까 ? ") == true){
+    }
+    else{
+        return false ;
+    }
+	//에이잭스로 처리 
+	$.ajax({
+			url:"${pageContext.request.contextPath}/shopping/updatereview",
+			type:"POST",
+			data:{"score":score, "content":content, "reviewNum":reviewNum, "itemId":itemId, "useridx":useridx},
+			dataType:'html',
+			success:function(data){
+		        alert("수정되었습니다");
+		        window.location.href = "${pageContext.request.contextPath}/shopping/article?num="+itemId;
+
+			}
+		})
+	
+}
+</script>
+<script>
+function deleteReview(reviewNum, useridx, itemId){
+	if(confirm("삭제하시겠습니까 ? ") == true){
+        
+    }
+    else{
+        return false ;
+    }
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/shopping/deletereview",
+		type:"POST",
+		data:{"reviewNum":reviewNum, "useridx":useridx, "itemId":itemId},
+		dataType:'html',
+		success:function(data){
+			alert("삭제되었습니다");
+			$(".reviewList").html(data);
+		}
+	});
+	
+}
+</script>
+
 

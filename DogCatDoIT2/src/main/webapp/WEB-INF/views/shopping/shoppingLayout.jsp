@@ -110,6 +110,15 @@
   cursor: pointer;
 }
 
+.starR.on2{
+  background: url('${pageContext.request.contextPath}/resources/shopAdmin/images/star2.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
 </style>
 
 <title>Insert title here</title>

@@ -258,8 +258,34 @@
 	</insert>
 	
 	<select id="selectReview" parameterType="long" resultType="com.pet.app.shopping.ShopReview">
-	select reviewNum, useridx, itemId, score,content, registered from review 
+	select reviewNum, review.useridx, itemId, score,content, registered, member.name from review join member on review.useridx=member.useridx 
 	where itemId=#{itemId}
-	
 	</select>
+	
+	<select id="countReview" parameterType="long" resultType="Integer">
+	select count(*)
+	from review
+	where itemId=#{itemId}
+	</select>
+	
+	<select id="sumReview" parameterType="long" resultType="Integer">
+	select sum(score)
+	from review
+	 where itemId=#{itemId}
+	</select>
+	
+	<delete id="deletereview" parameterType="map">
+	delete from review where reviewnum=#{reviewNum} and useridx=#{useridx}
+	</delete>
+	
+	<select id="findByReviewId" parameterType="long" resultType="com.pet.app.shopping.ShopReview">
+	select reviewNum,useridx, itemId, score,content, registered 
+	from review
+	where reviewNum=#{reviewNum}
+	</select>
+	
+	<update id="updateReview" parameterType="com.pet.app.shopping.ShopReview">
+		update review set score=#{score}, content=#{content}
+		where reviewNum=#{reviewNum}
+	</update>
 </mapper>

@@ -91,15 +91,15 @@ public class OrderServiceImpl implements OrderService {
 		return dto;
 	}
 
-	@Override
-	public void insertWish(Wish wish) throws Exception {
-		try {
-			dao.insertData("order.insertWish", wish);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+//	@Override
+//	public void insertWish(Wish wish) throws Exception {
+//		try {
+//			dao.insertData("order.insertWish", wish);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw e;
+//		}
+//	}
 
 	@Override
 	public void insertCart(Cart cart) throws Exception {

@@ -19,7 +19,7 @@ public interface OrderService {
 	public OrderDetail getOrderDetailByDetailId(long detailId);
 	
 	// 찜, 장바구니
-	public void insertWish(Wish wish) throws Exception;
+//	public void insertWish(Wish wish) throws Exception;
 	public void insertCart(Cart cart) throws Exception;
 	public List<OrderDetail> listItem(long userIdx);
 	public void deleteCart(Map<String, Object> map) throws Exception;

@@ -222,10 +222,13 @@ public class AdminService {
 
 	}
 
-	public List<Item> listCategoryItem(int num) {
+	public List<Item> listCategoryItem(int num, String sort) {
+		Map<String,Object > map=new HashMap<String, Object>();
+		map.put("num", num);
+		map.put("sort", sort);
 		List<Item> items = new ArrayList<Item>();
 		try {
-			items = dao.selectList("shop.selectCategoryItemList", num);
+			items = dao.selectList("shop.selectCategoryItemList", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

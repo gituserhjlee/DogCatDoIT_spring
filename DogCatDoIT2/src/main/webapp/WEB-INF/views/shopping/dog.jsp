@@ -84,6 +84,10 @@
 					<h2>Dog Product</h2>
 					<br> <br>
 					<h4>total ${dataCount} products</h4>
+						<a onclick="location.href='${pageContext.request.contextPath}/shopping/dog?sort=forRecent'">최신순 | </a>
+						<a onclick="location.href='${pageContext.request.contextPath}/shopping/dog?sort=forhigh'">가격높은순 | </a>
+						<a onclick="location.href='${pageContext.request.contextPath}/shopping/dog?sort=forlow'">가격낮은순 | </a>
+						<a onclick="location.href='${pageContext.request.contextPath}/shopping/dog?sort=fordiscount'">할인율높은순</a>
 				</div>
 				<div class="featured__controls">
 					<ul>

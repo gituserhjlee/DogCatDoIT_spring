@@ -272,5 +272,6 @@ function addCart(str){
 		});
 	
 	</script>
+	
 </body>
 </html>

@@ -185,8 +185,9 @@
 		#{rows} ROWS ONLY
 	</select>
 
+
 	<!-- 사용자 입장에서 볼 카테고리별 상품리스트 -->
-	<select id="selectCategoryItemList" parameterType="Integer"
+	<select id="selectCategoryItemList" parameterType="map"
 		resultType="com.pet.app.shopping.Item">
 		select
 		itemId,i.itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
@@ -198,7 +199,16 @@
 		i.itemcategoryId=c.itemcategoryId
 		where enabled='1' and
 		c.parentNum=#{num}
-		ORDER BY registered DESC
+		<if test="sort!=null and sort!='' ">
+		<trim prefix="ORDER BY">
+            <if test="sort == 'forRecent'"> registered desc </if>
+            <if test="sort == 'forhigh'">  itemsaleprice desc </if>                       
+            <if test="sort == 'forlow'"> itemsaleprice </if>                       
+            <if test="sort == 'fordiscount'">  discountrate desc  </if>                       
+        </trim>
+		</if>
+		
+
 
 	</select>
 
@@ -260,6 +270,7 @@
 	<select id="selectReview" parameterType="long" resultType="com.pet.app.shopping.ShopReview">
 	select reviewNum, review.useridx, itemId, score,content, registered, member.name from review join member on review.useridx=member.useridx 
 	where itemId=#{itemId}
+	order by score desc
 	</select>
 	
 	<select id="countReview" parameterType="long" resultType="Integer">

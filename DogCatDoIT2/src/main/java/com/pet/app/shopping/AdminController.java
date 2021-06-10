@@ -414,12 +414,12 @@ public class AdminController {
 		return ".shopping.admin.BaljuOrder";
 	}
 	@GetMapping("dog")
-	public String dogPage(HttpServletRequest req, Model model) {
+	public String dogPage(HttpServletRequest req, Model model, @RequestParam(defaultValue = "forRecent") String sort) {
 		int dataCount = 0;
 		// 전체 페이지 수
 		dataCount = service.dataDogCatCount(1);
 		// 글 리스트
-		List<Item> items = service.listCategoryItem(1);
+		List<Item> items = service.listCategoryItem(1, sort);
 		for (Item i : items) {
 			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
 		}
@@ -432,12 +432,12 @@ public class AdminController {
 	}
 
 	@GetMapping("cat")
-	public String catPage(HttpServletRequest req, Model model) {
+	public String catPage(HttpServletRequest req, Model model,@RequestParam(defaultValue = "forRecent") String sort) {
 		int dataCount = 0;
 		// 전체 페이지 수
 		dataCount = service.dataDogCatCount(2);
 		// 글 리스트
-		List<Item> items = service.listCategoryItem(2);
+		List<Item> items = service.listCategoryItem(2, sort);
 		for (Item i : items) {
 			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
 		}

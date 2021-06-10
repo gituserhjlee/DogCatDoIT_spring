@@ -87,13 +87,13 @@ public class OrderControlloer {
 	@RequestMapping("wishlist")
 	public String wish(HttpSession session) throws Exception {
 		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
+//		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		
 		return "shopping/jjim";
 	}
 	
-	@RequestMapping("insertCart")
+	@RequestMapping(value = "insertCart", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertCart(
 			Cart cart,
@@ -103,15 +103,15 @@ public class OrderControlloer {
 		// Cart 객체에 userIdx 담기
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		cart.setUserIdx(info.getUserIdx());
+		
 		Map<String, Object> model = new HashMap<String, Object>();
+		String state = "true";
 		try {
 			orderService.insertCart(cart);
-			
-			model.put("state", true);
 		} catch (Exception e) {
-			model.put("state", false);
+			state = "false";
 		}
-		
+		model.put("state", state);
 		return model;
 	}
 	
@@ -135,13 +135,10 @@ public class OrderControlloer {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<OrderDetail> itemList = null;
-		int cartCount = 0;
 		try {
-			cartCount = orderService.cartCount(userIdx);
 			itemList = orderService.listItem(userIdx);
 			
 			model.put("state", "true");
-			model.put("cartCount",cartCount);
 			model.put("itemList",itemList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -172,7 +169,6 @@ public class OrderControlloer {
 		Map<String, Object> model = new HashMap<String, Object>();
 		try {
 			orderService.deleteCart(pMap);
-			
 			model.put("state", "true");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -182,36 +178,6 @@ public class OrderControlloer {
 		return model;
 	}
 	
-	@RequestMapping("testCart")
-	@ResponseBody
-	public Map<String, Object> testCart(
-			String str,
-			HttpSession session
-			) throws Exception {
-		
-		Map<String, Object> pMap = new HashMap<String, Object>();
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		long userIdx = info.getUserIdx();
-		pMap.put("userIdx", userIdx);
-		pMap.put("detailIds", str);
-		
-		Map<String, Object> model = new HashMap<String, Object>();
-		List<OrderDetail> itemList = null;
-		int cartCount = 0;
-		try {
-			cartCount = orderService.cartCount(userIdx);
-			itemList = orderService.listItem(userIdx);
-			
-			model.put("state", "true");
-			model.put("cartCount",cartCount);
-			model.put("itemList",itemList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("state", "false");
-		}
-		
-		return model;
-	}
 	
 	
 	

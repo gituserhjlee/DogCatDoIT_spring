@@ -23,5 +23,7 @@ public interface OrderService {
 	public void insertCart(Cart cart) throws Exception;
 	public List<OrderDetail> listItem(long userIdx);
 	public void deleteCart(Map<String, Object> map) throws Exception;
-	public int cartCount(long userIdx);
+	public Cart readCart(Cart cart);
+	public void updateCart(Cart cart) throws Exception;
+	
 }

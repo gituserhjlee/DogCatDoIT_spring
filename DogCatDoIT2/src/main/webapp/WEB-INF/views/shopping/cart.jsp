@@ -30,7 +30,13 @@
 #cartForm .boxTF[readonly] {
 	background-color:#eee;
 }
-#cartForm label {
+#cartForm .btn {
+	width: 150px;
+	height: 45px;
+}
+#cartForm .orderBtn {
+	background-color: #F79F81;
+	color: #fff;
 }
 
 table {
@@ -40,9 +46,9 @@ table {
 	margin: 15px auto 60px;
 }
 
-table tr {
-	border-bottom: 1px solid #ccc;
+.table1 tr {
 	vertical-align: middle;
+	border-bottom: 1px solid #ccc;
 }
 
 .tr-top {
@@ -119,24 +125,6 @@ table tr {
 	background: #eee;
 }
 
-/* 주문 입력 정보 테이블 */
-.table2 tr {
-	height: 55px;
-}
-
-.table2 td:first-child:not(.td2 ) {
-	width: 175px;
-	background: #eee;
-	text-align: center;
-}
-
-.table2 td:last-child {
-	width: 910px;
-	padding: 12px 10px 11px 15px;
-}
-.table2 td:firstst-child {
-	width: 170px;
-}
 
 /* 제출 버튼 */
 .btn-container {
@@ -172,6 +160,13 @@ table tr {
 	width: 60px;
 	height: 60px;
 	object-fit: cover;
+}
+.resultSpan {
+	color: #e15748;
+    font-size: 24px;
+    position: relative;
+    top: 5px;
+    margin-left: 5px;
 }
 </style>
 
@@ -252,7 +247,7 @@ function calcTotal() {
 		tp += parseInt($(this).val());
 	});
 	
-	$("#totalAmount").text(tp);
+	$("#totalAmount").text(toLocaleString(tp));
 }
 
 function cartList() {
@@ -284,8 +279,7 @@ function printGuest(data) {
 		out += "<td><input type='checkbox' checked='checked' class='chkBox' data-detailId='"+detailId+"'></td>";
 		out += "<td><a href='${pageContext.request.contextPath}/shopping/article?num="+itemId+"'>";
 		out += "<img class='product-img' src='${pageContext.request.contextPath}/uploads/item/"+saveFilename+"' alt='사진'></a></td>";
-		out += "<td>"+ itemName +"<br>[옵션: "+optionName+" "+detailName+" ]<br>";
-		out += "<button type='button' class='btn'>옵션 수정</button></td>";
+		out += "<td>"+ itemName +"<br>[옵션: "+optionName+" "+detailName+" ]<br></td>";
 		out += "<td>"+itemSalePriceStr+"원</td>";
 		out += "<td>"+count+"</td>";
 		out += "<td>기본배송</td>";
@@ -318,12 +312,13 @@ function printGuest(data) {
 			</tbody>
 			<tfoot>
 				<tr class="tr-bottom">
-					<td colspan="7" align="right">
-						상품금액합계: <span id="totalAmount"></span>원
+					<td colspan="7" style="text-align: right; padding-right: 15px;">
+						상품금액합계: <span class="resultSpan"><span id="totalAmount" ></span>원</span>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
+		
 		<table>
 			<tr>
 				<td>
@@ -335,6 +330,8 @@ function printGuest(data) {
 				</td>
 			<tr>
 		</table>
+		
+		
 		
 	</form>
 </div>

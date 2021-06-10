@@ -76,9 +76,17 @@
 		WHERE userIdx=#{userIdx} AND detailId IN (${detailIds})
 	</delete>
 	
-	<select id="cartCount" parameterType="Long" resultType="Integer">
-		SELECT COUNT(*) FROM cart WHERE userIdx=#{userIdx}
+	<select id="readCart" parameterType="com.pet.app.shopping.Cart" resultType="com.pet.app.shopping.Cart">
+		SELECT cartIdx, userIdx, cart_date, detailId, count
+		FROM cart
+		WHERE userIdx = #{userIdx} AND detailId = #{detailId}
 	</select>
+	
+	<update id="updateCart" parameterType="com.pet.app.shopping.Cart">
+		UPDATE cart 
+		SET cart_date=SYSDATE, count=count+#{count}
+		WHERE userIdx=#{userIdx} AND detailId=#{detailId}
+	</update>
 	
 	
 </mapper>

@@ -28,7 +28,24 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void insertMember(Member dto) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			if(dto.getEmail1().length()!=0 && dto.getEmail2().length()!=0) {
+				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
+			}
+			
+			if(dto.getTel1().length()!=0 && dto.getTel2().length()!=0 && dto.getTel3().length()!=0) {
+				dto.setTel(dto.getTel1()+ "-"+dto.getTel2()+ "-"+ dto.getTel3());
+			}
+			
+			long memberSeq = dao.selectOne("member.memberSeq");
+			dto.setUserIdx(memberSeq);
+			
+			dao.insertData("member.insertMember", dto);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 

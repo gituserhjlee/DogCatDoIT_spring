@@ -14,7 +14,7 @@
 	</update>
 	
 	
-	<select id="memberSeq" resultType="Int">
+	<select id="memberSeq" resultType="Long">
 		SELECT member_seq.NEXTVAL FROM dual
 	</select>
 	
@@ -27,14 +27,9 @@
 	</select>
 	
 	
-	<insert id="insertMember" parameterType="Long">
-		INSERT INTO member(userIdx, point) VALUES (#{userIdx}, 1)		
-	</insert>
-	
-	<insert id="insertMember1" parameterType="com.pet.app.member.Member">
-	<!-- modify_date : 수정 날짜 -->
-		INSERT INTO member1(userIdx, userId, name, pwd, reg_date, modify_date, failure_cnt )
-		VALUES (#{userIdx}, #{userId}, #{name}, #{pwd}, SYSDATE, SYSDATE, 0)
+	<insert id="insertMember" parameterType="com.pet.app.member.Member">
+		INSERT INTO member(userIdx, userId, pwd, name, zip, addr1, addr2, email, tel, reg_date, point, clevel, slevel)
+		VALUES (#{userIdx}, #{userId}, #{pwd}, #{name}, #{zip}, #{addr1}, #{addr2}, #{email}, #{tel}, SYSDATE, 0,0,0)
 	</insert>
 	
 	<update id="updateMembership" parameterType="map">

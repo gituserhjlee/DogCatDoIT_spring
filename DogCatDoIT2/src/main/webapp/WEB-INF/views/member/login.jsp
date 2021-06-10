@@ -62,6 +62,7 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="user-login-register">
+									<div class="user-login-register bg-light">
 										<div class="login-register-title">
 											<h2 class="title">회원가입</h2>
 											<p class="desc">아직 독캣두잇의 회원이 아니시라면 가입해주세요!</p>
@@ -78,7 +79,7 @@
 													</div>
 													<div class="col-12 text-center learts-mb-50">
 	
-							<a class="btn btn-dark btn-outline-hover-dark" href="${pageContext.request.contextPath}/member/member">회원가입</a>
+							<a class="btn btn-dark btn-outline-hover-dark" href="${pageContext.request.contextPath}/member/member" style="font-family: Jua; font-size: 18px;">회원가입</a>
 
 <!-- 	<button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member';" style="font-family: Jua; font-size: 18px;">회원가입하러 가기</button> -->													
 													</div>

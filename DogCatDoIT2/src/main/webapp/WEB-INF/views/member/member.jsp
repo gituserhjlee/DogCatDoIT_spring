@@ -164,10 +164,10 @@ function userIdCheck(){
 							value="${dto.userId}"
 							onchange="userIdCheck();"
 							${mode=="update" ? "readonly='readonly' ":""}
-							placeholder="아이디">
+							placeholder="아이디는 5~10자이며 첫글자는 영문자이어야 합니다.">
 					</p>
-					<p class="help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</p>
-				</td>
+		<!-- 			<p class="help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</p>
+		 -->		</td>
 			</tr>
 			
 			<tr>
@@ -177,10 +177,10 @@ function userIdCheck(){
 				<td>
 					<p>
 						<input type="password" name="pwd" maxlength="15" class="boxTF lg"
-							placeholder="패스워드">
+							placeholder="패스워드는 5~10자 이내, 하나 이상의 숫자나 특수문자를 포함해야 합니다.">
 					</p>
-					<p class="help-block">패스워드는 5~10자 이내, 하나 이상의 숫자나 특수문자를 포함해야 합니다.</p>
-				</td>
+			<!-- 		<p class="help-block">패스워드는 5~10자 이내, 하나 이상의 숫자나 특수문자를 포함해야 합니다.</p>
+			 -->	</td>
 			</tr>
 			
 			<tr>
@@ -190,10 +190,10 @@ function userIdCheck(){
 				<td>
 					<p>
 						<input type="password" name="pwdCheck" maxlength="15" class="boxTF lg"
-							placeholder="패스워드 확인">
+							placeholder="패스워드를 한번 더 입력해주세요.">
 					</p>
-					<p class="help-block">패스워드를 한번 더 입력해주세요.</p>
-				</td>
+		<!-- 			<p class="help-block">패스워드를 한번 더 입력해주세요.</p>
+		 -->		</td>
 			</tr>
 			
 			<tr>
@@ -216,10 +216,10 @@ function userIdCheck(){
 				<td>
 					<p>
 						<input type="text" name="birth" maxlength="boxTF lg"
-							value="${dto.birth}" placeholder="생년월일">
+							value="${dto.birth}" placeholder="생년월일은 YYYY-MM-DD 형식으로 입력해야 합니다.">
 					</p>
-					<p class="help-block">생년월일은 YYYY-MM-DD 형식으로 입력해야 합니다.</p>
-				</td>
+		<!-- 			<p class="help-block">생년월일은 YYYY-MM-DD 형식으로 입력해야 합니다.</p>
+		 -->		</td>
 			</tr>
 			
 			<tr>

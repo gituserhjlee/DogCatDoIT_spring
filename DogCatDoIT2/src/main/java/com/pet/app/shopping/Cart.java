@@ -1,18 +1,18 @@
 package com.pet.app.shopping;
 
 public class Cart {
-	private long basketIdx;
+	private long cartIdx;
 	private long userIdx;
-	private String basket_date;
+	private String cart_date;
 	private long detailId;
 	private int count;
 
-	public long getBasketIdx() {
-		return basketIdx;
+	public long getCartIdx() {
+		return cartIdx;
 	}
 
-	public void setBasketIdx(long basketIdx) {
-		this.basketIdx = basketIdx;
+	public void setCartIdx(long cartIdx) {
+		this.cartIdx = cartIdx;
 	}
 
 	public long getUserIdx() {
@@ -23,12 +23,12 @@ public class Cart {
 		this.userIdx = userIdx;
 	}
 
-	public String getBasket_date() {
-		return basket_date;
+	public String getCart_date() {
+		return cart_date;
 	}
 
-	public void setBasket_date(String basket_date) {
-		this.basket_date = basket_date;
+	public void setCart_date(String cart_date) {
+		this.cart_date = cart_date;
 	}
 
 	public long getDetailId() {

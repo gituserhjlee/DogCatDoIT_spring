@@ -104,7 +104,18 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void insertCart(Cart cart) throws Exception {
 		try {
-			dao.insertData("order.insertCart", cart);
+			// 기존에 장바구니에 있는 상품인지 확인
+			Cart dto = dao.selectOne("order.readCart", cart);
+			
+			// 새로운 장바구니 상품이면 insert
+			if(dto == null) {
+				dao.insertData("order.insertCart", cart);
+				return;
+			}
+			
+			// 기존에 있는 장바구니 상품이면 count 추가
+			dao.updateData("order.updateCart", cart);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -133,16 +144,25 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int cartCount(long userIdx) {
-		int result = 0;
+	public Cart readCart(Cart cart) {
 		try {
-			result = dao.selectOne("order.cartCount", userIdx);
+			cart = dao.selectOne("order.readCart", cart);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return cart;
 	}
-	
+
+	@Override
+	public void updateCart(Cart cart) throws Exception {
+		try {
+			dao.updateData("order.updateCart", cart);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
 	
 
 	

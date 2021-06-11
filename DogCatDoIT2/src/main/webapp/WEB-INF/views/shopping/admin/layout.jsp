@@ -36,9 +36,12 @@
 	type="image/x-icon">
 
 <!-- Google font-->
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"
-	rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"
+	rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css?family=Jua:400"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
 <!-- themify -->
 <link rel="stylesheet" type="text/css"

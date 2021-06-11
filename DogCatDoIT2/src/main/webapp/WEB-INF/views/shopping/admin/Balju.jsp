@@ -5,7 +5,7 @@
 <div class="content-wrapper">
 	<div class="container-fluid">
 		<div class="baljuMain">
-			<form name="BaljuForm" id="BaljuForm" method="post">
+			<form name="BaljuForm" id="BaljuForm" method="post" >
 			
 				<div
 					style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
@@ -19,7 +19,7 @@
 				</div>
 
 				<div class="form-group">
-					<button type="button" class="btn btn-outline-danger"
+					<button type="button" class="btn btn btn-outline-secondary"
 						onclick="daumPostcode();" style="border-radius: 10px;">우편번호</button>
 					<input class="form-control" type="text" name="zip" id="zip"
 						readonly="readonly" placeholder="우편번호" value="${store.zip}">
@@ -31,7 +31,7 @@
 				</div>
 				<div class="form-group">
 					<c:if test="${mode eq 'insert'}">
-						<button type='button' class='btn btnSendOption btn-danger'
+						<button type='button' class='btn btnSendOption btn-secondary'
 							onclick="insertStore()"
 							style='padding: 10px 20px; border-radius: 10px;'>발주 업체
 							등록</button>
@@ -39,7 +39,7 @@
 					<c:if test="${mode eq 'update'}">
 					<input type="hidden" name="shopStoreId" value="${store.shopStoreId}">
 					
-					<button type='button' class='btn btnSendOption btn-danger'
+					<button type='button' class='btn btnSendOption btn-secondary'
 							onclick="updateStore()"
 							style='padding: 10px 20px; border-radius: 10px;'>발주 업체
 							수정</button>

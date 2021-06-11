@@ -13,29 +13,28 @@
 				<div
 					style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 					<c:forEach var="i" items="${items}">
-						<div class="card" style="width: 30%; border: 2px solid #F79F81; border-radius: 15px;">
+						<div class="card" style="width: 30%; border: 4px outset #F79F81; border-radius: 15px;">
 							<img class="card-img-top" style="padding: 10px;"
 								src="${pageContext.request.contextPath}/uploads/item/${i.saveFileName}"
 								alt="Card image cap" width="130px" height="130px"
 								onclick="javascript:location.href='${pageContext.request.contextPath}/shopping/admin/optionManage?num=${i.itemId}';">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"
-									style="background: #F79F81; color: white;">${i.itemName}</li>
-								<li class="list-group-item"
-									style="background: #F79F81; color: white;">설명:${i.des}</li>
+									style="background: #F79F81; color: white; font-family: Jua">${i.itemName}</li>
+								
 							</ul>
 							<div
-								style="display: flex; flex-direction: row; justify-content: center;">
+								style="display: flex; flex-direction: row; justify-content: center; padding: 5px; font-family: Cairo, sans-serif;  ">
 								<form method="post"
 									action="${pageContext.request.contextPath}/shopping/admin/item/delete"
 									onsubmit="return deletecheck();">
 									<input type="hidden" name="num" value="${i.itemId}">
 									<input type="hidden" name="page" value="${page}">
 									<button type='submit' class='btn btn-outline-danger'
-										style='padding: 10px 20px; border-radius: 10px;  margin-right: 10px;'>삭제</button>
+										style='padding: 10px 20px; border-radius: 10px;  margin-right: 10px; '>삭제</button>
 								</form>
 								
-									<button type='button' class='btn btn-outline-danger' onclick="location.href='${pageContext.request.contextPath}/shopping/admin/item/update?id=${i.itemId}&page=${page}';"
+									<button type='button' class='btn btn-secondary' onclick="location.href='${pageContext.request.contextPath}/shopping/admin/item/update?id=${i.itemId}&page=${page}';"
 										 style='padding: 10px 20px; border-radius: 10px; '>수정</button>
 
 								

@@ -10,22 +10,22 @@
 	<c:forEach var="vo" items="${options}">
 	    <tr>
 	        <td style='padding:7px 5px;'>
-	            <button type='button' class='btn btnDetailOptionLayout btn-danger' data-optionNum='${vo.optionId}' style="border-radius:10px;">상세옵션</button>
-				<button class="deleteReply btn btn-outline-danger" style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.optionId}'  >삭제</button>
+	            <button type='button' class='btn btnDetailOptionLayout btn-secondary' data-optionNum='${vo.optionId}' style="border-radius:10px;">상세옵션</button>
+				<button class="deleteReply btn btn-danger" style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.optionId}'  >삭제</button>
 	        </td>
 	
 	    </tr>  
 	    <tr>
 	        <td colspan='2' valign='top' style='padding:5px 5px; background: #F79F81; color:#696969; text-align: center;border-radius: 30px;'>
-				<span style="font-family: 'Ubuntu', sans-serif;">${vo.optionName}</span>
+				<span style="font-family: Cairo, sans-serif;">${vo.optionName}</span>
 	        </td>
 	    </tr>
 	    
 	
 	
 	    <tr class='replyAnswer' style='display: none;'>
-	        <td colspan='2' style=' border:1px solid #F79F81;'>
-	            <div id='listdetailoption${vo.optionId}' class='answerList' style='border-top: 1px solid #F79F81;'>
+	        <td colspan='2' style=' border:4px outset #F79F81; '>
+	            <div id='listdetailoption${vo.optionId}' class='answerList'>
 	            
 	            </div>
 	            <div style='clear: both; padding: 10px 10px;'>
@@ -33,7 +33,7 @@
 	            
 	                <div class="form-group" >
 	                	이름
-	                    <input type="text" class="form-control"  placeholder="ex. s, m, l">
+	                    <input type="text" class="form-control">
 	                 </div>
 	                 <div class="form-group" >
 	                	수량
@@ -41,7 +41,7 @@
 	                 </div>
 	            </div>
 	             <div style='padding: 0 13px 10px 10px; text-align: right;'>
-	                <button type='button' class='btn SendDetail btn-danger' data-optionNum='${vo.optionId}' style="border-radius:10px;">상세옵션 등록</button>
+	                <button type='button' class='btn SendDetail btn-secondary' data-optionNum='${vo.optionId}' style="border-radius:10px;">상세옵션 등록</button>
 	            </div>
 	        
 			</td>

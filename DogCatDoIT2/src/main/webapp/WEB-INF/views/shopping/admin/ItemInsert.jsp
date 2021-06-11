@@ -5,7 +5,7 @@
 <div class="content-wrapper">
 	<div class="container-fluid">
 
-		<div class="body-main" style="padding: 20px; text-align: center;">
+		<div class="body-main" style="padding: 20px; text-align: center; font-family: Cairo, sans-serif;">
 			<span style="font-family: Jua; font-size: x-large;">상품 등록</span>
 			<form name="boardForm" method="post" enctype="multipart/form-data"
 				onsubmit="return submitContents(this);">

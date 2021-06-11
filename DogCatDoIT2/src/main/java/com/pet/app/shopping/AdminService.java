@@ -432,4 +432,32 @@ public class AdminService {
 			throw e;
 		}
 	}
+	
+	public int isUserBought(long useridx, long itemId) {
+		int result=0;
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("useridx", useridx);
+		map.put("itemId", itemId);
+		try {
+			result=dao.selectOne("shop.isUserBought", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public int itemReviewCount(long useridx, long itemId) {
+		int result=0;
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("useridx", useridx);
+		map.put("itemId", itemId);
+		try {
+			result=dao.selectOne("shop.ItemReviewCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

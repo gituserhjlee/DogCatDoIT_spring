@@ -11,15 +11,13 @@
 			</div>
 			<form name="couponForm" id="couponForm">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="쿠폰명을 입력하세요"
-						name="couponName"> <input type="date" class="form-control"
-						placeholder="마감일자를 입력하세요" name="deadline"> <input
-						type="number" class="form-control" placeholder="발행 개수를 입력하세요"
-						name="stock"> <input type="number" class="form-control"
-						placeholder="할인율을 숫자로 입력하세요" name="rate">
+						<input type="text" class="form-control" placeholder="쿠폰명을 입력하세요" name="couponName">
+						<input type="date" class="form-control" placeholder="마감일자를 입력하세요" name="deadline">
+						<input type="number" class="form-control" placeholder="발행 개수를 입력하세요" name="stock"> 
+						<input type="number" class="form-control" placeholder="할인율을 숫자로 입력하세요" name="rate">
 				</div>
 				<div class="form-group">
-					<button type='button' class='btn btnSendOption btn-danger'
+					<button type='button' class='btn btnSendOption btn-secondary'
 						onclick="insertCoupon()"
 						style='padding: 10px 20px; border-radius: 10px;'>쿠폰등록</button>
 				</div>

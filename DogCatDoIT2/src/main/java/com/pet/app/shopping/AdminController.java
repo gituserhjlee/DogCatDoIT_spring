@@ -1,7 +1,10 @@
 package com.pet.app.shopping;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -459,7 +462,9 @@ public class AdminController {
 		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
 		d = service.listAllOptions(num);
 		count=service.countReview(num);
-		average=(double)service.sumReview(num)/count;
+		if(service.sumReview(num)>0) {
+			average=(double)service.sumReview(num)/count;
+		}
 		
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
@@ -487,10 +492,24 @@ public class AdminController {
 	}
 	@PostMapping("review")
 	public String insertReview(ShopReview review,HttpServletRequest req, Model model) {
-		List<ShopReview> reviews=new ArrayList<ShopReview>();
-		
 		HttpSession session=req.getSession();
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		//배송완료 아닌 사람은 못쓰게
+		int bought=service.isUserBought(info.getUserIdx(), review.getItemId());//상품을 구매한 개수
+		if(bought<1) {
+			model.addAttribute("msg", "배송완료된 상품에 대해 리뷰 작성이 가능합니다");
+			return "/error/error";
+		}
+		//리뷰는 주문개수만큼만 쓸 수 있음
+		int reviewCount=service.itemReviewCount(info.getUserIdx(), review.getItemId());//이미 작성한 리뷰개수
+		if(reviewCount>=bought) {
+			model.addAttribute("msg", "리뷰는 주문 개수 만큼만 쓸 수 있습니다");
+			return "/error/error";
+			
+		}
+		
+		List<ShopReview> reviews=new ArrayList<ShopReview>();
+	
 		review.setUseridx(info.getUserIdx());
 		try {
 			service.insertReview(review);
@@ -580,9 +599,23 @@ public class AdminController {
 	
 	
 	@GetMapping("admin/CouponList")
-	public String CouponList(Model model) {
+	public String CouponList(Model model) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		List<Coupon> coupons=new ArrayList<Coupon>();
 		coupons=service.couponList();
+		
+		for(Coupon c:coupons) {
+			Date today=new Date();
+			
+			String today2=sdf.format(today);
+			String deadline=c.getDeadline();
+			int compare=sdf.parse(deadline).compareTo(sdf.parse(today2));
+			if(compare<0) {
+				c.setEnd(true);
+			}else {
+				c.setEnd(false);
+			}
+		}
 		model.addAttribute("coupons", coupons);
 
 		return "/shopping/admin/CouponList";
@@ -596,13 +629,27 @@ public class AdminController {
 	}
 	
 	@PostMapping("admin/CouponManage")
-	public String couponinsert(Coupon coupon, Model model) {
+	public String couponinsert(Coupon coupon, Model model) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		List<Coupon> coupons=new ArrayList<Coupon>();
 		try {
 			service.insertCoupon(coupon);
 			coupons=service.couponList();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		for(Coupon c:coupons) {
+			Date today=new Date();
+			
+			String today2=sdf.format(today);
+			String deadline=c.getDeadline();
+			int compare=sdf.parse(deadline).compareTo(sdf.parse(today2));
+			
+			if(compare<0) {
+				c.setEnd(true);
+			}else {
+				c.setEnd(false);
+			}
 		}
 		model.addAttribute("coupons", coupons);
 		return "/shopping/admin/CouponList";

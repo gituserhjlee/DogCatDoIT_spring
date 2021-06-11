@@ -258,7 +258,7 @@
 	</insert>
 	
 	<select id="selectCouponList" resultType="com.pet.app.shopping.Coupon">
-	select couponNum,couponName, to_char(deadline,'YYYY-MM-DD') deadline ,stock,rate 
+	select couponNum,couponName, deadline ,stock,rate 
 	from shopcoupon 
 	order by deadline desc
 	</select>
@@ -299,4 +299,20 @@
 		update review set score=#{score}, content=#{content}
 		where reviewNum=#{reviewNum}
 	</update>
+	
+	<select id="isUserBought" parameterType="map" resultType="Integer">
+	select count(*)
+	from shoporder so join shoporderdetail sod on so.orderidx=sod.orderidx
+	join detailitemoption d on sod.detailid=d.detailid
+	join itemoption i on d.itemoptionid=i.optionid
+	where so.useridx=#{useridx} and i.itemid=#{itemId} and so.state=2
+	
+	</select>
+	
+	<!--해당 상품에 리뷰를 남긴개수 -->
+	<select id="ItemReviewCount" parameterType="map" resultType="Integer">
+	select count(*)
+	from review
+	where useridx=#{useridx} and itemid=#{itemId}
+	</select>
 </mapper>

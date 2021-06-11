@@ -17,8 +17,8 @@
 				</tr>
 				<tr>
 					<td align='right'>
-						<button type='button' class='btn btnSendOption btn-danger'
-							style='padding: 10px 20px; border-radius:10px; '>옵션 등록</button>
+						<button type='button' class='btn btnSendOption  btn-secondary'
+							style='padding: 10px 20px; border-radius:10px;font-family: Cairo, sans-serif; '>옵션 등록</button>
 					</td>
 				</tr>
 			</table>

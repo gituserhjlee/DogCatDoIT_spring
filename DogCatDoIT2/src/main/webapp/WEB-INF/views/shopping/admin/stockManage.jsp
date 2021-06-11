@@ -25,7 +25,7 @@
 						<tr>
 							<th scope="row">
 							<form method="post" action="${pageContext.request.contextPath}/shopping/admin/insertBalju" onsubmit="return baljucheck(${o.detailId});">
-								<button class="btn btn-outline-danger" style="border-radius: 10px;">발주</button>
+								<button class="btn btn-secondary" style="border-radius: 10px;">발주</button>
 								<input type="number" name="count" id="count${o.detailId}" style="width: 100px;">
 								<input type="hidden" name="id" value="${o.detailId}">
 							</form>

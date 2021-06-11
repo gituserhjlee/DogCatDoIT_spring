@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<table class="table">
-	<thead class="thead-dark" style="text-align: center;">
+<table class="table" style="border:2px solid #696969;">
+	<thead class="thead-dark" style="text-align: center; ">
 		<tr>
 			<th scope="col" style="vertical-align: middle"></th>
 			<th scope="col" style="vertical-align: middle"></th>
@@ -29,7 +29,7 @@
 
 				<th scope="row">
 				<c:if test="${s.enabled eq true}">
-				<button class="btn btn-danger"
+				<button class="btn btn-outline-secondary"
 						style="border-radius: 10px;"
 						onclick='deleteShop(${s.shopStoreId});'>중단</button>
 				</c:if>
@@ -37,7 +37,7 @@
 				<th>
 				<c:if test="${s.enabled eq true}">
 					
-					<button class="btn btn-outline-danger"
+					<button class="btn btn-secondary"
 							style="border-radius: 10px;"
 							onclick="location.href='${pageContext.request.contextPath}/shopping/admin/BaljuUpdate?id=${s.shopStoreId}'">수정</button>	
 						

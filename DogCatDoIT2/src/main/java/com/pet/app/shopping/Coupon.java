@@ -6,6 +6,7 @@ public class Coupon {
 	private String deadline;
 	private int stock;
 	private int rate;
+	private boolean end;
 	
 	public long getCouponNum() {
 		return couponNum;
@@ -36,6 +37,12 @@ public class Coupon {
 	}
 	public void setRate(int rate) {
 		this.rate = rate;
+	}
+	public boolean isEnd() {
+		return end;
+	}
+	public void setEnd(boolean end) {
+		this.end = end;
 	}
 	
 	

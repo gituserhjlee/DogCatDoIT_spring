@@ -315,4 +315,57 @@
 	from review
 	where useridx=#{useridx} and itemid=#{itemId}
 	</select>
+	
+	<!-- dashboard에 필요한 데이터 -->
+	<select id="AllshoporderCount" resultType="Integer">
+	select count(*)
+	from shoporder
+	</select>	
+	
+	<select id="AllShopCustomerCount" resultType="Integer">
+	select count(*) from(
+	select useridx, count(*)
+	from shoporder
+	group by useridx)
+	</select>
+	
+	<!-- 주문한 상품들의 원가 합 -->
+	<select id="sumoriginalPrice" resultType="long">
+	select sum(it.itemoriginalprice*sod.qty)
+	from shoporder so join shoporderdetail sod on so.orderidx=sod.orderidx
+	join detailitemoption d on sod.detailid=d.detailid
+	join itemoption i on d.itemoptionid=i.optionid
+	join item it on i.itemid=it.itemid
+	</select>
+	
+	<!-- 총 매출액 -->
+	<select id="sumsalesPrice" resultType="long">
+	select sum(totalpayment)
+	from shoporder
+	</select>
+	
+	<!-- 월별 매출액 -->
+	<select id="saleforday" resultType="com.pet.app.shopping.DashboardDTO" parameterType="map">
+	select
+    sum(m1) "m1", sum(m2) "m2", sum(m3) "m3", sum(m4) "m4",
+    sum(m5) "m5", sum(m6) "m6", sum(m7) "m7", sum(m8) "m8",
+    sum(m9) "m9", sum(m10) "m10", sum(m11) "m11", sum(m12) "m12"
+from
+    (
+        select  decode(to_char(order_date, 'yyyy-mm'), #{m1}, sum(totalpayment), 0) m1,
+                decode(to_char(order_date, 'yyyy-mm'), #{m2}, sum(totalpayment), 0) m2,
+                decode(to_char(order_date, 'yyyy-mm'), #{m3}, sum(totalpayment), 0) m3,
+                decode(to_char(order_date, 'yyyy-mm'), #{m4}, sum(totalpayment), 0) m4,
+                decode(to_char(order_date, 'yyyy-mm'), #{m5}, sum(totalpayment), 0) m5,
+                decode(to_char(order_date, 'yyyy-mm'), #{m6}, sum(totalpayment), 0) m6,
+                decode(to_char(order_date, 'yyyy-mm'), #{m7}, sum(totalpayment), 0) m7,
+                decode(to_char(order_date, 'yyyy-mm'), #{m8}, sum(totalpayment), 0) m8,
+                decode(to_char(order_date, 'yyyy-mm'), #{m9}, sum(totalpayment), 0) m9,
+                decode(to_char(order_date, 'yyyy-mm'), #{m10}, sum(totalpayment), 0) m10,
+                decode(to_char(order_date, 'yyyy-mm'), #{m11}, sum(totalpayment), 0) m11,
+                decode(to_char(order_date, 'yyyy-mm'), #{m12}, sum(totalpayment), 0) m12
+        from shoporder
+        group by to_char(order_date, 'yyyy-mm')
+    )
+	</select>
 </mapper>

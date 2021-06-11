@@ -67,11 +67,41 @@ public class AdminController {
 
 		return ".shopping.mainPage";
 	}
-	
 
 	@GetMapping("admin/dashboard")
-	public String adminPage() {
+	public String adminPage(Model model) {
+
+		int datacount = service.dataCount();
+		int ordercount = service.allShoporderCount();
+		int customercount = service.allShopCustomerCount();
+		long sumoriginalPrice = service.sumoriginalPrice();
+		long sumsalesPrice = service.sumsalesPrice();
+
+		model.addAttribute("datacount", datacount);
+		model.addAttribute("ordercount", ordercount);
+		model.addAttribute("customercount", customercount);
+		model.addAttribute("profit", sumsalesPrice - sumoriginalPrice);
 		return ".shopping.admin.dashboard";
+	}
+
+	@RequestMapping("admin/chart")
+	@ResponseBody
+	public Map<String, Object> chart() throws Exception {
+		DashboardDTO review = null;
+		review = service.saleforday();
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map;
+		map = new HashMap<String, Object>();
+		map.put("name", "현황");
+		map.put("data", new double[] { review.getM1(), review.getM2(), review.getM3(), review.getM4(), review.getM5(), review.getM6(),
+				review.getM7(), review.getM8(), review.getM9(), review.getM10(), review.getM11(), review.getM12()});
+		list.add(map);
+		model.put("series", list);
+
+		return model;
+
 	}
 
 	@GetMapping("admin/ItemManage")
@@ -138,7 +168,7 @@ public class AdminController {
 		List<ShopStore> ss = service.listStore();
 		List<ItemCategory> ic = service.listCategory();
 		List<ItemCategory> newic = new ArrayList<ItemCategory>();
-		
+
 		for (ItemCategory i : ic) {
 			if (i.getParentNum() != 0) {
 				newic.add(i);
@@ -149,14 +179,14 @@ public class AdminController {
 			String parent = service.findByCategoryId(i.getParentNum()).getItemCategoryName();
 			i.setItemCategoryName('(' + parent + ')' + i.getItemCategoryName());
 		}
-	
+
 		model.addAttribute("mode", "insert");
 		model.addAttribute("category", newic);
 		model.addAttribute("store", ss);
 
 		return ".shopping.admin.ItemInsert";
 	}
-	
+
 	@PostMapping("admin/item/insert")
 	public String insertItem(Item item, HttpSession session, Model model) {
 
@@ -171,27 +201,27 @@ public class AdminController {
 		}
 		return "redirect:/shopping/admin/ItemManage";
 	}
-	
+
 	@GetMapping("admin/item/update")
 	public String ItemInsert(Model model, @RequestParam long id, @RequestParam int page) {
 
 		List<ShopStore> ss = service.listStore();
-		List<ShopStore> ss2=new ArrayList<ShopStore>();
+		List<ShopStore> ss2 = new ArrayList<ShopStore>();
 		List<ItemCategory> ic = service.listCategory();
 		List<ItemCategory> newic = new ArrayList<ItemCategory>();
 		Item item = service.findById(id);
-		ItemCategory c=service.findByCategoryId(item.getItemCategoryId());
+		ItemCategory c = service.findByCategoryId(item.getItemCategoryId());
 		String p = service.findByCategoryId(c.getParentNum()).getItemCategoryName();
 		c.setItemCategoryName('(' + p + ')' + c.getItemCategoryName());
-		
-		ShopStore s=service.findByShopStoreId(item.getShopStoreId());
+
+		ShopStore s = service.findByShopStoreId(item.getShopStoreId());
 		for (ItemCategory i : ic) {
-			if (i.getParentNum() != 0 && i.getItemCategoryId()!=item.getItemCategoryId()) {
+			if (i.getParentNum() != 0 && i.getItemCategoryId() != item.getItemCategoryId()) {
 				newic.add(i);
 			}
 		}
-		for(ShopStore a:ss) {
-			if(a.getShopStoreId()!=item.getShopStoreId()) {
+		for (ShopStore a : ss) {
+			if (a.getShopStoreId() != item.getShopStoreId()) {
 				ss2.add(a);
 			}
 		}
@@ -210,26 +240,24 @@ public class AdminController {
 
 		return ".shopping.admin.ItemInsert";
 	}
-	
+
 	@PostMapping("admin/item/update")
-	  public String updateItem(Item dto, @RequestParam int page, HttpSession session) throws Exception {
-	  
-	  String root=session.getServletContext().getRealPath("/");
-	  String pathname =root + "uploads" + File.separator + "item";
-	  
-	  try { 
-		  	service.updateItem(dto, pathname);
-		  } 
-	  catch (Exception e) { 
-		  e.printStackTrace();
-	  }
-	  
-		return "redirect:/shopping/admin/ItemManage?page="+page;
-	  }
-	
+	public String updateItem(Item dto, @RequestParam int page, HttpSession session) throws Exception {
+
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "item";
+
+		try {
+			service.updateItem(dto, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/shopping/admin/ItemManage?page=" + page;
+	}
 
 	@PostMapping("admin/item/delete")
-	public String deleteItem(@RequestParam long num,@RequestParam int page, HttpSession session) {
+	public String deleteItem(@RequestParam long num, @RequestParam int page, HttpSession session) {
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
 		try {
@@ -238,22 +266,20 @@ public class AdminController {
 			e.printStackTrace();
 			return ".error.error";
 		}
-		return "redirect:/shopping/admin/ItemManage?page="+page;
+		return "redirect:/shopping/admin/ItemManage?page=" + page;
 	}
-
-	
 
 	@RequestMapping("admin/deleteFile")
 	public String deleteFile(@RequestParam long num, HttpSession session) {
-		 String root=session.getServletContext().getRealPath("/");
-		  String pathname =root + "uploads" + File.separator + "item";
-		  
-		  Item dto=service.findById(num);
-		  if(dto==null) {
-				return "redirect:/shopping/admin/ItemManage";
-			}
-		  try {
-			if(dto.getSaveFileName()!=null) {
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "item";
+
+		Item dto = service.findById(num);
+		if (dto == null) {
+			return "redirect:/shopping/admin/ItemManage";
+		}
+		try {
+			if (dto.getSaveFileName() != null) {
 				fileManager.doFileDelete(dto.getSaveFileName(), pathname);
 				dto.setSaveFileName("");
 				service.updateItem(dto, pathname);
@@ -261,7 +287,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			return "redirect:/shopping/admin/item/update?id="+num;
+		return "redirect:/shopping/admin/item/update?id=" + num;
 
 	}
 
@@ -327,6 +353,7 @@ public class AdminController {
 		model.addAttribute("shops", shops);
 		return "shopping/admin/BaljuStoreList";
 	}
+
 	@PostMapping("admin/BaljuStore")
 	public String BaljuStoreDelete(Model model, @RequestParam long shopStoreId) {
 		try {
@@ -359,16 +386,16 @@ public class AdminController {
 		return "shopping/admin/BaljuStoreList";
 
 	}
-	
+
 	@GetMapping("admin/BaljuUpdate")
 	public String updateBaljuForm(@RequestParam long id, Model model) {
-		ShopStore store=new ShopStore();
-		store=service.findByShopStoreId(id);
+		ShopStore store = new ShopStore();
+		store = service.findByShopStoreId(id);
 		model.addAttribute("mode", "update");
 		model.addAttribute("store", store);
 		return ".shopping.admin.Balju";
 	}
-	
+
 	@PostMapping("admin/Balju/update")
 	public String updateBalju(ShopStore shop, Model model) {
 		List<ShopStore> shops = new ArrayList<ShopStore>();
@@ -384,31 +411,34 @@ public class AdminController {
 		return "redirect:/shopping/admin/Balju";
 
 	}
+
 	@GetMapping("admin/stockManage")
-	public String stockManage(Model model){
+	public String stockManage(Model model) {
 		List<DetailOption> ic = new ArrayList<DetailOption>();
-		ic=service.Alldetailoptions();
+		ic = service.Alldetailoptions();
 		model.addAttribute("options", ic);
 		System.out.println(ic.size());
 		return ".shopping.admin.stockManage";
 	}
+
 	@PostMapping("admin/insertBalju")
 	public String insertBalju(@RequestParam long id, @RequestParam int count, Model model) {
-		List<ShopStoreOrder> list=new ArrayList<ShopStoreOrder>();
+		List<ShopStoreOrder> list = new ArrayList<ShopStoreOrder>();
 		try {
 			service.insertShopStoreOrder(id, count);
-			list=service.selectShopStoreOrder();
+			list = service.selectShopStoreOrder();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("list", list);
 		return "redirect:/shopping/admin/BaljuOrder";
 	}
+
 	@GetMapping("admin/BaljuOrder")
 	public String baljuorder(Model model) {
-		List<ShopStoreOrder> list=new ArrayList<ShopStoreOrder>();
+		List<ShopStoreOrder> list = new ArrayList<ShopStoreOrder>();
 		try {
-			list=service.selectShopStoreOrder();
+			list = service.selectShopStoreOrder();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -416,6 +446,7 @@ public class AdminController {
 
 		return ".shopping.admin.BaljuOrder";
 	}
+
 	@GetMapping("dog")
 	public String dogPage(HttpServletRequest req, Model model, @RequestParam(defaultValue = "forRecent") String sort) {
 		int dataCount = 0;
@@ -435,7 +466,7 @@ public class AdminController {
 	}
 
 	@GetMapping("cat")
-	public String catPage(HttpServletRequest req, Model model,@RequestParam(defaultValue = "forRecent") String sort) {
+	public String catPage(HttpServletRequest req, Model model, @RequestParam(defaultValue = "forRecent") String sort) {
 		int dataCount = 0;
 		// 전체 페이지 수
 		dataCount = service.dataDogCatCount(2);
@@ -456,65 +487,33 @@ public class AdminController {
 	public String article(@RequestParam long num, Model model) {
 		Item item = null;
 		List<DetailOption> d = new ArrayList<DetailOption>();
-		int count=0;
-		double average=0;
+		int count = 0;
+		double average = 0;
 		item = service.findById(num);
 		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
 		d = service.listAllOptions(num);
-		count=service.countReview(num);
-		if(service.sumReview(num)>0) {
-			average=(double)service.sumReview(num)/count;
+		count = service.countReview(num);
+		if (service.sumReview(num) > 0) {
+			average = (double) service.sumReview(num) / count;
 		}
-		
+
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
 		model.addAttribute("count", count);
-		model.addAttribute("average", Double.parseDouble(String.format("%.2f",average)));
+		model.addAttribute("average", Double.parseDouble(String.format("%.2f", average)));
 		model.addAttribute("mode", "insert");
 
 		return ".shopping.article";
 	}
-	
+
 	@GetMapping("review")
 	public String listReview(@RequestParam long itemId, Model model) {
-		System.out.println("아이템번호"+itemId);
-		List<ShopReview> reviews=new ArrayList<ShopReview>();
-		
+		System.out.println("아이템번호" + itemId);
+		List<ShopReview> reviews = new ArrayList<ShopReview>();
+
 		try {
-			reviews=service.selectReview(itemId);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("reviews", reviews);
-		
-		return "/shopping/reviewList";
-	}
-	@PostMapping("review")
-	public String insertReview(ShopReview review,HttpServletRequest req, Model model) {
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		//배송완료 아닌 사람은 못쓰게
-		int bought=service.isUserBought(info.getUserIdx(), review.getItemId());//상품을 구매한 개수
-		if(bought<1) {
-			model.addAttribute("msg", "배송완료된 상품에 대해 리뷰 작성이 가능합니다");
-			return "/error/error";
-		}
-		//리뷰는 주문개수만큼만 쓸 수 있음
-		int reviewCount=service.itemReviewCount(info.getUserIdx(), review.getItemId());//이미 작성한 리뷰개수
-		if(reviewCount>=bought) {
-			model.addAttribute("msg", "리뷰는 주문 개수 만큼만 쓸 수 있습니다");
-			return "/error/error";
-			
-		}
-		
-		List<ShopReview> reviews=new ArrayList<ShopReview>();
-	
-		review.setUseridx(info.getUserIdx());
-		try {
-			service.insertReview(review);
-			reviews=service.selectReview(review.getItemId());
-			
+			reviews = service.selectReview(itemId);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -522,49 +521,83 @@ public class AdminController {
 
 		return "/shopping/reviewList";
 	}
-	
+
+	@PostMapping("review")
+	public String insertReview(ShopReview review, HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		// 배송완료 아닌 사람은 못쓰게
+		int bought = service.isUserBought(info.getUserIdx(), review.getItemId());// 상품을 구매한 개수
+		if (bought < 1) {
+			model.addAttribute("msg", "배송완료된 상품에 대해 리뷰 작성이 가능합니다");
+			return "/error/error";
+		}
+		// 리뷰는 주문개수만큼만 쓸 수 있음
+		int reviewCount = service.itemReviewCount(info.getUserIdx(), review.getItemId());// 이미 작성한 리뷰개수
+		if (reviewCount >= bought) {
+			model.addAttribute("msg", "리뷰는 주문 개수 만큼만 쓸 수 있습니다");
+			return "/error/error";
+
+		}
+
+		List<ShopReview> reviews = new ArrayList<ShopReview>();
+
+		review.setUseridx(info.getUserIdx());
+		try {
+			service.insertReview(review);
+			reviews = service.selectReview(review.getItemId());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("reviews", reviews);
+
+		return "/shopping/reviewList";
+	}
+
 	@GetMapping("updatereview")
-	public String updateReviewForm(@RequestParam long reviewNum,@RequestParam long useridx, @RequestParam long itemId, HttpServletRequest req, Model model) {
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		if(info.getUserIdx()!=useridx) {
+	public String updateReviewForm(@RequestParam long reviewNum, @RequestParam long useridx, @RequestParam long itemId,
+			HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if (info.getUserIdx() != useridx) {
 			model.addAttribute("msg", "자신의 글만 수정 가능합니다");
 			return ".error.error";
 		}
-		
-		ShopReview review=service.findByReviewId(reviewNum);
+
+		ShopReview review = service.findByReviewId(reviewNum);
 		Item item = null;
 		List<DetailOption> d = new ArrayList<DetailOption>();
-		int count=0;
-		double average=0;
+		int count = 0;
+		double average = 0;
 		item = service.findById(itemId);
 		item.setDiscountedPrice((long) (Math.round((100 - item.getDiscountRate()) / 100.0 * item.getItemSalePrice())));
 		d = service.listAllOptions(itemId);
-		count=service.countReview(itemId);
-		average=(double)service.sumReview(itemId)/count;
-		
+		count = service.countReview(itemId);
+		average = (double) service.sumReview(itemId) / count;
+
 		model.addAttribute("item", item);
 		model.addAttribute("options", d);
 		model.addAttribute("count", count);
-		model.addAttribute("average", Double.parseDouble(String.format("%.2f",average)));
+		model.addAttribute("average", Double.parseDouble(String.format("%.2f", average)));
 		model.addAttribute("review", review);
 		model.addAttribute("mode", "update");
 		return ".shopping.article";
 	}
-	
+
 	@PostMapping("updatereview")
-	public String updateReview(ShopReview review,HttpServletRequest req, Model model) {
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		if(info.getUserIdx()!=review.getUseridx()) {
+	public String updateReview(ShopReview review, HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if (info.getUserIdx() != review.getUseridx()) {
 			model.addAttribute("msg", "자신의 글만 수정 가능합니다");
 			return ".error.error";
 		}
-		List<ShopReview> reviews=new ArrayList<ShopReview>();
+		List<ShopReview> reviews = new ArrayList<ShopReview>();
 
 		try {
 			service.updateReview(review);
-			reviews=service.selectReview(review.getItemId());
+			reviews = service.selectReview(review.getItemId());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -574,20 +607,21 @@ public class AdminController {
 		return "/shopping/reviewList";
 
 	}
-	
+
 	@PostMapping("deletereview")
-	public String deleteReview(@RequestParam long reviewNum, @RequestParam long useridx,@RequestParam long itemId,HttpServletRequest req, Model model) {
-		List<ShopReview> reviews=new ArrayList<ShopReview>();
-		HttpSession session=req.getSession();
-		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		if(info.getUserIdx()!=useridx) {
+	public String deleteReview(@RequestParam long reviewNum, @RequestParam long useridx, @RequestParam long itemId,
+			HttpServletRequest req, Model model) {
+		List<ShopReview> reviews = new ArrayList<ShopReview>();
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		if (info.getUserIdx() != useridx) {
 			model.addAttribute("msg", "자신의 글만 삭제 가능합니다");
 			return "/error/error";
 		}
-		
+
 		try {
 			service.deleteReview(reviewNum, info.getUserIdx());
-			reviews=service.selectReview(itemId);
+			reviews = service.selectReview(itemId);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -596,23 +630,22 @@ public class AdminController {
 
 		return "/shopping/reviewList";
 	}
-	
-	
+
 	@GetMapping("admin/CouponList")
 	public String CouponList(Model model) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		List<Coupon> coupons=new ArrayList<Coupon>();
-		coupons=service.couponList();
-		
-		for(Coupon c:coupons) {
-			Date today=new Date();
-			
-			String today2=sdf.format(today);
-			String deadline=c.getDeadline();
-			int compare=sdf.parse(deadline).compareTo(sdf.parse(today2));
-			if(compare<0) {
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		coupons = service.couponList();
+
+		for (Coupon c : coupons) {
+			Date today = new Date();
+
+			String today2 = sdf.format(today);
+			String deadline = c.getDeadline();
+			int compare = sdf.parse(deadline).compareTo(sdf.parse(today2));
+			if (compare < 0) {
 				c.setEnd(true);
-			}else {
+			} else {
 				c.setEnd(false);
 			}
 		}
@@ -620,34 +653,33 @@ public class AdminController {
 
 		return "/shopping/admin/CouponList";
 	}
-	
-	
+
 	@GetMapping("admin/CouponManage")
 	public String couponManage() {
-	
+
 		return ".shopping.admin.CouponManage";
 	}
-	
+
 	@PostMapping("admin/CouponManage")
 	public String couponinsert(Coupon coupon, Model model) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		List<Coupon> coupons=new ArrayList<Coupon>();
+		List<Coupon> coupons = new ArrayList<Coupon>();
 		try {
 			service.insertCoupon(coupon);
-			coupons=service.couponList();
+			coupons = service.couponList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for(Coupon c:coupons) {
-			Date today=new Date();
-			
-			String today2=sdf.format(today);
-			String deadline=c.getDeadline();
-			int compare=sdf.parse(deadline).compareTo(sdf.parse(today2));
-			
-			if(compare<0) {
+		for (Coupon c : coupons) {
+			Date today = new Date();
+
+			String today2 = sdf.format(today);
+			String deadline = c.getDeadline();
+			int compare = sdf.parse(deadline).compareTo(sdf.parse(today2));
+
+			if (compare < 0) {
 				c.setEnd(true);
-			}else {
+			} else {
 				c.setEnd(false);
 			}
 		}

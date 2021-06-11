@@ -19,7 +19,7 @@
 					<div class="col-lg-3 col-md-6">
 						<div class="card dashboard-product">
 							<span>모든 상품 개수</span>
-							<h2 class="dashboard-total-products">4500</h2>
+							<h2 class="dashboard-total-products">${datacount}</h2>
 
 							<div class="side-box">
 								<i class="ti-signal text-warning-color"></i>
@@ -28,8 +28,8 @@
 					</div>
 					<div class="col-lg-3 col-md-6">
 						<div class="card dashboard-product">
-							<span>누적 팔린 개수</span>
-							<h2 class="dashboard-total-products">37,500</h2>
+							<span>누적 주문 건수</span>
+							<h2 class="dashboard-total-products">${ordercount}</h2>
 
 							<div class="side-box ">
 								<i class="ti-gift text-primary-color"></i>
@@ -40,7 +40,7 @@
 						<div class="card dashboard-product">
 							<span>쇼핑몰 이용 고객 수 </span>
 							<h2 class="dashboard-total-products">
-								<span>30,780</span>
+								<span>${customercount}</span>
 							</h2>
 							<div class="side-box">
 								<i class="ti-direction-alt text-success-color"></i>
@@ -51,7 +51,7 @@
 						<div class="card dashboard-product">
 							<span>누적 쇼핑몰 순 이익</span>
 							<h2 class="dashboard-total-products">
-								$<span>30,780</span>
+								<span>${profit}원</span>
 							</h2>
 							<div class="side-box">
 								<i class="ti-rocket text-danger-color"></i>
@@ -64,13 +64,13 @@
 				<!-- 1-3-block row start -->
 				<div class="row">
 
-					<div class="col-lg-8">
+					<div class="col-lg-8" style="margin:0 auto;">
 						<div class="card">
 							<div class="card-header">
-								<h5 class="card-header-text">Bar chart</h5>
+								<h5 class="card-header-text">일자별 매출액</h5>
 							</div>
 							<div class="card-block">
-								<div id="barchart"
+								<div id="container"
 									style="min-width: 250px; height: 330px; margin: 0 auto"></div>
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 				<!-- 1-3-block row end -->
 
 				<!-- 2-1 block start -->
-				<div class="row">
+				<%-- <div class="row">
 					<div class="col-xl-8 col-lg-12">
 						<div class="card">
 							<div class="card-block">
@@ -187,21 +187,66 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-xl-4 col-lg-12">
-						<div class="card">
-							<div class="card-header">
-								<h5 class="card-header-text">Bar chart</h5>
-							</div>
-							<div class="card-block">
-								<div id="piechart"
-									style="min-width: 250px; height: 460px; margin: 0 auto"></div>
-							</div>
-						</div>
-					</div> -->
-				</div>
-				<!-- 2-1 block end -->
+				
+				</div> --%>
+				
 			</div>
 			
 		</div>
+<script>	
+$(function(){
+	var url="${pageContext.request.contextPath}/shopping/admin/chart";
 	
+	$.getJSON(url,function(data){
+		Highcharts.chart('container', {
+		    chart: {
+		        type: 'column'
+		    },
+		    title: {
+		        text: '월별 매출현황'
+		    },
+		 
+		    xAxis: {
+		        categories: [
+		            'Jan',
+		            'Feb',
+		            'Mar',
+		            'Apr',
+		            'May',
+		            'Jun',
+		            'Jul',
+		            'Aug',
+		            'Sep',
+		            'Oct',
+		            'Nov',
+		            'Dec'
+		        ],
+		        crosshair: true
+		    },
+		    yAxis: {
+		       
+		        title: {
+		            text: '매출액(원) k=1000'
+		        }
+		    },
+		    tooltip: {
+		        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+		            '<td style="padding:0"><b>{point.y} 원</b></td></tr>',
+		        footerFormat: '</table>',
+		        shared: true,
+		        useHTML: true
+		    },
+		    plotOptions: {
+		        column: {
+		            pointPadding: 0.2,
+		            borderWidth: 0
+		        }
+		    },
+			series:data.series
 
+		});
+		              
+});
+});
+</script>

@@ -168,8 +168,8 @@
 		<!-- custom js -->
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath}/resources/shopAdmin/js/main.min.js"></script>
-		<script type="text/javascript"
-			src="${pageContext.request.contextPath}/resources/shopAdmin/pages/dashboard.js"></script>
+	<%-- 	<script type="text/javascript"
+			src="${pageContext.request.contextPath}/resources/shopAdmin/pages/dashboard.js"></script> --%>
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath}/resources/shopAdmin/pages/elements.js"></script>
 		<script

@@ -1,6 +1,7 @@
 package com.pet.app.shopping;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -459,5 +460,80 @@ public class AdminService {
 		}
 		
 		return result;
+	}
+	
+	public int allShoporderCount() {
+		int result=0;
+		try {
+			result=dao.selectOne("shop.AllshoporderCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int allShopCustomerCount() {
+		int result=0;
+		try {
+			result=dao.selectOne("shop.AllShopCustomerCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public long sumoriginalPrice() {
+		long result=0;
+		try {
+			result=dao.selectOne("shop.sumoriginalPrice");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public long sumsalesPrice() {
+		long result=0;
+		try {
+			result=dao.selectOne("shop.sumsalesPrice");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public DashboardDTO saleforday(){
+		Map<String, Object> map=new HashMap<String, Object>();
+		DashboardDTO review=new DashboardDTO();
+		Calendar cal = Calendar.getInstance();
+		String year =Integer.toString(cal.get(Calendar.YEAR));
+		String m1=year+"-01";
+		String m2=year+"-02";
+		String m3=year+"-03";
+		String m4=year+"-04";
+		String m5=year+"-05";
+		String m6=year+"-06";
+		String m7=year+"-07";
+		String m8=year+"-08";
+		String m9=year+"-09";
+		String m10=year+"-010";
+		String m11=year+"-011";
+		String m12=year+"-012";
+		map.put("m1", m1);
+		map.put("m2", m2);
+		map.put("m3", m3);
+		map.put("m4", m4);
+		map.put("m5", m5);
+		map.put("m6", m6);
+		map.put("m7", m7);
+		map.put("m8", m8);
+		map.put("m9", m9);
+		map.put("m10", m10);
+		map.put("m11", m11);
+		map.put("m12", m12);
+		try {
+			review=dao.selectOne("shop.saleforday",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return review;
 	}
 }

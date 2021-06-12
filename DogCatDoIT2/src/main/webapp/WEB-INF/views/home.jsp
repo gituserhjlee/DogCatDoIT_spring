@@ -74,7 +74,7 @@
 
                 <!-- Header Language & Currency Start -->
                 <div class="col">
-                    <ul class="header-lan-curr" style="float: left; margin-top: 1px;">
+                    <ul class="header-lan-curr" style="float: left; margin-top: 3px;">
                         <li><a href="#">고객센터</a>
                             <ul class="curr-lan-sub-menu">
                                 <li><a href="#">공지사항</a></li>

@@ -70,13 +70,15 @@ public class AdminController {
 
 	@GetMapping("admin/dashboard")
 	public String adminPage(Model model) {
-
+		List<BestItemDTO> list=new ArrayList<BestItemDTO>();
+		list=service.dashboardbestitem();
 		int datacount = service.dataCount();
 		int ordercount = service.allShoporderCount();
 		int customercount = service.allShopCustomerCount();
 		long sumoriginalPrice = service.sumoriginalPrice();
 		long sumsalesPrice = service.sumsalesPrice();
 
+		model.addAttribute("list", list);
 		model.addAttribute("datacount", datacount);
 		model.addAttribute("ordercount", ordercount);
 		model.addAttribute("customercount", customercount);

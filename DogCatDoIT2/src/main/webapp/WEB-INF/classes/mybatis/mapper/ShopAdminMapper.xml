@@ -368,4 +368,15 @@ from
         group by to_char(order_date, 'yyyy-mm')
     )
 	</select>
+	
+	<select id="dashboardbestitem" resultType="com.pet.app.shopping.BestItemDTO">
+	select detailid , itemname, optionname,detailname, qty
+	from(
+	select d.detailid detailid , i.itemname itemname, io.optionname optionname,d.detailname detailname, sum(qty) qty 
+	from shoporderdetail sod join detailitemoption d on sod.detailid=d.detailid
+	join itemoption io on d.itemoptionid=io.optionid
+	join item i on io.itemid=i.itemid
+	group by d.detailid , i.itemname, io.optionname,d.detailname)
+	where rownum &lt;=10
+	</select>
 </mapper>

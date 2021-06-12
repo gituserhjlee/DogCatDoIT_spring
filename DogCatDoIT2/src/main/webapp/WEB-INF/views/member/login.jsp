@@ -23,6 +23,10 @@
 			f.submit();
 		}
 		
+		function moveMember(){
+			location.href='${pageContext.request.contextPath}/member/member';
+		}
+		
 	</script>
 					<div class="section section-padding">
 						<div class="container">
@@ -71,7 +75,7 @@
                             <form action="#">
                                 <div class="row learts-mb-n50">
                                     <div class="col-12 text-center learts-mb-50">
-                                        <button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member'" style="font-family: Jua; font-size: 18px;">회원가입</button>
+                                        <button class="btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">회원가입</button>
                                     </div>
                                 </div>
                             </form>

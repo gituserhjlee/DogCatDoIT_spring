@@ -16,6 +16,8 @@
     <!-- Jquery -->
     <script src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/jquery-3.4.1.min.js"></script>
     
+    
+    
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
 	<title><tiles:insertAttribute name="title"/></title>
@@ -109,5 +111,6 @@
 
     <!-- Main Activation JS -->
     <script src="${pageContext.request.contextPath}/resources/mainResources/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/mainResources/js/weather.js"></script>
 </body>
 </html>

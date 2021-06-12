@@ -3,13 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
+<body>
     <!-- Topbar Section Start -->
     <div class="topbar-section section" style="background-color: #F79F81;">
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-auto col-12">
-                    <p class="text-white text-center text-md-left my-2">날씨 23°C 맑음 | 산책하기 딱 좋은 날씨네요!</p>
+                    <p class="text-white text-center text-md-left my-2">날씨 <a class="js-weather"></a>°C 맑음 | 산책하기 딱 좋은 날씨네요!</p>
+                   
                 </div>
                 <div class="col-auto d-none d-md-block">
                     <div class="topbar-menu">
@@ -651,3 +652,4 @@
     <!-- OffCanvas Search End -->
 
     <div class="offcanvas-overlay"></div>
+</body>    

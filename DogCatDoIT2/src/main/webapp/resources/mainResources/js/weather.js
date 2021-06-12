@@ -10,7 +10,8 @@ function getWeather(lat, lng) {
 		return response.json();
 	}).then(function(json){
 		const currenttemp = json.main.temp;
-		weather.innerText = `${currenttemp}`;
+		const sky = json.weather[0].description;
+		weather.innerText = `${currenttemp}°C ${sky}`;
 	});
 }
 

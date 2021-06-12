@@ -54,7 +54,7 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-auto col-12">
-                    <p class="text-white text-center text-md-left my-2">날씨 <a class="js-weather"></a>°C 맑음 | 산책하기 딱 좋은 날씨네요!</p>
+                    <p class="text-white text-center text-md-left my-2">날씨 <a class="js-weather"></a> | 산책하기 딱 좋은 날씨네요!</p>
                 </div>
                 <div class="col-auto d-none d-md-block">
                     <div class="topbar-menu">

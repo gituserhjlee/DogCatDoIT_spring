@@ -22,6 +22,7 @@
 			f.action= "${pageContext.request.contextPath}/member/login";
 			f.submit();
 		}
+		
 	</script>
 					<div class="section section-padding">
 						<div class="container">
@@ -60,34 +61,24 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-6">
-									<div class="user-login-register">
-									<div class="user-login-register bg-light">
-										<div class="login-register-title">
-											<h2 class="title">회원가입</h2>
-											<p class="desc">아직 독캣두잇의 회원이 아니시라면 가입해주세요!</p>
-										</div>
-										<div class="login-register-form">
-											<form action="#">
-												<div class="row learts-mb-n50">
-													<div class="col-12 learts-mb-20">
-														<label for="registerEmail">이메일 주소 <abbr class="required">*</abbr></label>
-														<input type="email" id="registerEmail">
-													</div>
-													<div class="col-12 learts-mb-50">
-														<p>독캣두잇은 고객의 개인정보 수집 시 동의 받은 보유 · 이용 기간 내에서 개인정보를 처리 및 보유하며, 원칙적으로 개인정보의 처리 목적이 달성되면 지체 없이 파기합니다.</p>
-													</div>
-													<div class="col-12 text-center learts-mb-50">
-	
-							<a class="btn btn-dark btn-outline-hover-dark" href="${pageContext.request.contextPath}/member/member" style="font-family: Jua; font-size: 18px;">회원가입</a>
-
-<!-- 	<button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member';" style="font-family: Jua; font-size: 18px;">회원가입하러 가기</button> -->													
-													</div>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
+								                <div class="col-lg-6" style="margin-top: 120px;">
+                    <div class="user-login-register">
+                        <div class="login-register-title">
+                            <h2 class="title">회원가입</h2>
+                            <p class="desc">아직 독캣두잇의 회원이 아니시라면 가입해주세요!</p>
+                        </div>
+                        <div class="login-register-form">
+                            <form action="#">
+                                <div class="row learts-mb-n50">
+                                    <div class="col-12 text-center learts-mb-50">
+                                        <button class="btn btn-dark btn-outline-hover-dark" onclick="location.href='${pageContext.request.contextPath}/member/member'" style="font-family: Jua; font-size: 18px;">회원가입</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+								
 						</div>
 					</div>
+				</div>

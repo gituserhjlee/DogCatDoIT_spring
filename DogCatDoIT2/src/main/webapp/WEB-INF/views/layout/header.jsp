@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-auto col-12">
-                    <p class="text-white text-center text-md-left my-2">날씨 <a class="js-weather"></a></p>
+                    <p class="text-white text-center text-md-left my-2"><a class="js-weather"></a></p>
                    
                 </div>
                 <div class="col-auto d-none d-md-block">

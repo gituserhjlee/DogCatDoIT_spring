@@ -104,7 +104,7 @@
 					<form name="oform">
 						<input type="hidden" id="str" name="str">
 						<div>
-							<select name="detailId" id="detailId">
+							<select name="detailId" id="cartdetailId">
 								<c:forEach var="o" items="${options}">
 									<option value="${o.detailId}">(${o.optionName})
 										${o.detailname} (주문가능:${o.stock} 개)</option>
@@ -116,16 +116,16 @@
 						<div class="product__details__quantity" style="clear: both;">
 							<div class="quantity">
 								<div class="pro-qty" style="background: white">
-									<input type="text" name="count" id="count" value="1"
+									<input type="text" name="cartcount" id="cartcount" value="1"
 										style="border: none; background: #F79F81; color: white;">
 								</div>
 							</div>
 						</div>
 						<div style="margin-top: 10px;">
 							<button type="button" class="primary-btn" style="border: 2px solid #F79F81;"
-								onclick="addCart('cart')">ADD TO CART</button>
+								onclick="addCart()">ADD TO CART</button>
 							<button type="button" style="border: 2px solid #F79F81;"  class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
-							<a class="heart-icon" onclick="addCart('jjim')"> <span
+							<a class="heart-icon" > <span
 								class="icon_heart_alt"></span></a>
 						</div>
 					</form>
@@ -299,6 +299,28 @@ function deleteReview(reviewNum, useridx, itemId){
 	});
 	
 }
+</script>
+<script>
+function addCart(){
+	
+	var detailId=$("#cartdetailId").val()
+	var count=$("#cartcount").val()
+	console.log(detailId)
+	console.log(count)
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/order/insertCart",
+		type:"POST",
+		data:{"detailId":detailId, "count":count},
+		dataType:'json',
+		success:function(data){
+			if(data.state==='true'){
+				alert("장바구니에 담겼습니다");
+			}
+		}
+	});
+}
+
 </script>
 
 

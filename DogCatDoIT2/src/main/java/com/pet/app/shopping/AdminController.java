@@ -424,14 +424,12 @@ public class AdminController {
 	@ResponseBody
 	public String itemdetailOptionUpdate(@RequestParam long detailid,@RequestParam int stock,@RequestParam String detailname, Model model) {
 		String result="success";
-		System.out.println("받음"+stock);
 		try {
 			service.updatedetailOptions(stock, detailname, detailid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result="fail";
 		}
-		System.out.println("고침"+stock);
 
 		return result;
 		

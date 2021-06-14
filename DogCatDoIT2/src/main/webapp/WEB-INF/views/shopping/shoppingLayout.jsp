@@ -179,15 +179,7 @@
 	<tiles:insertAttribute name="body" />
 	<tiles:insertAttribute name="footer" />
 	
-<script>
-function addCart(str){
-	var f=document.oform;
-	$("#str").val(str);
-	f.action="${pageContext.request.contextPath}/order/orderForm";
-	f.submit();
-}
 
-</script>
 
 	<!-- Js Plugins -->
 	<script

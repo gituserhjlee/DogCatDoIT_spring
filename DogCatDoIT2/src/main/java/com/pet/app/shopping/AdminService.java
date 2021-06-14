@@ -536,4 +536,14 @@ public class AdminService {
 		}
 		return review;
 	}
+	
+	public List<BestItemDTO> dashboardbestitem(){
+		List<BestItemDTO> list=new ArrayList<BestItemDTO>();
+		try {
+			list=dao.selectList("shop.dashboardbestitem");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

@@ -11,7 +11,10 @@
 	    <tr>
 	        <td style='padding:7px 5px;'>
 	            <button type='button' class='btn btnDetailOptionLayout btn-secondary' data-optionNum='${vo.optionId}' style="border-radius:10px;">상세옵션</button>
-				<button class="deleteReply btn btn-danger" style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.optionId}'  >삭제</button>
+				<button class="deleteOption btn btn-danger" style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.optionId}'>삭제</button>
+				<button class="updateOption btn btn-outline-danger" style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.optionId}'
+				onclick="location.href='${pageContext.request.contextPath}/shopping/admin/itemOptionUpdate?itemid=${vo.itemid}&optionid=${vo.optionId}'"
+				>수정</button>
 	        </td>
 	
 	    </tr>  

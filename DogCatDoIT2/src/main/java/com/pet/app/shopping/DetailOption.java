@@ -8,6 +8,7 @@ public class DetailOption {
 	private String detailname;
 	private String optionName;
 	private String shopStoreName;
+	private boolean enabled;
 	
 	public String getItemName() {
 		return itemName;
@@ -50,6 +51,12 @@ public class DetailOption {
 	}
 	public void setShopStoreName(String shopStoreName) {
 		this.shopStoreName = shopStoreName;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 

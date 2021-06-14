@@ -1,5 +1,6 @@
 package com.pet.app.shopping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +23,50 @@ public class OrderServiceImpl implements OrderService {
 			dto.setDiTel(diTel);
 			
 			dao.insertData("order.insertOrder", dto);
+			dao.updateData("order.insertSod", dto);
 			dao.insertData("order.insertDeliveryInfo", dto);
-			dao.insertData("order.insertPayInfo", dto);
+			if(dto.getPayCondition()==2)
+				dao.insertData("order.insertPayInfo", dto);
 			
 		} catch (Exception e) {
 			throw e;
 		}
 		
+	}
+	
+	@Override
+	public void test() throws Exception {
+		Order order = new Order();
+//		long orderIdx = dao.selectOne("order.getOrderSeq");
+		long orderIdx = 5;
+		order.setOrderIdx(orderIdx);
+		order.setUserIdx(1);
+		order.setTotalItemPrice(10000);
+		order.setDeliveryPrice(2500);
+		order.setCouponDiscount(0);
+		order.setPointDiscount(0);
+		order.setTotalDiscount(0);
+		order.setTotalPayment(12500);
+		order.setOrderMemo("tt");
+		List<OrderDetail> itemList = new ArrayList<OrderDetail>();
+		OrderDetail od1 = new OrderDetail();
+		OrderDetail od2 = new OrderDetail();
+		od1.setTotalPrice(6000);
+		od1.setDetailId(3);
+		od1.setCount(1);
+		od2.setTotalPrice(4000);
+		od2.setDetailId(11);
+		od2.setCount(1);
+		itemList.add(od1);
+		itemList.add(od2);
+		order.setItemList(itemList);
+		
+		dao.updateData("order.insertSod", order);
+		
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -81,10 +119,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public OrderDetail getOrderDetailByDetailId(long detailId) {
+	public OrderDetail findOrderDetailByDetailId(long detailId) {
 		OrderDetail dto = null;
 		try {
-			dto = dao.selectOne("order.getOrderDetailByDetailId", detailId);
+			dto = dao.selectOne("order.findOrderDetailByDetailId", detailId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,10 +162,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderDetail> listItem(long userIdx) {
+	public List<OrderDetail> listItemInCart(long userIdx) {
 		List<OrderDetail> itemlist = null;
 		try {
 			itemlist = dao.selectList("order.cartListOrderDetail", userIdx);
+			for(OrderDetail dto : itemlist) {
+				dto.setDiscountedPrice((long)(Math.round((100- dto.getDiscountRate()) / 100.0 * dto.getItemSalePrice())));
+				dto.setDiscountPrice(dto.getItemSalePrice()-dto.getDiscountedPrice());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,6 +204,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 	}
+
 
 	
 

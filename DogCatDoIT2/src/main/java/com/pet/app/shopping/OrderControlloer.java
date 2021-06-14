@@ -1,5 +1,6 @@
 package com.pet.app.shopping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,57 +33,89 @@ public class OrderControlloer {
 	private AdminService adminService;
 	@Autowired
 	private MemberService memberService;
-
+	
+	// 상품상세페이지에서 주문하는 경우
 	@GetMapping("orderForm")
 	public String orderForm(
 			@RequestParam long detailId, 
 			@RequestParam int count, 
 			HttpSession session,
 			Model model) {
-		// 상품 옵션 가져오기
+		// 재고검사
 		DetailOption itemOption = new DetailOption();
 		itemOption = adminService.findbydetailOptionid(detailId);
-		if (itemOption == null) {
-			model.addAttribute("msg", "잘못된 접근입니다. - OrderController:35 line");
+		if (itemOption == null || itemOption.getStock() < count) {
+			model.addAttribute("msg", "재고가 부족합니다.");
 			return ".error.error";
 		}
-		// 상품 정보 가져오기
-		Item item = adminService.findItemByItemOption(detailId);
-		if (item == null) {
-			model.addAttribute("msg", "잘못된 접근입니다. - OrderController:41 line");
-			return ".error.error";
-		}
-
-		// 재고검사
-		if (itemOption.getStock() < count) {
-			model.addAttribute("msg", "수량초과");
-			return ".error.error";
-		}
-
-		model.addAttribute("item", item);
-		model.addAttribute("itemOption", itemOption);
-		model.addAttribute("count", count);
-
+		
+		OrderDetail od = orderService.findOrderDetailByDetailId(detailId);
+		od.setCount(count);
+		List<OrderDetail> itemList = new ArrayList<OrderDetail>();
+		itemList.add(od);
+		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		Member mdto = memberService.readMember(info.getUserId());
 		mdto = shopUtil.transformTelAddr(mdto);
+		model.addAttribute("itemList", itemList);
 		model.addAttribute("mdto", mdto);
+		model.addAttribute("from", "item");
 		
-		return ".shopping.order";
+		return ".shopping.order2";
+	}
+	
+	// 장바구니에서 주문하는 경우
+	@PostMapping("orderForm")
+	public String orderFormByCart(
+			@RequestParam List<Long> cartIdx, 
+			HttpSession session,
+			Model model) {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		Member mdto = memberService.readMember(info.getUserId());
+		mdto = shopUtil.transformTelAddr(mdto);
+		
+		List<OrderDetail> itemList = null;
+		itemList = orderService.listItemInCart(mdto.getUserIdx());
+		
+		model.addAttribute("mdto", mdto);
+		model.addAttribute("itemList",itemList);
+		model.addAttribute("from", "cart");
+		return ".shopping.order2";
 	}
 
 	@PostMapping("insert")
-	public String purchaseSubmit(Order dto, HttpSession session) throws Exception {
-
-//		SessionInfo info = (SessionInfo)session.getAttribute("member");
-//		dto.setUserIdx(info.getMemberIdx());
-		dto.setUserIdx(1);
+	public String purchaseSubmit(
+			Order dto, 
+			HttpSession session) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		dto.setUserIdx(info.getUserIdx());
 		orderService.insertOrder(dto);
 		
-		return "redirect:/shopping/complete";
+		/*
+		System.out.println(dto.getOrderMemo());
+		System.out.println(dto.getTotalItemPrice());
+		System.out.println(dto.getDeliveryPrice());
+		System.out.println(dto.getCouponDiscount());
+		System.out.println(dto.getPointDiscount());
+		System.out.println(dto.getTotalDiscount());
+		System.out.println(dto.getTotalPayment());
+		for(OrderDetail od : dto.getItemList()) {
+			System.out.println("==========");
+			System.out.println(od.getTotalPrice());
+			System.out.println(od.getDetailId());
+			System.out.println(od.getCount());
+		}
+		*/
+		
+		return "redirect:/order/complete";
 	}
 
-	
+	@RequestMapping("complete")
+	public String complete(Model model) throws Exception {
+		model.addAttribute("msg", "구매성공");
+		return ".shopping.complete";
+	}
 	
 	@RequestMapping("wishlist")
 	public String wish(HttpSession session) throws Exception {
@@ -136,7 +169,7 @@ public class OrderControlloer {
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<OrderDetail> itemList = null;
 		try {
-			itemList = orderService.listItem(userIdx);
+			itemList = orderService.listItemInCart(userIdx);
 			
 			model.put("state", "true");
 			model.put("itemList",itemList);
@@ -150,21 +183,22 @@ public class OrderControlloer {
 	
 	@RequestMapping("test1")
 	public String test1() throws Exception {
+		orderService.test();
 		return ".shopping.test";
 	}
 	
 	@RequestMapping("deleteCart")
 	@ResponseBody
 	public Map<String, Object> deleteCart(
-			String detailIds,
+			String cartIdxs,
 			HttpSession session
 			) throws Exception {
 		
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		long userIdx = memberService.readMember(info.getUserId()).getUserIdx();
+		long userIdx = info.getUserIdx();
 		pMap.put("userIdx", userIdx);
-		pMap.put("detailIds", detailIds);
+		pMap.put("cartIdxs", cartIdxs);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		try {

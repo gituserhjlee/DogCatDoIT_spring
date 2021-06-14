@@ -25,9 +25,17 @@
 		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE, #{payCondition})
 	</insert>
 	
+	<update id="insertSod" parameterType="com.pet.app.shopping.Order">
+		
+		<foreach collection="itemList" item="item" separator=" " open="INSERT ALL" close="SELECT * FROM dual">
+			INTO shopOrderDetail(sodIdx, orderIdx, totalPrice, detailId, qty)
+			VALUES (FN_GET_SEQ('sod_seq'), #{orderIdx}, #{item.totalPrice}, #{item.detailId}, #{item.count})
+		</foreach>
+        
+	</update>
 	
 	
-	<select id="getOrderDetailByDetailId" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+	<select id="findOrderDetailByDetailId" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
 		SELECT 
 		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
 		    optionId, optionName, detailId, detailName
@@ -61,8 +69,8 @@
 	
 	<select id="cartListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
 		SELECT
-		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
-		    optionId, optionName, do.detailId, detailName, count
+		    cartIdx, i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
+		    optionName, detailName, count, do.detailId
 		FROM item i 
 		JOIN itemOption io ON i.itemId=io.itemId
 		JOIN detailItemoption do ON io.optionId=do.itemoptionId
@@ -73,7 +81,7 @@
 	
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM cart
-		WHERE userIdx=#{userIdx} AND detailId IN (${detailIds})
+		WHERE userIdx=#{userIdx} AND cartIdx IN (${cartIdxs})
 	</delete>
 	
 	<select id="readCart" parameterType="com.pet.app.shopping.Cart" resultType="com.pet.app.shopping.Cart">

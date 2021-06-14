@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style2.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
 
 <style type="text/css">
@@ -160,13 +161,20 @@ table tr {
 }
 
 #orderForm input[name=orderMemo] {
-	width: 800px;
+	width: 500px;
 }
 
 .product-img {
 	width: 60px;
 	height: 60px;
 	object-fit: cover;
+}
+.resultSpan {
+	color: #e15748;
+    font-size: 24px;
+    position: relative;
+    top: 5px;
+    margin-left: 5px;
 }
 </style>
 
@@ -215,60 +223,95 @@ $(function() {
 		currentAmount = totalAmount - usePoint;
 		if (currentAmount < 0) {
 			alert("적용할 포인트가 결제하실 금액보다 많습니다.");
-			$(this).val("0");
-			return false;
+			$(this).val(0);
+			calcTotalResult();
 		}
 	});
 
 	// 포인트 사용 change 이벤트 제어
 	$("#pointDiscount").change(function() {
+		if($(this).val() == "")
+			$(this).val(0);
+		
 		if ($(this).val() > point) {
 			alert("포인트가 부족합니다.");
-			$(this).val("0");
-			return false;
+			$(this).val(0);
 		}
+		calcTotalResult();
 	});
 });
 
 $(function() {
+	calcItemTotal();
+	calcTotalItemDiscount();
+	calcTotalResult();
+});
+
+// 리스프의 상품 합계(할인 전)
+function calcItemTotal() {
+	let tp = 0;
+	$(".itemTotalAmount").each(function() {
+		let p = $(this).attr("data-itemTotalAmount");
+		tp += parseInt(p);
+	});
+	
+	$(".totalItemPrice").text(toLocaleString(tp));
+	$("input[name=totalItemPrice]").val(tp);
+}
+
+// 주문 상품 할인금액 합(각 아이템의 고유 할인 합)
+function calcTotalItemDiscount() {
+	let tdp = 0;
+	$(".itemTotalAmount").each(function() {
+		let dp = $(this).attr("data-itemTotalDiscount");
+		tdp += parseInt(dp);
+	});
+	
+	$(".totalItemDiscount").text(toLocaleString(tdp));
+	$("input[name=totalItemDiscount]").val(tdp);
+}
+
+// 총 할인금액, 총 결제금액 호출
+function calcTotalResult() {
+	calcTotalDiscount();
+	calcTotalPayment();
+}
+
+// 최종 할인금액(즉시할인 + 회원할인 + 쿠폰할인 + 포인트할인)
+function calcTotalDiscount() {
+	let td = 0;
+	let totalItemDiscount = $("input[name=totalItemDiscount]").val();
+	let memberDiscount = $("input[name=memberDiscount]").val();
+	let couponDiscount = $("input[name=couponDiscount]").val();
+	let pointDiscount = $("input[name=pointDiscount]").val();
+	td = parseInt(totalItemDiscount) + 
+		parseInt(memberDiscount) + 
+		parseInt(couponDiscount) + 
+		parseInt(pointDiscount);
+	
+	$(".totalDiscount").text(toLocaleString(td));
+	$("input[name=totalDiscount]").val(td);
+}
+
+// 총 결제 금액( (판매가격 합 + 배송비) - (할인 합) )
+function calcTotalPayment() {
+	let tp = 0;
+	let totalItemPrice = $("input[name=totalItemPrice]").val();
+	let deliveryPrice = $("input[name=deliveryPrice]").val();
+	let totalDiscount = $("input[name=totalDiscount]").val();
+	
+	tp = parseInt(totalItemPrice) + parseInt(deliveryPrice) - totalDiscount;
+	
+	$(".totalPayment").text(toLocaleString(tp));
+	$("input[name=totalPayment]").val(tp);
+}
+
+$(function() {
 	$(".btnConfirm").click(function() {
 		
-		// 테스트용
-		$("input[name=totalAmount]").val("68000");
-		
 		let f = document.orderForm;
-		
-		let url = "${pageContext.request.contextPath}/order/insert";
-		let query = new FormData(f);
-		let query2 = $("#orderForm").serialize();
-		
 		f.action = "${pageContext.request.contextPath}/order/insert";
-		
-		// item, itemOption 테스트 출력
-		console.log("itemId: ${item.itemId}");
-		console.log("itemCategoryId: ${item.itemCategoryId}");
-		console.log("shopStoreId: ${item.shopStoreId}");
-		console.log("itemName: ${item.itemName}");
-		console.log("itemOriginalPrice: ${item.itemOriginalPrice}");
-		console.log("itemSalePrice: ${item.itemSalePrice}");
-		console.log("discountRate: ${item.discountRate}");
-		console.log("discountedPrice: ${item.discountedPrice}");
-		console.log("registered: ${item.registered}");
-		console.log("saveFileName: ${item.saveFileName}");
-		console.log("des: ${item.des}");
-		console.log("enabled: ${item.enabled}");
-		console.log("manufacturer: ${item.manufacturer}");
-		console.log("upload: ${item.upload}");
-		
-		console.log("============================");
-		console.log('detailId: ${itemOption.detailId}');
-		console.log('itemoptionid: ${itemOption.itemoptionid}');
-		console.log('stock: ${itemOption.stock}');
-		console.log('detailname: ${itemOption.detailname}');
-		console.log('optionName: ${itemOption.optionName}');
-		console.log("============================");
-		console.log('count: ${count}');
-// 		f.submit();
+		f.submit();
 		
 	});
 });
@@ -389,7 +432,7 @@ $(function() {
 		<div>
 			<h2>상품 리스트</h2>
 		</div>
-		<table class="table1">
+		<table class="table1 itemList">
 			<thead>
 				<tr class="tr-top">
 					<th colspan="2">상품정보</th>
@@ -400,36 +443,40 @@ $(function() {
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 동적할당 필요 -->
+				<c:forEach items="${itemList}" var="item" varStatus="st">
 				<tr>
 					<td>
 						<a href="${pageContext.request.contextPath}/shopping/article?num=${item.itemId}">
 							<img class="product-img"
-								src="${pageContext.request.contextPath}/uploads/item/${item.saveFileName}"
+								src="${pageContext.request.contextPath}/uploads/item/${item.saveFilename}"
 								alt="사진">
 						</a>
 					</td>
 					<td>
 						${item.itemName}<br>
-						[옵션 : ${itemOption.optionName}&nbsp;${itemOption.detailname}]
+						[옵션 : ${item.optionName}&nbsp;${item.detailName}]
 					</td>
 					<td>
 						<fmt:formatNumber type="number" value="${item.itemSalePrice}" maxFractionDigits="3"/>원
 					</td>
-					<td>${count}개</td>
+					<td>${item.count}개</td>
 					<td>
-						기본배송<br>
-						<fmt:formatNumber type="number" value="2500" maxFractionDigits="3"/>원
-						</td>
-					<td>
-						<fmt:formatNumber type="number" value="${item.itemSalePrice * count}" maxFractionDigits="3"/>원
+						기본배송
+					</td>
+					<td class="itemTotalAmount" data-itemTotalAmount="${item.itemSalePrice * item.count}" data-itemTotalDiscount="${item.discountPrice}">
+						<fmt:formatNumber type="number" value="${item.itemSalePrice * item.count}" maxFractionDigits="3"/>원
+						
+						<input type="hidden" name="itemList[${st.index}].totalPrice" value="${item.itemSalePrice * item.count}">
+						<input type="hidden" name="itemList[${st.index}].detailId" value="${item.detailId}">
+						<input type="hidden" name="itemList[${st.index}].count" value="${item.count}">
 					</td>
 				</tr>
+				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr class="tr-bottom">
-					<td colspan="6" align="right">
-						상품금액합계: <span>68,000원</span>
+					<td colspan="6" align="right" style="text-align: right; padding-right: 15px;">
+						상품금액합계: <span class="resultSpan"><span class="totalItemPrice" ></span>원</span>
 					</td>
 				</tr>
 			</tfoot>
@@ -454,15 +501,15 @@ $(function() {
 			<tr>
 				<td>핸드폰번호</td>
 				<td>
-					<input type="text" name="orTel1" id="orTel1" value="${mdto.tel1}" class="boxTF"> - 
-					<input type="text" name="orTel2" id="orTel2" value="${mdto.tel2}" class="boxTF"> - 
-					<input type="text" name="orTel3" id="orTel3" value="${mdto.tel3}" class="boxTF">
+					<input type="text" name="orTel1" id="orTel1" value="${mdto.tel1}" class="boxTF" readonly="readonly"> - 
+					<input type="text" name="orTel2" id="orTel2" value="${mdto.tel2}" class="boxTF" readonly="readonly"> - 
+					<input type="text" name="orTel3" id="orTel3" value="${mdto.tel3}" class="boxTF" readonly="readonly">
 				</td>
 			</tr>
 			<tr class="tr-bottom">
 				<td>이&nbsp;&nbsp;&nbsp;메&nbsp;&nbsp;&nbsp;일</td>
 				<td>
-					<input type="text" name="orEmail" id="orEmail" class="boxTF" value="${mdto.email}">
+					<input type="text" name="orEmail" id="orEmail" class="boxTF" value="${mdto.email}" readonly="readonly">
 				</td>
 			</tr>
 		</table>
@@ -524,26 +571,33 @@ $(function() {
 		<div>
 			<h2>결제금액</h2>
 		</div>
-		<table class="table2">
+		<table class="table2 payAmountTable">
 			<tr class="tr-top">
 				<td>상품합계금액</td>
-				<td>68000 원
-					<input type="hidden" name="totalItemPrice" value="68000">
+				<td>
+					<span class="totalItemPrice"></span> 원
+					<input type="hidden" name="totalItemPrice">
 				</td>
 			</tr>
 			<tr>
 				<td>배&nbsp;&nbsp;송&nbsp;&nbsp;비</td>
-				<td>0 원
-					<input type="hidden" name="deliveryPrice" value="0">
+				<td><fmt:formatNumber type="number" value="2500" maxFractionDigits="3"/> 원
+					<input type="hidden" name="deliveryPrice" value="2500">
 				</td>
 			</tr>
 			<tr>
 				<td>즉시할인액</td>
-				<td>0 원</td>
+				<td >
+					<span class="totalItemDiscount"></span> 원
+					<input type="hidden" name="totalItemDiscount">
+				</td>
 			</tr>
 			<tr>
 				<td>회원할인</td>
-				<td>0 원</td>
+				<td>
+					<span class="memberDiscount">0</span> 원
+					<input type="hidden" name="memberDiscount" value="0">
+				</td>
 			</tr>
 			<tr>
 				<td>쿠폰적용</td>
@@ -559,10 +613,17 @@ $(function() {
 					 원 (보유포인트: ${mdto.point} 원)
 				</td>
 			</tr>
+			<tr>
+				<td>총 할인금액</td>
+				<td>
+					<span class="totalDiscount"></span>원
+					<input type="hidden" name="totalDiscount">
+				</td>
+			</tr>
 			<tr class="tr-bottom">
 				<td>총 결제금액</td>
-				<td><span id="totalAmount">68000</span> 원
-					<input type="hidden" name="totalAmount">
+				<td><span class="totalPayment"></span> 원
+					<input type="hidden" name="totalPayment">
 				</td>
 			</tr>
 		</table>
@@ -586,6 +647,7 @@ $(function() {
 			<button type="button" class="btnConfirm">결제하기</button>
 			<button type="button" class="btnConfirm2">결제하기2</button>
 			<button type="button" class="btnConfirm3">완료</button>
+			<input type="hidden" name="from" value="${from}">
 		</div>
 
 	</form>

@@ -12,6 +12,7 @@ public class OrderDetail {
 	private long itemSalePrice;
 	private int discountRate;
 	private long discountedPrice;
+	private long discountPrice;
 	private int count;
 	private long totalPrice;
 
@@ -21,6 +22,25 @@ public class OrderDetail {
 	// 디테일 옵션
 	private long detailId;
 	private String detailName;
+	// 카트 옵션
+	private long cartIdx;
+	
+	
+	public long getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(long discountPrice) {
+		this.discountPrice = discountPrice;
+	}
+
+	public long getCartIdx() {
+		return cartIdx;
+	}
+
+	public void setCartIdx(long cartIdx) {
+		this.cartIdx = cartIdx;
+	}
 
 	public long getSodIdx() {
 		return sodIdx;

@@ -193,13 +193,14 @@ $(function() {
 	cartList();
 	
 	$(".orderBtn").click(function() {
-		cartList();
-		alert("미구현");
-	})
+		f = document.cartForm;
+		f.action = "${pageContext.request.contextPath}/order/orderForm";
+		if(confirm("선택한 상품을 구매하시겠습니까 ? "))
+			f.submit();
+	});
 	
-	$(".chkBox").change(function() {
-		let id = $(this).attr("data-detailId");
-		console.log(id);
+	$("body").on("change", ".chkBox", function() {
+		calcTotal();
 	});
 	
 	$(".deleteBtn").click(function() {
@@ -207,7 +208,7 @@ $(function() {
 		if($(selector).length==0)
 			return false;
 		
-		if(confirm("선택한 상품들을 장바구니에서 삭제하시겠습니까?"))
+		if(confirm("선택한 상품들을 장바구니에서 삭제하시겠습니까 ? "))
 			deleteCart(selector);
 	});
 	
@@ -216,7 +217,7 @@ $(function() {
 		if($(selector).length==0)
 			return false;
 		
-		if(confirm("모든 상품들을 장바구니에서 삭제하시겠습니까?"))
+		if(confirm("모든 상품들을 장바구니에서 삭제하시겠습니까 ? "))
 			deleteCart(selector);
 	});
 	
@@ -225,11 +226,11 @@ $(function() {
 function deleteCart(selector) {
 	let arr = [];
 	$(selector).each(function() {
-		arr.push($(this).attr("data-detailId"));
+		arr.push($(this).val());
 	});
 	
 	let url="${pageContext.request.contextPath}/order/deleteCart";
-	let query = "detailIds="+arr.join(",");
+	let query = "cartIdxs="+arr.join(",");
 	let fn = function(data) {
 		if(data.state == "true") {
 			cartList();
@@ -243,8 +244,10 @@ function deleteCart(selector) {
 
 function calcTotal() {
 	let tp = 0;
-	$("input[name=totalPrice]").each(function() {
-		tp += parseInt($(this).val());
+	$(".chkBox:checked").each(function() {
+		let $tr = $(this).closest("tr");
+		let p = $tr.find("input[name=totalPrice]").val();
+		tp += parseInt(p);
 	});
 	
 	$("#totalAmount").text(toLocaleString(tp));
@@ -263,7 +266,7 @@ function cartList() {
 function printGuest(data) {
 	let out = "";
 	for(let idx=0; idx < data.itemList.length; idx++) {
-		let detailId = data.itemList[idx].detailId;
+		let cartIdx = data.itemList[idx].cartIdx;
 		let itemId = data.itemList[idx].itemId;
 		let saveFilename = data.itemList[idx].saveFilename;
 		let itemName = data.itemList[idx].itemName;
@@ -276,7 +279,7 @@ function printGuest(data) {
 		
 		
 		out += "<tr>"
-		out += "<td><input type='checkbox' checked='checked' class='chkBox' data-detailId='"+detailId+"'></td>";
+		out += "<td><input type='checkbox' checked='checked' name='cartIdx' class='chkBox' value='"+cartIdx+"'></td>";
 		out += "<td><a href='${pageContext.request.contextPath}/shopping/article?num="+itemId+"'>";
 		out += "<img class='product-img' src='${pageContext.request.contextPath}/uploads/item/"+saveFilename+"' alt='사진'></a></td>";
 		out += "<td>"+ itemName +"<br>[옵션: "+optionName+" "+detailName+" ]<br></td>";
@@ -284,7 +287,7 @@ function printGuest(data) {
 		out += "<td>"+count+"</td>";
 		out += "<td>기본배송</td>";
 		out += "<td>"+totalPriceStr+"원";
-		out += "<input type='hidden' name='totalPrice' value='"+ (itemSalePrice*count) +"'></td>";
+		out += "<input type='hidden' disabled='disabled' name='totalPrice' value='"+ (itemSalePrice*count) +"'></td>";
 		out += "</tr>";
 
 	}

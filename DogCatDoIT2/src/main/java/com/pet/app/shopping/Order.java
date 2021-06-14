@@ -1,19 +1,22 @@
 package com.pet.app.shopping;
 
+import java.util.List;
+
 public class Order {
 	// 주문정보
 	private long orderIdx; // 주문번호
 	private long userIdx; // 유저번호
 	private int state; // 주문상태
 	private String order_date; // 주문날짜
-	private int totalItemPrice; // 총상품금액
+	private int totalItemPrice; // 총 상품금액
 	private int deliveryPrice; // 배송금액
 	private int couponDiscount; // 쿠폰할인액
 	private int pointDiscount; // 포인트적용할인액
 	private int totalDiscount; // 총 할인금액
-	private int totalPayment; // 최종결제금액
+	private int totalPayment; // 최종 결제금액
 	private String orderMemo; // 주문메모
-
+	private List<OrderDetail> itemList;
+	
 	// 주문자 정보
 	private String orName;
 	private String orAddr;
@@ -40,6 +43,13 @@ public class Order {
 	private String couponIdx; // 주문쿠폰번호(id)
 	private String couponNum; // 쿠폰번호
 	private String couponName;
+	
+	public List<OrderDetail> getItemList() {
+		return itemList;
+	}
+	public void setItemList(List<OrderDetail> itemList) {
+		this.itemList = itemList;
+	}
 	public long getOrderIdx() {
 		return orderIdx;
 	}

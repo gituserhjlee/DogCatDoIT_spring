@@ -16,14 +16,16 @@ public interface OrderService {
 	public void insertDeliveryInfo(Order dto) throws Exception;
 	
 	// 주문상세 가져오기
-	public OrderDetail getOrderDetailByDetailId(long detailId);
+	public OrderDetail findOrderDetailByDetailId(long detailId);
 	
 	// 찜, 장바구니
 //	public void insertWish(Wish wish) throws Exception;
 	public void insertCart(Cart cart) throws Exception;
-	public List<OrderDetail> listItem(long userIdx);
+	public List<OrderDetail> listItemInCart(long userIdx);
 	public void deleteCart(Map<String, Object> map) throws Exception;
 	public Cart readCart(Cart cart);
 	public void updateCart(Cart cart) throws Exception;
+	
+	public void test() throws Exception;
 	
 }

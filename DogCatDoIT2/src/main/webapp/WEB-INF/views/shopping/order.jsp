@@ -145,8 +145,14 @@ table tr {
 	text-align: right;
 }
 
-#orderForm input[type=text] {
+#orderForm input[type=text],
+#orderForm input[type=number] {
 	width: 165px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
 }
 
 #orderForm input[name*=Addr] {
@@ -214,14 +220,11 @@ $(function() {
 });
 
 $(function() {
-	let totalAmount = 68000;
-	let point = ${mdto.point};
-
 	// 포인트 사용 keyup 이벤트 제어
 	$("#pointDiscount").keyup(function() {
-		let usePoint = $(this).val();
-		currentAmount = totalAmount - usePoint;
-		if (currentAmount < 0) {
+		let usePoint = parseInt($(this).val());
+		let totalPayment = parseInt($("input[name=totalPayment]").val());
+		if (usePoint > totalPayment) {
 			alert("적용할 포인트가 결제하실 금액보다 많습니다.");
 			$(this).val(0);
 			calcTotalResult();
@@ -232,8 +235,8 @@ $(function() {
 	$("#pointDiscount").change(function() {
 		if($(this).val() == "")
 			$(this).val(0);
-		
-		if ($(this).val() > point) {
+		let userPoint = ${mdto.point};
+		if ($(this).val() > userPoint) {
 			alert("포인트가 부족합니다.");
 			$(this).val(0);
 		}
@@ -465,7 +468,9 @@ $(function() {
 					</td>
 					<td class="itemTotalAmount" data-itemTotalAmount="${item.itemSalePrice * item.count}" data-itemTotalDiscount="${item.discountPrice}">
 						<fmt:formatNumber type="number" value="${item.itemSalePrice * item.count}" maxFractionDigits="3"/>원
-						
+						<c:if test="${from=='cart'}">
+							<input type="hidden" name="itemList[${st.index}].cartIdx" value="${item.cartIdx}">
+						</c:if>
 						<input type="hidden" name="itemList[${st.index}].totalPrice" value="${item.itemSalePrice * item.count}">
 						<input type="hidden" name="itemList[${st.index}].detailId" value="${item.detailId}">
 						<input type="hidden" name="itemList[${st.index}].count" value="${item.count}">
@@ -609,7 +614,7 @@ $(function() {
 			<tr>
 				<td>포인트적용</td>
 				<td>
-					<input type="text" name="pointDiscount" id="pointDiscount" class="boxTF tright" value="0">
+					<input type="number" name="pointDiscount" id="pointDiscount" class="boxTF tright" value="0">
 					 원 (보유포인트: ${mdto.point} 원)
 				</td>
 			</tr>
@@ -644,9 +649,8 @@ $(function() {
 		</table>
 
 		<div class="btn-container" align="center">
-			<button type="button" class="btnConfirm">결제하기</button>
-			<button type="button" class="btnConfirm2">결제하기2</button>
-			<button type="button" class="btnConfirm3">완료</button>
+			<button type="button" class="btnConfirm">결제하기(DB작업)</button>
+			<button type="button" class="btnConfirm2">결제하기(아임포트api 호출)</button>
 			<input type="hidden" name="from" value="${from}">
 		</div>
 

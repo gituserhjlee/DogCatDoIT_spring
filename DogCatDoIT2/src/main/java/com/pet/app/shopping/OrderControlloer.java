@@ -49,8 +49,7 @@ public class OrderControlloer {
 			return ".error.error";
 		}
 		
-		OrderDetail od = orderService.findOrderDetailByDetailId(detailId);
-		od.setCount(count);
+		OrderDetail od = orderService.findOrderDetail(detailId, count);
 		List<OrderDetail> itemList = new ArrayList<OrderDetail>();
 		itemList.add(od);
 		
@@ -75,7 +74,7 @@ public class OrderControlloer {
 		mdto = shopUtil.transformTelAddr(mdto);
 		
 		List<OrderDetail> itemList = null;
-		itemList = orderService.listItemInCart(mdto.getUserIdx());
+		itemList = orderService.listItemInCart(cartIdx);
 		
 		// 재고검사
 		for(OrderDetail od : itemList) {

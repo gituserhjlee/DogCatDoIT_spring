@@ -70,13 +70,15 @@ public class AdminController {
 
 	@GetMapping("admin/dashboard")
 	public String adminPage(Model model) {
-
+		List<BestItemDTO> list=new ArrayList<BestItemDTO>();
+		list=service.dashboardbestitem();
 		int datacount = service.dataCount();
 		int ordercount = service.allShoporderCount();
 		int customercount = service.allShopCustomerCount();
 		long sumoriginalPrice = service.sumoriginalPrice();
 		long sumsalesPrice = service.sumsalesPrice();
 
+		model.addAttribute("list", list);
 		model.addAttribute("datacount", datacount);
 		model.addAttribute("ordercount", ordercount);
 		model.addAttribute("customercount", customercount);
@@ -294,6 +296,8 @@ public class AdminController {
 	@GetMapping("admin/optionManage")
 	public String optionManage(@RequestParam long num, Model model) {
 		model.addAttribute("num", num);
+		model.addAttribute("mode", "insert");
+
 		return ".shopping.admin.optionManage";
 	}
 
@@ -317,15 +321,57 @@ public class AdminController {
 		}
 
 		model.addAttribute("options", options);
-		System.out.println(options.size());
 		return "shopping/admin/itemoption";
 	}
+	
+	@PostMapping("admin/itemOptionDelete")
+	public String deleteOption(@RequestParam long itemid,@RequestParam long optionid, Model model) {
+		List<ItemOption> options = new ArrayList<ItemOption>();
 
+		try {
+			service.deletedetailoptions(optionid);
+			service.deleteOptions(optionid);
+			options = service.listoptions(itemid);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("options", options);
+		return "shopping/admin/itemoption";
+
+	}
+
+	@GetMapping("admin/itemOptionUpdate")
+	public String updateOptionForm(@RequestParam long itemid,@RequestParam long optionid, Model model) {
+		ItemOption option=new ItemOption();
+		option=service.optionfindbyoptionid(optionid);
+		model.addAttribute("num", itemid);
+		model.addAttribute("name", option.getOptionName());
+		model.addAttribute("mode", "update");
+		model.addAttribute("optionid", option.getOptionId());
+		
+		return ".shopping.admin.optionManage";
+
+	}
+	@PostMapping("admin/itemOptionUpdate")
+	public String updateOption(@RequestParam long optionid,@RequestParam long itemid,@RequestParam String optionName, Model model) {
+		List<ItemOption> options = new ArrayList<ItemOption>();
+		try {
+			service.updateOptions(optionid, optionName);
+			options = service.listoptions(itemid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		model.addAttribute("options", options);
+		return "shopping/admin/itemoption";
+	}
 	@GetMapping("admin/itemdetailOption")
-	public String detailOption(@RequestParam long itemoptionid, Model model) {
+	public String detailOption(@RequestParam long itemoptionid, @RequestParam long itemid, Model model) {
 		List<DetailOption> options = new ArrayList<DetailOption>();
 		options = service.listdetailoptions(itemoptionid);
 		model.addAttribute("options", options);
+		model.addAttribute("itemid", itemid);
 		return "shopping/admin/detailoption";
 	}
 
@@ -347,6 +393,47 @@ public class AdminController {
 		return model;
 	}
 
+	@PostMapping("admin/itemdetailOptionDelete")
+	public String itemdetailOptionDelete(@RequestParam long itemid,@RequestParam long detailid, Model model) {
+		List<ItemOption> options = new ArrayList<ItemOption>();
+
+		try {
+			service.deletedetailoptions2(detailid);
+			options = service.listoptions(itemid);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("options", options);
+		return "shopping/admin/itemoption";
+
+	}
+	@GetMapping("admin/itemdetailOptionUpdate")
+	public String itemdetailOptionUpdateForm(@RequestParam long itemid,@RequestParam long detailid, Model model) {
+		
+		DetailOption d=service.findbydetailOptionid(detailid);
+		model.addAttribute("mode", "detailupdate");
+		model.addAttribute("num", itemid);
+		model.addAttribute("d", d);
+		
+		return ".shopping.admin.optionManage";
+
+	}
+	
+	@PostMapping("admin/itemdetailOptionUpdate")
+	@ResponseBody
+	public String itemdetailOptionUpdate(@RequestParam long detailid,@RequestParam int stock,@RequestParam String detailname, Model model) {
+		String result="success";
+		try {
+			service.updatedetailOptions(stock, detailname, detailid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="fail";
+		}
+
+		return result;
+		
+	}
 	@GetMapping("admin/BaljuStore")
 	public String BaljuStoreList(Model model) {
 		List<ShopStore> shops = service.selectAllShopStore();

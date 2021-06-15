@@ -31,9 +31,9 @@
 
 	</insert>
 	
-	<delete id="deleteItem" parameterType="long">
+	<update id="deleteItem" parameterType="long">
 	update item set enabled='0', saveFileName='' where itemId=#{num}
-	</delete>
+	</update>
 	
 	<update id="updateItem" parameterType="com.pet.app.shopping.Item">
 	update item set itemcategoryId=#{itemCategoryId},shopStoreId=#{shopStoreId},itemName=#{itemName}, itemOriginalPrice=#{itemOriginalPrice},
@@ -42,47 +42,74 @@
 	where itemId=#{itemId}
 	</update> 
 	
+	<select id="optionfindbyoptionid" parameterType="long" resultType="com.pet.app.shopping.ItemOption">
+	select optionId, itemid, optionname, enabled from itemoption 
+	where optionid=#{optionid}
+	</select>
+	
 	<insert id="insertOption" parameterType="map">
-		insert into itemoption(optionId, itemid, optionname)
-		values(itemoption_seq.NEXTVAL, #{num}, #{name})
+		insert into itemoption(optionId, itemid, optionname, enabled)
+		values(itemoption_seq.NEXTVAL, #{num}, #{name}, '1')
 
 	</insert>
 	
 	<select id="selectOptions" parameterType="long"
 		resultType="com.pet.app.shopping.ItemOption">
-		select optionId, itemid, optionname from itemoption where itemid=#{num}
+		select optionId, itemid, optionname, enabled from itemoption where itemid=#{num} and enabled='1'
 	</select>
+	
+	<update id="deleteOptions" parameterType="long">
+	update itemoption set enabled='0' where optionid=#{optionid}
+	</update>
+	
+	<update id="updateOptions" parameterType="map">
+	update itemoption set optionname=#{optionname} where optionid=#{optionid}
+	</update>
+	
+	<update id="deletedetailoptions" parameterType="long">
+	update detailitemoption set enabled='0' where itemoptionid=#{optionid}
+	</update>
+	
+	<update id="deletedetailoptions2" parameterType="long">
+	update detailitemoption set enabled='0' where detailid=#{detailid}
+	</update>
 	
 	<select id="selectdetailOptions" parameterType="long"
 		resultType="com.pet.app.shopping.DetailOption">
-		select detailId, itemoptionId, stock, detailname from detailitemoption where
-		itemoptionid=#{num}
+		select detailId, itemoptionId, stock, detailname, enabled from detailitemoption where
+		itemoptionid=#{num} and enabled='1'
 	</select>
 	
 	<select id="findbydetailOptionid" parameterType="long"
 		resultType="com.pet.app.shopping.DetailOption">
-		select detailId, itemoptionId, stock, detailname, optionname
+		select detailId, itemoptionId, stock, detailname, optionname, d.enabled
 		 from detailitemoption d join itemoption o on d.itemoptionid=o.optionid
 		 where
-		detailId=#{num}
+		detailId=#{num} and d.enabled='1'
 	</select>
 	
 	<insert id="insertdetailOptions" parameterType="map">
-	insert into detailitemoption(detailId,itemoptionid,stock,detailname) values(itemdetailoption_seq.NEXTVAL, #{optionNum}, #{stock}, #{name})
+	insert into detailitemoption(detailId,itemoptionid,stock,detailname, enabled) values(itemdetailoption_seq.NEXTVAL, #{optionNum}, #{stock}, #{name},'1')
 	</insert>
 	
+	<update id="updatedetailOptions" parameterType="map">
+	update detailItemOption set stock=#{stock}, detailname=#{detailname} 
+	where detailid=#{detailid}
+	
+	</update>
+	
 	<select id="selectAllOptions" parameterType="long" resultType="com.pet.app.shopping.DetailOption">
-	select detailId, itemoptionId, stock, detailName, optionname
+	select detailId, itemoptionId, stock, detailName, optionname, d.enabled
 	from detailitemoption d join itemoption o on d.itemoptionid=o.optionid
-	where o.itemid=#{num} order by itemoptionId
+	where o.itemid=#{num} and d.enabled='1' and o.enabled='1' order by itemoptionId
 	</select>
 	
 	<select id="AlldetailOptions" resultType="com.pet.app.shopping.DetailOption">
-	select detailId, itemoptionId, stock, detailName, optionname, i.itemname, s.shopStoreName 
+	select detailId, itemoptionId, stock, detailName, optionname, i.itemname, s.shopStoreName , d.enabled
 	from detailitemoption d join itemoption o on d.itemoptionid=o.optionid
     join item i on i.itemId=o.itemid
     join shopstore s on i.shopStoreId=s.shopStoreId 
-	where i.enabled='1' and s.enabled='1' 
+	where i.enabled='1' and s.enabled='1' and d.enabled='1' and o.enabled='1' 
 	order by s.shopStoreName, i.itemId, o.optionid
 	</select>
 	
@@ -367,5 +394,16 @@ from
         from shoporder
         group by to_char(order_date, 'yyyy-mm')
     )
+	</select>
+	
+	<select id="dashboardbestitem" resultType="com.pet.app.shopping.BestItemDTO">
+	select detailid , itemname, optionname,detailname, qty
+	from(
+	select d.detailid detailid , i.itemname itemname, io.optionname optionname,d.detailname detailname, sum(qty) qty 
+	from shoporderdetail sod join detailitemoption d on sod.detailid=d.detailid
+	join itemoption io on d.itemoptionid=io.optionid
+	join item i on io.itemid=i.itemid
+	group by d.detailid , i.itemname, io.optionname,d.detailname)
+	where rownum &lt;=10
 	</select>
 </mapper>

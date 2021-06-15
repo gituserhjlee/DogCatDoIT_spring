@@ -144,3 +144,8 @@ function isValidSpecialChar(str) {
 function toLocaleString(number) {
 	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+// 할인율 계산 (소숫점 반올림)
+function getDiscountedPrice(discountRate, itemSalePrice) {
+	return Math.round((100-discountRate) / 100 * itemSalePrice);
+}

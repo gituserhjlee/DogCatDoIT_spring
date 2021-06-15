@@ -9,9 +9,10 @@ function getWeather(lat, lng) {
 	).then(function(response){
 		return response.json();
 	}).then(function(json){
+		console.log(json);
 		const currenttemp = json.main.temp;
 		const sky = json.weather[0].description;
-		weather.innerText = `${currenttemp}°C ${sky}`;
+		weather.innerText = `날씨 ${Math.floor(currenttemp)}°C ${sky}`;
 	});
 }
 

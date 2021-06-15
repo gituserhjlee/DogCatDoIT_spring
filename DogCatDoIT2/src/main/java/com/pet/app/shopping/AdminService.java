@@ -97,6 +97,69 @@ public class AdminService {
 		}
 	}
 	
+	public ItemOption optionfindbyoptionid(long optionid) {
+		ItemOption option=new ItemOption();
+		try {
+			option=dao.selectOne("shop.optionfindbyoptionid", optionid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return option;
+	}
+	
+	public void deleteOptions(long optionid) throws Exception{
+		try {
+			dao.deleteData("shop.deleteOptions", optionid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public void updateOptions(long optionid, String optionname) throws Exception{
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("optionname", optionname);
+		map.put("optionid", optionid);
+		try {
+			dao.updateData("shop.updateOptions", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	public void deletedetailoptions(long optionid) throws Exception{
+		try {
+			dao.deleteData("shop.deletedetailoptions", optionid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+	public void deletedetailoptions2(long detailid) throws Exception{
+		try {
+			dao.deleteData("shop.deletedetailoptions2", detailid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+	public void updatedetailOptions(int stock, String detailname, long detailid ) throws Exception{
+		Map<String,Object> map=new HashMap<String, Object>();
+		map.put("stock", stock);
+		map.put("detailname", detailname);
+		map.put("detailid", detailid);
+		try {
+			dao.updateData("shop.updatedetailOptions", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 	public List<ItemOption> listoptions(long num) {
 		List<ItemOption> ic = new ArrayList<ItemOption>();
 		try {
@@ -535,5 +598,15 @@ public class AdminService {
 			e.printStackTrace();
 		}
 		return review;
+	}
+	
+	public List<BestItemDTO> dashboardbestitem(){
+		List<BestItemDTO> list=new ArrayList<BestItemDTO>();
+		try {
+			list=dao.selectList("shop.dashboardbestitem");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

@@ -8,8 +8,12 @@
 		<div
 			style='height: 50px; clear: both; padding: 5px 5px;  '>
 			<span style="font-family: Cairo, sans-serif; color: #696969; ">
-				<button class="deleteDetailOption btn  btn-outline-danger"
+				<button class="deleteDetailOption btn  btn-danger"
 					style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.detailId}'>삭제</button>
+				<button class="updateDetailOption btn  btn-outline-danger"
+					style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.detailId}' 
+					onclick="location.href='${pageContext.request.contextPath}/shopping/admin/itemdetailOptionUpdate?itemid=${itemid}&detailid=${vo.detailId}'"
+					>수정</button>
 				상세옵션명: ${vo.detailname} / 재고: ${vo.stock}개
 			</span>
 			<br>

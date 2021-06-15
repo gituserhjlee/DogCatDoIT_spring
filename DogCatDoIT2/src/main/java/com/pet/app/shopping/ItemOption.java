@@ -4,6 +4,7 @@ public class ItemOption {
 	private long optionId;
 	private long itemid;
 	private String optionName;
+	private boolean enabled;
 	public long getOptionId() {
 		return optionId;
 	}
@@ -21,6 +22,12 @@ public class ItemOption {
 	}
 	public void setOptionName(String optionName) {
 		this.optionName = optionName;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 	

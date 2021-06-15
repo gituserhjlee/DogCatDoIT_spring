@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-auto col-12">
-                    <p class="text-white text-center text-md-left my-2">날씨 <a class="js-weather"></a></p>
+                    <p class="text-white text-center text-md-left my-2"><a class="js-weather"></a></p>
                    
                 </div>
                 <div class="col-auto d-none d-md-block">
@@ -30,7 +30,7 @@
 
                 <!-- Header Language & Currency Start -->
                 <div class="col">
-                    <ul class="header-lan-curr" style="float: left; margin-top: 1px;">
+                    <ul class="header-lan-curr" style="float: left; margin-top: 3px;">
                         <li><a href="#">고객센터</a>
                             <ul class="curr-lan-sub-menu">
                                 <li><a href="#">공지사항</a></li>

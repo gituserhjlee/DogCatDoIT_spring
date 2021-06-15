@@ -37,5 +37,18 @@
 		WHERE userIdx=#{userIdx}
 	</update>
 	
+	<update id="updatePoint" parameterType="map">
+		UPDATE member SET point= 
+		<choose>
+			<when test="operation=='minus'">
+				point-
+			</when>
+			<when test="operation=='plus'">
+				point+
+			</when>
+		</choose>
+		${point}
+		WHERE userIdx=#{userIdx}
+	</update>
 	
 </mapper>

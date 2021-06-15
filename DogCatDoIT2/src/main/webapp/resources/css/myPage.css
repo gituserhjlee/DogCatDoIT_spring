@@ -3,10 +3,10 @@
 	width: 200px;
 	float: left;
 }
-.MyPageMenu-list li{
+.MyPageMenu-list ul li{
 	list-style: none;
 }
-.MyPageMenu-list li a{
+.MyPageMenu-list ul li a{
 	color: black;
 	text-decoration: none;
 }

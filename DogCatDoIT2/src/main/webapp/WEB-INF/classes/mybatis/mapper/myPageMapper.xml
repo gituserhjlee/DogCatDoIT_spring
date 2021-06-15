@@ -43,15 +43,22 @@
 	
 	<!-- 자격 신청 입력 -->
 	<insert id="insertRequestQualification" parameterType="com.pet.app.myPage.Qualification">
-		INSERT INTO requestQualification (requestNum, userId, originalFilename, saveFilename, gubun, state)
-		VALUES (request_seq.NEXTVAL, #{userId}, #{originalFilename}, #{saveFilename}, #{gubun}, 'requesting')
+		INSERT INTO requestQualification (requestNum, userId, name, tel, originalFilename, saveFilename, gubun, state, req_date)
+		VALUES (request_seq.NEXTVAL, #{userId}, #{name}, #{tel}, #{originalFilename}, #{saveFilename}, #{gubun}, 'requesting', SYSDATE)
 	</insert>
 	
 	<!-- 자격 신청 내역 -->
-	<select id="readRequestQualification" parameterType="String" resultType="com.pet.app.myPage.Qualification">
-		SELECT requestNum, userId, originalFilename, saveFilename, gubun, state 
+	<select id="listRequestQualification" parameterType="String" resultType="com.pet.app.myPage.Qualification">
+		SELECT requestNum, userId, name, tel, originalFilename, saveFilename, gubun, state, TO_CHAR(req_date, 'YYYY-MM-DD') req_date 
 		FROM requestQualification
 		WHERE userId = #{userId}
+	</select>
+	
+	<!-- 자격 신청 내용 -->
+	<select id="readRequestQualification" parameterType="Integer" resultType="com.pet.app.myPage.Qualification">
+		SELECT requestNum, userId, name, tel, originalFilename, saveFilename, gubun, state, TO_CHAR(req_date, 'YYYY-MM-DD') req_date 
+		FROM requestQualification
+		WHERE requestNum = #{requestNum}
 	</select>
 	
 	<!-- 자격 신청 수정 -->
@@ -178,42 +185,94 @@
 	<!-- 쿠폰 조회 -->
 	
 	
-	<!-- 출석체크 입력(가입시 한번만) -->
+	<!-- 출석체크 내역입력 -->
 	<insert id="insertAttendance" parameterType="String">
-		INSERT INTO attendance (userId, count) VALUES (#{userId}, 1)
+		INSERT INTO attendance (attendanceNum, userId, attendanceDate) 
+		VALUES (attendance_seq.NEXTVAL, #{userId}, SYSDATE)
 	</insert>
 	
-	<!-- 출석체크 -->
-	<update id="countAttendance" parameterType="String">
-		UPDATE attendance SET count=count+1 WHERE userId = #{userId}
-	</update>
+	<!-- 출석체크 내역 -->
+	<select id="readAttendance" parameterType="String" resultType="com.pet.app.myPage.Attendance">
+		SELECT * FROM ATTENDANCE WHERE userId=#{userId} AND attendanceDate=(SELECT TO_CHAR(SYSDATE, 'YY/MM/DD') FROM dual)
+	</select>
 	
 	<!-- 출석체크 일 수 -->
-	<select id="readAttendance" parameterType="String" resultType="Integer">
-		SELECT count FROM attendance WHERE userId = #{userId}
+	<select id="countAttendance" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM attendance WHERE userId = #{userId}
 	</select>
 	
 	<!-- 출석체크 초기화(매월 1일마다) -->
-	<update id="resetAttendance">
-		UPDATE attendance SET count = 1
+	<delete id="initAttendance">
+		DELETE FROM attendance
+	</delete>
+	
+	<!-- 일정등록 -->
+	<insert id="insertUserCalendar" parameterType="com.pet.app.myPage.UserCalendar">
+		INSERT INTO userCalendar(userCalendarNum, userId, subject, color, sday, eday,
+					stime, etime, repeat, repeat_cycle, memo, created) 
+				VALUES(userCalendar_seq.NEXTVAL, #{userId}, #{subject},
+					#{color}, #{sday},
+					#{eday, jdbcType=VARCHAR},
+					#{stime, jdbcType=VARCHAR},
+					#{etime, jdbcType=VARCHAR},
+					#{repeat}, #{repeat_cycle},
+					#{memo, jdbcType=VARCHAR},
+					SYSDATE
+		)
+	</insert>
+	
+	<!-- 달력가져오기 -->
+	<select id="listMonth" parameterType="map" resultType="com.pet.app.myPage.UserCalendar">
+		SELECT userCalendarNum id, subject title, sday, eday, stime, etime,
+				color, repeat, repeat_cycle, memo, created
+		FROM userCalendar
+		<where>
+			userId = #{userId} AND
+			<if test="group !='all' ">
+				color=#{group} AND 
+			</if>
+			( 
+				( 
+					 ( TO_DATE(sday, 'YYYY-MM-DD') &gt;= TO_DATE(#{start}, 'YYYY-MM-DD')
+						AND TO_DATE(sday, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+					 ) OR ( TO_DATE(eday, 'YYYY-MM-DD') &gt;= TO_DATE(#{start}, 'YYYY-MM-DD') 
+					     AND TO_DATE(eday, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+					 )
+				) OR (
+					repeat=1 AND repeat_cycle!=0
+						AND ADD_MONTHS(TO_DATE(sday, 'YYYY-MM-DD'), 12 * repeat_cycle*TRUNC(((SUBSTR(#{start},1,4)-SUBSTR(sday,1,4))/repeat_cycle))) &gt;= TO_DATE(#{start}, 'YYYY-MM-DD')
+						AND ADD_MONTHS(TO_DATE(sday, 'YYYY-MM-DD'), 12 * repeat_cycle*TRUNC(((SUBSTR(#{start},1,4)-SUBSTR(sday,1,4))/repeat_cycle))) &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+			  )
+			)
+		</where>
+		ORDER BY sday ASC, id DESC 
+	</select>
+	
+	<!-- 일정 가져오기 -->
+	<select id="readUserCalendar" parameterType="Integer" resultType="com.pet.app.myPage.UserCalendar">
+		SELECT userCalendarNum, subject, sday, eday, stime, etime,
+			color, repeat, repeat_cycle, memo, created 
+		FROM userCalendar
+		WHERE userCalendarNum = #{userCalendarNum}
+	</select>
+	
+	<!-- 일정 수정 -->
+	<update id="updateUserCalendar" parameterType="com.pet.app.myPage.UserCalendar">
+		UPDATE userCalendar SET
+			subject=#{subject}, color=#{color}, sday=#{sday}, 
+			eday=#{eday, jdbcType=VARCHAR},
+			stime=#{stime, jdbcType=VARCHAR},
+			etime=#{etime, jdbcType=VARCHAR},
+			repeat=#{repeat},
+			repeat_cycle=#{repeat_cycle},
+			memo=#{memo, jdbcType=VARCHAR}
+		WHERE userCalendarNum=#{userCalendarNum} AND userId=#{userId}
 	</update>
 	
-	<!-- 캘린더에 추가 -->
-	
-	
-	<!-- 캘린더에서 수정 -->
-	
-	
-	<!-- 캘린더에서 삭제 -->
-	
-	
-	<!-- 캘린더에 예약추가 -->
-	
-	
-	<!-- 캘린더에 예약수정 -->
-	
-	
-	<!-- 캘린더에 예약삭제 -->
+	<!-- 일정 삭제 -->
+	<delete id="deleteUserCalendar" parameterType="map">
+		DELETE FROM userCalendar WHERE userCalendarNum=#{userCalendarNum} AND userId=#{userId}
+	</delete>
 	
 	
 	<!-- 예약내역 -->
@@ -223,8 +282,8 @@
 	
 	
 	<!-- 회원 정보 수정 -->
-	<update id="updateMember" parameterType="com.pet.app.member.Member">
-		UPDATE member SET pwd=#{pwd}, name=#{name}, addr1=#{addr1}, addr2=#{addr2}, email=#{email}, tel=#{tel} 
+	<update id="setMember" parameterType="com.pet.app.member.Member">
+		UPDATE member SET pwd=#{pwd}, zip=#{zip}, addr1=#{addr1}, addr2=#{addr2}, email=#{email}, tel=#{tel} 
 		WHERE userId=#{userId}
 	</update>
 	

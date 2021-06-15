@@ -15,6 +15,10 @@
     
     <!-- Jquery -->
     <script src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.ui.datepicker-ko.js"></script>
     
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
@@ -42,18 +46,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/mainResources/css/style.css">
     <!-- 독캣두잇 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Jua:400" rel="stylesheet">
-	<script type="text/javascript">
-	$(function(){
-		$(document)
-		   .ajaxStart(function(){ // AJAX 시작
-			   $("#loadingImage").center();
-			   $("#loadingLayout").fadeTo("slow", 0.5);
-		   })
-		   .ajaxComplete(function(){ // AJAX 종료
-			   $("#loadingLayout").hide();
-		   });
-	});
-	</script>
 </head>
 
 <body>
@@ -69,10 +61,6 @@
 	<footer>
 	    <tiles:insertAttribute name="footer"/>
 	</footer>
-
-	<div id="loadingLayout" style="display: none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eeeeee;">
-		<i id="loadingImage" class="fa fa-cog fa-spin fa-fw" style="font-size: 70px; color: 333;"></i> 
-	</div>
 	
 	<!-- Vendors JS -->
     <script src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/modernizr-3.6.0.min.js"></script>
@@ -109,5 +97,6 @@
 
     <!-- Main Activation JS -->
     <script src="${pageContext.request.contextPath}/resources/mainResources/js/main.js"></script>
+    
 </body>
 </html>

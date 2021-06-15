@@ -1,5 +1,6 @@
 package com.pet.app.myPage;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.pet.app.common.FileManager;
 import com.pet.app.common.dao.CommonDAO;
+import com.pet.app.member.Member;
 
 @Service("myPage.myPageService")
 public class MyPageServiceImpl implements MyPageService{
@@ -20,9 +22,9 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public void insertUserProfile(UserProfile dto, String pathname) throws Exception {
 		try {
-			String animalPhoto = fileManager.doFileUpload(dto.getUpload(), pathname);
-			if(animalPhoto!=null) {
-				dto.setAnimalPhoto(animalPhoto);
+			String saveFilename = fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename!=null) {
+				dto.setAnimalPhoto(saveFilename);
 			}
 
 			dao.insertData("myPage.insertUserProfile", dto);
@@ -99,5 +101,216 @@ public class MyPageServiceImpl implements MyPageService{
 		} catch (Exception e) {
 		}
 		return result;
+	}
+	
+	// 자격신청
+	@Override
+	public void insertRequestQualification(Qualification dto, String pathname) throws Exception {
+		try {
+			String saveFilename = fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename!=null) {
+				dto.setSaveFilename(saveFilename);
+				dto.setOriginalFilename(dto.getUpload().getOriginalFilename());
+				}
+			dao.insertData("myPage.insertRequestQualification", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	// 자격 신청 내역
+	@Override
+	public List<Qualification> listRequestQualification(String userId) {
+		List<Qualification> list = null;
+		try {
+			list = dao.selectList("myPage.listRequestQualification", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 자격 신청 내용
+	@Override
+	public Qualification readRequestQualification(int requestNum) {
+		Qualification dto = null;
+		try {
+			dto = dao.selectOne("myPage.readRequestQualification", requestNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public void updateRequestQualification(Qualification dto, String pathname) throws Exception {
+		try {
+			String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename != null) {
+				if(dto.getSaveFilename()!=null && dto.getSaveFilename().length()!=0)
+					fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+				
+				dto.setSaveFilename(saveFilename);
+				dto.setOriginalFilename(dto.getUpload().getOriginalFilename());
+			}
+			
+			dao.updateData("myPage.updateRequestQualification", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void deleteRequestQualification(int requestNum, String pathname) throws Exception {
+		try {
+			Qualification dto = readRequestQualification(requestNum);
+			if(dto == null) return;
+			
+			fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+			
+			dao.deleteData("myPage.deleteRequestQualification", requestNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void setMember(Member dto) throws Exception {
+		try {
+			if(dto.getEmail1().length()!=0 && dto.getEmail2().length()!=0) {
+				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
+			}
+			
+			if(dto.getTel1().length()!=0 && dto.getTel2().length()!=0 && dto.getTel3().length()!=0) {
+				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
+			}
+			dao.updateData("myPage.setMember", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void deleteMember(String userId) throws Exception {
+		try {
+			dao.deleteData("myPage.deleteMember", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void insertAttendance(String userId) throws Exception {
+		try {
+			dao.insertData("myPage.insertAttendance", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public int countAttendance(String userId) {
+		int count = 0;
+		try {
+			count = dao.selectOne("myPage.countAttendance", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	@Override
+	public Attendance readAttendance(String userId) {
+		Attendance dto = null;
+		try {
+			dto = dao.selectOne("myPage.readAttendance", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public void insertUserCalendar(UserCalendar dto) throws Exception {
+		try {
+			if(dto.getAll_day()!=null) {
+				dto.setStime("");
+				dto.setEtime("");
+			}
+			
+			if(dto.getStime().length()==0&&dto.getEtime().length()==0&&dto.getSday().equals(dto.getEday()))
+				dto.setEday("");
+			
+			if(dto.getRepeat_cycle()!=0) {
+				dto.setEday("");
+				dto.setStime("");
+				dto.setEtime("");
+			}
+			
+			dao.insertData("myPage.insertUserCalendar", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public List<UserCalendar> listMonth(Map<String, Object> map) throws Exception {
+		List<UserCalendar> list=null;
+		try {
+			list=dao.selectList("myPage.listMonth", map);
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
+	}
+
+	@Override
+	public UserCalendar readUserCalendar(int userCalendarNum) throws Exception {
+		UserCalendar dto = null;
+		try {
+			dto=dao.selectOne("myPage.readUserCalendar", userCalendarNum);
+		} catch (Exception e) {
+			throw e;
+		}
+		return dto;
+	}
+
+	@Override
+	public void updateUserCalendar(UserCalendar dto) throws Exception {
+		try {
+			if(dto.getAll_day()!=null) {
+				dto.setStime("");
+				dto.setEtime("");
+			}
+			
+			if(dto.getStime().length()==0&&dto.getEtime().length()==0&&dto.getSday().equals(dto.getEday()))
+				dto.setEday("");
+			
+			if(dto.getRepeat_cycle()!=0) {
+				dto.setEday("");
+				dto.setStime("");
+				dto.setEtime("");
+			}
+			dao.updateData("myPage.updateUserCalendar", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void deleteUserCalendar(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("myPage.deleteUserCalendar", map);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 }

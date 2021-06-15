@@ -1,18 +1,29 @@
 package com.pet.app.myPage;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pet.app.common.FileManager;
+import com.pet.app.member.Member;
+import com.pet.app.member.MemberService;
 import com.pet.app.member.SessionInfo;
 
 @Controller("myPage.myPageController")
@@ -21,23 +32,180 @@ public class MyPageController {
 	@Autowired
 	private MyPageService service;
 	
+	@Autowired
+	private MemberService mService;
+	
+	@Autowired
+	private FileManager fileManager;
+	
 	@RequestMapping(value = "main")
 	public String main() throws Exception{
 		return ".myPage.main";
 	}
 	
 	@RequestMapping(value = "attendance")
-	public String attendance() throws Exception{
+	public String attendance(
+			HttpSession session,
+			Model model
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		Attendance dto = service.readAttendance(userId);
+		
+		int count = 0;
+		count = service.countAttendance(userId);
+		
+		if(dto!=null) {
+			String checked = "출석완료";
+			model.addAttribute("checked", checked);
+		}
+		model.addAttribute("count",count);
+		
 		return ".myPage.attendance";
 	}
 	
-	@RequestMapping(value = "calendar")
-	public String calendar() throws Exception{
-		return ".myPage.calendar";
+	@RequestMapping(value = "insertAttendance", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> attendanceSubmit(
+			HttpSession session
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		String state = "true";
+		int count = 0;
+		try {
+			service.insertAttendance(userId);
+			count = service.countAttendance(userId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("count", count);
+		model.put("state", state);
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "userCalendar")
+	public ModelAndView userCalendar(Model model) throws Exception{
+		ModelAndView mav = new ModelAndView(".myPage.userCalendar");
+		model.addAttribute("menuIndex", 5);
+		return mav;
+	}
+	
+	@RequestMapping(value="month")
+	public Map<String, Object> month(
+			@RequestParam String start,
+			@RequestParam String end,
+			@RequestParam(defaultValue="all") String group,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("group", group);
+		map.put("start", start);
+		map.put("end", end);
+		map.put("userId", info.getUserId());
+		
+		List<UserCalendar> list=service.listMonth(map);
+		for(UserCalendar dto:list) {
+	    	if(dto.getStime()==null) {
+	    		dto.setAllDay(true);
+	    	} else {
+	    		dto.setAllDay(false);
+	    	}
+	    	
+	    	if(dto.getStime()!=null && dto.getStime().length()!=0) {
+	    		dto.setStart(dto.getSday()+"T" + dto.getStime());
+	    	} else {
+	    		dto.setStart(dto.getSday());
+	    	}
+	    	
+	    	if(dto.getEtime()!=null && dto.getEtime().length()!=0) {
+	    		dto.setEnd(dto.getEday()+"T" + dto.getEtime());
+	    	} else {
+	    		dto.setEnd(dto.getEday());
+	    	}
+	    	
+	    	if(dto.getRepeat()!=0) { // 반복 일정인 경우
+	    		if( dto.getStart().substring(0,4).compareTo(start.substring(0,4)) != 0 ) {
+	    			dto.setStart(start.substring(0,4)+dto.getStart().substring(5));
+	    			System.out.println("::::"+dto.getStart());
+	    		}
+	    	}	    	
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("list", list);
+		return model;
+	}
+	
+	@PostMapping("insertUserCalendar")
+	public Map<String, Object> insertUserCalendarSubmit(UserCalendar dto,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		String state="true";
+		try {
+			dto.setUserId(info.getUserId());
+			service.insertUserCalendar(dto);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
+	@PostMapping("updateUserCalendar")
+	public Map<String, Object> updateUserCalendarSubmit(UserCalendar dto,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		String state="true";
+		try {
+			dto.setUserId(info.getUserId());
+			service.updateUserCalendar(dto);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
+	@PostMapping("deleteUserCalendar")
+	public Map<String, Object> deleteUserCalendar(
+			@RequestParam int userCalendarNum,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+
+		String state = "true";
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("userId", info.getUserId());
+			map.put("userCalendarNum", userCalendarNum);
+			service.deleteUserCalendar(map);
+		}catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		
+		return model;
 	}
 	
 	@RequestMapping(value = "userProfile", method = RequestMethod.GET)
-	String userProfile(
+	public String userProfile(
 			@RequestParam int orderNum,
 			HttpSession session,
 			Model model) throws Exception{
@@ -47,6 +215,7 @@ public class MyPageController {
 		countUserProfile = service.countUserProfile(userId);
 		
 		if(countUserProfile==0) {
+			model.addAttribute("countUserProfile", countUserProfile);
 			model.addAttribute("mode", "insert");
 			return ".myPage.setUserProfile";
 		}
@@ -73,7 +242,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "insertUserProfile", method = RequestMethod.GET)
-	String insertUserProfile(Model model) throws Exception{
+	public String insertUserProfile(Model model) throws Exception{
 		
 		model.addAttribute("mode", "insert");
 		
@@ -81,7 +250,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "updateUserProfile", method = RequestMethod.GET)
-	String updateUserProfile(
+	public String updateUserProfile(
 			@RequestParam int orderNum,
 			HttpSession session,
 			Model model
@@ -103,16 +272,17 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "insertUserProfile", method = RequestMethod.POST)
-	String insertUserProfileSubmit(
+	public String insertUserProfileSubmit(
 			UserProfile dto,
 			HttpSession session
 			) throws Exception{
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
-
+		dto.setUserId(info.getUserId());
+		
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root+"uploads"+File.separator+"userProfile";
+		
 		try {
-			dto.setUserId(info.getUserId());
 			service.insertUserProfile(dto, pathname);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,7 +292,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "updateUserProfile", method = RequestMethod.POST)
-	String updateUserProfileSubmit(
+	public String updateUserProfileSubmit(
 			UserProfile dto,
 			HttpSession session
 			) throws Exception{
@@ -159,92 +329,298 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.GET)
-	String setMasterProfile() throws Exception{
+	public String setMasterProfile() throws Exception{
 		return "myPage/setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.POST)
-	String setMasterProfileSubmit() throws Exception{
+	public String setMasterProfileSubmit() throws Exception{
 		return "myPage/setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.GET)
-	String setCompanyProfile() throws Exception{
+	public String setCompanyProfile() throws Exception{
 		return "myPage/setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.POST)
-	String setCompanyProfileSubmit() throws Exception{
+	public String setCompanyProfileSubmit() throws Exception{
 		return "myPage/setCompanyProfile";
 	}
 	
-	@RequestMapping(value = "qualification", method = RequestMethod.GET)
-	String qualification() throws Exception{
-		return "myPage/qualification";
+	@RequestMapping(value = "listQualification")
+	public String listQualification(
+			HttpSession session,
+			Model model) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		try {
+			List<Qualification> list = service.listRequestQualification(userId);
+			
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ".myPage.listQualification";
 	}
 	
-	@RequestMapping(value = "qualification", method = RequestMethod.POST)
-	String qualificationSubmit() throws Exception{
-		return "myPage/qualification";
+	@RequestMapping(value = "download")
+	public void download(
+			@RequestParam int requestNum,
+			HttpServletResponse resp,
+			HttpSession session
+			) throws Exception{
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "requestQualification";
+		
+		Qualification dto = service.readRequestQualification(requestNum);
+		if(dto!=null) {
+			boolean b = fileManager.doFileDownload(dto.getSaveFilename(), dto.getOriginalFilename(), pathname , resp);
+			
+			if(b) return;
+		}
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print("<script>alert('파일다운로드가 실패했습니다.'); history.back();</script>");
 	}
 	
-	@RequestMapping(value = "checkPwd")
-	String checkPwd() throws Exception{
-		return "myPage/checkPwd";
+	@RequestMapping(value = "insertRequestQualification", method = RequestMethod.GET)
+	public String requestQualification(
+			HttpSession session,
+			Model model) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		Member dto = mService.readMember(userId);
+		
+		model.addAttribute("mode", "insert");
+		model.addAttribute("userId", dto.getUserId());
+		model.addAttribute("name", dto.getName());
+		model.addAttribute("tel", dto.getTel());
+		
+		return ".myPage.qualification";
+	}
+	
+	@RequestMapping(value = "insertRequestQualification", method = RequestMethod.POST)
+	String requestQualificationSubmit(
+			Qualification dto,
+			HttpSession session,
+			final RedirectAttributes rattr
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		dto.setUserId(info.getUserId());
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+"uploads"+File.separator+"requestQualification";
+		rattr.addFlashAttribute("title", "자격신청");
+		rattr.addFlashAttribute("msg", "신청이 완료되었습니다.<br>감사합니다.");
+		try {
+			service.insertRequestQualification(dto, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/myPage/complete";
+	}
+	
+	@RequestMapping(value = "complete")
+	public String complete(@ModelAttribute("msg") String msg) throws Exception{
+		
+		if(msg==null || msg.length()==0)
+			return "redirect:/myPage/main";
+		
+		return ".myPage.complete";
+	}
+	
+	@RequestMapping(value = "updateRequestQualification", method = RequestMethod.GET)
+	public String updateRequestQualification(
+			@RequestParam int requestNum,
+			Model model
+			) throws Exception{
+		Qualification dto = service.readRequestQualification(requestNum);
+		
+		if(dto == null) {
+			return "redirect:/myPage/listQualification";
+		}
+		
+		model.addAttribute("mode", "update");
+		model.addAttribute("dto", dto);
+		model.addAttribute("userId", dto.getUserId());
+		model.addAttribute("name", dto.getName());
+		model.addAttribute("tel", dto.getTel());
+		
+		return ".myPage.qualification";
+	}
+	
+	@RequestMapping(value = "updateRequestQualification", method = RequestMethod.POST)
+	public String updateRequestQualificationSubmit(
+			Qualification dto,
+			HttpSession session
+			) throws Exception{
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+"uploads"+File.separator+"requestQualification";
+		
+		try {
+			service.updateRequestQualification(dto, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/myPage/listQualification";
+	}
+	
+	@RequestMapping(value = "deleteRequestQualification")
+	public String deleteRequestQualification(
+			@RequestParam int requestNum,
+			HttpSession session
+			) throws Exception{
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+"uploads"+File.separator+"requestQualification";
+		
+		service.deleteRequestQualification(requestNum, pathname);
+		
+		return "redirect:/myPage/listQualification";
+	}
+	
+	@RequestMapping(value = "checkPwd", method = RequestMethod.GET)
+	public String checkPwd(@RequestParam int mode, Model model) throws Exception{
+		
+		if(mode==1) {
+			model.addAttribute("mode", "set");
+		} else {
+			model.addAttribute("mode", "delete");
+		}
+		
+		return ".myPage.checkPwd";
+	}
+	
+	@RequestMapping(value = "checkPwd", method = RequestMethod.POST)
+	public String checkPwdSubmit(
+			@RequestParam String pwd,
+			@RequestParam String mode,
+			final RedirectAttributes reAttr,
+			Model model,
+			HttpSession session
+			) throws Exception{
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Member dto = mService.readMember(info.getUserId());
+		if(dto==null) {
+			session.invalidate();
+			return "redirect:/";
+		}
+		
+		if(! dto.getPwd().equals(pwd)) {
+			if(mode.equals("set")) {
+				model.addAttribute("mode", "set");
+			} else {
+				model.addAttribute("mode", "delete");
+			}
+			model.addAttribute("message", "패스워드가 일치하지 않습니다.");
+			return ".myPage.checkPwd";
+		}
+		
+		if(mode.equals("delete")) {
+			model.addAttribute("dto", dto);
+			return ".myPage.deleteMember";
+		}
+		model.addAttribute("dto", dto);
+		
+		return ".myPage.setMember";
 	}
 	
 	@RequestMapping(value = "setMember", method = RequestMethod.GET)
-	String setMember() throws Exception{
-		return "myPage/setMember";
+	public String setMember() throws Exception{
+		
+		return ".myPage.setMember";
 	}
 	
 	@RequestMapping(value = "setMember", method = RequestMethod.POST)
-	String setMemberSubmit() throws Exception{
-		return "myPage/setMember";
+	public String setMemberSubmit(
+			Member dto,
+			final RedirectAttributes reAttr,
+			Model model
+			) throws Exception{
+		
+		try {
+			service.setMember(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append(dto.getName()+ "님의 회원정보가 정상적으로 변경되었습니다.<br>");
+		sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+		
+		reAttr.addFlashAttribute("title", "회원 정보 수정");
+		reAttr.addFlashAttribute("msg", sb.toString());
+		
+		return "redirect:/myPage/complete";
 	}
 	
 	@RequestMapping(value = "deleteMember", method = RequestMethod.GET)
-	String deleteMember() throws Exception{
-		return "myPage/deleteMember";
+	public String deleteMember(Model model, Member dto) throws Exception{
+		model.addAttribute("dto", dto);
+		return ".myPage.deleteMember";
 	}
 	
 	@RequestMapping(value = "deleteMember", method = RequestMethod.POST)
-	String deleteMemberSubmit() throws Exception{
-		return "myPage/deleteMember";
+	public String deleteMemberSubmit(
+			HttpSession session,
+			final RedirectAttributes reAttr,
+			Member dto
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		try {
+			service.deleteMember(userId);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		session.removeAttribute("member");
+		session.invalidate();
+		
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append(dto.getName()+ "님의 회원 탈퇴 처리가 정상적으로 처리되었습니다.<br>");
+		sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+		
+		reAttr.addFlashAttribute("title", "회원 탈퇴");
+		reAttr.addFlashAttribute("msg", sb.toString());
+		
+		return "redirect:/member/complete";
 	}
 	
 	@RequestMapping(value = "written")
-	String written() throws Exception{
+	public String written() throws Exception{
 		return "myPage/written";
 	}
 	
 	@RequestMapping(value = "reserve")
-	String reserve() throws Exception{
+	public String reserve() throws Exception{
 		return "myPage/reserve";
 	}
 	
 	@RequestMapping(value = "point")
-	String point() throws Exception{
+	public String point() throws Exception{
 		return "myPage/point";
 	}
 	
 	@RequestMapping(value = "cupon")
-	String cupon() throws Exception{
+	public String cupon() throws Exception{
 		return "myPage/cupon";
 	}
 	
 	@RequestMapping(value = "purchase")
-	String purchase() throws Exception{
+	public String purchase() throws Exception{
 		return "myPage/purchase";
 	}
 	
 	@RequestMapping(value = "zzim")
-	String zzim() throws Exception{
+	public String zzim() throws Exception{
 		return "myPage/zzim";
 	}
 	
 	@RequestMapping(value = "cart")
-	String cart() throws Exception{
+	public String cart() throws Exception{
 		return "myPage/cart";
 	}
 }

@@ -61,7 +61,7 @@ public class OrderControlloer {
 		model.addAttribute("mdto", mdto);
 		model.addAttribute("from", "item");
 		
-		return ".shopping.order2";
+		return ".shopping.order";
 	}
 	
 	// 장바구니에서 주문하는 경우
@@ -77,10 +77,22 @@ public class OrderControlloer {
 		List<OrderDetail> itemList = null;
 		itemList = orderService.listItemInCart(mdto.getUserIdx());
 		
+		// 재고검사
+		for(OrderDetail od : itemList) {
+			DetailOption itemOption;
+			itemOption = adminService.findbydetailOptionid(od.getDetailId());
+			if (itemOption == null || itemOption.getStock() < od.getCount()) {
+				String msg = "재고가 부족합니다.<br>";
+				msg += od.getItemName()+" [옵션: "+od.getOptionName()+" "+od.getDetailName()+"]";
+				model.addAttribute("msg", msg);
+				return ".error.error";
+			}
+		}
+		
 		model.addAttribute("mdto", mdto);
 		model.addAttribute("itemList",itemList);
 		model.addAttribute("from", "cart");
-		return ".shopping.order2";
+		return ".shopping.order";
 	}
 
 	@PostMapping("insert")
@@ -183,7 +195,12 @@ public class OrderControlloer {
 	
 	@RequestMapping("test1")
 	public String test1() throws Exception {
-		orderService.test();
+		try {
+			orderService.test();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return ".shopping.test";
 	}
 	

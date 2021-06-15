@@ -5,10 +5,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class Qualification {
 	private int requestNum;
 	private String userId;
+	private String name;
+	private String tel;
 	private String originalFilename;
 	private String saveFilename;
 	private String gubun;
 	private String state;
+	private String req_date;
 	private MultipartFile upload;
 	
 	public int getRequestNum() {
@@ -22,6 +25,18 @@ public class Qualification {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public String getOriginalFilename() {
 		return originalFilename;
@@ -46,6 +61,12 @@ public class Qualification {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getReq_date() {
+		return req_date;
+	}
+	public void setReq_date(String req_date) {
+		this.req_date = req_date;
 	}
 	public MultipartFile getUpload() {
 		return upload;

@@ -20,7 +20,9 @@
 				<li>지역 : ${region}</li>
 				<li>소개 : ${introduce}</li>
 				<li>
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/myPage/insertUserProfile'">추가</button>
+					<c:if test="${countUserProfile!=3}">
+						<button type="button" onclick="location.href='${pageContext.request.contextPath}/myPage/insertUserProfile'">추가</button>
+					</c:if>
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/myPage/updateUserProfile?orderNum=${orderNum}'">수정</button>
 					<button type="button" onclick="location.href='${pageContext.request.contextPath}/myPage/deleteUserProfile?profileNum=${profileNum}&animalPhoto=${animalPhoto}'">삭제</button>
 				</li>

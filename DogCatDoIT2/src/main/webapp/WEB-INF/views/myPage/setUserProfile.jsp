@@ -2,8 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
+
 <script type="text/javascript">
 $(function () {
 	$(".setUserProfile-photo").click(function () {
@@ -39,26 +38,35 @@ function sendOk() {
 			프로필 설정
 		</div>
 		<div>
-			<form name="userProfileForm" method="post">
+			<form name="userProfileForm" method="post" enctype="multipart/form-data">
 				<div>
 					<div class="setUserProfile-photo">
 						사진
 					</div>
-					<input type="file" class="setUserProfile-file" name="animalPhoto">
+					<input type="file" class="setUserProfile-file" name="upload">
 				</div>
 				<ul>
-					<li>이름 : <input type="text" name="animalName"></li>
-					<li>생일 : <input type="date" name="animalBirth"></li>
-					<li>종 : <input type="text" name="animalKind"></li>
-					<li>지역 : <input type="text" name="region"></li>
-					<li>소개 : <textarea name="introduce"></textarea></li>
-					<li>프로필 번호 : 
-						<input type="radio" name="orderNum" value="1">1
-						<input type="radio" name="orderNum" value="2">2
-						<input type="radio" name="orderNum" value="3">3
+					<li>이름 : <input type="text" name="animalName" value="${dto.getAnimalName()}"></li>
+					<li>생일 : <input type="date" name="animalBirth" value="${dto.getAnimalBirth()}"></li>
+					<li>종 : <input type="text" name="animalKind" value="${dto.getAnimalKind()}"></li>
+					<li>지역 : <input type="text" name="region" value="${dto.getRegion()}"></li>
+					<li>소개 : <textarea name="introduce">${dto.getIntroduce()}</textarea></li>
+					<li>프로필 번호 :
+						<c:if test="${countUserProfile==0}">
+							<input type="text" name="orderNum" value="1" readonly="readonly">
+						</c:if> 
+						<c:if test="${countUserProfile!=0}">
+							<input type="radio" name="orderNum" value="1">1
+							<input type="radio" name="orderNum" value="2">2
+							<input type="radio" name="orderNum" value="3">3
+						</c:if>
 					</li>
 					<li><button type="button" onclick="sendOk();">완료</button></li>
 				</ul>
+				<c:if test="${mode=='update'}">
+					<input type="hidden" name="profileNum" value="${dto.getProfileNum()}">
+					<input type="hidden" name="animalPhoto" value="${dto.getAnimalPhoto()}"> 
+				</c:if>
 			</form>
 		</div>
 	</div>

@@ -2,8 +2,8 @@ package com.pet.app.myPage;
 
 public class Attendance {
 	private String userId;
-	private int count;
-	
+	private int attendanceNum;
+	private String attendanceDate;
 	
 	public String getUserId() {
 		return userId;
@@ -11,10 +11,16 @@ public class Attendance {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getCount() {
-		return count;
+	public int getAttendanceNum() {
+		return attendanceNum;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setAttendanceNum(int attendanceNum) {
+		this.attendanceNum = attendanceNum;
+	}
+	public String getAttendanceDate() {
+		return attendanceDate;
+	}
+	public void setAttendanceDate(String attendanceDate) {
+		this.attendanceDate = attendanceDate;
 	}
 }

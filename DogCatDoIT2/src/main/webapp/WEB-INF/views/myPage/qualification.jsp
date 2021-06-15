@@ -2,26 +2,46 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<script type="text/javascript">
+function sendRequest() {
+	f = document.requestQualificationForm
+	
+	f.submit();
+}
+</script>
 <div class="myPage-body">
 	<div class="myPage-insideBody">
 		<div>
 			자격신청
 		</div>
 		<div>
-			<p>
-				<input type="radio" name="자격분류" value="펫시터">펫시터
-				<input type="radio" name="자격분류" value="훈련사">훈련사
-				<input type="radio" name="자격분류" value="제휴업체">제휴업체
-			</p>
-			<p>
-				회원 정보 받아오는 곳
-			</p>
-			<p>
-				자격증 파일 : <input type="file">
-			</p>
-			<p>
-				<button type="button">신청하기</button>
-			</p>
+			<form action="${pageContext.request.contextPath}/myPage/${mode}RequestQualification" method="post" name="requestQualificationForm" enctype="multipart/form-data">
+				<p>
+					<input type="radio" name="gubun" value="petsitter">펫시터
+					<input type="radio" name="gubun" value="trainer">훈련사
+					<input type="radio" name="gubun" value="company">제휴업체
+				</p>
+				<p>
+					아이디 : <input type="text" value="${userId}" readonly="readonly" name="userId">
+				</p>
+				<p>
+					이름 : <input type="text" value="${name}" readonly="readonly" name="name">
+				</p>
+				<p>
+					전화번호 : <input type="text" value="${tel}" readonly="readonly" name="tel">
+				</p>
+				<p>
+					자격증 파일 : <input type="file" name="upload" value="${dto.originalFilename}">
+				</p>
+				<p>
+					<button type="button" onclick="sendRequest();">신청하기</button>
+				</p>
+				<c:if test="${mode=='update'}">
+					<input type="hidden" name="requestNum" value="${dto.requestNum}">
+					<input type="hidden" name="saveFilename" value="${dto.saveFilename}">
+					<input type="hidden" name="originalFilename" value="${dto.originalFilename}">
+				</c:if>
+			</form>
 		</div>
 	</div>
 </div>

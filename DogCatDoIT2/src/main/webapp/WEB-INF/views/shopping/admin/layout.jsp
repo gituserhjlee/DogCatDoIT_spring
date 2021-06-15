@@ -132,7 +132,7 @@
 								발주</span>
 					</a></li>
 					<li class="treeview" id="levelManage"><a class="waves-effect waves-dark"
-						href="basic-table.html"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/levelManage"> <i class="icon-list"></i><span>
 								쇼핑몰 등급 관리</span>
 					</a></li>
 

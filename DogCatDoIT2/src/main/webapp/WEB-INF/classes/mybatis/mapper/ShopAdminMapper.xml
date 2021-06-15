@@ -406,4 +406,34 @@ from
 	group by d.detailid , i.itemname, io.optionname,d.detailname)
 	where rownum &lt;=10
 	</select>
+	
+	<select id="selectShoplevels" resultType="com.pet.app.shopping.ShopLevel">
+	select levelId,levelName,moneyStart,moneyEnd,rate
+	from shoplevel
+	order by moneystart
+	
+	</select>
+	
+	<insert id="insertShoplevels" parameterType="com.pet.app.shopping.ShopLevel">
+	insert into ShopLevel(levelId,levelName,moneyStart,moneyEnd,rate) 
+	values(shoplevel_seq.NEXTVAL,#{levelName},#{moneyStart},#{moneyEnd},#{rate})
+	
+	</insert>
+	
+	<update id="updateShoplevels" parameterType="com.pet.app.shopping.ShopLevel">
+	update ShopLevel set levelName=#{levelName}, moneyStart=#{moneyStart}, moneyEnd=#{moneyEnd}, rate=#{rate}
+	where levelId=#{levelId}
+	</update>
+	
+	<delete id="deleteShoplevels" parameterType="long">
+	delete from ShopLevel
+	where levelId=#{levelId}
+	</delete>
+	
+	<select id="findByLevelId" parameterType="long" resultType="com.pet.app.shopping.ShopLevel">
+	select levelId,levelName,moneyStart,moneyEnd,rate
+	from ShopLevel
+	where levelId=#{levelId}
+	
+	</select>
 </mapper>

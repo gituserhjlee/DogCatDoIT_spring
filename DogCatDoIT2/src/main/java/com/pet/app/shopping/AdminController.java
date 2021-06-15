@@ -774,4 +774,67 @@ public class AdminController {
 		return "/shopping/admin/CouponList";
 	}
 
+	
+	@GetMapping("admin/levelManage")
+	public String levelManage(Model model) {
+		model.addAttribute("mode", "insert");
+		return ".shopping.admin.levelManage";
+	}
+	
+	@GetMapping("admin/LevelList")
+	public String levelList(Model model) {
+		  List<ShopLevel> list=new ArrayList<ShopLevel>();
+		  list=service.selectShopLevels(); 
+		  model.addAttribute("list", list);
+		  return "/shopping/admin/levelList";
+	}
+	
+	@PostMapping("admin/levels")
+	public String insertLevel(ShopLevel level,Model model) {
+		try {
+			service.insertShoplevels(level);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		 List<ShopLevel> list=new ArrayList<ShopLevel>();
+		  list=service.selectShopLevels(); model.addAttribute("list", list);
+		  model.addAttribute("list", list);
+		  return "/shopping/admin/levelList";		
+	}
+	
+	@GetMapping("admin/updatelevels")
+	public String updateLevelForm(@RequestParam long levelId, Model model) {
+		ShopLevel level=service.findByLevelId(levelId);
+		model.addAttribute("mode", "update");
+		model.addAttribute("level", level);
+		return ".shopping.admin.levelManage";
+	}
+	
+	@PostMapping("admin/updatelevels")
+	@ResponseBody
+	public String updateLevel(ShopLevel level) {
+		String result="true";
+		try {
+			service.updateShoplevels(level);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="false";
+		}
+		return result;
+	}
+
+	@PostMapping("admin/deletelevels")
+	@ResponseBody
+	public String deletelevelsLevel(@RequestParam long levelId, Model model) {
+		String result="true";
+		try {
+			service.deleteShoplevels(levelId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="false";
+		}
+		return result;
+	}
 }

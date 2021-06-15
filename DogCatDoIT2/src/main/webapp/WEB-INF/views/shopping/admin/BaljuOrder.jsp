@@ -8,14 +8,14 @@
 		<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
 				<span>상품 발주 현황 </span>
 			</div>
-			<table class="table" style="text-align: center;">
-				<thead class="thead-dark" style="text-align: center;">
-					<tr>
-						<th scope="col" style="vertical-align: middle">상품명</th>
-						<th scope="col" style="vertical-align: middle">옵션명</th>
-						<th scope="col" style="vertical-align: middle">상세옵션명</th>
-						<th scope="col" style="vertical-align: middle">주문수량</th>
-						<th scope="col" style="vertical-align: middle">주문일시</th>
+			<table class="table" style="text-align: center; border:2px solid #F79F81; ">
+				<thead  style="text-align: center;background: #F79F81 ;font-family: 'JUA';">
+					<tr >
+						<th scope="col" style="vertical-align: middle; font-weight: lighter;">상품명</th>
+						<th scope="col" style="vertical-align: middle; font-weight: lighter;">옵션명</th>
+						<th scope="col" style="vertical-align: middle; font-weight: lighter;">상세옵션명</th>
+						<th scope="col" style="vertical-align: middle; font-weight: lighter;">주문수량</th>
+						<th scope="col" style="vertical-align: middle; font-weight: lighter;">주문일시</th>
 					</tr>
 				</thead>
 				<tbody>

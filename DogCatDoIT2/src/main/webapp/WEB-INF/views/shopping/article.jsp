@@ -101,8 +101,7 @@
 					</div>
 					<div>${item.des}</div>
 
-					<form name="oform">
-						<input type="hidden" id="str" name="str">
+					<form name="oform" action="${pageContext.request.contextPath}/order/orderForm" method="get">
 						<div>
 							<select name="detailId" id="cartdetailId">
 								<c:forEach var="o" items="${options}">
@@ -116,7 +115,7 @@
 						<div class="product__details__quantity" style="clear: both;">
 							<div class="quantity">
 								<div class="pro-qty" style="background: white">
-									<input type="text" name="cartcount" id="cartcount" value="1"
+									<input type="text" name="count" id="cartcount" value="1"
 										style="border: none; background: #F79F81; color: white;">
 								</div>
 							</div>
@@ -124,7 +123,7 @@
 						<div style="margin-top: 10px;">
 							<button type="button" class="primary-btn" style="border: 2px solid #F79F81;"
 								onclick="addCart()">ADD TO CART</button>
-							<button type="button" style="border: 2px solid #F79F81;"  class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
+							<button type="submit" style="border: 2px solid #F79F81;"  class="primary-btn" >BUY NOW</button>
 							<a class="heart-icon" > <span
 								class="icon_heart_alt"></span></a>
 						</div>
@@ -305,8 +304,6 @@ function addCart(){
 	
 	var detailId=$("#cartdetailId").val()
 	var count=$("#cartcount").val()
-	console.log(detailId)
-	console.log(count)
 	
 	$.ajax({
 		url:"${pageContext.request.contextPath}/order/insertCart",

@@ -334,22 +334,22 @@ public class MyPageController {
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.GET)
 	public String setMasterProfile() throws Exception{
-		return "myPage/setMasterProfile";
+		return ".myPage.setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.POST)
 	public String setMasterProfileSubmit() throws Exception{
-		return "myPage/setMasterProfile";
+		return ".myPage.setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.GET)
 	public String setCompanyProfile() throws Exception{
-		return "myPage/setCompanyProfile";
+		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.POST)
 	public String setCompanyProfileSubmit() throws Exception{
-		return "myPage/setCompanyProfile";
+		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "listQualification")
@@ -595,26 +595,26 @@ public class MyPageController {
 	
 	@RequestMapping(value = "written")
 	public String written() throws Exception{
-		return "myPage/written";
+		return ".myPage.written";
 	}
 	
 	@RequestMapping(value = "reserve")
 	public String reserve() throws Exception{
-		return "myPage/reserve";
+		return ".myPage.reserve";
 	}
 	
 	@RequestMapping(value = "point")
 	public String point() throws Exception{
-		return "myPage/point";
+		return ".myPage.point";
 	}
 	
 	@RequestMapping(value = "cupon")
 	public String cupon() throws Exception{
-		return "myPage/cupon";
+		return ".myPage.cupon";
 	}
 	
 	@RequestMapping(value = "purchase")
 	public String purchase() throws Exception{
-		return "myPage/purchase";
+		return ".myPage.purchase";
 	}
 }

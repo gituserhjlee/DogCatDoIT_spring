@@ -611,7 +611,25 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value = "point")
-	public String point() throws Exception{
+	public String point(
+			Model model,
+			HttpSession session
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		
+		List<PointHistory> list = null;
+		try {
+			list=service.readPointHistory(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("list", list);
+		
 		return ".myPage.point";
 	}
 	

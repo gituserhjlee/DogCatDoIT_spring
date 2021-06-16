@@ -21,6 +21,7 @@ $(function () {
 		reader.onload = function (e) {
 			$(".setUserProfile-photo").empty();
 			$(".setUserProfile-photo").css("background-image","url("+e.target.result+")");
+			$(".setUserProfile-photo").css("background-size","200px");
 		};
 		reader.readAsDataURL(file);
 	});
@@ -35,11 +36,11 @@ function sendOk() {
 <div style="width: 800px; min-height: 800px; float: left;">
 	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			프로필 설정
+			<h4>프로필 설정</h4>
 		</div>
 		<div>
 			<form name="userProfileForm" method="post" enctype="multipart/form-data">
-				<div>
+				<div align="center">
 					<div class="setUserProfile-photo" style="width: 200px; height: 200px; border-radius: 50%; background: #eee; text-align: center;	line-height: 200px;">
 						사진
 					</div>

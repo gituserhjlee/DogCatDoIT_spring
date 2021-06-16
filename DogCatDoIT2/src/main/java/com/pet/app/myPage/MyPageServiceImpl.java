@@ -325,4 +325,30 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
+
+	// 포인트 내역 등록
+	@Override
+	public void insertPointHistory(PointHistory dto) throws Exception {
+		try {
+			dao.insertData("myPage.insertPointHistory", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	// 포인트 내역 리스트
+	@Override
+	public List<PointHistory> readPointHistory(Map<String, Object> map){
+		List<PointHistory> list = null;
+		try {
+			list = dao.selectList("myPage.readPointHistory", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+
+	
 }

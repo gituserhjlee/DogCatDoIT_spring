@@ -8,19 +8,10 @@
 			<h4>포인트</h4>
 		</div>
 		<div>
-			<p>포인트 적립 내역</p>
-			<p>조회기간
-				<select>
-					<option>기간</option>
-					<option>1개월</option>
-					<option>3개월</option>
-					<option>6개월</option>
-					<option>1년</option>
-				</select>
-			</p>
+			<p>내 포인트 : </p>
 		</div>
 		<div>
-			<p>포인트 사용 내역</p>
+			<p>포인트 내역</p>
 			<p>
 				조회기간
 				<select>
@@ -31,6 +22,25 @@
 					<option>1년</option>
 				</select>
 			</p>
+			<table>
+				<tr>
+					<td>번호</td>
+					<td>금액</td>
+					<td>내용</td>
+					<td>일자</td>
+				</tr>
+				<c:forEach var="dto" items="${list}">
+					<tr>
+						<td>번호</td>
+						<td>${dto.amount}</td>
+						<td>${dto.by_what}</td>
+						<td>${get_date}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<c:if test="${empty list}">
+				포인트 내역이 없습니다.
+			</c:if>
 		</div>
 	</div>
 </div>

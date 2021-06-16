@@ -4,16 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div style="padding: 20px;">
+		<div style="padding: 20px; font-family: Jua;">
 			<div
-				style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+				style="text-align: center; font-size: x-large; padding: 20px;">
 				<span>쇼핑몰 등급 관리 </span>
 			</div>
 		<div class="levels"></div>
 		<form name="levelForm" id="levelForm">
 			<div class="form-group">
-					<input type="text" class="form-control" placeholder="등급명을 입력하세요"
+					<input type="text" class="form-control" placeholder="등급명을 입력하세요" onchange="levelNameCheck();"
 						name="levelName"  id="levelName" value="${level.levelName}">
+					<p class="help-block" style="font-family: 'JUA'">기존의 등급명과 중복되는 등급명은 불가합니다</p>
 					 <input
 						type="number" class="form-control" placeholder="시작 기준가격을 입력하세요(이상)"
 						name="moneyStart"  id="moneyStart" value="${level.moneyStart}">
@@ -137,6 +138,34 @@ function updateLevel(){
 	
 }
 
+function levelNameCheck() {
+	var str = $("#levelName").val();
+	str = str.trim();		
+	var url="${pageContext.request.contextPath}/shopping/admin/levelCheck";
+	var query="levelName="+str;
+	
+	$.ajax({
+		type:"post"
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			var p=data.passed;
+			if(p==="true") {
+				var s="<span style='color:blue;font-weight:bold;'>"+str+"</span> 쿠폰명이 사용 가능합니다.";
+				$("#levelName").next(".help-block").html(s);
+			} else {
+				var s="<span style='color:red;font-weight:bold;'>"+str+"</span> 쿠폰명을 사용할 수 없습니다.";
+				$("#levelName").next(".help-block").html(s);
+				$("#levelName").val("");
+				$("#levelName").focus();
+			}
+		}
+	    ,error:function(e) {
+	    	console.log(e.responseText);
+	    }
+	});
+}
 </script>
 <script>
  $(function(){

@@ -4,11 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div class="baljuMain">
+		<div class="baljuMain" style="font-family: Jua;">
 			<form name="BaljuForm" id="BaljuForm" method="post" >
 			
 				<div
-					style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+					style="text-align: center;  font-size: x-large; padding: 20px;">
 					<span>발주 업체 관리 </span>
 				</div>
 				<div class="form-group">
@@ -33,15 +33,15 @@
 					<c:if test="${mode eq 'insert'}">
 						<button type='button' class='btn btnSendOption btn-secondary'
 							onclick="insertStore()"
-							style='padding: 10px 20px; border-radius: 10px;'>발주 업체
-							등록</button>
+							style='padding: 10px 20px; border-radius: 10px; float: right;margin-bottom: 10px;'>등록
+							</button>
 					</c:if>
 					<c:if test="${mode eq 'update'}">
 					<input type="hidden" name="shopStoreId" value="${store.shopStoreId}">
 					
 					<button type='button' class='btn btnSendOption btn-secondary'
 							onclick="updateStore()"
-							style='padding: 10px 20px; border-radius: 10px;'>발주 업체
+							style='padding: 10px 20px; border-radius: 10px; float: right; margin-bottom: 10px;'>
 							수정</button>
 					
 					</c:if>

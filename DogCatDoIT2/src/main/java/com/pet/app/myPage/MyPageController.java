@@ -98,6 +98,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="month")
+	@ResponseBody
 	public Map<String, Object> month(
 			@RequestParam String start,
 			@RequestParam String end,
@@ -146,6 +147,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("insertUserCalendar")
+	@ResponseBody
 	public Map<String, Object> insertUserCalendarSubmit(UserCalendar dto,
 			HttpSession session) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
@@ -164,6 +166,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("updateUserCalendar")
+	@ResponseBody
 	public Map<String, Object> updateUserCalendarSubmit(UserCalendar dto,
 			HttpSession session) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
@@ -182,6 +185,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("deleteUserCalendar")
+	@ResponseBody
 	public Map<String, Object> deleteUserCalendar(
 			@RequestParam int userCalendarNum,
 			HttpSession session
@@ -612,15 +616,5 @@ public class MyPageController {
 	@RequestMapping(value = "purchase")
 	public String purchase() throws Exception{
 		return "myPage/purchase";
-	}
-	
-	@RequestMapping(value = "zzim")
-	public String zzim() throws Exception{
-		return "myPage/zzim";
-	}
-	
-	@RequestMapping(value = "cart")
-	public String cart() throws Exception{
-		return "myPage/cart";
 	}
 }

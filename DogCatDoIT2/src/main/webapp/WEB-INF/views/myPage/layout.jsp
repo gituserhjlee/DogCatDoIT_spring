@@ -13,12 +13,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <!-- Jquery -->
-    <script src="${pageContext.request.contextPath}/resources/mainResources/js/vendor/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.ui.datepicker-ko.js"></script>
+    
     
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
@@ -42,10 +37,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/slick.css">
 
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPage.css" type="text/css">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/mainResources/css/style.css">
     <!-- 독캣두잇 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Jua:400" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
+    
+    <!-- Jquery -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.ui.datepicker-ko.js"></script>
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myPage.css" type="text/css">
+    
 </head>
 
 <body>

@@ -32,18 +32,18 @@ function sendOk() {
 	f.submit();
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
 			프로필 설정
 		</div>
 		<div>
 			<form name="userProfileForm" method="post" enctype="multipart/form-data">
 				<div>
-					<div class="setUserProfile-photo">
+					<div class="setUserProfile-photo" style="width: 200px; height: 200px; border-radius: 50%; background: #eee; text-align: center;	line-height: 200px;">
 						사진
 					</div>
-					<input type="file" class="setUserProfile-file" name="upload">
+					<input type="file" class="setUserProfile-file" name="upload" style="display: none;">
 				</div>
 				<ul>
 					<li>이름 : <input type="text" name="animalName" value="${dto.getAnimalName()}"></li>

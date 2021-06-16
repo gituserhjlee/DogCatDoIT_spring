@@ -27,7 +27,7 @@
 	
 	
 	    <tr class='replyAnswer' style='display: none;'>
-	        <td colspan='2' style=' border:4px outset #F79F81; '>
+	        <td colspan='2' >
 	            <div id='listdetailoption${vo.optionId}' class='answerList'>
 	            
 	            </div>

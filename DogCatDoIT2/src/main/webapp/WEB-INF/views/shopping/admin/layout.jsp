@@ -119,20 +119,35 @@
 							class="icon-briefcase"></i><span> 상품등록</span></a></li>
 
 					<li class="treeview" id="couponManage"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/CouponManage"><i class="icon-list"></i><span> 쿠폰관리</span></a></li>
+						href="${pageContext.request.contextPath}/shopping/admin/CouponManage">
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/coupon.png"
+				alt="Theme-logo">
+						&nbsp;<span> 쿠폰관리</span></a></li>
 
 
 
 					<li class="treeview" id="balju"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/Balju"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/Balju"> 
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/balju.png"
+				alt="Theme-logo">
+						&nbsp;
+						<span>
 								발주 업체 관리</span>
 					</a></li>
 					<li class="treeview" id="stockManage"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/stockManage"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/stockManage">
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/order.png"
+				alt="Theme-logo">
+						&nbsp;
+						<span>
 								발주</span>
 					</a></li>
 					<li class="treeview" id="levelManage"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/levelManage"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/levelManage">
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/level.png"
+				alt="Theme-logo">
+						&nbsp;
+						<span>
 								쇼핑몰 등급 관리</span>
 					</a></li>
 

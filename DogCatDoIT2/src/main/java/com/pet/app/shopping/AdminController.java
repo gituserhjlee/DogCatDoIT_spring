@@ -775,6 +775,23 @@ public class AdminController {
 	}
 
 	
+	@PostMapping("admin/couponCheck")
+	@ResponseBody
+	public Map<String, Object> couponCheck(
+			@RequestParam String couponName
+			) throws Exception {
+		
+		String p="true";
+		Coupon dto=service.findByCouponName(couponName);
+		if(dto!=null) {
+			p="false";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("passed", p);
+		return model;
+	}
+	
 	@GetMapping("admin/levelManage")
 	public String levelManage(Model model) {
 		model.addAttribute("mode", "insert");
@@ -836,5 +853,22 @@ public class AdminController {
 			result="false";
 		}
 		return result;
+	}
+	
+	@PostMapping("admin/levelCheck")
+	@ResponseBody
+	public Map<String, Object> levelCheck(
+			@RequestParam String levelName
+			) throws Exception {
+		
+		String p="true";
+		ShopLevel dto=service.findByLevelName(levelName);
+		if(dto!=null) {
+			p="false";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("passed", p);
+		return model;
 	}
 }

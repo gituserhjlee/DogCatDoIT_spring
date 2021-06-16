@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div class="optionMain">
-		<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+		<div class="optionMain" style="font-family: Jua;">
+		<div style="text-align: center;  font-size: x-large; padding: 20px;">
 			<span >상품 옵션 등록 </span>
 			</div>	
 			<c:if test="${mode ne 'detailupdate'}">
@@ -20,11 +20,11 @@
 					<td align='right'>
 					<c:if test="${mode eq 'insert' }">
 					<button type='button' class='btn btnSendOption  btn-secondary'
-							style='padding: 10px 20px; border-radius:10px;font-family: Cairo, sans-serif; '>옵션 등록</button>
+							style='padding: 10px 20px; border-radius:10px;'>등록</button>
 					</c:if>
 					<c:if test="${mode eq 'update' }">
 					<button type='button' class='btn btnUpdateOption  btn-secondary' data-optionNum='${optionid}'
-							style='padding: 10px 20px; border-radius:10px;font-family: Cairo, sans-serif; '>옵션 수정</button>
+							style='padding: 10px 20px; border-radius:10px;'>수정</button>
 					</c:if>	
 					</td>
 				</tr>

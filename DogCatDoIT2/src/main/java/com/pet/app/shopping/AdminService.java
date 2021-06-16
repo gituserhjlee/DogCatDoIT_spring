@@ -423,6 +423,16 @@ public class AdminService {
 		return list;
 	}
 	
+	public Coupon findByCouponName(String couponName) {
+		Coupon c=new Coupon();
+		try {
+			c=dao.selectOne("shop.findByCouponName", couponName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
+	
 	public void insertReview(ShopReview review) throws Exception {
 		try {
 			dao.insertData("shop.insertReview", review);
@@ -650,6 +660,16 @@ public class AdminService {
 		try {
 			level=dao.selectOne("shop.findByLevelId", levelId);
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return level;
+	}
+	
+	public ShopLevel findByLevelName(String levelName) {
+		ShopLevel level=new ShopLevel();
+		try {
+			level=dao.selectOne("shop.findByLevelName", levelName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

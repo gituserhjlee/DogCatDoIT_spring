@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<table style='width: 100%; margin: 10px auto 30px; border-spacing: 0;'>
+<table style='width: 100%; margin: 10px auto 30px; border-spacing: 0; font-family: "jua";'>
 
 	
 	<tbody id='listReplyBody'>
@@ -20,7 +20,7 @@
 	    </tr>  
 	    <tr>
 	        <td colspan='2' valign='top' style='padding:5px 5px; background: #F79F81; color:#696969; text-align: center;border-radius: 30px;'>
-				<span style="font-family: Cairo, sans-serif;">${vo.optionName}</span>
+				<span>${vo.optionName}</span>
 	        </td>
 	    </tr>
 	    

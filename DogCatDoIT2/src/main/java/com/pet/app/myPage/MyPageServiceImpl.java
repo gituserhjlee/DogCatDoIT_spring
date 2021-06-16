@@ -142,7 +142,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return dto;
 	}
-
+	
+	// 자격신청 수정
 	@Override
 	public void updateRequestQualification(Qualification dto, String pathname) throws Exception {
 		try {
@@ -161,7 +162,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 자격신청 삭제
 	@Override
 	public void deleteRequestQualification(int requestNum, String pathname) throws Exception {
 		try {
@@ -176,7 +178,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 회원정보 수정
 	@Override
 	public void setMember(Member dto) throws Exception {
 		try {
@@ -194,7 +197,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 	}
-
+	
+	// 회원정보 삭제
 	@Override
 	public void deleteMember(String userId) throws Exception {
 		try {
@@ -204,7 +208,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 출석체크
 	@Override
 	public void insertAttendance(String userId) throws Exception {
 		try {
@@ -214,7 +219,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 출석 카운트
 	@Override
 	public int countAttendance(String userId) {
 		int count = 0;
@@ -225,7 +231,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return count;
 	}
-
+	
+	// 출석내역
 	@Override
 	public Attendance readAttendance(String userId) {
 		Attendance dto = null;
@@ -236,7 +243,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return dto;
 	}
-
+	
+	// 일정추가
 	@Override
 	public void insertUserCalendar(UserCalendar dto) throws Exception {
 		try {
@@ -260,7 +268,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 	}
-
+	
+	// 달력
 	@Override
 	public List<UserCalendar> listMonth(Map<String, Object> map) throws Exception {
 		List<UserCalendar> list=null;
@@ -271,7 +280,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return list;
 	}
-
+	
+	// 일정 불러오기
 	@Override
 	public UserCalendar readUserCalendar(int userCalendarNum) throws Exception {
 		UserCalendar dto = null;
@@ -283,6 +293,7 @@ public class MyPageServiceImpl implements MyPageService{
 		return dto;
 	}
 
+	// 일정 업데이트
 	@Override
 	public void updateUserCalendar(UserCalendar dto) throws Exception {
 		try {
@@ -304,7 +315,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 일정 삭제
 	@Override
 	public void deleteUserCalendar(Map<String, Object> map) throws Exception {
 		try {

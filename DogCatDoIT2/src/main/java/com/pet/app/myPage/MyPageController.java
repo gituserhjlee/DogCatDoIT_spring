@@ -72,8 +72,17 @@ public class MyPageController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		String userId = info.getUserId();
 		String state = "true";
+		Attendance dto = service.readAttendance(userId);
 		int count = 0;
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		
 		try {
+			if(dto!=null) {
+				model.put("state", "false");
+				return model;
+			}
 			service.insertAttendance(userId);
 			count = service.countAttendance(userId);
 			
@@ -81,8 +90,6 @@ public class MyPageController {
 			e.printStackTrace();
 			state = "false";
 		}
-		
-		Map<String, Object> model = new HashMap<String, Object>();
 		
 		model.put("count", count);
 		model.put("state", state);

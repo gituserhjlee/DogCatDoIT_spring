@@ -45,7 +45,7 @@ function sendOk() {
 					</div>
 					<input type="file" class="setUserProfile-file" name="upload" style="display: none;">
 				</div>
-				<ul>
+				<ul style="list-style: none">
 					<li>이름 : <input type="text" name="animalName" value="${dto.getAnimalName()}"></li>
 					<li>생일 : <input type="date" name="animalBirth" value="${dto.getAnimalBirth()}"></li>
 					<li>종 : <input type="text" name="animalKind" value="${dto.getAnimalKind()}"></li>

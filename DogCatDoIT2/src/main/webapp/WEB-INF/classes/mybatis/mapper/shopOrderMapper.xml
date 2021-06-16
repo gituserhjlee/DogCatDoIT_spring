@@ -12,7 +12,7 @@
 			totalDiscount, totalPayment, orderMemo)
 		VALUES(#{orderIdx}, #{userIdx}, 1, SYSDATE, #{totalItemPrice}, 
 			#{deliveryPrice}, #{couponDiscount}, #{pointDiscount}, 
-			#{totalDiscount}, #{totalPayment}, #{orderMemo})
+			#{totalDiscount}, #{totalPayment}, #{orderMemo, jdbcType=VARCHAR})
 	</insert>
 	
 	<insert id="insertDeliveryInfo" parameterType="com.pet.app.shopping.Order">
@@ -67,7 +67,7 @@
 		WHERE userIdx=#{userIdx}
 	</select>
 	
-	<select id="cartListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+	<select id="cartListOrderDetail" parameterType="map" resultType="com.pet.app.shopping.OrderDetail">
 		SELECT
 		    cartIdx, i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
 		    optionName, detailName, count, do.detailId
@@ -75,13 +75,30 @@
 		JOIN itemOption io ON i.itemId=io.itemId
 		JOIN detailItemoption do ON io.optionId=do.itemoptionId
 		JOIN cart c ON c.detailId=do.detailId
-		WHERE userIdx=#{userIdx}
+		WHERE 
+		<if test="userIdx != null">
+		userIdx=#{userIdx}
+		</if>
+		<if test="cartIdxs != null">
+		cartIdx IN 
+			<foreach collection="cartIdxs" item="cartIdx" open="(" close=")" separator=",">
+			${cartIdx}
+			</foreach>
+		</if>
 		ORDER BY cart_date DESC
 	</select>
 	
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM cart
 		WHERE userIdx=#{userIdx} AND cartIdx IN (${cartIdxs})
+	</delete>
+	
+	<delete id="deleteCart2" parameterType="com.pet.app.shopping.Order">
+		DELETE FROM cart
+		WHERE userIdx=#{userIdx} AND cartIdx IN 
+		<foreach collection="itemList" item="item" open="(" close=")" separator=",">
+			#{item.cartIdx}
+		</foreach>
 	</delete>
 	
 	<select id="readCart" parameterType="com.pet.app.shopping.Cart" resultType="com.pet.app.shopping.Cart">

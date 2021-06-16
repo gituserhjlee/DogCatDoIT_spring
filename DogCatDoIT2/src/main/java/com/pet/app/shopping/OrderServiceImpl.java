@@ -1,6 +1,6 @@
 package com.pet.app.shopping;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +28,20 @@ public class OrderServiceImpl implements OrderService {
 			if(dto.getPayCondition()==2)
 				dao.insertData("order.insertPayInfo", dto);
 			
+			// 카트에서 주문했다면 카트에서 삭제
+			if(dto.getFrom().equals("cart")) {
+				dao.deleteData("order.deleteCart2", dto);
+			}
+			
+			// 회원 포인트 사용했다면 차감
+			if(dto.getPointDiscount() != 0) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("userIdx", dto.getUserIdx());
+				map.put("operation", "minus");
+				map.put("point", dto.getPointDiscount());
+				dao.updateData("member.updatePoint", map);
+			}
+			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -36,36 +50,18 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public void test() throws Exception {
-		Order order = new Order();
-//		long orderIdx = dao.selectOne("order.getOrderSeq");
-		long orderIdx = 5;
-		order.setOrderIdx(orderIdx);
-		order.setUserIdx(1);
-		order.setTotalItemPrice(10000);
-		order.setDeliveryPrice(2500);
-		order.setCouponDiscount(0);
-		order.setPointDiscount(0);
-		order.setTotalDiscount(0);
-		order.setTotalPayment(12500);
-		order.setOrderMemo("tt");
-		List<OrderDetail> itemList = new ArrayList<OrderDetail>();
-		OrderDetail od1 = new OrderDetail();
-		OrderDetail od2 = new OrderDetail();
-		od1.setTotalPrice(6000);
-		od1.setDetailId(3);
-		od1.setCount(1);
-		od2.setTotalPrice(4000);
-		od2.setDetailId(11);
-		od2.setCount(1);
-		itemList.add(od1);
-		itemList.add(od2);
-		order.setItemList(itemList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userIdx", 1);
 		
-		dao.updateData("order.insertSod", order);
+		
+		
+		map.put("point", "10000");
 		
 		try {
+			
+			dao.updateData("order.updatePoint", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -119,10 +115,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public OrderDetail findOrderDetailByDetailId(long detailId) {
+	public OrderDetail findOrderDetail(long detailId, int count) {
 		OrderDetail dto = null;
 		try {
 			dto = dao.selectOne("order.findOrderDetailByDetailId", detailId);
+			dto.setCount(count);
+			dto.setDiscountedPrice((long)(Math.round((100- dto.getDiscountRate()) / 100.0 * dto.getItemSalePrice())) * dto.getCount());
+			dto.setDiscountPrice(dto.getItemSalePrice() * dto.getCount() -dto.getDiscountedPrice());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,11 +163,30 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderDetail> listItemInCart(long userIdx) {
 		List<OrderDetail> itemlist = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userIdx", userIdx);
 		try {
-			itemlist = dao.selectList("order.cartListOrderDetail", userIdx);
+			itemlist = dao.selectList("order.cartListOrderDetail", map);
 			for(OrderDetail dto : itemlist) {
-				dto.setDiscountedPrice((long)(Math.round((100- dto.getDiscountRate()) / 100.0 * dto.getItemSalePrice())));
-				dto.setDiscountPrice(dto.getItemSalePrice()-dto.getDiscountedPrice());
+				dto.setDiscountedPrice((long)(Math.round((100- dto.getDiscountRate()) / 100.0 * dto.getItemSalePrice())) * dto.getCount());
+				dto.setDiscountPrice(dto.getItemSalePrice() * dto.getCount() -dto.getDiscountedPrice());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemlist;
+	}
+	
+	@Override
+	public List<OrderDetail> listItemInCart(List<Long> cartIdxs) {
+		List<OrderDetail> itemlist = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cartIdxs", cartIdxs);
+		try {
+			itemlist = dao.selectList("order.cartListOrderDetail", map);
+			for(OrderDetail dto : itemlist) {
+				dto.setDiscountedPrice((long)(Math.round((100- dto.getDiscountRate()) / 100.0 * dto.getItemSalePrice())) * dto.getCount());
+				dto.setDiscountPrice(dto.getItemSalePrice() * dto.getCount() -dto.getDiscountedPrice());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

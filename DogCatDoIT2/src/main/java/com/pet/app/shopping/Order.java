@@ -16,6 +16,7 @@ public class Order {
 	private int totalPayment; // 최종 결제금액
 	private String orderMemo; // 주문메모
 	private List<OrderDetail> itemList;
+	private String from; // 주문출처
 	
 	// 주문자 정보
 	private String orName;
@@ -236,6 +237,11 @@ public class Order {
 	public void setCouponName(String couponName) {
 		this.couponName = couponName;
 	}
-
+	public String getFrom() {
+		return from;
+	}
+	public void setFrom(String from) {
+		this.from = from;
+	}
 
 }

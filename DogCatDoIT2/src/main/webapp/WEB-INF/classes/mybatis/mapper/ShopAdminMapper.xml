@@ -62,6 +62,10 @@
 	update itemoption set enabled='0' where optionid=#{optionid}
 	</update>
 	
+	<update id="deleteOptionsbyitemId" parameterType="long">
+	update itemoption set enabled='0' where itemId=#{itemid}
+	</update>
+	
 	<update id="updateOptions" parameterType="map">
 	update itemoption set optionname=#{optionname} where optionid=#{optionid}
 	</update>
@@ -281,7 +285,8 @@
 	
 	<insert id="insertCoupon" parameterType="com.pet.app.shopping.Coupon">
 	insert into shopcoupon(couponNum,couponName,deadline,stock,rate) 
-	values (shopcoupon_seq.NEXTVAL, #{couponName},#{deadline},#{stock},#{rate})
+	values (shopcoupon_seq.NEXTVAL, #{couponName},to_date(#{deadline},'yyyy-mm-dd hh24:mi:ss'),#{stock},#{rate})
+	
 	</insert>
 	
 	<select id="selectCouponList" resultType="com.pet.app.shopping.Coupon">

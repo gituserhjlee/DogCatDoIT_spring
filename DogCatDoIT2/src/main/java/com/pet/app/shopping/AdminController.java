@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -262,8 +263,15 @@ public class AdminController {
 	public String deleteItem(@RequestParam long num, @RequestParam int page, HttpSession session) {
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
+		List<ItemOption> options=new ArrayList<ItemOption>();
 		try {
+			//아이템과 연관된 모든 옵션의 기본키 찾기 
+			options=service.listoptions(num);
 			service.deleteItem(num, pathname);
+			for(ItemOption o:options) {
+				service.deleteOptionsbyitemId(num);
+				service.deletedetailoptions(o.getOptionId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ".error.error";
@@ -749,7 +757,16 @@ public class AdminController {
 
 	@PostMapping("admin/CouponManage")
 	public String couponinsert(Coupon coupon, Model model) throws ParseException {
+		Calendar cal=Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(coupon.getDeadline());
+		Date date=sdf2.parse(coupon.getDeadline());
+		cal.setTime(date);
+		cal.add(Calendar.HOUR, 24);
+		cal.add(Calendar.SECOND, -1);
+		coupon.setDeadline(sdf.format(cal.getTime()));
+		System.out.println(coupon.getDeadline());
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		try {
 			service.insertCoupon(coupon);

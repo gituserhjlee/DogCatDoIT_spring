@@ -107,19 +107,19 @@
 		<div class="row featured__filter">
 			<c:forEach var="d" items="${items}">
 				<c:if test="${5 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix saro">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix products">
 				</c:if>
 				<c:if test="${10 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix gansic">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix saro">
 				</c:if>
 				<c:if test="${11 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix clean">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix gansic">
 				</c:if>
 				<c:if test="${12 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix yak">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix clean">
 				</c:if>
 				<c:if test="${13 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix products">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix yak ">
 				</c:if>
 				<c:if test="${14 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix fashion">

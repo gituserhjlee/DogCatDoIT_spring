@@ -116,6 +116,15 @@ public class AdminService {
 		}
 	}
 	
+	public void deleteOptionsbyitemId(long itemid) throws Exception{
+		try {
+			dao.deleteData("shop.deleteOptionsbyitemId", itemid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	public void updateOptions(long optionid, String optionname) throws Exception{
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("optionname", optionname);

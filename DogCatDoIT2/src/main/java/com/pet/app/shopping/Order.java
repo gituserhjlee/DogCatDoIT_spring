@@ -16,7 +16,9 @@ public class Order {
 	private int totalPayment; // 최종 결제금액
 	private String orderMemo; // 주문메모
 	private List<OrderDetail> itemList;
-	private String from; // 주문출처
+	private String from; // 주문출처 'item':상세페이지에서 주문 'cart': 장바구니에서 주문
+	
+	private String orderName; // 주문이름
 	
 	// 주문자 정보
 	private String orName;
@@ -39,12 +41,17 @@ public class Order {
 	// 결제정보
 	private long payIdx;
 	private String pay_date;
-	private int payCondition; // 1:무통장, 2:신용카드
 
 	private String couponIdx; // 주문쿠폰번호(id)
 	private String couponNum; // 쿠폰번호
 	private String couponName;
 	
+	public String getOrderName() {
+		return orderName;
+	}
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
 	public List<OrderDetail> getItemList() {
 		return itemList;
 	}
@@ -212,12 +219,6 @@ public class Order {
 	}
 	public void setPay_date(String pay_date) {
 		this.pay_date = pay_date;
-	}
-	public int getPayCondition() {
-		return payCondition;
-	}
-	public void setPayCondition(int payCondition) {
-		this.payCondition = payCondition;
 	}
 	public String getCouponIdx() {
 		return couponIdx;

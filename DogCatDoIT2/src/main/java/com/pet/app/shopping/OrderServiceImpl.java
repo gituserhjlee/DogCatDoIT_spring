@@ -22,11 +22,11 @@ public class OrderServiceImpl implements OrderService {
 			String diTel = String.join("-", dto.getDiTel1(),dto.getDiTel2(),dto.getDiTel3());
 			dto.setDiTel(diTel);
 			
-			dao.insertData("order.insertOrder", dto);
-			dao.updateData("order.insertSod", dto);
-			dao.insertData("order.insertDeliveryInfo", dto);
-			if(dto.getPayCondition()==2)
-				dao.insertData("order.insertPayInfo", dto);
+			
+			dao.insertData("order.insertOrder", dto); // 주문 테이블 INSERT
+			dao.updateData("order.insertSod", dto); // 주문상세 테이블 INSERT
+			dao.insertData("order.insertDeliveryInfo", dto); // 배송정보 테이블 INSERT
+			dao.insertData("order.insertPayInfo", dto); // 결제정보 테이블 INSERT
 			
 			// 카트에서 주문했다면 카트에서 삭제
 			if(dto.getFrom().equals("cart")) {
@@ -41,6 +41,12 @@ public class OrderServiceImpl implements OrderService {
 				map.put("point", dto.getPointDiscount());
 				dao.updateData("member.updatePoint", map);
 			}
+			
+			// 상품 재고 차감
+			for(OrderDetail od : dto.getItemList()) {
+				dao.updateData("order.itemStockDown", od);				
+			}
+			
 			
 		} catch (Exception e) {
 			throw e;

@@ -21,8 +21,8 @@
 	</insert>
 	
 	<insert id="insertPayInfo" parameterType="com.pet.app.shopping.Order">
-		INSERT INTO payInfo(payIdx, orderIdx, pay_date, payCondition)
-		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE, #{payCondition})
+		INSERT INTO payInfo(payIdx, orderIdx, pay_date)
+		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE)
 	</insert>
 	
 	<update id="insertSod" parameterType="com.pet.app.shopping.Order">
@@ -32,6 +32,11 @@
 			VALUES (FN_GET_SEQ('sod_seq'), #{orderIdx}, #{item.totalPrice}, #{item.detailId}, #{item.count})
 		</foreach>
         
+	</update>
+	
+	<update id="itemStockDown" parameterType="com.pet.app.shopping.OrderDetail">
+		UPDATE detailItemOption SET stock=stock-#{count}
+		WHERE detailId=#{detailId}
 	</update>
 	
 	
@@ -112,6 +117,8 @@
 		SET cart_date=SYSDATE, count=count+#{count}
 		WHERE userIdx=#{userIdx} AND detailId=#{detailId}
 	</update>
+	
+	
 	
 	
 </mapper>

@@ -103,22 +103,6 @@ public class OrderControlloer {
 		dto.setUserIdx(info.getUserIdx());
 		orderService.insertOrder(dto);
 		
-		/*
-		System.out.println(dto.getOrderMemo());
-		System.out.println(dto.getTotalItemPrice());
-		System.out.println(dto.getDeliveryPrice());
-		System.out.println(dto.getCouponDiscount());
-		System.out.println(dto.getPointDiscount());
-		System.out.println(dto.getTotalDiscount());
-		System.out.println(dto.getTotalPayment());
-		for(OrderDetail od : dto.getItemList()) {
-			System.out.println("==========");
-			System.out.println(od.getTotalPrice());
-			System.out.println(od.getDetailId());
-			System.out.println(od.getCount());
-		}
-		*/
-		
 		return "redirect:/order/complete";
 	}
 
@@ -194,11 +178,8 @@ public class OrderControlloer {
 	
 	@RequestMapping("test1")
 	public String test1() throws Exception {
-		try {
-			orderService.test();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		System.out.println(OrderStateCode.ORDER_COMPLETE.getState());
+		System.out.println(OrderStateCode.ORDER_COMPLETE.getCode());
 		
 		return ".shopping.test";
 	}

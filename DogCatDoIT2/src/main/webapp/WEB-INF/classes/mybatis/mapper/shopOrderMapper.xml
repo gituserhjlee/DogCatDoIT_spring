@@ -10,7 +10,7 @@
 		INSERT INTO shopOrder(orderIdx, userIdx, state, order_date, 
 			totalItemPrice, deliveryPrice, couponDiscount, pointDiscount,
 			totalDiscount, totalPayment, orderMemo)
-		VALUES(#{orderIdx}, #{userIdx}, 1, TO_DATE(#{order_date}, 'YYYY-MM-DD HH24:MI:SS'), #{totalItemPrice}, 
+		VALUES(#{orderIdx}, #{userIdx}, ${state}, TO_DATE(#{order_date}, 'YYYY-MM-DD HH24:MI:SS'), #{totalItemPrice}, 
 			#{deliveryPrice}, #{couponDiscount}, #{pointDiscount}, 
 			#{totalDiscount}, #{totalPayment}, #{orderMemo, jdbcType=VARCHAR})
 	</insert>

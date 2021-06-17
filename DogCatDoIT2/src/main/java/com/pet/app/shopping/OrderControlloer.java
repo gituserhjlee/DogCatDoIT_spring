@@ -111,6 +111,7 @@ public class OrderControlloer {
 		Date order_date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		dto.setOrder_date(sdf.format(order_date));
+		dto.setState(OrderStateCode.PAY_COMPLETE.getCode());
 		
 		try {
 			long orderIdx = orderService.insertOrder(dto);

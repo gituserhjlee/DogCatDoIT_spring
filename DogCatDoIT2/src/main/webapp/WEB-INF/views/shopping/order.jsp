@@ -139,6 +139,7 @@ table tr {
 /* 제출 버튼 */
 .btn-container {
 	align-content: center;
+	margin-bottom: 60px;
 }
 
 .tright {

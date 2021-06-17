@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-	public void insertOrder(Order dto) throws Exception;
+	public long insertOrder(Order dto) throws Exception;
 	public Order readOrder(long orderIdx);
 	public void updateState(Map<String, Object> map) throws Exception;
 	public void deleteOrder(long orderIdx) throws Exception;

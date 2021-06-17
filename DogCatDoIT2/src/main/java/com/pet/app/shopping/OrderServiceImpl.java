@@ -15,13 +15,13 @@ public class OrderServiceImpl implements OrderService {
 	private CommonDAO dao;
 
 	@Override
-	public void insertOrder(Order dto) throws Exception {
+	public long insertOrder(Order dto) throws Exception {
+		long orderIdx = 0;
 		try {
-			long orderIdx = dao.selectOne("order.getOrderSeq");
+			orderIdx = dao.selectOne("order.getOrderSeq");
 			dto.setOrderIdx(orderIdx);
 			String diTel = String.join("-", dto.getDiTel1(),dto.getDiTel2(),dto.getDiTel3());
 			dto.setDiTel(diTel);
-			
 			
 			dao.insertData("order.insertOrder", dto); // 주문 테이블 INSERT
 			dao.updateData("order.insertSod", dto); // 주문상세 테이블 INSERT
@@ -47,11 +47,12 @@ public class OrderServiceImpl implements OrderService {
 				dao.updateData("order.itemStockDown", od);				
 			}
 			
-			
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 		
+		return orderIdx;
 	}
 	
 	@Override

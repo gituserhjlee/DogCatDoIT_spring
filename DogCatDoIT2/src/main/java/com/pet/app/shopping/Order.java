@@ -41,9 +41,8 @@ public class Order {
 	// 결제정보
 	private long payIdx;
 	private String pay_date;
-
-	private String couponIdx; // 주문쿠폰번호(id)
-	private String couponNum; // 쿠폰번호
+	
+	// 쿠폰 정보
 	private String couponName;
 	
 	public String getOrderName() {
@@ -219,18 +218,6 @@ public class Order {
 	}
 	public void setPay_date(String pay_date) {
 		this.pay_date = pay_date;
-	}
-	public String getCouponIdx() {
-		return couponIdx;
-	}
-	public void setCouponIdx(String couponIdx) {
-		this.couponIdx = couponIdx;
-	}
-	public String getCouponNum() {
-		return couponNum;
-	}
-	public void setCouponNum(String couponNum) {
-		this.couponNum = couponNum;
 	}
 	public String getCouponName() {
 		return couponName;

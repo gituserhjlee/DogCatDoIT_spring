@@ -29,4 +29,7 @@ public interface OrderService {
 	
 	public void test() throws Exception;
 	
+	// 쿠폰
+	public Coupon readCoupon(String couponName);
+	
 }

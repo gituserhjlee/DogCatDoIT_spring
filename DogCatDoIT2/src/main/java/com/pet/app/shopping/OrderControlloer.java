@@ -200,10 +200,8 @@ public class OrderControlloer {
 	
 	@RequestMapping("test1")
 	public String test1() throws Exception {
-		System.out.println(OrderStateCode.ORDER_COMPLETE.getState());
-		System.out.println(OrderStateCode.ORDER_COMPLETE.getCode());
 		
-		return ".shopping.test";
+		return "shopping/test";
 	}
 	
 	@RequestMapping("deleteCart")
@@ -231,6 +229,22 @@ public class OrderControlloer {
 		return model;
 	}
 	
+	@GetMapping("readCoupon")
+	@ResponseBody
+	public Map<String, Object> readCoupon(@RequestParam String couponName) {
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		Coupon coupon = orderService.readCoupon(couponName);
+		if(coupon == null) {
+			model.put("state", "false");
+			return model;
+		}
+		
+		model.put("coupon", coupon);
+		model.put("state", "true");
+		
+		return model;
+	}
 	
 	
 	

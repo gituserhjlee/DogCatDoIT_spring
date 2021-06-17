@@ -118,7 +118,16 @@
 		WHERE userIdx=#{userIdx} AND detailId=#{detailId}
 	</update>
 	
+	<!-- 쿠폰 -->
+	<select id="readCoupon" parameterType="String" resultType="com.pet.app.shopping.Coupon">
+		SELECT couponNum, couponName, deadline, stock, rate
+		FROM shopCoupon
+		WHERE deadline - SYSDATE > 0 AND stock > 0 AND couponName=#{couponName}
+	</select>
 	
-	
+	<update id="couponStockDown" parameterType="String">
+		UPDATE shopCoupon SET stock=stock-1
+		WHERE couponName=#{couponName}
+	</update>
 	
 </mapper>

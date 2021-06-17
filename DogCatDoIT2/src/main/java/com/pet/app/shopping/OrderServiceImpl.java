@@ -44,8 +44,14 @@ public class OrderServiceImpl implements OrderService {
 			
 			// 상품 재고 차감
 			for(OrderDetail od : dto.getItemList()) {
-				dao.updateData("order.itemStockDown", od);				
+				dao.updateData("order.itemStockDown", od);
 			}
+			
+			// 쿠폰 차감
+			if(dto.getCouponName() != null)
+				dao.updateData("order.couponStockDown", dto.getCouponName());
+			
+			// 회원 등급 확인 & 업데이트
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,7 +236,18 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	@Override
+	public Coupon readCoupon(String couponName) {
+		Coupon coupon = null;
+		try {
+			coupon = dao.selectOne("order.readCoupon", couponName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return coupon;
+	}
 
+	
 	
 
 	

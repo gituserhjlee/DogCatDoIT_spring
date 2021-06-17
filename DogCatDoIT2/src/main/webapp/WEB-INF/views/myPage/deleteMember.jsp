@@ -16,10 +16,10 @@ function deleteMember() {
 	f.submit();
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			회원 탈퇴
+			<h4>회원 탈퇴</h4>
 		</div>
 		<div>
 			<p>탈퇴를 원하시면 '독캣두잇 번창하세요'를 입력해주세요.</p>

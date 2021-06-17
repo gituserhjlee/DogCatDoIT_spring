@@ -4,23 +4,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div style="padding: 20px;">
+		<div style="padding: 20px;font-family: Jua;">
 			<div
-				style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+				style="text-align: center;  font-size: x-large; padding: 20px;">
 				<span>쿠폰 관리 </span>
 			</div>
 			<form name="couponForm" id="couponForm">
 				<div class="form-group">
-						<input type="text" class="form-control" placeholder="쿠폰명을 입력하세요" name="couponName">
+					<button type='button' class='btn btnSendOption btn-secondary'
+						onclick="insertCoupon()"
+						style='padding: 10px 20px; border-radius: 10px; '>등록</button>
+				</div>
+				<div class="form-group">
+						<input type="text" class="form-control" placeholder="쿠폰명을 입력하세요" name="couponName" id="couponName" onchange="couponNameCheck();">
+						<p class="help-block" style="font-family: 'JUA'">기존의 쿠폰명과 중복되는 쿠폰명은 불가합니다</p>
 						<input type="date" class="form-control" placeholder="마감일자를 입력하세요" name="deadline">
 						<input type="number" class="form-control" placeholder="발행 개수를 입력하세요" name="stock"> 
 						<input type="number" class="form-control" placeholder="할인율을 숫자로 입력하세요" name="rate">
 				</div>
-				<div class="form-group">
-					<button type='button' class='btn btnSendOption btn-secondary'
-						onclick="insertCoupon()"
-						style='padding: 10px 20px; border-radius: 10px;'>쿠폰등록</button>
-				</div>
+			
 			</form>
 			<div class="couponlist"></div>
 		</div>
@@ -98,5 +100,34 @@ function listCouponList(){
 			}
 		})
 
+	}
+	
+	function couponNameCheck() {
+		var str = $("#couponName").val();
+		str = str.trim();		
+		var url="${pageContext.request.contextPath}/shopping/admin/couponCheck";
+		var query="couponName="+str;
+		
+		$.ajax({
+			type:"post"
+			,url:url
+			,data:query
+			,dataType:"json"
+			,success:function(data) {
+				var p=data.passed;
+				if(p==="true") {
+					var s="<span style='color:blue;font-weight:bold;'>"+str+"</span> 쿠폰명이 사용 가능합니다.";
+					$("#couponName").next(".help-block").html(s);
+				} else {
+					var s="<span style='color:red;font-weight:bold;'>"+str+"</span> 쿠폰명을 사용할 수 없습니다.";
+					$("#couponName").next(".help-block").html(s);
+					$("#couponName").val("");
+					$("#couponName").focus();
+				}
+			}
+		    ,error:function(e) {
+		    	console.log(e.responseText);
+		    }
+		});
 	}
 </script>

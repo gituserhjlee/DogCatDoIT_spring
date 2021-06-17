@@ -99,14 +99,5 @@
         <beans:property name="defaultErrorView" value=".error.error"/>
     </beans:bean>
     
-    <!-- 웹 소켓 핸들러 -->
-    <websocket:handlers allowed-origins="http://211.238.142.100:1521, http://localhost:9090">
-    	<websocket:mapping handler="talkHandler" path="/talk"/>
-    	<websocket:handshake-interceptors>
-    		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-    	</websocket:handshake-interceptors>
-    	<websocket:sockjs/>
-    </websocket:handlers>
-    <beans:bean id="talkHandler" class="com.pet.app.talktalk.TalkHandler"/>
 
 </beans:beans>

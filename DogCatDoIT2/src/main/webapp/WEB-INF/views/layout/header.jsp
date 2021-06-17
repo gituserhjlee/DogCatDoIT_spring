@@ -102,7 +102,7 @@
                                 <li>
                                     <a href="index-2.html" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
                                     <ul>
-                                        <li><a href="index-5.html"><span class="menu-text">미용</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/store/store"><span class="menu-text">미용</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">훈련사</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">펫시터</span></a></li>
@@ -161,7 +161,7 @@
                                     <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">미용</span></a>
+                                    <a href="${pageContext.request.contextPath}/store/store" class="mega-menu-title"><span class="menu-text">미용</span></a>
                                     <ul>
                                         <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
                                         <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
@@ -243,7 +243,7 @@
                                 <li>
                                     <a href="index-2.html" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
                                     <ul>
-                                        <li><a href="index-5.html"><span class="menu-text">미용</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/store/store"><span class="menu-text">미용</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">훈련사</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">펫시터</span></a></li>
@@ -302,7 +302,7 @@
                                     <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">미용</span></a>
+                                    <a href="${pageContext.request.contextPath}/store/store" class="mega-menu-title"><span class="menu-text">미용</span></a>
                                     <ul>
                                         <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
                                         <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
@@ -527,7 +527,7 @@
                             <li>
                                 <a href="#"><span class="menu-text">제휴업체</span></a>
                                 <ul class="sub-menu">
-                                    <li><a href="index-5.html"><span class="menu-text">미용</span></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/store/store"><span class="menu-text">미용</span></a></li>
                                     <li><a href="index-6.html"><span class="menu-text">펫시터</span></a></li>
                                     <li><a href="index-7.html"><span class="menu-text">훈련사</span></a></li>
                                     <li><a href="index-8.html"><span class="menu-text">애견 호텔</span></a></li>
@@ -585,7 +585,7 @@
                                 <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
                             </li>
                             <li>
-                                <a href="#" class="mega-menu-title"><span class="menu-text">미용</span></a>
+                                <a href="${pageContext.request.contextPath}/store/store" class="mega-menu-title"><span class="menu-text">미용</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
                                     <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>

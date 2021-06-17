@@ -2,12 +2,12 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<div class="myPageMenu">
+<div class="myPageMenu" style="width: 250px; float: left;">
 	<div>
 		<h3>마이페이지</h3>
 	</div>
-	<div class="myPageMenu-list">
-		<ul id="ul">
+	<div>
+		<ul style="list-style: none;">
 			<li><a href="${pageContext.request.contextPath}/myPage/attendance">출석체크</a></li>
 			<li><a href="${pageContext.request.contextPath}/myPage/userCalendar">캘린더</a></li>
 			<li>회원정보</li>
@@ -25,8 +25,8 @@
 			<li><a href="${pageContext.request.contextPath}/myPage/cupon">쿠폰</a></li>
 			<li>쇼핑</li>
 			<li><a href="${pageContext.request.contextPath}/myPage/purchase">구매내역</a></li>
-			<li><a href="${pageContext.request.contextPath}/myPage/cart">장바구니</a></li>
-			<li><a href="${pageContext.request.contextPath}/myPage/zzim">찜</a></li>
+			<li><a href="${pageContext.request.contextPath}/order/cart">장바구니</a></li>
+			<li><a href="${pageContext.request.contextPath}/order/wishlist">찜</a></li>
 		</ul>
 	</div>
 </div>

@@ -4,10 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div style="padding:20px;">
-		<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+		<div style="padding:20px;font-family: Jua;">
+		<div style="text-align: center;  font-size: x-large; padding: 20px;">
 				<span>발주 가능 목록 </span>
-				<button class="btn btn-secondary" style="float:right;  border-radius:10px; font-family:Ubuntu, sans-serif;" onclick="location.href='${pageContext.request.contextPath}/shopping/admin/BaljuOrder'">발주 현황보기</button>
+				<button class="btn btn-secondary" style="float:right;  border-radius:10px; " onclick="location.href='${pageContext.request.contextPath}/shopping/admin/BaljuOrder'">발주 현황보기</button>
 			</div>
 			<table class="table" style="text-align: center; border:2px solid #F79F81;">
 				<thead  style="text-align: center;background: #F79F81 ;">

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<table class="table" style="border:2px solid #F79F81;">
+<table class="table" style="border:2px solid #F79F81; font-family: 'JUA'">
 	<thead style="text-align: center;background: #F79F81 ; ">
 		<tr style="font-family: 'JUA';">
 			<th scope="col" style="vertical-align: middle;font-weight: lighter;">중단</th>

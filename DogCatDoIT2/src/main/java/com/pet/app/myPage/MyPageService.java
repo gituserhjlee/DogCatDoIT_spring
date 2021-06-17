@@ -17,7 +17,6 @@ public interface MyPageService {
 	public Qualification readRequestQualification(int requestNum);
 	public void updateRequestQualification(Qualification dto, String pathname) throws Exception;
 	public void deleteRequestQualification(int requestNum, String pathname) throws Exception;
-//	public void approveRequestQualification(int requestNum) throws Exception;
 //	public void insertMasterProfile(PetMasterProfile dto, String pathname) throws Exception;
 //	public PetMasterProfile readPetMasterProfile(String userId);
 //	public void updateMasterProfile(PetMasterProfile dto, String pathname) throws Exception;
@@ -32,4 +31,6 @@ public interface MyPageService {
 	public void deleteUserCalendar(Map<String, Object> map) throws Exception;
 	public void setMember(Member dto) throws Exception;
 	public void deleteMember(String userId) throws Exception;
+	public void insertPointHistory(PointHistory dto) throws Exception;
+	public List<PointHistory> readPointHistory(Map<String, Object> map);
 }

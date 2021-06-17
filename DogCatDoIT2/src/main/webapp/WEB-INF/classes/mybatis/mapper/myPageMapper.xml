@@ -165,16 +165,24 @@
 		UPDATE member SET point=point+500 WHERE userId=#{userId}
 	</update>
 	
-	
-	<!-- 포인트 사용(member 테이블 업데이트) -->
-	<update id="usePoint" parameterType="map">
-		UPDATE member SET point=#{point} WHERE userId=#{userId}
-	</update>
-	
 	<!-- 포인트 조회 -->
 	<select id="readPoint" parameterType="String" resultType="Integer">
 		SELECT point FROM member WHERE userId=#{userId}
 	</select>
+	
+	<!-- 포인트 내역 저장 -->
+	<insert id="insertPointHistory" parameterType="com.pet.app.myPage.PointHistory">
+		INSERT INTO pointHistory (pointNum, userId, amount, by_what, get_date) 
+		VALUES (pointHistory_seq.NEXTVAL, #{userId}, #{amount}, #{by_what}, SYSDATE)
+	</insert>
+	
+	<!-- 포인트 내역 -->
+	<select id="readPointHistroy" parameterType="map" resultType="com.pet.app.myPage.PointHistory">
+		SELECT pointNum, userId, amount, by_what, get_date FROM pointHistory 
+		WHERE userId = #{userId}
+		<!-- get_date추가해야댐 -->
+	</select>
+	
 	
 	<!-- 쿠폰 지급 -->
 	

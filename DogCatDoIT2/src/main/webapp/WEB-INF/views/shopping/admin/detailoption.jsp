@@ -4,10 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:forEach var="vo" items="${options}">
-	<div class='answer' style='padding: 0 10px; padding: 10px;'>
+	<div class='answer' style='padding: 0 10px; padding: 10px; font-family: "JUA"; '>
 		<div
 			style='height: 50px; clear: both; padding: 5px 5px;  '>
-			<span style="font-family: Cairo, sans-serif; color: #696969; ">
+			<span style="color: #696969; ">
 				<button class="deleteDetailOption btn  btn-danger"
 					style="cursor: pointer;border-radius:10px;" data-optionNum='${vo.detailId}'>삭제</button>
 				<button class="updateDetailOption btn  btn-outline-danger"

@@ -121,8 +121,8 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 	  	<div>
 	  		<h4>출석체크</h4>
 	  	</div>

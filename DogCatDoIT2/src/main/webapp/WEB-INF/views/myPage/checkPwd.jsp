@@ -16,10 +16,10 @@ function check() {
 	f.submit();
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			회원 정보 확인
+			<h4>회원 정보 확인</h4>
 		</div>
 		<form name="checkForm" method="post" action="${pageContext.request.contextPath}/myPage/checkPwd">
 			<p>아이디 : <input type="text" value="${sessionScope.member.userId}" readonly="readonly" name="userId"></p>

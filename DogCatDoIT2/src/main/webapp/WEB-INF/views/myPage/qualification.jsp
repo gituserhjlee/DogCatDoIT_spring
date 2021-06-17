@@ -9,10 +9,10 @@ function sendRequest() {
 	f.submit();
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			자격신청
+			<h4>자격신청</h4>
 		</div>
 		<div>
 			<form action="${pageContext.request.contextPath}/myPage/${mode}RequestQualification" method="post" name="requestQualificationForm" enctype="multipart/form-data">

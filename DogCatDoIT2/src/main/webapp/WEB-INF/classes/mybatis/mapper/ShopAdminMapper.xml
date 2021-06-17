@@ -142,7 +142,7 @@
 		resultType="com.pet.app.shopping.ShopStore">
 		select
 		shopStoreId,shopStoreName,shopStoreTel,shopStoreAddress1,shopStoreAddress2,enabled
-		from shopStore where enabled='1'
+		from shopStore where enabled='1' 
 	</select>
 	
 	<select id="findByShopStoreId"
@@ -264,7 +264,7 @@
 	<select id="selectAllShopStore" resultType="com.pet.app.shopping.ShopStore">
 	select shopStoreId,shopStoreName,shopStoreTel,zip,shopStoreAddress1,shopStoreAddress2,enabled
 	 from shopStore 
-	 order by shopStoreId
+	 order by enabled desc, shopStoreName
 	</select>
 	
 	<select id="selectShopStoreOrder" resultType="com.pet.app.shopping.ShopStoreOrder">
@@ -288,6 +288,12 @@
 	select couponNum,couponName, deadline ,stock,rate 
 	from shopcoupon 
 	order by deadline desc
+	</select>
+	
+	<select id="findByCouponName" parameterType="String" resultType="com.pet.app.shopping.Coupon">
+	select couponNum,couponName, deadline ,stock,rate 
+	from shopcoupon
+	where couponName=#{couponName}
 	</select>
 	
 	<insert id="insertReview" parameterType="com.pet.app.shopping.ShopReview">
@@ -434,6 +440,13 @@ from
 	select levelId,levelName,moneyStart,moneyEnd,rate
 	from ShopLevel
 	where levelId=#{levelId}
+	
+	</select>
+	
+	<select id="findByLevelName" parameterType="String" resultType="com.pet.app.shopping.ShopLevel">
+	select levelId,levelName,moneyStart,moneyEnd,rate
+	from ShopLevel
+	where levelName=#{levelName}
 	
 	</select>
 </mapper>

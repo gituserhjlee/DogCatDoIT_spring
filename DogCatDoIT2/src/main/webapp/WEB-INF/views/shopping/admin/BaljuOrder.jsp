@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div style="padding:20px;">
-		<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+		<div style="padding:20px; font-family: Jua;">
+		<div style="text-align: center; font-size: x-large; padding: 20px;">
 				<span>상품 발주 현황 </span>
 			</div>
 			<table class="table" style="text-align: center; border:2px solid #F79F81; ">

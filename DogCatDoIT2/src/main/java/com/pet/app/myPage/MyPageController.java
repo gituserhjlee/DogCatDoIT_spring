@@ -72,8 +72,17 @@ public class MyPageController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		String userId = info.getUserId();
 		String state = "true";
+		Attendance dto = service.readAttendance(userId);
 		int count = 0;
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		
 		try {
+			if(dto!=null) {
+				model.put("state", "false");
+				return model;
+			}
 			service.insertAttendance(userId);
 			count = service.countAttendance(userId);
 			
@@ -81,8 +90,6 @@ public class MyPageController {
 			e.printStackTrace();
 			state = "false";
 		}
-		
-		Map<String, Object> model = new HashMap<String, Object>();
 		
 		model.put("count", count);
 		model.put("state", state);
@@ -98,6 +105,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="month")
+	@ResponseBody
 	public Map<String, Object> month(
 			@RequestParam String start,
 			@RequestParam String end,
@@ -146,6 +154,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("insertUserCalendar")
+	@ResponseBody
 	public Map<String, Object> insertUserCalendarSubmit(UserCalendar dto,
 			HttpSession session) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
@@ -164,6 +173,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("updateUserCalendar")
+	@ResponseBody
 	public Map<String, Object> updateUserCalendarSubmit(UserCalendar dto,
 			HttpSession session) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
@@ -182,6 +192,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("deleteUserCalendar")
+	@ResponseBody
 	public Map<String, Object> deleteUserCalendar(
 			@RequestParam int userCalendarNum,
 			HttpSession session
@@ -330,22 +341,22 @@ public class MyPageController {
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.GET)
 	public String setMasterProfile() throws Exception{
-		return "myPage/setMasterProfile";
+		return ".myPage.setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.POST)
 	public String setMasterProfileSubmit() throws Exception{
-		return "myPage/setMasterProfile";
+		return ".myPage.setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.GET)
 	public String setCompanyProfile() throws Exception{
-		return "myPage/setCompanyProfile";
+		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.POST)
 	public String setCompanyProfileSubmit() throws Exception{
-		return "myPage/setCompanyProfile";
+		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "listQualification")
@@ -591,36 +602,44 @@ public class MyPageController {
 	
 	@RequestMapping(value = "written")
 	public String written() throws Exception{
-		return "myPage/written";
+		return ".myPage.written";
 	}
 	
 	@RequestMapping(value = "reserve")
 	public String reserve() throws Exception{
-		return "myPage/reserve";
+		return ".myPage.reserve";
 	}
 	
 	@RequestMapping(value = "point")
-	public String point() throws Exception{
-		return "myPage/point";
+	public String point(
+			Model model,
+			HttpSession session
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String userId = info.getUserId();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		
+		List<PointHistory> list = null;
+		try {
+			list=service.readPointHistory(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("list", list);
+		
+		return ".myPage.point";
 	}
 	
 	@RequestMapping(value = "cupon")
 	public String cupon() throws Exception{
-		return "myPage/cupon";
+		return ".myPage.cupon";
 	}
 	
 	@RequestMapping(value = "purchase")
 	public String purchase() throws Exception{
-		return "myPage/purchase";
-	}
-	
-	@RequestMapping(value = "zzim")
-	public String zzim() throws Exception{
-		return "myPage/zzim";
-	}
-	
-	@RequestMapping(value = "cart")
-	public String cart() throws Exception{
-		return "myPage/cart";
+		return ".myPage.purchase";
 	}
 }

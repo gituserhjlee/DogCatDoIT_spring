@@ -701,7 +701,7 @@ public class AdminController {
 		List<ShopReview> reviews = new ArrayList<ShopReview>();
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		if (info.getUserIdx() != useridx) {
+		if (info.getUserIdx()!=1 && info.getUserIdx() != useridx) {
 			model.addAttribute("msg", "자신의 글만 삭제 가능합니다");
 			return "/error/error";
 		}

@@ -14,8 +14,8 @@ public class Member {
 	
 	private String reg_date;
 	private Long point;
-	private Long clevel;
-	private Long slevel;
+	private int clevel;
+	private int slevel;
 	
 	public Long getUserIdx() {
 		return userIdx;
@@ -121,19 +121,17 @@ public class Member {
 	public void setPoint(Long point) {
 		this.point = point;
 	}
-	public Long getClevel() {
+	public int getClevel() {
 		return clevel;
 	}
-	public void setClevel(Long clevel) {
+	public void setClevel(int clevel) {
 		this.clevel = clevel;
 	}
-	public Long getSlevel() {
+	public int getSlevel() {
 		return slevel;
 	}
-	public void setSlevel(Long slevel) {
+	public void setSlevel(int slevel) {
 		this.slevel = slevel;
 	}
-	
-
 
 }

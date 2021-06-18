@@ -419,7 +419,7 @@ from
 	join itemoption io on d.itemoptionid=io.optionid
 	join item i on io.itemid=i.itemid 
 	join shoporder so on sod.orderidx=so.orderidx
-	where  so.state not in (2, 10, 8) 
+	where  so.state not in (2, 10, 8) and d.enabled='1'
 	group by d.detailid , i.itemname, io.optionname,d.detailname
 	order by qty desc)
 	where rownum &lt;=10 

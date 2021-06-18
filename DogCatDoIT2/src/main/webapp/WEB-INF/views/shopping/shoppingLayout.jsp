@@ -10,14 +10,16 @@
 
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>독캣두잇</title>
+<title>독캣두잇-독캣몰</title>
 <meta name="robots" content="noindex, follow" />
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 <title>Ogani | Template</title>
-
+    <!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"

@@ -26,14 +26,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap4/css/bootstrap-icons.css"
 	type="text/css">
-
-<!-- Favicon icon -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/shopAdmin/images/favicon.png"
-	type="image/x-icon">
-<link rel="icon"
-	href="${pageContext.request.contextPath}/resources/shopAdmin/images/favicon.ico"
-	type="image/x-icon">
+  
+    <!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <!-- Google font-->
  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"

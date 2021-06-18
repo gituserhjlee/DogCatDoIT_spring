@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	<select id="loginMember" parameterType="String" resultType="com.pet.app.member.Member">
-		SELECT userIdx, userId, name, pwd, reg_date
+		SELECT userIdx, userId, name, pwd, reg_date, clevel, slevel
 		FROM member
 		WHERE userId = #{userId}
 	</select>	

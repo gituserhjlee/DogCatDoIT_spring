@@ -90,7 +90,9 @@ public class MemberController {
 		info.setUserId(dto.getUserId());
 		info.setUserName(dto.getName());
 		info.setUserIdx(dto.getUserIdx());
-	
+		info.setSlevel(dto.getSlevel());
+		info.setClevel(dto.getClevel());
+		
 		session.setMaxInactiveInterval(30*60); // 세션 유지 : 30분간 
 		
 		session.setAttribute("member", info);

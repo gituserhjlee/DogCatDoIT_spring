@@ -21,6 +21,7 @@ public interface OrderService {
 	// 찜, 장바구니
 //	public void insertWish(Wish wish) throws Exception;
 	public void insertCart(Cart cart) throws Exception;
+	public int cartCount(long userIdx);
 	public List<OrderDetail> listItemInCart(long userIdx);
 	public List<OrderDetail> listItemInCart(List<Long> cartIdxs);
 	public void deleteCart(Map<String, Object> map) throws Exception;
@@ -31,5 +32,8 @@ public interface OrderService {
 	
 	// 쿠폰
 	public Coupon readCoupon(String couponName);
+	
+	// 쇼핑몰등급
+	public ShopLevel readSlevelInfo(int slevel);
 	
 }

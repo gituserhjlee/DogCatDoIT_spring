@@ -45,10 +45,15 @@ public class OrderControlloer {
 			@RequestParam int count, 
 			HttpSession session,
 			Model model) {
-		// 재고검사
+		// 구매가능 여부 검사
 		DetailOption itemOption = new DetailOption();
 		itemOption = adminService.findbydetailOptionid(detailId);
-		if (itemOption == null || itemOption.getStock() < count) {
+		if(itemOption == null || !itemOption.isEnabled()) {
+			model.addAttribute("msg", "구매가 불가능합니다.");
+			return ".error.error";
+		}
+		// 재고 검사
+		if (itemOption.getStock() < count) {
 			model.addAttribute("msg", "재고가 부족합니다.");
 			return ".error.error";
 		}
@@ -60,6 +65,9 @@ public class OrderControlloer {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		Member mdto = memberService.readMember(info.getUserId());
 		mdto = shopUtil.transformTelAddr(mdto);
+		ShopLevel slevelInfo = orderService.readSlevelInfo(info.getSlevel());
+		
+		model.addAttribute("slevelInfo", slevelInfo);
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("mdto", mdto);
 		model.addAttribute("from", "item");
@@ -76,21 +84,22 @@ public class OrderControlloer {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		Member mdto = memberService.readMember(info.getUserId());
 		mdto = shopUtil.transformTelAddr(mdto);
+		ShopLevel slevelInfo = orderService.readSlevelInfo(info.getSlevel());
 		
 		List<OrderDetail> itemList = null;
 		itemList = orderService.listItemInCart(cartIdx);
 		
-		// 재고검사
+		// 주문 가능한지 검사
 		for(OrderDetail od : itemList) {
 			DetailOption itemOption = adminService.findbydetailOptionid(od.getDetailId());
-			
+			// 구매가능 상태 검사
 			if(itemOption == null || !itemOption.isEnabled()) {
 				String msg = "구매가 불가능합니다.<br>";
 				msg += od.getItemName()+" [옵션: "+od.getOptionName()+" "+od.getDetailName()+"]";
 				model.addAttribute("msg", msg);
 				return ".error.error";
 			}
-			
+			// 재고 검사
 			if (itemOption.getStock() < od.getCount()) {
 				String msg = "재고가 부족합니다.<br>";
 				msg += od.getItemName()+" [옵션: "+od.getOptionName()+" "+od.getDetailName()+"]";
@@ -100,6 +109,7 @@ public class OrderControlloer {
 		}
 		
 		model.addAttribute("mdto", mdto);
+		model.addAttribute("slevelInfo", slevelInfo);
 		model.addAttribute("itemList",itemList);
 		model.addAttribute("from", "cart");
 		return ".shopping.order";

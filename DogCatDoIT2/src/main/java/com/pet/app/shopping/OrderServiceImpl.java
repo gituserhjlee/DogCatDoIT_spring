@@ -172,6 +172,17 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 	}
+	
+	@Override
+	public int cartCount(long userIdx) {
+		int result = 0;
+		try {
+			result = dao.selectOne("order.cartCount", userIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public List<OrderDetail> listItemInCart(long userIdx) {
@@ -182,7 +193,7 @@ public class OrderServiceImpl implements OrderService {
 			itemlist = dao.selectList("order.cartListOrderDetail", map);
 			for(OrderDetail dto : itemlist) {
 				dto.setDiscountedPrice((long)(Math.round((100- dto.getDiscountRate()) / 100.0 * dto.getItemSalePrice())) * dto.getCount());
-				dto.setDiscountPrice(dto.getItemSalePrice() * dto.getCount() -dto.getDiscountedPrice());
+				dto.setDiscountPrice(dto.getItemSalePrice() * dto.getCount() - dto.getDiscountedPrice());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -245,6 +256,17 @@ public class OrderServiceImpl implements OrderService {
 			e.printStackTrace();
 		}
 		return coupon;
+	}
+
+	@Override
+	public ShopLevel readSlevelInfo(int slevel) {
+		ShopLevel shopLevel = null;
+		try {
+			shopLevel = dao.selectOne("order.readSlevelInfo", slevel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return shopLevel;
 	}
 
 	

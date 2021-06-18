@@ -61,6 +61,10 @@
 		VALUES (wish_seq.NEXTVAL, #{userIdx}, SYSDATE, #{detailId})
 	</insert>
 	
+	<select id="cartCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM cart WHERE userIdx=#{userIdx}
+	</select>
+	
 	<select id="wishListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
 		SELECT
 		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
@@ -130,4 +134,10 @@
 		WHERE couponName=#{couponName}
 	</update>
 	
+	<!-- 쇼핑몰 등급 -->
+	<select id="readSlevelInfo" parameterType="Integer" resultType="com.pet.app.shopping.ShopLevel">
+		SELECT levelId, levelName, moneyStart, moneyEnd, rate
+		FROM shopLevel
+		WHERE levelId=#{slevel}
+	</select>
 </mapper>

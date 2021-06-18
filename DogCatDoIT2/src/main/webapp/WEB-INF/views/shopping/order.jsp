@@ -230,14 +230,14 @@ $(function() {
 			// 주소찾기 버튼 display:none;
 			$("#deliveryForm .searchAddrBtn").css("display", "none");
 					
-			// 인풋 요소들 disable:true
+			// 인풋 요소들 readonly:true
 			$("#deliveryForm input").not("input[name=orderMemo]")
 									.prop("readonly", true);
 		} else { // 신규 배송지
 			// 주소찾기 버튼 display:inline-block
 			$("#deliveryForm .searchAddrBtn").css("display", "inline-block");
 					
-			// 인풋 요소들 reset, disable:false
+			// 인풋 요소들 reset, readonly:false
 			$("#deliveryForm input").each(function() {$(this).not("input:radio").val("");});
 			
 			$("#deliveryForm input").not("input[name=orderMemo], input[name=diZip], input[name=diAddr1]")
@@ -272,11 +272,13 @@ $(function() {
 	
 });
 
+// 페이지 로딩시 초기 셋팅
 $(function() {
 	calcItemTotal();
+	calcMemberDiscount();
 	calcTotalItemDiscount();
 	calcTotalResult();
-});
+})
 
 // 리스프의 상품 합계(할인 전)
 function calcItemTotal() {
@@ -335,6 +337,18 @@ function calcTotalPayment() {
 	
 	$(".totalPayment").text(toLocaleString(tp));
 	$("input[name=totalPayment]").val(tp);
+}
+
+// 회원등급 할인액 반영
+function calcMemberDiscount() {
+	let totalItemPrice = $("input[name=totalItemPrice]").val();
+	let rate = ${slevelInfo.rate};
+	let memberDiscount = totalItemPrice * rate / 100;
+	$(".memberDiscount").text(toLocaleString(memberDiscount));
+	$("input[name=memberDiscount]").val(memberDiscount);
+	console.log(totalItemPrice);
+	console.log(rate);
+	console.log(memberDiscount);
 }
 
 function ajaxFun(url, method, query, dataType, fn){
@@ -398,7 +412,7 @@ $(function() {
 		calcCouponDiscount(rate);
 		calcTotalResult();
 		
-		let info = "[ 적용된 쿠폰: "+$(this).attr("data-couponName")+" ]";
+		let info = "[ 적용된 쿠폰: "+$(this).attr("data-couponName")+" - "+ rate +"% ]";
 		$(".couponInfo").text(info);
 		
 		let couponName = $(this).attr("data-couponName");
@@ -744,7 +758,7 @@ $(function() {
 			<tr>
 				<td>회원할인</td>
 				<td>
-					<span class="memberDiscount">0</span> 원
+					<span class="memberDiscount">0</span> 원 [ 등급: ${slevelInfo.levelName} | 할인율 : ${slevelInfo.rate} % ]
 					<input type="hidden" name="memberDiscount" value="0">
 				</td>
 			</tr>

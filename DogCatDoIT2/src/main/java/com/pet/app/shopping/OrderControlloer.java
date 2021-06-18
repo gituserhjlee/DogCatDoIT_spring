@@ -82,9 +82,16 @@ public class OrderControlloer {
 		
 		// 재고검사
 		for(OrderDetail od : itemList) {
-			DetailOption itemOption;
-			itemOption = adminService.findbydetailOptionid(od.getDetailId());
-			if (itemOption == null || itemOption.getStock() < od.getCount()) {
+			DetailOption itemOption = adminService.findbydetailOptionid(od.getDetailId());
+			
+			if(itemOption == null || !itemOption.isEnabled()) {
+				String msg = "구매가 불가능합니다.<br>";
+				msg += od.getItemName()+" [옵션: "+od.getOptionName()+" "+od.getDetailName()+"]";
+				model.addAttribute("msg", msg);
+				return ".error.error";
+			}
+			
+			if (itemOption.getStock() < od.getCount()) {
 				String msg = "재고가 부족합니다.<br>";
 				msg += od.getItemName()+" [옵션: "+od.getOptionName()+" "+od.getDetailName()+"]";
 				model.addAttribute("msg", msg);

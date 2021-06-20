@@ -142,8 +142,8 @@ $(function(){
 		
 		$("#receiver-dialog").dialog({
 			  modal: true,
-			  height: 410,
-			  width: 350,
+			  height: 450,
+			  width: 450,
 			  title: '받는사람',
 			  close: function(event, ui) {
 			  }
@@ -244,17 +244,11 @@ $(function(){
 </script>
 
 <div class="container body-container">
-    <div class="body-title">
-		<h2><i class="icofont-ui-messaging"></i> 쪽지함 </h2>
+    <div class="body-title" style="margin-bottom: 25px;">
+		<h2>쪽지쓰기</h2>
     </div>
     
     <div class="body-main wx-800 ml-30 pt-15">
-		<div>
-			<ul class="tabs">
-				<li id="tab-receive" data-tab="receive">받은 쪽지함</li>
-				<li id="tab-send" data-tab="send" class="active">보낸 쪽지함</li>
-			</ul>
-		</div>
 		<div id="tab-content" style="clear:both; padding: 20px 10px 0;">
 		
 			<form name="talkForm" method="post">
@@ -263,7 +257,7 @@ $(function(){
 					<td>받는사람</td>
 					<td> 
 						<div>
-							<button type="button" class="btn btnReceiverDialog btn-dark">추가</button>
+							<button type="button" class="btn btnReceiverDialog btn-sm btn-outline-primary2" style="font-size: 17px;">추가</button>
 							<div class="forms-receiver-name"></div>
 						</div>
 						<p class="help-block">
@@ -284,9 +278,9 @@ $(function(){
 			<table class="table">
 				<tr> 
 					<td align="center">
-						<button type="button" class="btn btn-dark" onclick="sendOk();">보내기</button>
-						<button type="reset" class="btn btn-dark">다시입력</button>
-						<button type="button" class="btn btn-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/send/list';">취소</button>
+						<button type="button" class="btn btn-md btn-success" style="font-size: 17px;" onclick="sendOk();">보내기</button>
+						<button type="reset" class="btn btn-md btn-outline-secondary" style="font-size: 17px;">다시입력</button>
+						<button type="button" class="btn btn-md btn-outline-primary" style="font-size: 17px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/send/list';">취소</button>
 						<div id="forms-receiver-list"></div>
 					</td>
 				</tr>
@@ -301,15 +295,15 @@ $(function(){
 				<option value="name">이름</option>
 				<option value="userId">아이디</option>
 			</select>
-			<input type="text" name="keyword" id="keyword" class="boxTF" style="width: 150px;">
-			<button type="button" class="btn btnReceiverFind"> <i class="icofont-search-user"></i> </button>
+			<input type="text" name="keyword" id="keyword" class="boxTF" style="width: 150px; display: inline;">
+			<button type="button" class="btn btnReceiverFind"> <i class="fal fa-search" style="display: inline;"></i> </button>
 		</div>
 		<div class="dialog-receiver-list">
 			<ul></ul>
 		</div>
-		<div class="dialog-footer">
-			<button type="button" class="btn btnAdd">추가</button>
-			<button type="button" class="btn btnClose">종료</button>
+		<div class="dialog-footer" style="margin-right: 10px;">
+			<button type="button" class="btn btnAdd btn-sm btn-outline-primary2" style="font-size: 17px; margin-top: 12px;">추가</button>
+			<button type="button" class="btn btnClose btn-sm btn-outline-primary" style="font-size: 17px;  margin-top: 12px;">종료</button>
 		</div>
 	</div>
     

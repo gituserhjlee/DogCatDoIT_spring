@@ -81,8 +81,8 @@ $(function() {
 </script>
 
 <div class="container body-container">
-    <div class="body-title">
-		<h2><i class="icofont-ui-messaging"></i> 쪽지함 </h2>
+    <div class="body-title" style="margin-bottom: 25px;">
+		<h2>쪽지함 </h2>
     </div>
     
     <div class="body-main wx-800 ml-30 pt-15">
@@ -100,7 +100,7 @@ $(function() {
 						<button type="button" class="btn btnDelete" title="삭제"><i class="icofont-trash"></i></button>
 					</td>
 					<td align="right">
-						<button type="button" class="btn btn-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
+						<button type="button" class="btn btn-md btn-dark" style="font-size: 17px;  margin-top: 16px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
 					</td>
 				</tr>
 			</table>
@@ -146,7 +146,7 @@ $(function() {
 					<td align="center">
 						<form name="searchForm" action="${pageContext.request.contextPath}/talk/${menuItem}/list" method="post">
 							<select name="condition" class="selectField">
-								<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+								<option value="content" ${condition=="content"?"selected='selected'":""} style="display: inline;">내용</option>
 								<c:choose>
 									<c:when test="${menuItem=='receive'}">
 										<option value="senderName" ${condition=="senderName"?"selected='selected'":""}>보낸사람</option>
@@ -160,7 +160,7 @@ $(function() {
 									</c:otherwise>
 								</c:choose>
 							</select>
-							<input type="text" name="keyword" value="${keyword}" class="boxTF">
+							<input type="text" name="keyword" value="${keyword}" class="boxTF" style="display: inline;">
 							<button type="button" class="btn" onclick="searchList()" title="검색"> <i class="icofont-search-1"></i> </button>
 						</form>
 					</td>

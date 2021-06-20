@@ -75,17 +75,17 @@
                 <!-- Header Language & Currency Start -->
                 <div class="col">
                     <ul class="header-lan-curr" style="float: left; margin-top: 3px;">
-                        <li><a href="#">고객센터</a>
+                        <li><a href="#">마이페이지</a>
                             <ul class="curr-lan-sub-menu">
-                                <li><a href="#">공지사항</a></li>
-                                <li><a href="#">자주묻는질문</a></li>
-                                <li><a href="#">1:1문의</a></li>
-                                <li><a href="#">제휴문의</a></li>
+                                <li><a href="${pageContext.request.contextPath}/myPage/main">회원정보</a></li>
+                                <li><a href="${pageContext.request.contextPath}/myPage/written">내가 쓴 글</a></li>
+                                <li><a href="${pageContext.request.contextPath}/talk/receive/list">쪽지함</a></li>
+                                <li><a href="${pageContext.request.contextPath}/myPage/attendance">출석체크</a></li>
                             </ul>
                         </li>
                     </ul>
                     <p style="display: inline; color: lightgray;">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-                    <a href="${pageContext.request.contextPath}/myPage/main" style="display: inline; font-size: 16px; font-weight: 400; color: gray;">마이페이지</a>
+                    <a href="#" style="display: inline; font-size: 16px; font-weight: 400; color: gray;">고객센터</a>
                 </div>
                 <!-- Header Language & Currency End -->
 

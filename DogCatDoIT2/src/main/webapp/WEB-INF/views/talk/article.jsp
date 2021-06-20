@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 <style type="text/css">
+
 .table-content tr > td {
 	padding-left: 5px; padding-right: 5px;
 }
@@ -14,7 +15,27 @@
 	white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 	vertical-align: middle;
 }
+.dialog-header {
+	padding: 5px 0;
+}
+.dialog-receiver-list {
+	padding: 5px;
+	border: 1px solid #ccc;
+	overflow-y: scroll;
+	width: 95%;
+	height: 220px;
+	margin: 5px 0;
+}
+.dialog-receiver-list ul, .dialog-receiver-list li{
+	list-style: none;
+	padding: 0;
+}
+.dialog-footer {
+	text-align: right;
+	padding: 5px 0;
+}
 </style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(function(){
@@ -39,8 +60,8 @@ $(function(){
 	$(".btnReplyTalk").click(function(){
 		$("#reply-dialog").dialog({
 			  modal: true,
-			  height: 300,
-			  width: 450,
+			  height: 450,
+			  width: 400,
 			  title: '답변 달기',
 			  close: function(event, ui) {
 			  }
@@ -84,8 +105,8 @@ function deleteTalk() {
 </script>
 
 <div class="container body-container">
-    <div class="body-title">
-		<h2><i class="icofont-ui-messaging"></i> 쪽지함 </h2>
+    <div class="body-title" style="margin-bottom: 25px;">
+		<h2>쪽지함 </h2>
     </div>
     
     <div class="body-main wx-800 ml-30 pt-15">
@@ -99,14 +120,13 @@ function deleteTalk() {
 		
 			<table class="table">
 				<tr>
-					<td align="left" width="50%">
+					<td align="left" width="50%" >
 						<c:if test="${menuItem=='receive'}">
-							<button type="button" class="btn btnReplyTalk" >답변</button>
-							<button type="button" class="btn">스팸신고</button>
+							<button type="button" class="btn btnReplyTalk btn-md btn-outline-info" style="font-size: 17px; margin-top: 16px;">답변</button>
 						</c:if>
 					</td>
 					<td align="right">
-						<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
+						<button type="button" class="btn btn-md btn-secondary" style="font-size: 17px; margin-top: 16px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
 					</td>
 				</tr>
 			</table>
@@ -167,11 +187,11 @@ function deleteTalk() {
 			<table class="table">
 				<tr>
 					<td width="50%">
-						<button type="button" class="btn" onclick="deleteTalk();">삭제</button>
+						<button type="button" class="btn btn-md btn-outline-danger" style="font-size: 17px;" onclick="deleteTalk();">삭제</button>
 					</td>
 				
 					<td align="right">
-						<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/${menuItem}/list?${query}';">리스트</button>
+						<button type="button" class="btn btn-md btn-outline-dark" style="font-size: 17px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/${menuItem}/list?${query}';">리스트</button>
 					</td>
 				</tr>
 			</table>
@@ -189,8 +209,8 @@ function deleteTalk() {
 			</tr>
 			<tr>
 				<td align="right" style="padding-top: 0;">
-					<button type="button" class="btn btn-dark btnSendOk">보내기</button>
-					<button type="button" class="btn btnSendCancel">취소</button>
+					<button type="button" class="btn btn-sm btn-success btnSendOk" style="font-size: 17px; margin-top: 12px;">보내기</button>
+					<button type="button" class="btn btn-sm btn-outline-primary btnSendCancel" style="font-size: 17px; margin-top: 12px;">취소</button>
 					<input type="hidden" name="receivers" value="${dto.senderId}">
 				</td>
 			</tr>

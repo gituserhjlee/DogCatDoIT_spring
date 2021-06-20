@@ -122,7 +122,7 @@ function deleteTalk() {
 				<tr>
 					<td align="left" width="50%" >
 						<c:if test="${menuItem=='receive'}">
-							<button type="button" class="btn btnReplyTalk btn-md btn-info" style="font-size: 17px; margin-top: 16px;">답변</button>
+							<button type="button" class="btn btnReplyTalk btn-md btn-info" style="font-size: 17px; margin-top: 16px;">답장</button>
 						</c:if>
 					</td>
 					<td align="right">

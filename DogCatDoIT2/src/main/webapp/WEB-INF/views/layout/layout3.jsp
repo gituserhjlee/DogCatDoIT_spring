@@ -45,7 +45,7 @@
     <!-- 독캣두잇 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Jua:400" rel="stylesheet">
 	<script type="text/javascript">
-	$(function(){
+	/* $(function(){
 		$(document)
 		   .ajaxStart(function(){ // AJAX 시작
 			   $("#loadingImage").center();
@@ -55,7 +55,7 @@
 			   $("#loadingLayout").hide();
 		   });
 	});
-	
+	*/
 	</script>
 </head>
 

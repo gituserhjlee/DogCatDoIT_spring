@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/icofont/icofont.min.css" type="text/css">
 <style type="text/css">
 .help-block {
 	padding: 5px 0;
@@ -34,6 +36,22 @@
 	margin-right: 3px;
 }
 
+.ui-dialog {
+	z-index: 9999;
+}
+
+.ui-dialog * {
+	box-sizing: content-box;
+}
+
+.ui-widget-header {
+	background: none;
+	border: none;
+	height:35px;
+	line-height:35px;
+	border-bottom: 1px solid #ccc;
+	border-radius: 0px;
+}
 .dialog-header {
 	padding: 5px 0;
 }
@@ -54,7 +72,7 @@
 	padding: 5px 0;
 }
 </style>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("ul.tabs li").click(function() {
@@ -118,7 +136,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 
 $(function(){
 	$(".btnReceiverDialog").click(function(){
-		$("#condition").val("userName");
+		$("#condition").val("name");
 		$("#keyword").val("");
 		$(".dialog-receiver-list ul").empty();
 		
@@ -155,9 +173,9 @@ $(function(){
 		var s;
 		for(var i=0; i<data.listFriend.length; i++) {
 			var userId = data.listFriend[i].userId;
-			var userName = data.listFriend[i].userName;
+			var name = data.listFriend[i].name;
 			
-			s = "<li><input type='checkbox' data-userId='"+userId+"' title='"+userId+"'><span>"+userName+"</span></li>";
+			s = "<li><input type='checkbox' data-userId='"+userId+"' title='"+userId+"'><span>"+name+"</span></li>";
 			$(".dialog-receiver-list ul").append(s);
 		}
 	}
@@ -177,12 +195,12 @@ $(function(){
 			return false;
 		}
 		
-		var b, userId, userName, s;
+		var b, userId, name, s;
 
 		b = false;
 		$(".dialog-receiver-list ul input[type=checkbox]:checked").each(function(){
 			userId = $(this).attr("data-userId");
-			userName = $(this).next("span").text();
+			name = $(this).next("span").text();
 			
 			$("#forms-receiver-list input[name=receivers]").each(function(){
 				if($(this).val() == userId) {
@@ -192,7 +210,7 @@ $(function(){
 			});
 			
 			if(! b) {
-				s = "<span class='receiver-user'>"+userName+" <i class='icofont-bin' data-userId='"+userId+"'></i></span>";
+				s = "<span class='receiver-user'>"+name+" <i class='icofont-bin' data-userId='"+userId+"'></i></span>";
 				$(".forms-receiver-name").append(s);
 				
 				s = "<input type='hidden' name='receivers' value='"+userId+"'>";
@@ -280,7 +298,7 @@ $(function(){
 	<div id="receiver-dialog" style="display: none;">
 		<div class="dialog-header">
 			<select name="condition" id="condition" class="selectField">
-				<option value="userName">이름</option>
+				<option value="name">이름</option>
 				<option value="userId">아이디</option>
 			</select>
 			<input type="text" name="keyword" id="keyword" class="boxTF" style="width: 150px;">

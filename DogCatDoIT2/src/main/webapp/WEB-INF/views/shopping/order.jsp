@@ -451,7 +451,7 @@ $(function() {
 <script type="text/javascript">
 
 function makeName() {
-	let orderName = "주문명: ${itemList[0].itemName} [${itemList[0].optionName}-${itemList[0].detailName}]";
+	let orderName = "${itemList[0].itemName} [${itemList[0].optionName}-${itemList[0].detailName}]";
 	let count = $(".itemList .itemTotalAmount").length;
 	if(count > 1) {
 		orderName += " 외 "+(count-1)+"건";
@@ -534,6 +534,50 @@ $(function() {
 		}
 		
 		payOrder();
+	});
+	
+	$(".testBtn").click(function() {
+		f = document.orderForm;
+		if(!f.diName.value.trim()) {
+			f.diName.focus();
+			alert("받으실분을 입력해주세요.");
+			return false;
+		}
+		
+		if(!f.diZip.value.trim()) {
+			f.diZip.focus();
+			alert("받으실 우편번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(!f.diAddr2.value.trim()) {
+			f.diAddr2.focus();
+			alert("받으실 상세주소를 입력해주세요.");
+			return false;
+		}
+		
+		if(!f.diTel1.value.trim() || !(/^[0-9]{3}$/).test(f.diTel1.value)) {
+			f.diTel1.focus();
+			alert("휴대폰 번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(!f.diTel2.value.trim() || !(/^[0-9]{4}$/).test(f.diTel2.value)) {
+			f.diTel2.focus();
+			alert("휴대폰 번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(!f.diTel3.value.trim() || !(/^[0-9]{4}$/).test(f.diTel3.value)) {
+			f.diTel3.focus();
+			alert("휴대폰 번호를 입력해주세요.");
+			return false;
+		}
+		
+		let name = makeName();
+		document.getElementsByName("orderName")[0].value = name;
+		f.action = "${pageContext.request.contextPath}/order/insert";
+		f.submit();
 	});
 });
 
@@ -795,6 +839,7 @@ $(function() {
 
 		<div class="btn-container" align="center">
 			<button type="button" class="btnConfirm">결제하기</button>
+			<button type="button" class="btn testBtn">결제생략 테스트</button>
 			<input type="hidden" name="from" value="${from}">
 			<input type="hidden" name="orderName">
 		</div>

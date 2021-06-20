@@ -218,7 +218,7 @@ public class OrderControlloer {
 	@RequestMapping("test1")
 	public String test1() throws Exception {
 		
-		return "shopping/test";
+		return ".shopping.admin.orderManager";
 	}
 	
 	@RequestMapping("deleteCart")

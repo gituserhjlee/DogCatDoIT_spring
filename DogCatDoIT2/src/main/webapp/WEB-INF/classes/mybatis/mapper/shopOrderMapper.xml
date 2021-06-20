@@ -8,11 +8,11 @@
 
 	<insert id="insertOrder" parameterType="com.pet.app.shopping.Order">
 		INSERT INTO shopOrder(orderIdx, userIdx, state, order_date, 
-			totalItemPrice, deliveryPrice, couponDiscount, pointDiscount,
-			totalDiscount, totalPayment, orderMemo)
+			totalItemPrice, deliveryPrice, couponDiscount, pointDiscount, 
+			totalDiscount, totalPayment, orderMemo, orderName)
 		VALUES(#{orderIdx}, #{userIdx}, ${state}, TO_DATE(#{order_date}, 'YYYY-MM-DD HH24:MI:SS'), #{totalItemPrice}, 
 			#{deliveryPrice}, #{couponDiscount}, #{pointDiscount}, 
-			#{totalDiscount}, #{totalPayment}, #{orderMemo, jdbcType=VARCHAR})
+			#{totalDiscount}, #{totalPayment}, #{orderMemo, jdbcType=VARCHAR}, #{orderName})
 	</insert>
 	
 	<insert id="insertDeliveryInfo" parameterType="com.pet.app.shopping.Order">

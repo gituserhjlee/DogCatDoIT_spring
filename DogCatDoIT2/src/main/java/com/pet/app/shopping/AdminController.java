@@ -888,4 +888,9 @@ public class AdminController {
 		model.put("passed", p);
 		return model;
 	}
+	
+	@GetMapping("admin/orderManage")
+	public String orderManage() {
+		return ".shopping.admin.orderManager";
+	}
 }

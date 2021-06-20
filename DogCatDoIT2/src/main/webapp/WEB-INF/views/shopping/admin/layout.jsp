@@ -104,7 +104,7 @@
 							<i class="icon-speedometer"></i><span> Dashboard</span>
 					</a></li>
 					<li class="treeview" id="orderManage"><a class="waves-effect waves-dark"
-						href="#!"><i class="icon-book-open"></i><span> 주문조회</span></a></li>
+						href="${pageContext.request.contextPath}/shopping/admin/orderManage"><i class="icon-book-open"></i><span> 주문조회</span></a></li>
 					<li class="treeview" id="ItemManage"><a
 						class="waves-effect waves-dark"
 						href="${pageContext.request.contextPath}/shopping/admin/ItemManage"><i

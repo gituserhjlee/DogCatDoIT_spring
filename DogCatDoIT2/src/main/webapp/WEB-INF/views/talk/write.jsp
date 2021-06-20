@@ -71,6 +71,10 @@
 	text-align: right;
 	padding: 5px 0;
 }
+.ui-dialog-titlebar-close {
+  background-color: white;
+  border: none;
+}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript">

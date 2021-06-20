@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
+
 <style type="text/css">
 
 .table-content tr > td {
@@ -34,9 +36,21 @@
 	text-align: right;
 	padding: 5px 0;
 }
+.ui-dialog-titlebar {
+  background-color: white;
+  background-image: none;
+  border: none;
+  color: #000;
+}
+.ui-dialog-titlebar-close {
+  background-color: white;
+  border: none;
+}
+.table th {
+	border-top: none; 
+}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>
-
 <script type="text/javascript">
 $(function(){
 	var menu = "${menuItem}";
@@ -62,7 +76,7 @@ $(function(){
 			  modal: true,
 			  height: 450,
 			  width: 400,
-			  title: '답변 달기',
+			  title: '답장하기',
 			  close: function(event, ui) {
 			  }
 		});
@@ -209,8 +223,8 @@ function deleteTalk() {
 			</tr>
 			<tr>
 				<td align="right" style="padding-top: 0;">
-					<button type="button" class="btn btn-sm btn-success btnSendOk" style="font-size: 17px; margin-top: 12px;">보내기</button>
-					<button type="button" class="btn btn-sm btn-outline-primary btnSendCancel" style="font-size: 17px; margin-top: 12px;">취소</button>
+					<button type="button" class="btn btn-sm btn-success btnSendOk" style="font-size: 17px; margin-top: 24px;">보내기</button>
+					<button type="button" class="btn btn-sm btn-outline-primary btnSendCancel" style="font-size: 17px; margin-top: 24px;">취소</button>
 					<input type="hidden" name="receivers" value="${dto.senderId}">
 				</td>
 			</tr>

@@ -122,7 +122,7 @@ function deleteTalk() {
 				<tr>
 					<td align="left" width="50%" >
 						<c:if test="${menuItem=='receive'}">
-							<button type="button" class="btn btnReplyTalk btn-md btn-outline-info" style="font-size: 17px; margin-top: 16px;">답변</button>
+							<button type="button" class="btn btnReplyTalk btn-md btn-info" style="font-size: 17px; margin-top: 16px;">답변</button>
 						</c:if>
 					</td>
 					<td align="right">
@@ -191,7 +191,7 @@ function deleteTalk() {
 					</td>
 				
 					<td align="right">
-						<button type="button" class="btn btn-md btn-outline-dark" style="font-size: 17px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/${menuItem}/list?${query}';">리스트</button>
+						<button type="button" class="btn btn-md btn-outline-secondary" style="font-size: 17px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/${menuItem}/list?${query}';">리스트</button>
 					</td>
 				</tr>
 			</table>

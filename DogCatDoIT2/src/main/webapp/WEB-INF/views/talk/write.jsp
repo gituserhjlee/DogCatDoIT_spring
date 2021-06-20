@@ -278,9 +278,9 @@ $(function(){
 			<table class="table">
 				<tr> 
 					<td align="center">
-						<button type="button" class="btn btn-md btn-success" style="font-size: 17px;" onclick="sendOk();">보내기</button>
-						<button type="reset" class="btn btn-md btn-outline-secondary" style="font-size: 17px;">다시입력</button>
-						<button type="button" class="btn btn-md btn-outline-primary" style="font-size: 17px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/send/list';">취소</button>
+						<button type="reset" class="btn btn-md btn-outline-secondary" style="font-size: 17px; margin-top: 11px;">다시입력</button>
+						<button type="button" class="btn btn-md btn-success" style="font-size: 17px; margin-top: 11px;" onclick="sendOk();">보내기</button>
+						<button type="button" class="btn btn-md btn-outline-primary" style="font-size: 17px; margin-top: 11px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/send/list';">취소</button>
 						<div id="forms-receiver-list"></div>
 					</td>
 				</tr>
@@ -291,7 +291,7 @@ $(function(){
 	
 	<div id="receiver-dialog" style="display: none;">
 		<div class="dialog-header">
-			<select name="condition" id="condition" class="selectField">
+			<select name="condition" id="condition" class="selectField nice-select">
 				<option value="name">이름</option>
 				<option value="userId">아이디</option>
 			</select>

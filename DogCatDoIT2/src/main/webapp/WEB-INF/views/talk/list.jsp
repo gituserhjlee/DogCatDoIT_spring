@@ -28,6 +28,15 @@
 .unread{
 	background: #fff;
 }
+.page-link {
+	border: none;
+	border-radius: 7px;
+	background-color: transparent;
+	color: black;
+}
+ul.pagination li.page-item span.page-link{
+	background-color: #f69f81;
+}
 
 </style>
 

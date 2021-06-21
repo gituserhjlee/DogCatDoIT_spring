@@ -71,9 +71,6 @@
 							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
 						</c:if>
                         </div>
-                        <div class="header-search">
-                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Header Tools End -->
@@ -100,7 +97,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
+                                    <a href="${pageContext.request.contextPath}/store/list" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
                                     <ul>
                                         <li><a href="${pageContext.request.contextPath}/store/store"><span class="menu-text">미용</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
@@ -158,7 +155,7 @@
                         <li class="has-children"><a href="#"><span class="menu-text">제휴업체</span></a>
                             <ul class="sub-menu mega-menu">
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
+                                    <a href="${pageContext.request.contextPath}/store/list" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
                                 </li>
                                 <li>
                                     <a href="${pageContext.request.contextPath}/store/store" class="mega-menu-title"><span class="menu-text">미용</span></a>
@@ -241,7 +238,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
+                                    <a href="${pageContext.request.contextPath}/store/list" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
                                     <ul>
                                         <li><a href="${pageContext.request.contextPath}/store/store"><span class="menu-text">미용</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
@@ -299,7 +296,7 @@
                             <li class="has-children"><a href="#"><span class="menu-text">제휴업체</span></a>
                                 <ul class="sub-menu mega-menu">
                                 <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
+                                    <a href="${pageContext.request.contextPath}/store/list" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
                                 </li>
                                 <li>
                                     <a href="${pageContext.request.contextPath}/store/store" class="mega-menu-title"><span class="menu-text">미용</span></a>
@@ -361,9 +358,6 @@
 							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
 						</c:if>
                         </div>
-                        <div class="header-search d-none d-sm-block">
-                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
-                        </div>
                         <div class="mobile-menu-toggle d-xl-none">
                             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
                                 <svg viewBox="0 0 800 600">
@@ -407,9 +401,6 @@
 							<p style="display: inline; color: lightgray;">|</p>
 							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
 						</c:if>
-                        </div>
-                        <div class="header-search d-none d-sm-block">
-                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
                         </div>
                         <div class="mobile-menu-toggle">
                             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
@@ -455,9 +446,6 @@
 							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
 						</c:if>
                         </div>
-                        <div class="header-search d-none d-sm-block">
-                            <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
-                        </div>
                         <div class="mobile-menu-toggle">
                             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
                                 <svg viewBox="0 0 800 600">
@@ -475,31 +463,7 @@
         </div>
     </div>
     <!-- Mobile Header Section End -->
-    <!-- OffCanvas Search Start -->
-    <div id="offcanvas-search" class="offcanvas offcanvas-search">
-        <div class="inner">
-            <div class="offcanvas-search-form">
-                <button class="offcanvas-close">Ã</button>
-                <form action="#">
-                    <div class="row mb-n3">
-                        <div class="col-lg-8 col-12 mb-3"><input type="text" style="font-family: Jua;" placeholder="통합검색..."></div>
-                        <div class="col-lg-4 col-12 mb-3">
-                            <select class="search-select select2-basic">
-                                <option value="0">모든 카테고리</option>
-                                <option value="community">커뮤니티</option>
-                                <option value="shopping">두잇몰</option>
-                                <option value="store">입점업체</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <p class="search-description text-body-light mt-2"> <span style="font-family: Jua;"># 최소 한 글자 이상 입력해주세요.</span> <span style="font-family: Jua;"># 엔터 키를 눌러 검색 / ESC 키로 나가기</span></p>
-
-        </div>
-    </div>
-    <!-- OffCanvas Search End -->
-
+    
     <!-- OffCanvas Search Start -->
     <div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
         <div class="inner customScroll">
@@ -518,6 +482,7 @@
                             <li>
                                 <a href="#"><span class="menu-text">두잇몰</span></a>
                                 <ul class="sub-menu">
+                                	<li><a href="${pageContext.request.contextPath}/shopping/mainPage"><span class="menu-text">두잇몰홈</span></a></li>
                                     <li><a href="index.html"><span class="menu-text">강아지 용품</span></a></li>
                                     <li><a href="index-2.html"><span class="menu-text">고양이 용품</span></a></li>
                                     <li><a href="index-3.html"><span class="menu-text">사료</span></a></li>
@@ -527,6 +492,7 @@
                             <li>
                                 <a href="#"><span class="menu-text">제휴업체</span></a>
                                 <ul class="sub-menu">
+                                	<li><a href="${pageContext.request.contextPath}/store/list"><span class="menu-text">모두보기</span></a></li>
                                     <li><a href="${pageContext.request.contextPath}/store/store"><span class="menu-text">미용</span></a></li>
                                     <li><a href="index-6.html"><span class="menu-text">펫시터</span></a></li>
                                     <li><a href="index-7.html"><span class="menu-text">훈련사</span></a></li>
@@ -545,6 +511,9 @@
                     </li>
                     <li><a href="#"><span class="menu-text">두잇몰</span></a>
                         <ul class="sub-menu">
+                        	<li>
+                        	<a href="${pageContext.request.contextPath}/shopping/mainPage"><span class="menu-text">두잇몰홈</span></a>
+                            </li>
                             <li>
                                 <a href="#"><span class="menu-text">강아지</span></a>
                                 <ul class="sub-menu">
@@ -582,7 +551,7 @@
                     <li><a href="#"><span class="menu-text">제휴업체</span></a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="#" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
+                                <a href="${pageContext.request.contextPath}/store/list" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/store/store" class="mega-menu-title"><span class="menu-text">미용</span></a>

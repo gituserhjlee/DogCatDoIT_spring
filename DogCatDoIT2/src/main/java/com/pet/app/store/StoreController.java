@@ -11,4 +11,10 @@ public class StoreController {
 	public String main() throws Exception{
 		return ".store.store";
 	}
+	
+	@RequestMapping(value = "list")
+	public String list() throws Exception{
+		return ".store.list";
+	}
 }
+

@@ -561,11 +561,13 @@
                     <li><a href="#"><span class="menu-text">모두보기</span></a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/shopping/mainPage" class="mega-menu-title"><span class="menu-text">두잇몰</span></a>
-                                    <ul>
-                                        <li><a href="${pageContext.request.contextPath}/shopping/dog"><span class="menu-text">강아지 용품</span></a></li>
-                                        <li><a href="${pageContext.request.contextPath}/shopping/cat"><span class="menu-text">고양이 용품</span></a></li>
-                                    </ul>
+                                <a href="#"><span class="menu-text">두잇몰</span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="index.html"><span class="menu-text">강아지 용품</span></a></li>
+                                    <li><a href="index-2.html"><span class="menu-text">고양이 용품</span></a></li>
+                                    <li><a href="index-3.html"><span class="menu-text">사료</span></a></li>
+                                    <li><a href="index-4.html"><span class="menu-text">장난감</span></a></li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="#"><span class="menu-text">제휴업체</span></a>
@@ -664,6 +666,18 @@
                             <li><a href="#"><span class="menu-text">산책메이트게시판</span></a>
                             </li>
                             <li><a href="#"><span class="menu-text">반려동물행사</span></a>
+                            </li>
+                        </ul>
+                    </li>
+             		<li><a href="#"><span class="menu-text">마이페이지</span></a>
+                        <ul class="sub-menu">
+                            <li><a href="${pageContext.request.contextPath}/myPage/main"><span class="menu-text">회원정보</span></a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/myPage/written"><span class="menu-text">내가 쓴 글</span></a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/talk/receive/list"><span class="menu-text">쪽지함</span></a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/myPage/attendance"><span class="menu-text">출석체크</span></a>
                             </li>
                         </ul>
                     </li>

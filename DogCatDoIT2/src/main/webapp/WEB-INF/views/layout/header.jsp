@@ -626,6 +626,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li><a href="#"><span class="menu-text">마이페이지</span></a>
+                        <ul class="sub-menu">
+                            <li><a href="${pageContext.request.contextPath}/myPage/main"><span class="menu-text">회원정보</span></a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/myPage/written"><span class="menu-text">내가 쓴 글</span></a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/talk/receive/list"><span class="menu-text">쪽지함</span></a>
+                            </li>
+                            <li><a href="${pageContext.request.contextPath}/myPage/attendance"><span class="menu-text">출석체크</span></a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="offcanvas-buttons">

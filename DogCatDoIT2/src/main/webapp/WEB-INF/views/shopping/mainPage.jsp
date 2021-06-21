@@ -36,16 +36,10 @@
 
 					<div class="hero__search__form">
 
-						<form action="#">
-							<div>
-								<select>
-									<option value="">All Categories</option>
-									<option value="dog">강아지</option>
-									<option value="cat">고양이</option>
-								</select>
-
-							</div>
-							<input type="text" placeholder="검색어를 입력하세요" style="width:70%; padding-left: 20px;">
+						<form action="${pageContext.request.contextPath}/shopping/search" method="get">
+							
+							<input type="text" name="searchkeyword" id="searchkeyword" placeholder="검색어를 입력하세요"
+								style="width: 70%; padding-left: 20px;">
 							<button type="submit" class="site-btn">SEARCH</button>
 						</form>
 					</div>
@@ -233,6 +227,5 @@
 	</div>
 </section>
 <!-- Featured Section End -->
-
-
+	
 

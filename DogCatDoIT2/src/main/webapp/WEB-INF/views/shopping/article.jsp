@@ -4,6 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
+
+
+
 <!-- Hero Section Begin -->
 <section class="hero hero-normal">
 	<div class="container">
@@ -39,16 +42,9 @@
 
 					<div class="hero__search__form">
 
-						<form action="#">
-							<div>
-								<select>
-									<option value="">All Categories</option>
-									<option value="dog">강아지</option>
-									<option value="cat">고양이</option>
-								</select>
-
-							</div>
-							<input type="text" placeholder="검색어를 입력하세요"
+						<form action="${pageContext.request.contextPath}/shopping/search" method="get">
+							
+							<input type="text" name="searchkeyword" id="searchkeyword" placeholder="검색어를 입력하세요"
 								style="width: 70%; padding-left: 20px;">
 							<button type="submit" class="site-btn">SEARCH</button>
 						</form>
@@ -124,8 +120,7 @@
 							<button type="button" class="primary-btn" style="border: 2px solid #F79F81;"
 								onclick="addCart()">ADD TO CART</button>
 							<button type="submit" style="border: 2px solid #F79F81;"  class="primary-btn" >BUY NOW</button>
-							<a class="heart-icon" > <span
-								class="icon_heart_alt"></span></a>
+							
 						</div>
 					</form>
 

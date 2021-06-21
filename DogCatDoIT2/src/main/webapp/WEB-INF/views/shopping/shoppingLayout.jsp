@@ -16,7 +16,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-<title>Ogani | Template</title>
     <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -91,7 +90,7 @@
 	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/magnific-popup.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/slick.css">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
 .starR{
   background: url('${pageContext.request.contextPath}/resources/shopAdmin/images/star.png') no-repeat right 0;
@@ -123,7 +122,6 @@
 }
 </style>
 
-<title>Insert title here</title>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
@@ -160,7 +158,6 @@
 				<div class="col-lg-6">
 					<div class="header__cart">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/order/wishlist"><i class="fa fa-heart"></i> <span>10</span></a></li>
 							<li><a href="${pageContext.request.contextPath}/order/cart"><i class="fa fa-shopping-bag"></i> <span>2</span></a></li>
 						</ul>
 						<div class="header__cart__price">
@@ -266,6 +263,31 @@
 		});
 	
 	</script>
+
+<script src="${pageContext.request.contextPath}/resources/jquery/js/jquery-1.12.4.min.js"></script>	
+<script src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>	
+<script>
+$(function(){
+	var words=["사료", "내구성","캣타워", "간식", "옷","배변패드","영양제", "장난감", "모래", "고양이","고양이 모래", "고양이 캣타워", "집사", "귀여운", "흡수력","국산", "해외", "강아지","강아지 영양제", "강아지 사료", "건강","배변","츄르","알레르기", "다회용", "프리미엄", "저렴한", "dog", "cat", "냥이","아기","애기", "강력한", "튼튼한"];
+	
+	$("#searchkeyword").autocomplete({
+		source:words,
+		select: function(event, ui) {
+
+            console.log(ui.item);
+
+        },
+        focus: function(event, ui) {
+
+            return false;
+
+            //event.preventDefault();
+
+        }
+	});
+});
+	
+</script>
 	
 </body>
 </html>

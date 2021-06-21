@@ -893,4 +893,15 @@ public class AdminController {
 	public String orderManage() {
 		return ".shopping.admin.orderManager";
 	}
+	
+	@GetMapping("search")
+	public String search(@RequestParam String searchkeyword, Model model) {
+		List<Item> list=new ArrayList<Item>();
+		list=service.search(searchkeyword);
+		for (Item i : list) {
+			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
+		}
+		model.addAttribute("list", list);
+		return ".shopping.searchedArticle";
+	}
 }

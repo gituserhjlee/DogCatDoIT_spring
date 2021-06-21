@@ -467,9 +467,9 @@ from
 		itemSalePrice,discountRate,registered,saveFilename,
 		des,content,enabled,manufacturer
 	from item 
-	where (itemname LIKE '%' || #{keyword} || '%' 
-	or des LIKE '%' || #{keyword} || '%' 
-	or DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+	where (UPPER(itemname) LIKE  '%' || UPPER(#{keyword}) || '%'
+	or UPPER(des) LIKE '%' || UPPER(#{keyword}) || '%' 
+	or DBMS_LOB.INSTR(UPPER(content), UPPER(#{keyword})) &gt; 0 )
 	and enabled='1'
 	</select>
 </mapper>

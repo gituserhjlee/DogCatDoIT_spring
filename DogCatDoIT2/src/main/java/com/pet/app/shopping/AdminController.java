@@ -895,9 +895,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("search")
-	public String search(@RequestParam String searchkeyword, Model model) {
+	public String search(@RequestParam String searchkeyword, @RequestParam String originalkeyword, Model model) {
 		List<Item> list=new ArrayList<Item>();
 		list=service.search(searchkeyword);
+		if(!searchkeyword.equals(originalkeyword)) {//영어로 검색한 경우
+			
+			list.addAll(service.search(originalkeyword.toUpperCase()));
+		}
 		for (Item i : list) {
 			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
 		}

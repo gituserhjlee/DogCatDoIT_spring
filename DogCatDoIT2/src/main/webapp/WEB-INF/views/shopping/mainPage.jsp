@@ -36,12 +36,12 @@
 
 					<div class="hero__search__form">
 
-						<form action="${pageContext.request.contextPath}/shopping/search" method="get">
-							
+						
+							<form>	
 							<input type="text" name="searchkeyword" id="searchkeyword" placeholder="검색어를 입력하세요"
 								style="width: 70%; padding-left: 20px;">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form>
+							<button type="button" class="site-btn" onclick="EngCheck()">SEARCH</button>
+							</form>						
 					</div>
 
 				</div>

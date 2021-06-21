@@ -179,8 +179,7 @@
 	<!-- 포인트 내역 -->
 	<select id="readPointHistroy" parameterType="map" resultType="com.pet.app.myPage.PointHistory">
 		SELECT pointNum, userId, amount, by_what, get_date FROM pointHistory 
-		WHERE userId = #{userId}
-		<!-- get_date추가해야댐 -->
+		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= 12
 	</select>
 	
 	

@@ -1,0 +1,18 @@
+﻿@charset "UTF-8";
+
+.ui-dialog {
+	z-index: 9999;
+}
+
+.ui-dialog * {
+	box-sizing: content-box;
+}
+
+.ui-widget-header {
+	background: none;
+	border: none;
+	height:35px;
+	line-height:35px;
+	border-bottom: 1px solid #ccc;
+	border-radius: 0px;
+}

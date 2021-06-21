@@ -3,6 +3,7 @@ package com.pet.app.myPage;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Qualification {
+	private int listNum;
 	private int requestNum;
 	private String userId;
 	private String name;
@@ -14,6 +15,12 @@ public class Qualification {
 	private String req_date;
 	private MultipartFile upload;
 	
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	public int getRequestNum() {
 		return requestNum;
 	}

@@ -2,5 +2,65 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cAdmin">
-
+	<!-- 회원 리스트 -->
+	<select id="listMember" parameterType="map" resultType="com.pet.app.cAdmin.Member">
+		SELECT userIdx, m.userId, name, reg_date, email, tel, qualificationName, point, clevel, slevel
+		FROM member m
+		JOIN qualification q ON q.userId = m.userId
+		WHERE m.userId != 'admin'
+		ORDER BY reg_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<!-- 회원 수 -->
+	<select id="memberCount" resultType="Integer">
+		SELECT COUNT(*) FROM member WHERE userId != 'admin'
+	</select>
+	
+	<!-- 회원 정보 -->
+	<select id="readMember" parameterType="String" resultType="com.pet.app.cAdmin.Member">
+		SELECT userIdx, m.userId, name, reg_date, email, tel, qualificationName, point, clevel, slevel
+		FROM member m
+		JOIN qualification q ON m.userId = q.userId
+		WHERE m.userId = #{userId}
+	</select>
+	
+	<!-- 커뮤니티 등급 변경 -->
+	<update id="updateClevel" parameterType="map">
+		UPDATE member SET clevel = #{clevel} WHERE userId = #{userId}
+	</update>
+	
+	<!-- 포인트 변경 -->
+	<update id="updatePoint" parameterType="map">
+		UPDATE member SET point = #{point} WHERE userIdx=#{userIdx}
+	</update>
+	
+	<!-- 자격신청내역 -->
+	<select id="listRequestQualification" parameterType="map" resultType="com.pet.app.myPage.Qualification">
+		SELECT requestNum, userId, name, tel, originalFilename, saveFilename, gubun, state, TO_CHAR(req_date, 'YYYY-MM-DD') req_date 
+		FROM requestQualification
+		WHERE state = 'requesting'
+		ORDER BY req_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<!-- 자격신청 수 -->
+	<select id="requestCount" resultType="Integer">
+		SELECT COUNT(*) FROM requestQualification
+	</select>
+	
+	<!-- 자격신청 승인 or 거절 (requesting -> approved or rejected) -->
+	<update id="updateRequestQualification" parameterType="map">
+		UPDATE requestQualification SET state = #{state} WHERE requestNum = #{requestNum} 
+	</update>
+	
+	<!-- 자격신청 승인  (자격 변경 qualification 테이블)-->
+	<update id="updateQualification" parameterType="map">
+		UPDATE qualification SET qualificationName = #{qualificationName} WHERE userId = #{userId}
+	</update>
+	
+	<!-- 자격테이블에서 삭제 -->
+	<delete id="deleteQualification" parameterType="String">
+		DELETE qualification WHERE userId = #{userId} 
+	</delete>
 </mapper>

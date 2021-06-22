@@ -684,4 +684,14 @@ public class AdminService {
 		}
 		return level;
 	}
+	
+	public List<Item> search(String keyword) {
+		List<Item> list=new ArrayList<Item>();
+		try {
+			list=dao.selectList("shop.search", keyword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

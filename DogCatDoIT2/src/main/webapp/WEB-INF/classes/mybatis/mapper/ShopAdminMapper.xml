@@ -358,7 +358,7 @@
 	<select id="AllshoporderCount" resultType="Integer">
 	select count(*)
 	from shoporder
-	where state not in (2, 10, 8)
+	where state not in (2, 8)
 	</select>	
 	
 	<select id="AllShopCustomerCount" resultType="Integer">
@@ -375,14 +375,14 @@
 	join detailitemoption d on sod.detailid=d.detailid
 	join itemoption i on d.itemoptionid=i.optionid
 	join item it on i.itemid=it.itemid
-	where so.state not in (2, 10, 8)
+	where so.state not in (2, 8)
 	</select>
 	
 	<!-- 총 매출액 -->
 	<select id="sumsalesPrice" resultType="long">
 	select sum(totalpayment)
 	from shoporder
-	where state not in (2, 10, 8)
+	where state not in (2, 8)
 	</select>
 	
 	<!-- 월별 매출액 -->
@@ -406,7 +406,7 @@ from
                 decode(to_char(order_date, 'yyyy-mm'), #{m11}, sum(totalpayment), 0) m11,
                 decode(to_char(order_date, 'yyyy-mm'), #{m12}, sum(totalpayment), 0) m12
         from shoporder
-        where state not in (2, 10, 8)
+        where state not in (2, 8)
         group by to_char(order_date, 'yyyy-mm')
     )
 	</select>
@@ -419,7 +419,7 @@ from
 	join itemoption io on d.itemoptionid=io.optionid
 	join item i on io.itemid=i.itemid 
 	join shoporder so on sod.orderidx=so.orderidx
-	where  so.state not in (2, 10, 8) and d.enabled='1'
+	where  so.state not in (2, 8) and d.enabled='1'
 	group by d.detailid , i.itemname, io.optionname,d.detailname
 	order by qty desc)
 	where rownum &lt;=10 
@@ -460,5 +460,16 @@ from
 	from ShopLevel
 	where levelName=#{levelName}
 	
+	</select>
+	
+	<select id="search" parameterType="String" resultType="com.pet.app.shopping.Item">
+	select itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,registered,saveFilename,
+		des,content,enabled,manufacturer
+	from item 
+	where (UPPER(itemname) LIKE  '%' || UPPER(#{keyword}) || '%'
+	or UPPER(des) LIKE '%' || UPPER(#{keyword}) || '%' 
+	or DBMS_LOB.INSTR(UPPER(content), UPPER(#{keyword})) &gt; 0 )
+	and enabled='1'
 	</select>
 </mapper>

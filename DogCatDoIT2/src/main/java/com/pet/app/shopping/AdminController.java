@@ -893,4 +893,19 @@ public class AdminController {
 	public String orderManage() {
 		return ".shopping.admin.orderManager";
 	}
+	
+	@GetMapping("search")
+	public String search(@RequestParam String searchkeyword, @RequestParam String originalkeyword, Model model) {
+		List<Item> list=new ArrayList<Item>();
+		list=service.search(searchkeyword);
+		if(!searchkeyword.equals(originalkeyword)) {//영어로 검색한 경우
+			
+			list.addAll(service.search(originalkeyword.toUpperCase()));
+		}
+		for (Item i : list) {
+			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
+		}
+		model.addAttribute("list", list);
+		return ".shopping.searchedArticle";
+	}
 }

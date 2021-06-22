@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pet.app.common.MyUtil;
 import com.pet.app.myPage.MyPageService;
 import com.pet.app.myPage.Qualification;
-import com.pet.app.shopping.OrderService;
-import com.pet.app.shopping.ShopLevel;
 
 @Controller("cAdmin.CommunityAdminController")
 @RequestMapping("/cAdmin/*")
@@ -29,8 +27,8 @@ public class CommunityAdminContorller {
 	@Autowired
 	private MyPageService mService;
 	
-	@Autowired
-	private OrderService oService;
+//	@Autowired
+//	private OrderService oService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -67,15 +65,13 @@ public class CommunityAdminContorller {
         map.put("rows", rows);
         
         List<Member> list = service.listMember(map);
-        ShopLevel = null;
+        
         int listNum, n = 0;
         for(Member dto : list) {
             listNum = memberCount - (offset + n);
             dto.setListNum(listNum);
-            ShopLevel vo = oService.readSlevelInfo(dto.getUserId());
             n++;
         }
-        
         
         String listUrl = cp+"/cAdmin/memberManager";
         

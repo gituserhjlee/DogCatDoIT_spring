@@ -32,10 +32,10 @@
 		VALUES (#{userIdx}, #{userId}, #{pwd}, #{name}, #{zip}, #{addr1}, #{addr2}, #{email}, #{tel}, SYSDATE, 0,0,0)
 	</insert>
 	
-	<update id="updateMembership" parameterType="map">
-		UPDATE member SET point = #{point}
-		WHERE userIdx=#{userIdx}
-	</update>
+	<insert id="insertQualification" parameterType="String">
+		INSERT INTO qualification (qualificationNum, qualificationName, userId)
+		VALUES (qualification_seq.NEXTVAL, '일반 회원', #{userId})
+	</insert>
 	
 	<update id="updatePoint" parameterType="map">
 		UPDATE member SET point= 

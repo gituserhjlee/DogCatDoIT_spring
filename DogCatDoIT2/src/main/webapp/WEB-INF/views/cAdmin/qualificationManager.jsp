@@ -41,16 +41,16 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 	
-function detailedMember(requestNum) {
+function detailedMember(requestNum, userId, gubun) {
 	var dlg = $("#member-dialog").dialog({
 		  autoOpen: false,
 		  modal: true,
 		  buttons: {
 		       " 승인 " : function() {
-		    	   updateOk(); 
+		    	   approveOk(requestNum, userId, gubun); 
 		       },
 		       " 거절 " : function() {
-		    	   deleteOk(userId);
+		    	   rejectOk(requestNum, userId, gubun);
 			   },
 		       " 닫기 " : function() {
 		    	   $(this).dialog("close");
@@ -71,6 +71,32 @@ function detailedMember(requestNum) {
 		dlg.dialog("open");
 	};
 	ajaxFun(url, "post", query, "html", fn);
+}
+
+function approveOk(requestNum, userId, gubun) {
+	if(confirm("승인하시겠습니까?")){
+		var url = "${pageContext.request.contextPath}/cAdmin/updateQualification";
+		var query = "mode=approve&requestNum="+requestNum+"&userId="+userId+"&gubun="+gubun;
+		
+		var fn = function(data){
+			alert("승인되었습니다.");
+			window.location.reload();
+		};
+		ajaxFun(url, "post", query, "json", fn);
+	}
+}
+
+function rejectOk(requestNum, userId, gubun) {
+	if(confirm("승인 거절하시겠습니까?")){
+		var url = "${pageContext.request.contextPath}/cAdmin/updateQualification";
+		var query = "mode=reject&requestNum="+requestNum+"&userId="+userId+"&gubun="+gubun;
+		
+		var fn = function(data){
+			alert("승인 거절되었습니다.");
+			window.location.reload();
+		};
+		ajaxFun(url, "post", query, "json", fn);
+	}
 }
 </script>
 <main>
@@ -123,7 +149,7 @@ function detailedMember(requestNum) {
 				</tr>
 				 
 				<c:forEach var="dto" items="${list}">
-					<tr class="hover-tr" onclick="detailedMember('${dto.requestNum}');">
+					<tr class="hover-tr" onclick="detailedMember('${dto.requestNum}','${dto.userId}','${dto.gubun}');">
 					 	<td align="center"><input type="checkbox"></td>
 						<td align="center">${dto.listNum}</td>
 						<td align="center">${dto.userId}</td>

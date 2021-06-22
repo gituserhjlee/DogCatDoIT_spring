@@ -72,7 +72,39 @@ public class CommunityAdminServiceImpl implements CommunityAdminService{
 		}
 		return list;
 	}
+	
+	@Override
+	public void updateRequestQualification(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("cAdmin.updateRequestQualification", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 
+	@Override
+	public void updateQualification(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("cAdmin.updateQualification", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+	@Override
+	public void deleteQualification(String userId) throws Exception {
+		try {
+			dao.deleteData("cAdmin.deleteQualification", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	@Override
 	public int requestCount() {
 		int requestCount = 0;
@@ -103,15 +135,4 @@ public class CommunityAdminServiceImpl implements CommunityAdminService{
 			throw e;
 		}
 	}
-
-	@Override
-	public void deleteQualification(String userId) throws Exception {
-		try {
-			dao.deleteData("cAdmin.deleteQualification", userId);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
 }

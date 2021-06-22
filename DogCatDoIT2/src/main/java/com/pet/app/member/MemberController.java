@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MemberController {
 	@Autowired
 	private MemberService service;
-	
+
 	@RequestMapping(value="member", method = RequestMethod.GET)
 	public String memberForm(Model model) {
 		model.addAttribute("mode", "member");
@@ -35,6 +35,8 @@ public class MemberController {
 			Model model) {
 		try {
 			service.insertMember(dto);
+			String userId = dto.getUserId();
+			service.insertQualification(userId);
 		} catch (DuplicateKeyException e) {
 			model.addAttribute("mode", "member");
 			model.addAttribute("message", "아이디 중복으로 회원가입을 실패했습니다.");
@@ -90,9 +92,7 @@ public class MemberController {
 		info.setUserId(dto.getUserId());
 		info.setUserName(dto.getName());
 		info.setUserIdx(dto.getUserIdx());
-		info.setSlevel(dto.getSlevel());
-		info.setClevel(dto.getClevel());
-		
+	
 		session.setMaxInactiveInterval(30*60); // 세션 유지 : 30분간 
 		
 		session.setAttribute("member", info);

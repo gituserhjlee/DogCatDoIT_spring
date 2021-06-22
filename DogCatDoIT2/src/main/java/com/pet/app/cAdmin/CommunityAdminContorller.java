@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pet.app.common.MyUtil;
 import com.pet.app.myPage.MyPageService;
 import com.pet.app.myPage.Qualification;
+import com.pet.app.shopping.OrderService;
+import com.pet.app.shopping.ShopLevel;
 
 @Controller("cAdmin.CommunityAdminController")
 @RequestMapping("/cAdmin/*")
@@ -26,6 +28,9 @@ public class CommunityAdminContorller {
 	
 	@Autowired
 	private MyPageService mService;
+	
+	@Autowired
+	private OrderService oService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -62,13 +67,15 @@ public class CommunityAdminContorller {
         map.put("rows", rows);
         
         List<Member> list = service.listMember(map);
-        
+        ShopLevel = null;
         int listNum, n = 0;
         for(Member dto : list) {
             listNum = memberCount - (offset + n);
             dto.setListNum(listNum);
+            ShopLevel vo = oService.readSlevelInfo(dto.getUserId());
             n++;
         }
+        
         
         String listUrl = cp+"/cAdmin/memberManager";
         
@@ -111,12 +118,8 @@ public class CommunityAdminContorller {
 			map.put("userIdx", userIdx);
 			map.put("clevel", clevel);
 			map.put("point", point);
-			if(clevel!=dto.getClevel()) {
-				service.updateClevel(map);				
-			}
-			if(point!=dto.getPoint()) {
-				service.updatePoint(map);				
-			}
+			service.updateClevel(map);				
+			service.updatePoint(map);				
 		} catch (Exception e) {
 			e.printStackTrace();
 			state = "false";
@@ -201,6 +204,39 @@ public class CommunityAdminContorller {
 		model.addAttribute("dto", dto);
 		
 		return "cAdmin/qualificationDetail";
+	}
+	
+	@RequestMapping(value = "updateQualification", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateQualificationSubmit(
+			@RequestParam String mode,
+			@RequestParam String userId,
+			@RequestParam int requestNum,
+			@RequestParam String gubun
+			) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		String state = "true";
+		
+		try {
+			if(mode.equals("approve")) {
+				map.put("qualificationName", gubun);
+				map.put("userId", userId);
+				map.put("state", "approved");
+				service.updateQualification(map);
+			} else if(mode.equals("reject")) {
+				map.put("state", "rejected");
+			}
+			map.put("requestNum", requestNum); 
+			
+			service.updateRequestQualification(map);
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("state", state);
+		return model;
 	}
 	
 	@RequestMapping("postManager")

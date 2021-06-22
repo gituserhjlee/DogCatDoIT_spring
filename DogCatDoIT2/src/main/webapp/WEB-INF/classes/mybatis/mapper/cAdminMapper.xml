@@ -46,7 +46,7 @@
 	
 	<!-- 자격신청 수 -->
 	<select id="requestCount" resultType="Integer">
-		SELECT COUNT(*) FROM requestQualification
+		SELECT COUNT(*) FROM requestQualification WHERE state = 'requesting'
 	</select>
 	
 	<!-- 자격신청 승인 or 거절 (requesting -> approved or rejected) -->

@@ -10,8 +10,10 @@ public interface CommunityAdminService {
 	public Member readMember(String userId);
 	public List<Member> listMember(Map<String, Object> map);
 	public List<Qualification> listRequestQualification(Map<String, Object> map);
+	public void updateRequestQualification(Map<String, Object> map) throws Exception;
+	public void updateQualification(Map<String, Object> map) throws Exception;
+	public void deleteQualification(String userId) throws Exception;
 	public int requestCount();
 	public void updateClevel(Map<String, Object> map) throws Exception;
 	public void updatePoint(Map<String, Object> map) throws Exception;
-	public void deleteQualification(String userId) throws Exception;
 }

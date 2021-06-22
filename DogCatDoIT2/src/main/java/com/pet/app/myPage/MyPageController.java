@@ -217,7 +217,6 @@ public class MyPageController {
 	
 	@RequestMapping(value = "userProfile", method = RequestMethod.GET)
 	public String userProfile(
-			@RequestParam int orderNum,
 			HttpSession session,
 			Model model) throws Exception{
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -231,23 +230,13 @@ public class MyPageController {
 			return ".myPage.setUserProfile";
 		}
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		map.put("orderNum", orderNum);
+		List<UserProfile> list = service.listUserProfile(userId);
+		for(UserProfile dto : list) {
+			dto.setAnimalAge(service.setAge(dto.getProfileNum()));
+		}
 		
-		UserProfile dto = service.readUserProfile(map);
-		dto.setAnimalAge(service.setAge(dto.getProfileNum()));
-		
-		model.addAttribute("profileNum", dto.getProfileNum());
-		model.addAttribute("orderNum", dto.getOrderNum());
 		model.addAttribute("countUserProfile", countUserProfile);
-		model.addAttribute("animalName", dto.getAnimalName());
-		model.addAttribute("animalBirth", dto.getAnimalBirth());
-		model.addAttribute("animalAge", dto.getAnimalAge());
-		model.addAttribute("animalKind", dto.getAnimalKind());
-		model.addAttribute("region", dto.getRegion());
-		model.addAttribute("introduce", dto.getIntroduce());
-		model.addAttribute("animalPhoto", dto.getAnimalPhoto());
+		model.addAttribute("list", list);
 
 		return ".myPage.userProfile";
 	}
@@ -262,19 +251,12 @@ public class MyPageController {
 	
 	@RequestMapping(value = "updateUserProfile", method = RequestMethod.GET)
 	public String updateUserProfile(
-			@RequestParam int orderNum,
+			@RequestParam int profileNum,
 			HttpSession session,
 			Model model
 			) throws Exception{
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String userId = info.getUserId();
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("userId", userId);
-		map.put("orderNum", orderNum);
-		
-		UserProfile dto = service.readUserProfile(map);
+		UserProfile dto = service.readUserProfile(profileNum);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode","update");
@@ -299,7 +281,7 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/myPage/userProfile?orderNum=1";
+		return "redirect:/myPage/userProfile";
 	}
 	
 	@RequestMapping(value = "updateUserProfile", method = RequestMethod.POST)
@@ -316,7 +298,7 @@ public class MyPageController {
 			throw e;
 		}
 		
-		return "redirect:/myPage/userProfile?orderNum=1";
+		return "redirect:/myPage/userProfile";
 	}
 	
 	@RequestMapping(value = "deleteUserProfile")
@@ -336,7 +318,7 @@ public class MyPageController {
 			throw e;
 		}
 		
-		return "redirect:/myPage/userProfile?orderNum=1";
+		return "redirect:/myPage/userProfile";
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.GET)
@@ -367,6 +349,11 @@ public class MyPageController {
 		String userId = info.getUserId();
 		try {
 			List<Qualification> list = service.listRequestQualification(userId);
+			int n=1;
+			for(Qualification dto : list) {
+				dto.setListNum(n);
+				n++;
+			}
 			
 			model.addAttribute("list", list);
 		} catch (Exception e) {

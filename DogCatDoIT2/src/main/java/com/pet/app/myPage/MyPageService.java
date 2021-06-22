@@ -10,7 +10,8 @@ public interface MyPageService {
 	public int setAge(int profileNum) throws Exception;
 	public void updateUserProfile(UserProfile dto, String pathname) throws Exception;
 	public void deleteUserProfile(int profileNum, String pathname) throws Exception;
-	public UserProfile readUserProfile(Map<String, Object> map);
+	public UserProfile readUserProfile(int profileNum);
+	public List<UserProfile> listUserProfile(String userId);
 	public int countUserProfile(String userId);
 	public void insertRequestQualification(Qualification dto, String pathname) throws Exception;
 	public List<Qualification> listRequestQualification(String userId);

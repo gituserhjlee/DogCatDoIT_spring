@@ -83,13 +83,25 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	// 프로필 읽기
 	@Override
-	public UserProfile readUserProfile(Map<String, Object> map) {
+	public UserProfile readUserProfile(int profileNum) {
 		UserProfile dto = null;
 		try {
-			dto = dao.selectOne("myPage.readUserProfile", map);
+			dto = dao.selectOne("myPage.readUserProfile", profileNum);
 		} catch (Exception e) {
 		}
 		return dto;
+	}
+	
+	// 프로필 리스트
+	@Override
+	public List<UserProfile> listUserProfile(String userId) {
+		List<UserProfile> list = null;
+		try {
+			list = dao.selectList("myPage.listUserProfile", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	// 프로필 개수 구하기

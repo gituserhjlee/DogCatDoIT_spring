@@ -22,7 +22,7 @@ html, body {
 /* ======== Calendar ======== */
 .my-calendar {
   width: 700px;
-  margin: 30px;
+  margin: 30px 0;
   padding: 20px 20px 10px;
   text-align: center;
   font-weight: 800;
@@ -126,7 +126,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 	  	<div>
 	  		<h4>출석체크</h4>
 	  	</div>
-	    <div class="container">
+	    <div class="container" style="padding: 0;">
   <div class="my-calendar clearfix">
     <div class="clicked-date">
       <div class="cal-day"></div>

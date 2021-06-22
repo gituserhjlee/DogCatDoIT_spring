@@ -505,7 +505,7 @@ function updateDrag(calEvent) {
 <div style="width: 800px; min-height: 800px; float: left;">
 	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 	  	<div>
-	  		<h4>일정</h4>
+	  		<h4 style="height: 30px; margin-bottom: 30px;">일정</h4>
 	  	</div>
 	  	<div class="body-main pt-15">
 			<div>    

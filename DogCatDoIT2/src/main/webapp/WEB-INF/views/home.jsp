@@ -657,6 +657,10 @@
 						<c:if test="${not empty sessionScope.member}">
 							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
 							<p style="display: inline; color: lightgray;">|</p>
+							<c:if test="${sessionScope.member.userId=='admin'}">
+								<a href="${pageContext.request.contextPath}/cAdmin/main" style="display: inline; color: gray;">관리자</a> <i></i>
+							</c:if>
+							<p style="display: inline; color: lightgray;">|</p>
 							<a href="${pageContext.request.contextPath}/member/logout" style="display: inline; color: gray;"> 로그아웃 </a>
 						</c:if>
                         </div>

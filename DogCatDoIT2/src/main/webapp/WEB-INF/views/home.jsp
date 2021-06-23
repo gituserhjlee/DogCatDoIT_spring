@@ -649,6 +649,11 @@
                             </li>
                             <li><a href="${pageContext.request.contextPath}/myPage/attendance"><span class="menu-text">출석체크</span></a>
                             </li>
+                            <li>
+                                <c:if test="${sessionScope.member.userId=='admin'}">
+                                	<a href="${pageContext.request.contextPath}/cAdmin/main">관리자페이지</a>
+                                </c:if>
+                            </li>
                         </ul>
                     </li>
                 </ul>

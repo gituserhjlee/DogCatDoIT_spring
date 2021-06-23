@@ -49,31 +49,15 @@
 		JOIN detailItemoption do ON io.optionId=do.itemoptionId
 		WHERE detailId = #{detailId}
 	</select>
-	<!-- 찜, 장바구니 -->
 	
+	<!-- 장바구니 -->
 	<insert id="insertCart" parameterType="com.pet.app.shopping.Cart">
 		INSERT INTO cart(cartIdx, userIdx, cart_date, count, detailId)
 		VALUES (cart_seq.NEXTVAL, #{userIdx}, SYSDATE, #{count}, #{detailId})
 	</insert>
 	
-	<insert id="insertWish" parameterType="com.pet.app.shopping.Wish">
-		INSERT INTO wish(wishIdx, userIdx, wish_date, detailId)
-		VALUES (wish_seq.NEXTVAL, #{userIdx}, SYSDATE, #{detailId})
-	</insert>
-	
 	<select id="cartCount" parameterType="Long" resultType="Integer">
 		SELECT COUNT(*) FROM cart WHERE userIdx=#{userIdx}
-	</select>
-	
-	<select id="wishListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
-		SELECT
-		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
-		    optionId, optionName, detailId, detailName
-		FROM item i 
-		JOIN itemOption io ON i.itemId=io.itemId
-		JOIN detailItemoption do ON io.optionId=do.itemoptionId
-		JOIN cart c ON c.detailId=do.detailId
-		WHERE userIdx=#{userIdx}
 	</select>
 	
 	<select id="cartListOrderDetail" parameterType="map" resultType="com.pet.app.shopping.OrderDetail">
@@ -122,6 +106,15 @@
 		WHERE userIdx=#{userIdx} AND detailId=#{detailId}
 	</update>
 	
+	<select id="getCartSessionInfo" parameterType="Long" resultType="com.pet.app.shopping.CartSessionInfo">
+		SELECT NVL(SUM(count), 0) cartCount, NVL(SUM(count * itemSalePrice), 0) cartTotalItemPrice
+		FROM cart c
+		JOIN detailItemOption dio ON c.detailId=dio.detailId
+		JOIN itemOption io ON dio.itemOptionId=io.optionId
+		JOIN item i ON io.itemId=i.itemId
+		WHERE userIdx=#{userIdx}
+	</select>
+	
 	<!-- 쿠폰 -->
 	<select id="readCoupon" parameterType="String" resultType="com.pet.app.shopping.Coupon">
 		SELECT couponNum, couponName, deadline, stock, rate
@@ -137,7 +130,7 @@
 	<!-- 쇼핑몰 등급 -->
 	<select id="readSlevelInfo" parameterType="Long" resultType="com.pet.app.shopping.ShopLevel">
 		SELECT levelName, rate 
-		FROM shoplevel
+		FROM shopLevel
 		<where>
 	    	moneyStart &lt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
 	    	AND

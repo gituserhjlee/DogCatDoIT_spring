@@ -63,67 +63,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void test() throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userIdx", 1);
-		
-		
-		
-		map.put("point", "10000");
-		
-		try {
-			
-			dao.updateData("order.updatePoint", map);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public Order readOrder(long orderIdx) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateState(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteOrder(long orderIdx) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Order> listOrder(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void insertDeliveryInfo(Order dto) throws Exception {
 		try {
 			dao.insertData("order.insertDeliveryInfo", dto);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
-		}
-		
-	}
-	
-	public void insertPayInfo(Order dto) throws Exception {
-		try {
-			dao.insertData("order.insertPayInfo", dto);
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 	}
@@ -141,16 +86,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return dto;
 	}
-
-//	@Override
-//	public void insertWish(Wish wish) throws Exception {
-//		try {
-//			dao.insertData("order.insertWish", wish);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-//	}
 
 	@Override
 	public void insertCart(Cart cart) throws Exception {
@@ -224,6 +159,7 @@ public class OrderServiceImpl implements OrderService {
 		try {
 			dao.deleteData("order.deleteCart", map);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -243,6 +179,7 @@ public class OrderServiceImpl implements OrderService {
 		try {
 			dao.updateData("order.updateCart", cart);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 		
@@ -268,6 +205,17 @@ public class OrderServiceImpl implements OrderService {
 			e.printStackTrace();
 		}
 		return shopLevel;
+	}
+
+	@Override
+	public CartSessionInfo getCartSessionInfo(long userIdx) {
+		CartSessionInfo cInfo = null;
+		try {
+			cInfo = dao.selectOne("order.getCartSessionInfo", userIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cInfo;
 	}
 
 	

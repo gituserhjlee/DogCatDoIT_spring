@@ -343,12 +343,9 @@ function calcTotalPayment() {
 function calcMemberDiscount() {
 	let totalItemPrice = $("input[name=totalItemPrice]").val();
 	let rate = ${slevelInfo.rate};
-	let memberDiscount = totalItemPrice * rate / 100;
+	let memberDiscount = parseInt(totalItemPrice * rate / 100);
 	$(".memberDiscount").text(toLocaleString(memberDiscount));
 	$("input[name=memberDiscount]").val(memberDiscount);
-	console.log(totalItemPrice);
-	console.log(rate);
-	console.log(memberDiscount);
 }
 
 function ajaxFun(url, method, query, dataType, fn){

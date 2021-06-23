@@ -133,6 +133,10 @@ public class OrderControlloer {
 		try {
 			long orderIdx = orderService.insertOrder(dto);
 			dto.setOrderIdx(orderIdx);
+			if(dto.getFrom().equals("cart")) {
+				CartSessionInfo cInfo = orderService.getCartSessionInfo(info.getUserIdx());
+				session.setAttribute("cart", cInfo);
+			}
 		} catch (Exception e) {
 			model.addAttribute("msg", "주문 실패");
 			return ".error.error";
@@ -166,6 +170,8 @@ public class OrderControlloer {
 		String state = "true";
 		try {
 			orderService.insertCart(cart);
+			CartSessionInfo cInfo = orderService.getCartSessionInfo(info.getUserIdx());
+			session.setAttribute("cart", cInfo);
 		} catch (Exception e) {
 			state = "false";
 		}
@@ -206,14 +212,9 @@ public class OrderControlloer {
 		return model;
 	}
 	
-	@RequestMapping("test1")
-	public String test1() throws Exception {
+	@GetMapping("orderList")
+	public String orderList() throws Exception {
 		return ".shopping.orderList";
-	}
-	
-	@RequestMapping("test2")
-	public String test2() throws Exception {
-		return ".shopping.orderDetails";
 	}
 	
 	@RequestMapping("deleteCart")
@@ -233,6 +234,8 @@ public class OrderControlloer {
 		try {
 			orderService.deleteCart(pMap);
 			model.put("state", "true");
+			CartSessionInfo cInfo = orderService.getCartSessionInfo(info.getUserIdx());
+			session.setAttribute("cart", cInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("state", "false");
@@ -257,7 +260,5 @@ public class OrderControlloer {
 		
 		return model;
 	}
-	
-	
 	
 }

@@ -75,7 +75,7 @@
             <exclude-mapping path="/shopping/search/**"/>
             <exclude-mapping path="/uploads/item/**"/>
             <!-- <exclude-mapping path="/myPage/*"/> -->
-            <exclude-mapping path="/order/*"/>
+            <exclude-mapping path="/order/test1"/>
 
             <beans:bean class="com.pet.app.member.LoginCheckInterceptor"/>
         </interceptor>

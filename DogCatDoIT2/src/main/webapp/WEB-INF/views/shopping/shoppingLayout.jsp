@@ -154,16 +154,21 @@
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-6">
-					<div class="header__cart">
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/order/cart"><i class="fa fa-shopping-bag"></i> <span>2</span></a></li>
-						</ul>
-						<div class="header__cart__price">
-							담긴금액: <span>56000원</span>
+				<c:if test="${not empty sessionScope.cart}">
+					<div class="col-lg-6">
+						<div class="header__cart">
+							<ul>
+								<li><a href="${pageContext.request.contextPath}/order/cart"><i class="fa fa-shopping-bag"></i> <span>${sessionScope.cart.cartCount}</span></a></li>
+							</ul>
+							<div class="header__cart__price">
+								담긴금액:
+								<span>
+									<fmt:formatNumber type="number" value="${sessionScope.cart.cartTotalItemPrice}" maxFractionDigits="3"/> 원
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 			<div class="humberger__open">
 				<i class="fa fa-bars"></i>

@@ -37,6 +37,11 @@
                                 <li><a href="${pageContext.request.contextPath}/myPage/written">내가 쓴 글</a></li>
                                 <li><a href="${pageContext.request.contextPath}/talk/receive/list">쪽지함</a></li>
                                 <li><a href="${pageContext.request.contextPath}/myPage/attendance">출석체크</a></li>
+                                <li>
+                                	<c:if test="${sessionScope.member.userId=='admin'}">
+                                		<a href="${pageContext.request.contextPath}/cAdmin/main">관리자페이지</a>
+                                	</c:if>
+                                </li>
                             </ul>
                         </li>
                     </ul>

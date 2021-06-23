@@ -27,4 +27,44 @@ public enum OrderStateCode {
 	public int getCode() {
 		return code;
 	}
+	
+	public static String codeToState(int code) {
+		String result = "";
+		switch (code) {
+		case 1:
+			result = "주문완료";
+			break;
+		case 2:
+			result = "주문취소";
+			break;
+		case 3:
+			result = "결제완료";
+			break;
+		case 4:
+			result = "배송준비";
+			break;
+		case 5:
+			result = "배송출발";
+			break;
+		case 6:
+			result = "구매확정";
+			break;
+		case 7:
+			result = "환불신청";
+			break;
+		case 8:
+			result = "환불완료";
+			break;
+		case 9:
+			result = "교환신청";
+			break;
+		case 10:
+			result = "교환완료";
+			break;
+		default:
+			result = "기타";
+			break;
+		}
+		return result;
+	}
 }

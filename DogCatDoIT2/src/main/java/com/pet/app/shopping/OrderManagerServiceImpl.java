@@ -29,6 +29,9 @@ public class OrderManagerServiceImpl implements OrderManagerService {
 		List<Order> listOrder = null;
 		try {
 			listOrder = dao.selectList("orderManager.listOrder", paramMap);
+			for(Order dto : listOrder) {
+				dto.setStateName(OrderStateCode.codeToState(dto.getState()));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -34,6 +34,6 @@ public interface OrderService {
 	public Coupon readCoupon(String couponName);
 	
 	// 쇼핑몰등급
-	public ShopLevel readSlevelInfo(int slevel);
+	public ShopLevel readSlevelInfo(long userIdx);
 	
 }

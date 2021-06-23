@@ -7,6 +7,7 @@ public class Order {
 	private long orderIdx; // 주문번호
 	private long userIdx; // 유저번호
 	private int state; // 주문상태
+	private String stateName;
 	private String order_date; // 주문날짜
 	private int totalItemPrice; // 총 상품금액
 	private int deliveryPrice; // 배송금액
@@ -45,6 +46,14 @@ public class Order {
 	
 	// 쿠폰 정보
 	private String couponName;
+	
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
 
 	public long getOrderIdx() {
 		return orderIdx;

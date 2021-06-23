@@ -65,7 +65,7 @@ public class OrderControlloer {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		Member mdto = memberService.readMember(info.getUserId());
 		mdto = shopUtil.transformTelAddr(mdto);
-		ShopLevel slevelInfo = orderService.readSlevelInfo(info.getSlevel());
+		ShopLevel slevelInfo = orderService.readSlevelInfo(info.getUserIdx());
 		
 		model.addAttribute("slevelInfo", slevelInfo);
 		model.addAttribute("itemList", itemList);
@@ -84,7 +84,7 @@ public class OrderControlloer {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		Member mdto = memberService.readMember(info.getUserId());
 		mdto = shopUtil.transformTelAddr(mdto);
-		ShopLevel slevelInfo = orderService.readSlevelInfo(info.getSlevel());
+		ShopLevel slevelInfo = orderService.readSlevelInfo(info.getUserIdx());
 		
 		List<OrderDetail> itemList = null;
 		itemList = orderService.listItemInCart(cartIdx);
@@ -151,15 +151,6 @@ public class OrderControlloer {
 		return ".shopping.complete";
 	}
 	
-	@RequestMapping("wishlist")
-	public String wish(HttpSession session) throws Exception {
-		
-//		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		
-		return "shopping/jjim";
-	}
-	
 	@RequestMapping(value = "insertCart", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertCart(
@@ -217,8 +208,12 @@ public class OrderControlloer {
 	
 	@RequestMapping("test1")
 	public String test1() throws Exception {
-		
-		return ".shopping.admin.orderManager";
+		return ".shopping.orderList";
+	}
+	
+	@RequestMapping("test2")
+	public String test2() throws Exception {
+		return ".shopping.orderDetails";
 	}
 	
 	@RequestMapping("deleteCart")

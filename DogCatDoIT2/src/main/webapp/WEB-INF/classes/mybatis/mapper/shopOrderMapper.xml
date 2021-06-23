@@ -135,9 +135,20 @@
 	</update>
 	
 	<!-- 쇼핑몰 등급 -->
-	<select id="readSlevelInfo" parameterType="Integer" resultType="com.pet.app.shopping.ShopLevel">
-		SELECT levelId, levelName, moneyStart, moneyEnd, rate
-		FROM shopLevel
-		WHERE levelId=#{slevel}
+	<select id="readSlevelInfo" parameterType="Long" resultType="com.pet.app.shopping.ShopLevel">
+		SELECT levelName, rate 
+		FROM shoplevel
+		<where>
+	    	moneyStart &lt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
+	    	AND
+	    	moneyEnd &gt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
+    	</where>
 	</select>
+	
+	<!-- 포인트 내역 저장 -->
+	<insert id="insertPointHistory" parameterType="map">
+	 	INSERT INTO pointHistory (pointNum, userId, amount, by_what, get_date) 
+		VALUES (pointHistory_seq.NEXTVAL, (SELECT userId FROM member WHERE userIdx=#{userIdx}), #{amount}, #{by_what}, SYSDATE)
+	</insert>
+	
 </mapper>

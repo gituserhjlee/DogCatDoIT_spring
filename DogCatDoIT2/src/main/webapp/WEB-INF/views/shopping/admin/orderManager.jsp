@@ -13,13 +13,19 @@
 	opacity: 0.3;
 }
 .modal-dialog {
-	max-width: 800px;
+	max-width: 1000px;
 }
 .table {
 	margin-bottom: 30px;
 }
 .gray {
 	background: #eee;
+}
+.display-none {
+	display: none;
+}
+.listOrderPaging {
+	padding-bottom: 30px;
 }
 </style>
 
@@ -139,7 +145,7 @@ $(function() {
 	$("body").on('click',".detailBtn",function() {
 		let orderIdx = $(this).attr("data-orderIdx");
 		loadModal(orderIdx);
- 		$('#testModal').modal('show');
+ 		$('#detailModal').modal('show');
 	});
 });
 
@@ -189,6 +195,7 @@ function printOrderInfo(data) {
 		out += "<td class='text-center'>" + optionName + " / " + detailName + "</td>";
 		out += "<td class='text-center'>" + count + "</td>";
 		out += "<td class='text-center'>" + toLocaleString(totalPrice) + "</td>";
+		out += "</tr>";
 	}
 	
 	$(".listOrderDetailResult").html(out);
@@ -210,6 +217,15 @@ function printData(data, name) {
 }
 
 function setState(state) {
+	if(state==6) {
+		$(".stateChangeContainer").addClass("display-none");
+		$(".stateOrderComplete").removeClass("display-none");
+		return;
+	}
+	
+	$(".stateChangeContainer").removeClass("display-none");
+	$(".stateOrderComplete").addClass("display-none");
+	
 	$("select[name=m-state] option")
 		.filter(function() {
 			return $(this).val()==state;
@@ -218,7 +234,6 @@ function setState(state) {
 }
 
 $("body").on("click",".stateBtn", function() {
-	console.log("클릭");
 	let url = "${pageContext.request.contextPath}/ordermanager/updateState";
 	let orderIdx = $(this).attr("data-orderIdx");
 	let state = $("select[name=m-state] option")
@@ -345,8 +360,8 @@ $("body").on("click",".stateBtn", function() {
 </div>
 
 
-			<!-- modal -->
-<div class="modal" tabindex="-1" id="testModal" data-backdrop="static" data-keyboard="false">
+<!-- modal -->
+<div class="modal" tabindex="-1" id="detailModal" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog">
 	    <div class="modal-content">
 	     	 <div class="modal-header">
@@ -370,7 +385,7 @@ $("body").on("click",".stateBtn", function() {
 	      	 		<tr>
 	      	 			<td class="gray">주문상태</td>
 	      	 			<td colspan="3">
-	      	 				<div class="row">
+	      	 				<div class="row stateChangeContainer">
 	      	 					<div class="col-5">
 			      	 				<select class="form-control" name="m-state">
 			      	 					<option value="1" disabled="disabled">주문완료 (고객)</option>
@@ -388,6 +403,9 @@ $("body").on("click",".stateBtn", function() {
 	      	 					<div class="col">
 			      	 				<button type="button" class="btn stateBtn" data-orderIdx="">주문상태 수정완료</button>
 	      	 					</div>
+	      	 				</div>
+	      	 				<div class="stateOrderComplete display-none">
+	      	 					<h1><span class="badge badge-lg bg-success">구매확정</span></h1>
 	      	 				</div>
 	      	 			</td>
 	      	 		</tr>

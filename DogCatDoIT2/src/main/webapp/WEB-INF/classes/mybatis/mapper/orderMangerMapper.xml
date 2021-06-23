@@ -15,7 +15,7 @@
 		</if>
 	</sql>
 	<sql id="where-list2">
-		order_date BETWEEN TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD')
+		order_date BETWEEN TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD')+0.99999
 	</sql>
 
 	<select id="listOrder" parameterType="map" resultType="com.pet.app.shopping.Order">
@@ -30,8 +30,11 @@
 			<if test="sDate != null and eDate != null">
 				<include refid="where-list2"/>
 			</if>
+			<if test="userIdx != null">
+				m.userIdx=#{userIdx}
+			</if>
 		</where>
-		ORDER BY orderIdx ASC
+		ORDER BY orderIdx ${orderBy}
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
@@ -47,12 +50,15 @@
 			<if test="sDate != null and eDate != null">
 				<include refid="where-list2"/>
 			</if>
+			<if test="userIdx != null">
+				m.userIdx=#{userIdx}
+			</if>
 		</where>
 	</select>
 	
 	<select id="readOrder" parameterType="Long" resultType="com.pet.app.shopping.Order">
 		SELECT
-			so.orderIdx, orderName, state, name orName, tel orTel, totalItemPrice, deliveryPrice, 
+			so.orderIdx, orderName, state, order_date, name orName, tel orTel, totalItemPrice, deliveryPrice, 
 			totalPayment, totalDiscount, orderMemo, diName, diTel, diAddr1, diAddr2, diZip
 		FROM shopOrder so
 		JOIN member m ON so.userIdx=m.userIdx
@@ -62,7 +68,8 @@
 	
 	<select id="listOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
 		SELECT    
-		    itemName, optionName, detailName, qty count, totalPrice, it.itemId, io.optionId, dio.detailId
+		    so.orderIdx ,sodIdx ,itemName, optionName, detailName, itemSalePrice, qty count, totalPrice, 
+		    it.itemId, io.optionId, dio.detailId, saveFilename
 		FROM shopOrder so
 		JOIN shopOrderDetail sod ON so.orderIdx=sod.orderIdx
 		JOIN detailItemOption dio ON sod.detailId=dio.detailId
@@ -75,5 +82,7 @@
 		UPDATE shopOrder SET state=#{state}
 		WHERE orderIdx=#{orderIdx}
 	</update>
+	
+	
 	
 </mapper>

@@ -40,6 +40,9 @@ public class OrderServiceImpl implements OrderService {
 				map.put("operation", "minus");
 				map.put("point", dto.getPointDiscount());
 				dao.updateData("member.updatePoint", map);
+				map.put("amount", -1 * dto.getPointDiscount());
+				map.put("by_what", "상품 구매 (포인트 사용)");
+				dao.insertData("order.insertPointHistory", map);
 			}
 			
 			// 상품 재고 차감
@@ -50,8 +53,6 @@ public class OrderServiceImpl implements OrderService {
 			// 쿠폰 차감
 			if(dto.getCouponName() != null)
 				dao.updateData("order.couponStockDown", dto.getCouponName());
-			
-			// 회원 등급 확인 & 업데이트
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -259,10 +260,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ShopLevel readSlevelInfo(int slevel) {
+	public ShopLevel readSlevelInfo(long userIdx) {
 		ShopLevel shopLevel = null;
 		try {
-			shopLevel = dao.selectOne("order.readSlevelInfo", slevel);
+			shopLevel = dao.selectOne("order.readSlevelInfo", userIdx);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

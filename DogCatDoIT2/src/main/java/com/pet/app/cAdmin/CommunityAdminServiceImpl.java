@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.pet.app.common.dao.CommonDAO;
 import com.pet.app.myPage.Qualification;
+import com.pet.app.shopping.Order;
 
 @Service("cAdmin.communityAdminService")
 public class CommunityAdminServiceImpl implements CommunityAdminService{
@@ -106,10 +107,10 @@ public class CommunityAdminServiceImpl implements CommunityAdminService{
 	}
 	
 	@Override
-	public int requestCount() {
+	public int requestCount(Map<String, Object> map) {
 		int requestCount = 0;
 		try {
-			requestCount = dao.selectOne("cAdmin.requestCount");
+			requestCount = dao.selectOne("cAdmin.requestCount", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -145,5 +146,16 @@ public class CommunityAdminServiceImpl implements CommunityAdminService{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public List<Order> listOrder(long userIdx) {
+		List<Order> list = null;
+		try {
+			list = dao.selectList("cAdmin.listOrder", userIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

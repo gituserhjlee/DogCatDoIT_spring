@@ -12,7 +12,7 @@ import com.pet.app.common.dao.CommonDAO;
 @Service("company.companyService")
 public class CompanyServiceImpl implements CompanyService{
 	@Autowired
-	private CommonDAO  dao;
+	private CommonDAO dao;
 	
 	@Autowired
 	private FileManager fileManager;
@@ -27,7 +27,7 @@ public class CompanyServiceImpl implements CompanyService{
 				dto.setOriginalFilename(dto.getUpload().getOriginalFilename());
 			}
 			
-			dao.insertData("company.insertBoard", dto);
+			dao.insertData("company.insertCompany", dto);
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -77,7 +77,6 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public void updateHitCount(int boardnum) throws Exception {
 		try{
-			// 조회수 증가
 			dao.updateData("bbs.updateHitCount", boardnum);
 			
 		} catch(Exception e) {

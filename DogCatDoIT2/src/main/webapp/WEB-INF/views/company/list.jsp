@@ -91,7 +91,7 @@ function searchList() {
                                         <li><i class="far fa-calendar"></i><a href="#">${dto.created}</a></li>
                                         <li><i class="far fa-eye"></i> ${dto.hitCount}</li>
                                     </ul>
-                                    <h5 class="title"><a href="${articleUrl}&num=${dto.num}">${dto.subject}</a></h5>
+                                    <h5 class="title"><a href="${articleUrl}&boardnum=${dto.boardnum}">${dto.subject}</a></h5>
                                 </div>
                             </div>
                         </div>

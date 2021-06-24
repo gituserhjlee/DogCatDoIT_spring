@@ -20,7 +20,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/se/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
     function check() {
-        var f = document.boardForm;
+        var f = document.companyForm;
 
     	var str = f.subject.value;
         if(!str) {

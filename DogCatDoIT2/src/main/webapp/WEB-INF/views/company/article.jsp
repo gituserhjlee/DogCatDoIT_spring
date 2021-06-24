@@ -56,7 +56,7 @@ $(function(){
 		}
 		
 		var url="${pageContext.request.contextPath}/company/insertCompanyLike";
-		var num="${dto.boardnum}";
+		var boardnum="${dto.boardnum}";
 		var query="boardnum="+boardnum;
 		
 		var fn = function(data){
@@ -65,7 +65,7 @@ $(function(){
 				var count = data.companyLikeCount;
 				$("#companyLikeCount").text(count);
 			} else if(state==="false") {
-				alert("게시글 공감은 한번만 가능합니다. !!!");
+				alert("게시글 추천은 한번만 가능합니다. !!!");
 			}
 		};
 		
@@ -193,10 +193,10 @@ $(function(){
                             </span>
                             <a href="#reviews" class="review-link">(<span class="count">3</span> 리뷰)</a>
                         </div>
-                        <h3 class="product-title">독캣 바버샵</h3>
+                        <h3 class="product-title">${dto.subject}</h3>
                         <div class="product-price">50,000₩</div>
                         <div class="product-description">
-                            <p>100% 예약제로 운영되는 통유리 오픈형 반려동물 미용실 독캣 바버샵입니다. 소중한 가족과 교감하며 미용 스트레스 최소화를 지향합니다.</p>
+                            ${dto.content}
                         </div>
                         <div class="group-product-list">
                             <span class="info-text">독캣 바버샵 전용 오프라인 쿠폰을 지참하시면 <span class="text-primary">10%</span> 할인 적용 가능합니다.</span>
@@ -345,6 +345,7 @@ $(function(){
                     </div>
                 </div>
                 <div class="tab-pane fade" id="tab-reviews">
+                	<!-- <div id="listReply"></div> --> 
                     <div class="product-review-wrapper">
                         <span class="title">3개의 독캣 바버샵 이용 후기</span>
                         <ul class="product-review-list">
@@ -414,7 +415,7 @@ $(function(){
                                         </div>
                                     </div>
                                     <div class="col-12 learts-mb-30"><textarea placeholder="후기 작성 *"></textarea></div>
-                                    <div class="col-12 text-center learts-mb-30"><button class="btn btn-dark btn-outline-hover-dark">등록하기</button></div>
+                                    <div class="col-12 text-center learts-mb-30"><button class="btn btn-dark btn-outline-hover-dark btnSendReview">등록하기</button></div>
                                 </div>
                             </form>
                         </div>
@@ -470,6 +471,22 @@ $(function(){
         </div>
     </div>
     <!-- Contact Information & Map Section End -->
-
+	<c:choose>
+						<c:when test="${sessionScope.member.userId==dto.userId}">
+			    			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/company/update?boardnum=${dto.boardnum}&page=${page}';">수정</button>
+			    		</c:when>
+			    		<c:otherwise>
+			    			<button type="button" class="btn" disabled="disabled">수정</button>
+			    		</c:otherwise>
+			    	</c:choose>
+			    	
+			    	<c:choose>
+			    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
+			    			<button type="button" class="btn" onclick="deleteCompany();">삭제</button>
+			    		</c:when>
+			    		<c:otherwise>
+			    			<button type="button" class="btn" disabled="disabled">삭제</button>
+			    		</c:otherwise>
+			    	</c:choose>
 </body>
 </html>

@@ -30,7 +30,7 @@ $(function () {
 			<li>
 				<span id="shoppingMenu" style="cursor: pointer">쇼핑</span>
 				<ul style="list-style: none; display: none;" id="shopping">
-					<li><a href="${pageContext.request.contextPath}/ordermanager/orderList">구매내역</a></li>
+					<li><a href="${pageContext.request.contextPath}/order/orderList">구매내역</a></li>
 					<li><a href="${pageContext.request.contextPath}/order/cart">장바구니</a></li>
 				</ul>
 			</li>

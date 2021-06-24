@@ -24,14 +24,14 @@
 		JOIN member m ON so.userIdx=m.userIdx
 		JOIN deliveryInfo di ON so.orderIdx=di.orderIdx
 		<where>
-			<if test="keyword != null and keyword != ''">
-				<include refid="where-list1"/>
-			</if>
 			<if test="sDate != null and eDate != null">
 				<include refid="where-list2"/>
 			</if>
+			<if test="keyword != null and keyword != ''">
+				AND <include refid="where-list1"/>
+			</if>
 			<if test="userIdx != null">
-				m.userIdx=#{userIdx}
+				AND m.userIdx=#{userIdx}
 			</if>
 		</where>
 		ORDER BY orderIdx ${orderBy}

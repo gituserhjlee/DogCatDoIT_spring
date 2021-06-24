@@ -204,6 +204,7 @@ function printList(data) {
 	
 	let out = "";
 	let listNum = parseInt(offset) + parseInt(0);
+	const stateArr = [4,5];
 	for(let idx=0; idx< data.listOrder.length; idx++) {
 		let orderIdx = data.listOrder[idx].orderIdx;
 		let order_date = data.listOrder[idx].order_date;
@@ -211,16 +212,15 @@ function printList(data) {
 		let state = data.listOrder[idx].state;
 		let stateName = data.listOrder[idx].stateName;
 		out += "<tr>";
-		out += "<td>"+ (++listNum) +"</td>"
-		out += "<td>"+ order_date +"</td>"
-		out += "<td>"+ orderName +"</td>"
-		out += "<td>"+ orderIdx +"</td>"
-		out += "<td style='color: #007FC8;'>"+ stateName +"</td>"
-		if(state==6 || state==8) {
-			out += "<td><button type='button' class='btn confirmBtn display-none' data-orderIdx='"+ orderIdx +"'>구매확정</button></td>";
-		} else {
-			out += "<td><button type='button' class='btn confirmBtn' data-orderIdx='"+ orderIdx +"' data-pageNo='"+ page +"'>구매확정</button></td>";
-		}
+		out += "<td>"+ (++listNum) +"</td>";
+		out += "<td>"+ order_date +"</td>";
+		out += "<td>"+ orderName +"</td>";
+		out += "<td>"+ orderIdx +"</td>";
+		out += "<td style='color: #007FC8;'>"+ stateName +"</td>";
+		out += "<td><button type='button' class='btn confirmBtn "; 
+		if(stateArr.indexOf(state) < 0)
+			out += "display-none";
+		out += "' data-orderIdx='"+ orderIdx +"'>구매확정</button></td>";
 		out += "<td><button type='button' class='btn detailBtn' data-orderIdx='"+ orderIdx +"'>상세</button></td>";
 		out += "</tr>";
 		
@@ -232,7 +232,7 @@ function printList(data) {
 // 구매확정 버튼 이벤트
 $("body").on("click", ".confirmBtn", function() {
 	let orderIdx = $(this).attr("data-orderIdx");
-	let pageNo = $(this).attr("data-pageNo");
+	let pageNo = $(".page").text();
 	let state = 6;
 	let url = "${pageContext.request.contextPath}/ordermanager/updateState";
 	let query = "orderIdx="+orderIdx+"&state="+state;
@@ -258,7 +258,6 @@ function loadModal(orderIdx) {
 	let url = "${pageContext.request.contextPath}/ordermanager/orderInfo";
 	let query = "orderIdx="+orderIdx;
 	let fn = function(data) {
-		console.log(data);
 		printOrderInfo(data);
 	};
 	
@@ -313,7 +312,7 @@ function printOrderInfo(data) {
 	let state = data.order.state;
 	setControlBtns(state);
 	let orderIdx = data.order.orderIdx;
-	$(".btn-control").attr("data-orderIdx",orderIdx);
+	$("#detailModal").attr("data-orderIdx",orderIdx);
 }
 
 function printData(data, name) {
@@ -345,7 +344,29 @@ function setControlBtns(state) {
 }
 
 // 버튼 이벤트들
-// r구현 어케 할래~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function changeState(obj) {
+	let orderIdx = $("#detailModal").attr("data-orderIdx");
+	let pageNo = $(".page").text();
+	let state = obj.getAttribute("data-state");
+	console.log(orderIdx);
+	console.log(pageNo);
+	console.log(state);
+	let url = "${pageContext.request.contextPath}/ordermanager/updateState";
+	let query = "orderIdx="+orderIdx+"&state="+state;
+	let fn = function(data) {
+		if(data.flag=="false") {
+			alert(data.stateName + "완료");
+			return;
+		} 
+
+		alert(data.stateName + "완료");
+		$("#detailModal").modal("hide");
+		listPage(pageNo);
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+	
+}
 
 
 </script>
@@ -388,7 +409,7 @@ function setControlBtns(state) {
 </div>
 
 <!-- modal -->
-<div class="modal" tabindex="-1" id="detailModal">
+<div class="modal" tabindex="-1" id="detailModal" data-orderIdx="">
 	<div class="modal-dialog">
 	    <div class="modal-content">
 	     	 <div class="modal-header">
@@ -468,9 +489,9 @@ function setControlBtns(state) {
       	 		</table>
       	 		
       	 		<div align="center">
-      	 			<button type="button" class="btn orderCancelBtn btn-control gray" data-orderIdx="">주문취소</button>
-      	 			<button type="button" class="btn exchangeApplyBtn btn-control gray" data-orderIdx="">교환신청</button>
-      	 			<button type="button" class="btn refundApplyBtn btn-control gray" data-orderIdx="">환불신청</button>
+      	 			<button type="button" class="btn orderCancelBtn btn-control gray" data-state="2" onclick="changeState(this)">주문취소</button>
+      	 			<button type="button" class="btn exchangeApplyBtn btn-control gray" data-state="9" onclick="changeState(this)">교환신청</button>
+      	 			<button type="button" class="btn refundApplyBtn btn-control gray" data-state="7" onclick="changeState(this)">환불신청</button>
       	 		</div>
 				
 	     	 </div>

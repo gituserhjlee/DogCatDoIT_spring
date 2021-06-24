@@ -52,13 +52,18 @@ public class OrderManagerServiceImpl implements OrderManagerService {
 	}
 
 	@Override
-	public void updateState(Map<String, Object> paramMap) throws Exception {
+	public String updateState(Map<String, Object> paramMap) throws Exception {
+		String stateName = "";
 		try {
 			dao.updateData("orderManager.updateState", paramMap);
+			
+			int state = (int)paramMap.get("state");
+			stateName = OrderStateCode.codeToState(state);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
+		return stateName;
 	}
 	
 	

@@ -9,6 +9,6 @@ public interface OrderManagerService {
 	
 	public Order readOrder(long orderIdx);
 	
-	public void updateState(Map<String, Object> paramMap) throws Exception;
+	public String updateState(Map<String, Object> paramMap) throws Exception;
 	
 }

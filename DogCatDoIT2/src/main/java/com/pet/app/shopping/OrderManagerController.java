@@ -87,16 +87,17 @@ public class OrderManagerController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("orderIdx", orderIdx);
 		paramMap.put("state", state);
-		
+		String stateName = "";
 		String flag = "true";
 		try {
-			service.updateState(paramMap);
+			stateName = service.updateState(paramMap);
 		} catch (Exception e) {
 			flag = "false";
 		}
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("flag", flag);
+		model.put("stateName", stateName);
 		return model;
 	}
 	

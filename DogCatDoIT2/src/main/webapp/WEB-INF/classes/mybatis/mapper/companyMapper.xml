@@ -63,7 +63,7 @@
 	<select id="readCompany" parameterType="Integer" resultType="com.pet.app.company.Company">
 		SELECT b.boardnum, b.userId, subject, content,
 			   hitCount, b.created,  saveFilename, originalFilename,
-			   NVL(boardLikeCount, 0) boardLikeCount
+			   NVL(companyboardLikeCount, 0) companyboardLikeCount
 		FROM companyboard b
 		JOIN member m ON b.userId=m.userId
 		LEFT OUTER JOIN (

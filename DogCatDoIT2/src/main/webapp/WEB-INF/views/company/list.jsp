@@ -84,14 +84,19 @@ function searchList() {
                         <div class="col-md-6 col-12 learts-mb-40">
                             <div class="blog">
                                 <div class="image">
+                                	<c:forEach var="dto" items="${list}">
                                     <a href="blog-details-right-sidebar.html"><img src="${pageContext.request.contextPath}/company/download?boardnum=${dto.boardnum}" alt="Blog Image"></a>
+                                	</c:forEach>
                                 </div>
                                 <div class="content">
-                                    <ul class="meta">
+                                	<c:forEach var="dto" items="${list}">
+                                	<ul class="meta">
                                         <li><i class="far fa-calendar"></i><a href="#">${dto.created}</a></li>
                                         <li><i class="far fa-eye"></i> ${dto.hitCount}</li>
                                     </ul>
                                     <h5 class="title"><a href="${articleUrl}&boardnum=${dto.boardnum}">${dto.subject}</a></h5>
+                                	</c:forEach>
+                                    
                                 </div>
                             </div>
                         </div>

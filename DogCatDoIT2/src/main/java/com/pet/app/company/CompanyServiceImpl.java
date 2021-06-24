@@ -77,7 +77,7 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public void updateHitCount(int boardnum) throws Exception {
 		try{
-			dao.updateData("bbs.updateHitCount", boardnum);
+			dao.updateData("company.updateHitCount", boardnum);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -351,13 +351,36 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	// 포인트 내역 리스트
 	@Override
-	public List<PointHistory> readPointHistory(Map<String, Object> map){
+	public List<PointHistory> readPointHistory(String userId){
 		List<PointHistory> list = null;
 		try {
-			list = dao.selectList("myPage.readPointHistory", map);
+			list = dao.selectList("myPage.readPointHistory", userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	// 포인트
+	@Override
+	public int readPoint(String userId) {
+		int result = 0;
+		try {
+			result = dao.selectOne("myPage.readPoint", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 출석 포인트 지급
+	@Override
+	public void updateAttendancePoint(String userId) throws Exception {
+		try {
+			dao.updateData("myPage.attendancePoint", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }

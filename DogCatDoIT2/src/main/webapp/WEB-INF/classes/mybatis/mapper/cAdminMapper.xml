@@ -4,12 +4,22 @@
 <mapper namespace="cAdmin">
 	<!-- 회원 리스트 -->
 	<select id="listMember" parameterType="map" resultType="com.pet.app.cAdmin.Member">
-		SELECT userIdx, m.userId, name, reg_date, email, tel, qualificationName, point, clevel, slevel
+		SELECT m.userIdx, m.userId, name, reg_date, email, tel, qualificationName, point, clevel
 		FROM member m
 		JOIN qualification q ON q.userId = m.userId
 		WHERE m.userId != 'admin'
 		ORDER BY reg_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<!-- 쇼핑몰 등급 -->
+	<select id="readSlevel" parameterType="Long" resultType="String">
+		SELECT levelName FROM shoplevel
+		<where>
+	    	moneyStart &lt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
+	    	AND
+	    	moneyEnd &gt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
+    	</where>
 	</select>
 	
 	<!-- 회원 수 -->

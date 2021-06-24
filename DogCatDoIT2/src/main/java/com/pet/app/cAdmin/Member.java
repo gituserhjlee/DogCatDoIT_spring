@@ -14,7 +14,7 @@ public class Member {
 	private String qualificationName;
 	private Long point;
 	private Long clevel;
-	private Long slevel;
+	private String levelName;
 	
 	public int getListNum() {
 		return listNum;
@@ -130,10 +130,10 @@ public class Member {
 	public void setClevel(Long clevel) {
 		this.clevel = clevel;
 	}
-	public Long getSlevel() {
-		return slevel;
+	public String getLevelName() {
+		return levelName;
 	}
-	public void setSlevel(Long slevel) {
-		this.slevel = slevel;
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
 	}
 }

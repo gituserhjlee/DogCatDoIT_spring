@@ -85,7 +85,12 @@ public class MyPageController {
 			}
 			service.insertAttendance(userId);
 			count = service.countAttendance(userId);
-			
+			service.updateAttendancePoint(userId);
+			PointHistory ph = new PointHistory();
+			ph.setAmount(50);
+			ph.setBy_what("출석체크");
+			ph.setUserId(userId);
+			service.insertPointHistory(ph);
 		} catch (Exception e) {
 			e.printStackTrace();
 			state = "false";
@@ -609,13 +614,16 @@ public class MyPageController {
 		map.put("userId", userId);
 		
 		List<PointHistory> list = null;
+		int point = 0;
 		try {
-			list=service.readPointHistory(map);
+			point = service.readPoint(userId);
+			list=service.readPointHistory(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("list", list);
+		model.addAttribute("point", point);
 		
 		return ".myPage.point";
 	}

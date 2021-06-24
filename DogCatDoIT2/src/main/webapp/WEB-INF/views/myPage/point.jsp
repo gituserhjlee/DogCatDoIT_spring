@@ -5,14 +5,11 @@
 <div style="width: 800px; min-height: 800px; float: left;">
 	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			<h4>포인트</h4>
+			<h4 style="margin-bottom: 30px;">포인트</h4>
 		</div>
 		<div>
-			<p>내 포인트 : </p>
-		</div>
-		<div>
-			<p>포인트 내역</p>
-			<p>
+			<span>내 포인트 : ${point}</span>
+			<span style="float: right; display: inline-block;">
 				조회기간
 				<select>
 					<option>기간</option>
@@ -21,20 +18,21 @@
 					<option>6개월</option>
 					<option>1년</option>
 				</select>
-			</p>
-			<table>
-				<tr>
-					<td>번호</td>
-					<td>금액</td>
-					<td>내용</td>
-					<td>일자</td>
+			</span>
+			
+			<table style="clear: both; margin-top: 20px;">
+				<tr style="font-weight: bold; border-bottom: 0.5px solid #eee; border-top: 0.5px solid #eee;" height="40">
+					<td width="100" align="center">번호</td>
+					<td width="150" align="center">금액</td>
+					<td width="250" align="center">내용</td>
+					<td width="200" align="center">일자</td>
 				</tr>
 				<c:forEach var="dto" items="${list}">
-					<tr>
-						<td>번호</td>
-						<td>${dto.amount}</td>
-						<td>${dto.by_what}</td>
-						<td>${get_date}</td>
+					<tr height="40">
+						<td align="center">번호</td>
+						<td align="center">${dto.amount}</td>
+						<td align="center">${dto.by_what}</td>
+						<td align="center">${dto.get_date}</td>
 					</tr>
 				</c:forEach>
 			</table>

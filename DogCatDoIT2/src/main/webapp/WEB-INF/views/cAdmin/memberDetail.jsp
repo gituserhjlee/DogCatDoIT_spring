@@ -5,10 +5,10 @@
 
 <table style="margin: 10px auto 20px; width: 100%; border-spacing: 1px; background: #ccc">
 	<tr height="37" style="background: #fff;">
-		<td align="right" width="15%" style="padding-right: 7px;"><label style="font-weight: 900;">회원번호</label></td>
-		<td align="left" width="35%" style="padding-left: 5px;"><span>${dto.userIdx}</span></td>
-		<td align="right" width="15%" style="padding-right: 7px;"><label style="font-weight: 900;">아이디</label></td>
-		<td align="left" width="35%" style="padding-left: 5px;"><span>${dto.userId}</span></td>
+		<td align="right" width="18%" style="padding-right: 7px;"><label style="font-weight: 900;">회원번호</label></td>
+		<td align="left" width="32%" style="padding-left: 5px;"><span>${dto.userIdx}</span></td>
+		<td align="right" width="18%" style="padding-right: 7px;"><label style="font-weight: 900;">아이디</label></td>
+		<td align="left" width="32%" style="padding-left: 5px;"><span>${dto.userId}</span></td>
 	</tr>
 	<tr height="37" style="background: #fff;">
 		<td align="right" style="padding-right: 9px;"><label style="font-weight: 900;">이름</label></td>
@@ -32,9 +32,9 @@
 	
 	<tr height="37" style="background: #fff;">
 		<td align="right" style="padding-right: 9px;"><label style="font-weight: 900;">커뮤니티 등급</label></td>
-		<td align="left" style="padding-left: 5px;"><span>${dto.clevel}</span></td>
+		<td align="left" style="padding-left: 5px;"><span><c:set var="b">${dto.clevel}</c:set>${map[b]}</span></td>
 		<td align="right" style="padding-right: 9px;"><label style="font-weight: 900;">쇼핑몰 등급</label></td>
-		<td align="left" style="padding-left: 5px;"><span>${dto.slevel}</span></td>
+		<td align="left" style="padding-left: 5px;"><span>${dto.levelName}</span></td>
 	</tr>
 </table>
 
@@ -43,8 +43,8 @@
 	
 	<table style="margin: 5px auto 0; width: 100%; border-spacing: 1px; background: #ccc">
 		<tr height="37" style="background: #fff;">
-			<td align="right" width="15%" style="padding-right: 9px;"><label style="font-weight: 900;">커뮤니티 등급</label></td>
-			<td style="padding-left: 5px;">
+			<td align="right" width="18%" style="padding-right: 9px;"><label style="font-weight: 900;">커뮤니티 등급</label></td>
+			<td style="padding-left: 5px;" width="32%">
 				<select class="selectField" id="clevel" name="clevel" onchange="selectClevelChange()">
 					<option value="">커뮤니티 등급</option>
 					<option value="0" ${dto.clevel==0? "selected='selected'":""}>0</option>
@@ -54,8 +54,8 @@
 					<option value="4" ${dto.clevel==4? "selected='selected'":""}>4</option>
 				</select>
 			</td>
-			<td align="right" width="15%" style="padding-right: 9px;"><label style="font-weight: 900;">포인트 수정</label></td>
-			<td style="padding-left: 5px;">
+			<td align="right" width="18%" style="padding-right: 9px;"><label style="font-weight: 900;">포인트 수정</label></td>
+			<td style="padding-left: 5px;" width="32%">
 				<input type="text" name="point" value="${dto.point}">
 			</td>
 		</tr>
@@ -68,5 +68,3 @@
 게시글 내역
 <h3 style="font-size: 15px;">쇼핑 내역</h3>
 쇼핑 내역
-<h3 style="font-size: 15px;">신고 내역</h3>
-신고 내역

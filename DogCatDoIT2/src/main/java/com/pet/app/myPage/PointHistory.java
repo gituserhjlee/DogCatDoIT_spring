@@ -3,7 +3,7 @@ package com.pet.app.myPage;
 public class PointHistory {
 	private int pointNum;
 	private String userId;
-	private int amount;
+	private long amount;
 	private String by_what;
 	private String get_date;
 	
@@ -19,10 +19,10 @@ public class PointHistory {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getAmount() {
+	public long getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 	public String getBy_what() {

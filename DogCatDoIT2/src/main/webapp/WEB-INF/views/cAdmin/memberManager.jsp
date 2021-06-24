@@ -2,7 +2,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <style type="text/css">
 .hover-tr:hover {
 	cursor: pointer;
@@ -124,8 +123,6 @@ function selectClevelChange() {
 </script>
 
 <main>
-	<h1>Admin Page</h1>
-	
 	<div class="body-container">
 	    <div class="body-title">
 			<h2> 회원 관리 </h2>
@@ -156,11 +153,10 @@ function selectClevelChange() {
 					<th style="width: 100px; color: #787878;">이름</th>
 					<th style="width: 200px; color: #787878;">전화번호</th>
 					<th style="width: 130px; color: #787878;">자격정보</th>
-					<th style="width: 220px; color: #787878;">커뮤니티 등급</th>
-					<th style="width: 180px; color: #787878;">쇼핑몰 등급</th>
 					<th style="width: 80px; color: #787878;">포인트</th>
 					<th style="width: 170px; color: #787878;">이메일</th>
-					<th style="width: 100px; color: #787878;">신고수</th>
+					<th style="width: 220px; color: #787878;">커뮤니티 등급</th>
+					<th style="width: 180px; color: #787878;">쇼핑몰 등급</th>
 				</tr>
 				 
 				<c:forEach var="dto" items="${list}">
@@ -170,11 +166,12 @@ function selectClevelChange() {
 						<td>${dto.name}</td>
 						<td>${dto.tel}</td>
 						<td>${dto.qualificationName}</td>
-						<td>${dto.clevel}</td>
-						<td>${dto.slevel}</td>
 						<td>${dto.point}</td>
 						<td>${dto.email}</td>
-						<td>신고수</td>
+						<td>
+						<c:set var="b">${dto.clevel}</c:set>
+						${map[b]}</td>
+						<td>${dto.levelName}</td>
 					</tr>
 				</c:forEach> 
 			</table>

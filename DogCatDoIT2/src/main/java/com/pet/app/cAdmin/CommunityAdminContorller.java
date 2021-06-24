@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.app.common.MyUtil;
 import com.pet.app.myPage.MyPageService;
+import com.pet.app.myPage.PointHistory;
 import com.pet.app.myPage.Qualification;
 
 @Controller("cAdmin.CommunityAdminController")
@@ -26,9 +27,6 @@ public class CommunityAdminContorller {
 	
 	@Autowired
 	private MyPageService mService;
-	
-//	@Autowired
-//	private OrderService oService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -65,15 +63,22 @@ public class CommunityAdminContorller {
         map.put("rows", rows);
         
         List<Member> list = service.listMember(map);
-        
         int listNum, n = 0;
         for(Member dto : list) {
             listNum = memberCount - (offset + n);
             dto.setListNum(listNum);
+            dto.setLevelName(service.readShopLevel(dto.getUserIdx()));
             n++;
         }
         
         String listUrl = cp+"/cAdmin/memberManager";
+        
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        map2.put("0", "신규회원");
+        map2.put("1", "일반회원");
+        map2.put("2", "열심회원");
+        map2.put("3", "우수회원");
+        map2.put("4", "대표회원");
         
         String paging = myUtil.paging(current_page, total_page, listUrl); 
         
@@ -82,6 +87,7 @@ public class CommunityAdminContorller {
         model.addAttribute("memberCount", memberCount);
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
+        model.addAttribute("map", map2);
         
 		return ".cAdmin.memberManager";
 	}
@@ -92,8 +98,17 @@ public class CommunityAdminContorller {
 			Model model
 			) throws Exception{
 		Member dto = service.readMember(userId);
+		dto.setLevelName(service.readShopLevel(dto.getUserIdx()));
 		
+		Map<String, Object> map2 = new HashMap<String, Object>();
+        map2.put("0", "신규회원");
+        map2.put("1", "일반회원");
+        map2.put("2", "열심회원");
+        map2.put("3", "우수회원");
+        map2.put("4", "대표회원");
+        
 		model.addAttribute("dto", dto);
+		model.addAttribute("map", map2);
 		
 		return "cAdmin/memberDetail";
 	}
@@ -101,21 +116,32 @@ public class CommunityAdminContorller {
 	@RequestMapping(value = "updateMember", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> updateMemberSubmit(
-			Member dto,
 			@RequestParam long clevel,
 			@RequestParam long point,
 			@RequestParam String userId,
 			@RequestParam long userIdx
 			) throws Exception{
 		String state = "true";
+		Member dto = service.readMember(userId);
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("userId", userId);
 			map.put("userIdx", userIdx);
 			map.put("clevel", clevel);
 			map.put("point", point);
-			service.updateClevel(map);				
-			service.updatePoint(map);				
+			PointHistory ph = new PointHistory();
+			ph.setUserId(userId);
+			ph.setBy_what("관리자 조정");
+			ph.setAmount(point-dto.getPoint());
+			
+			if(dto.getClevel()!=clevel) {
+				service.updateClevel(map);
+			}
+			
+			if(dto.getPoint()!=point) {
+				service.updatePoint(map);
+				mService.insertPointHistory(ph);				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			state = "false";

@@ -258,7 +258,7 @@ const init = {
 				alert("이미 출석하셨습니다.");
 				return;
 			}
-			alert("출석완료");
+			alert("출석완료!! 50포인트 적립되셨습니다.");
 			location.reload();
 		}
 </script>

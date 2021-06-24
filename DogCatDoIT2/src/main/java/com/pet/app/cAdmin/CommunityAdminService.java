@@ -16,4 +16,5 @@ public interface CommunityAdminService {
 	public int requestCount();
 	public void updateClevel(Map<String, Object> map) throws Exception;
 	public void updatePoint(Map<String, Object> map) throws Exception;
+	public String readShopLevel(long userIdx);
 }

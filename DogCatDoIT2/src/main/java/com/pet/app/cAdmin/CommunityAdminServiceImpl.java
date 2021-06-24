@@ -135,4 +135,15 @@ public class CommunityAdminServiceImpl implements CommunityAdminService{
 			throw e;
 		}
 	}
+
+	@Override
+	public String readShopLevel(long userIdx) {
+		String result = null;
+		try {
+			result = dao.selectOne("cAdmin.readSlevel", userIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

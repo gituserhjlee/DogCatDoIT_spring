@@ -100,8 +100,6 @@ function rejectOk(requestNum, userId, gubun) {
 }
 </script>
 <main>
-	<h1>Admin Page</h1>
-	
 	<div class="body-container">
 	    <div class="body-title">
 			<h2> 자격 신청 관리 </h2>
@@ -137,7 +135,6 @@ function rejectOk(requestNum, userId, gubun) {
 				
 			<table class="table table-border table-content">
 				<tr>
-					<th style="width: 60px; color: #787878;"><input type="checkbox"></th>
 					<th style="width: 60px; color: #787878;">번호</th>
 					<th style="width: 100px; color: #787878;">아이디</th>
 					<th style="width: 100px; color: #787878;">이름</th>
@@ -150,7 +147,6 @@ function rejectOk(requestNum, userId, gubun) {
 				 
 				<c:forEach var="dto" items="${list}">
 					<tr class="hover-tr" onclick="detailedMember('${dto.requestNum}','${dto.userId}','${dto.gubun}');">
-					 	<td align="center"><input type="checkbox"></td>
 						<td align="center">${dto.listNum}</td>
 						<td align="center">${dto.userId}</td>
 						<td align="center">${dto.name}</td>
@@ -176,8 +172,6 @@ function rejectOk(requestNum, userId, gubun) {
 			<table class="table">
 				<tr>
 					<td align="left" width="100">
-						<button type="button" class="btn">승인</button>
-						<button type="button" class="btn">거절</button>
 						<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/cAdmin/qualificationManager';">새로고침</button>
 					</td>
 					<td align="right" width="100">&nbsp;</td>

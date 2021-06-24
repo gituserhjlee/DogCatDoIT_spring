@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pet.app.common.FileManager;
+import com.pet.app.common.MyUtil;
 import com.pet.app.member.Member;
 import com.pet.app.member.MemberService;
 import com.pet.app.member.SessionInfo;
@@ -37,6 +39,9 @@ public class MyPageController {
 	
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	private MyUtil myUtil;
 	
 	@RequestMapping(value = "main")
 	public String main() throws Exception{
@@ -602,29 +607,54 @@ public class MyPageController {
 		return ".myPage.reserve";
 	}
 	
-	@RequestMapping(value = "point")
-	public String point(
-			Model model,
+	@RequestMapping(value = "point/HistoryList", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> pointHistoryList(
+			@RequestParam(value = "pageNum", defaultValue = "1") int current_page,
+			@RequestParam(defaultValue = "1") int month,
 			HttpSession session
-			) throws Exception{
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String userId = info.getUserId();
-		
+			) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		int total_page, dataCount, offset;
+		int point;
+		String paging;
+		int rows = 10;
 		
-		List<PointHistory> list = null;
-		int point = 0;
-		try {
-			point = service.readPoint(userId);
-			list=service.readPointHistory(userId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		map.put("userId", info.getUserId());
+		map.put("month", month);
+		dataCount = service.pointHistoryCount(map);
 		
-		model.addAttribute("list", list);
-		model.addAttribute("point", point);
+		total_page = myUtil.pageCount(rows, dataCount);
+		if(current_page > total_page)
+			current_page = total_page;
 		
+		offset = (current_page - 1) * rows;
+		if(offset < 0)
+			offset = 0;
+		
+		map.put("offset", offset);
+		map.put("rows", rows);
+		List<PointHistory> list = service.readPointHistory(map);
+		
+		paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+		
+		point = service.readPoint(info.getUserId());
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("pageNum", current_page);
+		model.put("total_page", total_page);
+		model.put("dataCount", dataCount);
+		model.put("list", list);
+		model.put("offset", offset);
+		model.put("paging", paging);
+		model.put("point", point);
+		
+		return model;
+	}
+	
+	@GetMapping("point")
+	public String point() throws Exception{
 		return ".myPage.point";
 	}
 	

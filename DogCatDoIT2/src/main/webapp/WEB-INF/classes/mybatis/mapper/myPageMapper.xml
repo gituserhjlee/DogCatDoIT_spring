@@ -184,9 +184,16 @@
 	</insert>
 	
 	<!-- 포인트 내역 -->
-	<select id="readPointHistory" parameterType="String" resultType="com.pet.app.myPage.PointHistory">
+	<select id="readPointHistory" parameterType="map" resultType="com.pet.app.myPage.PointHistory">
 		SELECT pointNum, userId, amount, by_what, TO_CHAR(get_date, 'YYYY-MM-DD') get_date FROM pointHistory 
-		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= 12
+		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= #{month}
+		ORDER BY get_date DESC
+		OFFSET #{offset} rows FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	<!-- 포인트 내역 갯수 -->
+	<select id="pointHistoryCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(pointNum) FROM pointHistory
+		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= #{month}
 	</select>
 	
 	

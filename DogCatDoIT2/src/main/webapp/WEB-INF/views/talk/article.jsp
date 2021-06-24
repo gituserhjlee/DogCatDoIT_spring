@@ -140,7 +140,7 @@ function deleteTalk() {
 						</c:if>
 					</td>
 					<td align="right">
-						<button type="button" class="btn btn-md btn-secondary" style="font-size: 17px; margin-top: 16px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
+						<button type="button" class="btn btn-md btn-outline-secondary" style="font-size: 17px; margin-top: 16px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
 					</td>
 				</tr>
 			</table>

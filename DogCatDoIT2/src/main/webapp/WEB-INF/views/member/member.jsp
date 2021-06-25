@@ -330,7 +330,7 @@ function userIdCheck(){
 		</table>
 		<table class="table table-footer">
 			<tr> 
-				<td>
+				<td class="text-center">
 					<button type="button" style="font-family: Jua; font-size: 18px;" name="sendButton" class="btn" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
 					<button type="reset" style="font-family: Jua; font-size: 18px;" class="btn">다시입력</button>
 					<button type="button" style="font-family: Jua; font-size: 18px;" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/';">${mode=="member"?"가입취소":"수정취소"}</button>

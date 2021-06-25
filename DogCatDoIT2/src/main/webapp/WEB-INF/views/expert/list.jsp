@@ -35,7 +35,7 @@
 			<tr>
 				<th width="60">번호</th>
 				<th>제목</th>
-				<th width="100">작성자</th>
+				<th width="80">작성자</th>
 				<th width="80">작성일</th>
 				<th width="60">조회수</th>
 			</tr>
@@ -49,11 +49,13 @@
 					</c:forEach>
 					<c:if test="${dto.depth!=0}">└&nbsp;</c:if>
 					<a href="${articleUrl}&expertNum=${dto.expertNum}">${dto.subject}</a>
-					<c:if test="${dto.gap < 1}">
+<%-- 					<c:if test="${dto.gap < 1}">
 						<img src='${pageContext.request.contextPath}/resources/images/new.gif'>
 					</c:if>
-				</td>	
-				<td>${dto.userName}</td>			
+ --%>				</td>	
+ 
+					
+				<td>${dto.name}</td>			
 				<td>${dto.created}</td>			
 				<td>${dto.hitCount}</td>			
 			</tr>
@@ -80,7 +82,7 @@
 							<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
 							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
 							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
-							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
+							<option value="name" ${condition=="name"?"selected='selected'":""}>작성자</option>
 							<option value="created" ${condition=="created"?"selected='selected'":""}>등록일</option>
 						</select>
 						<input type="text" name="keyword" value="${keyword}" class="boxTF">

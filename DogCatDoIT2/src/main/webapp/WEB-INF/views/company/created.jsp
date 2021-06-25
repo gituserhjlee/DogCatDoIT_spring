@@ -65,6 +65,31 @@
 			</tr>
 			
 			<tr> 
+				<td>메뉴이름</td>
+				<td> 
+					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.itemName}">
+				</td>
+			</tr>
+			<tr> 
+				<td>메뉴가격</td>
+				<td> 
+					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.itemPrice}">
+				</td>
+			</tr>
+			<tr> 
+				<td>옵션이름</td>
+				<td> 
+					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.optionName}">
+				</td>
+			</tr>
+			<tr> 
+				<td>옵션가격</td>
+				<td> 
+					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.optionPrice}">
+				</td>
+			</tr>
+			
+			<tr> 
 				<td valign="top">상세정보</td>
 				<td valign="top"> 
 					<textarea name="content" id="content" style="width: 30%; margin:0 auto; ">${dto.content}</textarea>

@@ -21,7 +21,6 @@ public interface CompanyService {
 	public List<Review> listReview(Map<String, Object> map);
 	public int reviewCount(Map<String, Object> map);
 	public void deleteReview(Map<String, Object> map) throws Exception;
-	
-}
+	}
 
 

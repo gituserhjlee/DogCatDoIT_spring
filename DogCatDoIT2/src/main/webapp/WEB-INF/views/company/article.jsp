@@ -10,7 +10,7 @@
 </head>
 <script type="text/javascript">
 <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==dto.userId}">
-function deleteBoard() {
+function deleteCompany() {
 	var q = "boardnum=${dto.boardnum}&${query}";
 	var url = "${pageContext.request.contextPath}/company/delete?" + q;
 
@@ -194,7 +194,7 @@ $(function(){
                             <a href="#reviews" class="review-link">(<span class="count">3</span> 리뷰)</a>
                         </div>
                         <h3 class="product-title">${dto.subject}</h3>
-                        <div class="product-price">50,000₩</div>
+                        <div class="product-price">${dto.itemPrice}₩</div>
                         <div class="product-description">
                             ${dto.content}
                         </div>

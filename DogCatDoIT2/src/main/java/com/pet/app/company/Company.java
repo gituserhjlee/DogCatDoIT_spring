@@ -10,6 +10,11 @@ public class Company {
     private String content;
     private String created;
     private int hitCount;
+    private String itemName;
+    private String optionName;
+    private int itemPrice;
+    private int optionPrice;
+    
 	
 	private String saveFilename;
 	private String originalFilename;
@@ -94,6 +99,30 @@ public class Company {
 	}
 	public void setCompanyboardLikeCount(int companyboardLikeCount) {
 		this.companyboardLikeCount = companyboardLikeCount;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public String getOptionName() {
+		return optionName;
+	}
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
+	}
+	public int getItemPrice() {
+		return itemPrice;
+	}
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+	public int getOptionPrice() {
+		return optionPrice;
+	}
+	public void setOptionPrice(int optionPrice) {
+		this.optionPrice = optionPrice;
 	}
 	
 	

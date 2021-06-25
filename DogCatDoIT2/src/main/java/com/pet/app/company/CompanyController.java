@@ -411,6 +411,5 @@ public class CompanyController {
 		map.put("state", state);
 		return map;
 	}
-	
 }
 

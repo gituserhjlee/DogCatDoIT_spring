@@ -113,6 +113,17 @@
 						<c:if test="${not empty sessionScope.member}">
 							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
 							<p style="display: inline; color: lightgray;">|</p>
+							<c:if test="${sessionScope.member.userId!='admin'}">
+		                        <span>
+		                           <c:choose>
+		                              <c:when test="${sessionScope.member.clevel==0}">신규회원</c:when>                           
+		                              <c:when test="${sessionScope.member.clevel==1}">일반회원</c:when>
+		                              <c:when test="${sessionScope.member.clevel==2}">열심회원</c:when>
+		                              <c:when test="${sessionScope.member.clevel==3}">우수회원</c:when>
+		                              <c:when test="${sessionScope.member.clevel==4}">대표회원</c:when>
+		                           </c:choose>
+		                        </span>
+		                    </c:if>
 							<c:if test="${sessionScope.member.userId=='admin'}">
 								<a href="${pageContext.request.contextPath}/cAdmin/main" style="display: inline; color: gray;">관리자</a> <i></i>
 							</c:if>
@@ -667,6 +678,17 @@
 						<c:if test="${not empty sessionScope.member}">
 							<span style="color:blue; display: inline;">${sessionScope.member.userName}</span>님 
 							<p style="display: inline; color: lightgray;">|</p>
+							<c:if test="${sessionScope.member.userId!='admin'}">
+		                        <span>
+		                           <c:choose>
+		                              <c:when test="${sessionScope.member.clevel==0}">신규회원</c:when>                           
+		                              <c:when test="${sessionScope.member.clevel==1}">일반회원</c:when>
+		                              <c:when test="${sessionScope.member.clevel==2}">열심회원</c:when>
+		                              <c:when test="${sessionScope.member.clevel==3}">우수회원</c:when>
+		                              <c:when test="${sessionScope.member.clevel==4}">대표회원</c:when>
+		                           </c:choose>
+		                        </span>
+		                    </c:if>
 							<c:if test="${sessionScope.member.userId=='admin'}">
 								<a href="${pageContext.request.contextPath}/cAdmin/main" style="display: inline; color: gray;">관리자</a> <i></i>
 							</c:if>

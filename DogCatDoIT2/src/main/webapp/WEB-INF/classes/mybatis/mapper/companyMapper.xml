@@ -4,7 +4,7 @@
 <mapper namespace="company">
 	<insert id="insertCompany" parameterType="com.pet.app.company.Company">
 		INSERT INTO companyboard(boardnum, userId, subject, content,
-	          saveFilename, originalFilename, hitCount, created) VALUES
+	          saveFilename, originalFilename, hitCount, created,) VALUES
 	         (companyboard_seq.NEXTVAL, #{userId}, #{subject}, #{content},
 	           #{saveFilename, jdbcType=VARCHAR}, 
 	           #{originalFilename, jdbcType=VARCHAR},

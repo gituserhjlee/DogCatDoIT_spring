@@ -198,7 +198,7 @@ function printList(data) {
 	
 	if(orderCount==0) {
 		$(".listOrderResult").empty();
-		$(".listOrderPaging").html("등록된 게시물이 없습니다.");
+		$(".listOrderPaging").html("조회된 구매 내역이 없습니다.");
 		return false;
 	}
 	

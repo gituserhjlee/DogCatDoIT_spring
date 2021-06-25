@@ -33,4 +33,6 @@ public interface MyPageService {
 	public List<PointHistory> readPointHistory(Map<String, Object> map);
 	public int pointHistoryCount(Map<String, Object> map);
 	public void updateAttendancePoint(String userId) throws Exception;
+	public int readAccumulation(String userId);
+	public void updateClevel(String userId) throws Exception;
 }

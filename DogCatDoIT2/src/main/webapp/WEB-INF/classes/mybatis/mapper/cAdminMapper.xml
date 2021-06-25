@@ -32,10 +32,15 @@
 	
 	<!-- 회원 정보 -->
 	<select id="readMember" parameterType="String" resultType="com.pet.app.cAdmin.Member">
-		SELECT userIdx, m.userId, name, reg_date, email, tel, qualificationName, point, clevel, slevel
+		SELECT userIdx, m.userId, name, reg_date, email, tel, qualificationName, point, clevel
 		FROM member m
 		JOIN qualification q ON m.userId = q.userId
 		WHERE m.userId = #{userId}
+	</select>
+	
+	<!-- 누적 포인트 -->
+	<select id="readAccumulation" parameterType="String" resultType="Integer">
+		SELECT SUM(amount) accumulation FROM pointHistory WHERE userId = #{userId} AND amount > 0
 	</select>
 	
 	<!-- 커뮤니티 등급 변경 -->

@@ -66,5 +66,23 @@
 </form>
 <h3 style="font-size: 15px;">게시글 내역</h3>
 게시글 내역
-<h3 style="font-size: 15px;">쇼핑 내역</h3>
-쇼핑 내역
+<h3 style="font-size: 15px;">최근 구매 내역</h3>
+<table style="width: 100%; border-collapse: collapse; border-spacing: 0; font-size: 15px;">
+	<c:if test="${empty list}">
+		구매내역이 없습니다.
+	</c:if>
+	<c:if test="${not empty list}">
+		<tr style="border-top: 0.5px solid #eee; border-bottom: 0.5px solid #eee;" height="30">
+			<td width="20%">구매일자</td>
+			<td width="60%">상품명</td>
+			<td width="20%">총구매가격</td>
+		</tr>
+	</c:if>
+	<c:forEach var="vo" items="${list}">
+		<tr style="border-bottom: 0.5px solid #eee;" height="30">
+			<td>${vo.order_date}</td>
+			<td>${vo.orderName}</td>
+			<td>${vo.totalItemPrice}</td>
+		</tr>	
+	</c:forEach>
+</table>

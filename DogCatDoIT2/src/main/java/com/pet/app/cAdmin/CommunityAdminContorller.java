@@ -18,6 +18,7 @@ import com.pet.app.common.MyUtil;
 import com.pet.app.myPage.MyPageService;
 import com.pet.app.myPage.PointHistory;
 import com.pet.app.myPage.Qualification;
+import com.pet.app.shopping.Order;
 
 @Controller("cAdmin.CommunityAdminController")
 @RequestMapping("/cAdmin/*")
@@ -39,6 +40,7 @@ public class CommunityAdminContorller {
 	@RequestMapping("memberManager")
 	public String memberManager(
 			@RequestParam(value="page", defaultValue="1") int current_page,
+			@RequestParam(defaultValue = "") String qualificationName,
 			HttpServletRequest req,
 			Model model
 			) throws Exception{
@@ -61,6 +63,10 @@ public class CommunityAdminContorller {
 		if(offset < 0) offset = 0;
         map.put("offset", offset);
         map.put("rows", rows);
+        
+        if(qualificationName!= null && qualificationName.length()!=0) {
+        	map.put("qualificationName", qualificationName);
+        }
         
         List<Member> list = service.listMember(map);
         int listNum, n = 0;
@@ -88,6 +94,7 @@ public class CommunityAdminContorller {
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
         model.addAttribute("map", map2);
+        model.addAttribute("qName", qualificationName);
         
 		return ".cAdmin.memberManager";
 	}
@@ -100,6 +107,8 @@ public class CommunityAdminContorller {
 		Member dto = service.readMember(userId);
 		dto.setLevelName(service.readShopLevel(dto.getUserIdx()));
 		
+		List<Order> list = service.listOrder(dto.getUserIdx());
+		
 		Map<String, Object> map2 = new HashMap<String, Object>();
         map2.put("0", "신규회원");
         map2.put("1", "일반회원");
@@ -107,6 +116,7 @@ public class CommunityAdminContorller {
         map2.put("3", "우수회원");
         map2.put("4", "대표회원");
         
+        model.addAttribute("list", list);
 		model.addAttribute("dto", dto);
 		model.addAttribute("map", map2);
 		
@@ -170,17 +180,28 @@ public class CommunityAdminContorller {
 	
 	@RequestMapping("qualificationManager")
 	public String qualificationManager(
+			@RequestParam(defaultValue = "") String gubun,
+			@RequestParam(defaultValue = "") String state,
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpServletRequest req,
 			Model model
 			) throws Exception{
 		String cp = req.getContextPath();
-   	    
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(gubun!= null && gubun.length()!=0) {
+			map.put("gubun", gubun);
+		}
+		
+		if(state!= null && state.length()!=0) {
+			map.put("state", state);
+		}
+		
 		int rows = 10;
 		int total_page = 0;
 		int requestCount = 0;
 		
-		requestCount = service.requestCount();
+		requestCount = service.requestCount(map);
 		
 		if(requestCount != 0)
             total_page = myUtil.pageCount(rows, requestCount);
@@ -191,9 +212,10 @@ public class CommunityAdminContorller {
 		int offset = (current_page-1) * rows;
 		if(offset < 0) offset = 0;
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("offset", offset);
 		map.put("rows", rows);
+		
 		List<Qualification> list = service.listRequestQualification(map);
 		
 		int listNum, n = 0;
@@ -212,6 +234,8 @@ public class CommunityAdminContorller {
         model.addAttribute("requestCount", requestCount);
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
+        model.addAttribute("gubun", gubun);
+        model.addAttribute("state", state);
         
 		return ".cAdmin.qualificationManager";
 	}

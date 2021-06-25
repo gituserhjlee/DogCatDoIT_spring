@@ -30,6 +30,7 @@ public interface MyPageService {
 	public void deleteMember(String userId) throws Exception;
 	public int readPoint(String userId);
 	public void insertPointHistory(PointHistory dto) throws Exception;
-	public List<PointHistory> readPointHistory(String userId);
+	public List<PointHistory> readPointHistory(Map<String, Object> map);
+	public int pointHistoryCount(Map<String, Object> map);
 	public void updateAttendancePoint(String userId) throws Exception;
 }

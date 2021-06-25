@@ -34,7 +34,7 @@
 	
 	<insert id="insertQualification" parameterType="String">
 		INSERT INTO qualification (qualificationNum, qualificationName, userId)
-		VALUES (qualification_seq.NEXTVAL, '일반 회원', #{userId})
+		VALUES (qualification_seq.NEXTVAL, 'general', #{userId})
 	</insert>
 	
 	<update id="updatePoint" parameterType="map">

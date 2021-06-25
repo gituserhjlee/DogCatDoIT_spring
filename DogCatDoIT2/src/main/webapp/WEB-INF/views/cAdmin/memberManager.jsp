@@ -120,6 +120,12 @@ function selectClevelChange() {
 		return;
 	}
 }
+
+function searchList() {
+	var f=document.searchForm;
+	f.action="${pageContext.request.contextPath}/cAdmin/memberManager";
+	f.submit();
+}
 </script>
 
 <main>
@@ -129,22 +135,24 @@ function selectClevelChange() {
 	    </div>
 	    
 	    <div class="body-main wx-950 ml-30">
-				
-			<table class="table">
-				<tr>
-					<td align="left" width="50%">
-						${memberCount}개(${page}/${total_page} 페이지)
-					</td>
-					<td align="right">
-						<select id="selectMember" class="selectField" onchange="searchList();">
-							<option>회원전체</option>
-							<option>일반 회원</option>
-							<option>펫시터, 훈련사</option>
-							<option>제휴 업체</option>
-						</select>
-					</td>
-				</tr>
-			</table>
+			<form method="post" name="searchForm">	
+				<table class="table">
+					<tr>
+						<td align="left" width="50%">
+							${memberCount}개(${page}/${total_page} 페이지)
+						</td>
+						<td align="right">
+							<select name="qualificationName" class="selectField" onchange="searchList();">
+								<option value="">회원전체</option>
+								<option value="general" ${qName=='general'? "selected='selected'":""}>일반 회원</option>
+								<option value="petsitter" ${qName=='petsitter'? "selected='selected'":""}>펫시터</option>
+								<option value="trainer" ${qName=='trainer'? "selected='selected'":""}>훈련사</option>
+								<option value="company" ${qName=='company'? "selected='selected'":""}>제휴 업체</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
 				
 			<table class="table table-border table-content">
 				<tr> 

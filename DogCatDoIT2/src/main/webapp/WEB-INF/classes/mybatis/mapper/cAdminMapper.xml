@@ -8,6 +8,9 @@
 		FROM member m
 		JOIN qualification q ON q.userId = m.userId
 		WHERE m.userId != 'admin'
+		<if test="qualificationName">
+			AND qualificationName = #{qualificationName}
+		</if>
 		ORDER BY reg_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
@@ -45,18 +48,41 @@
 		UPDATE member SET point = #{point} WHERE userIdx=#{userIdx}
 	</update>
 	
+	<!--최근 구매 내역 -->
+	<select id="listOrder" parameterType="Long" resultType="com.pet.app.shopping.Order">
+		SELECT orderName, totalItemPrice, TO_CHAR(order_date, 'YYYY-MM-DD') order_date 
+		FROM shopOrder WHERE userIdx = #{userIdx}
+		ORDER BY order_date DESC
+		OFFSET 0 ROWS FETCH FIRST 10 ROWS ONLY
+	</select>
+	
 	<!-- 자격신청내역 -->
 	<select id="listRequestQualification" parameterType="map" resultType="com.pet.app.myPage.Qualification">
 		SELECT requestNum, userId, name, tel, originalFilename, saveFilename, gubun, state, TO_CHAR(req_date, 'YYYY-MM-DD') req_date 
 		FROM requestQualification
-		WHERE state = 'requesting'
+		<where>
+			<if test="state">
+				state = #{state}
+			</if>
+			<if test="gubun">
+				AND gubun = #{gubun}
+			</if>
+		</where>
 		ORDER BY req_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	<!-- 자격신청 수 -->
-	<select id="requestCount" resultType="Integer">
-		SELECT COUNT(*) FROM requestQualification WHERE state = 'requesting'
+	<select id="requestCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*) FROM requestQualification
+		<where>
+			<if test="state">
+				state = #{state}
+			</if>
+			<if test="gubun">
+				AND gubun = #{gubun}
+			</if>
+		</where>
 	</select>
 	
 	<!-- 자격신청 승인 or 거절 (requesting -> approved or rejected) -->

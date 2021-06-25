@@ -98,6 +98,13 @@ function rejectOk(requestNum, userId, gubun) {
 		ajaxFun(url, "post", query, "json", fn);
 	}
 }
+
+function searchList() {
+	var f = document.searchForm;
+	
+	f.action = "${pageContext.request.contextPath}/cAdmin/qualificationManager";
+	f.submit();
+}
 </script>
 <main>
 	<div class="body-container">
@@ -106,33 +113,33 @@ function rejectOk(requestNum, userId, gubun) {
 	    </div>
 	    
 	    <div class="body-main wx-950 ml-30">
-				
-			<table class="table">
-				<tr>
-					<td align="left" width="50%">
-						${requestCount}개(${page}/${total_page} 페이지)
-					</td>
-					<td align="right">
-						상태
-						<select id="selectMember" class="selectField" onchange="searchList();">
-							<option>전체</option>
-							<option>요청중</option>
-							<option>승인완료</option>
-							<option>승인거절</option>
-						</select>
-					</td>
-					<td align="right">
-						구분
-						<select id="selectMember" class="selectField" onchange="searchList();">
-							<option>전체</option>
-							<option>펫시터</option>
-							<option>훈련사</option>
-							<option>제휴업체</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-				
+			<form name="searchForm" method="post">	
+				<table class="table">
+					<tr>
+						<td align="left" width="50%">
+							${requestCount}개(${page}/${total_page} 페이지)
+						</td>
+						<td align="right">
+							상태
+							<select name="state" class="selectField" onchange="searchList();">
+								<option value="">전체</option>
+								<option value="requesting" ${state=='requesting'? "selected='selected'":""}>요청중</option>
+								<option value="approved" ${state=='approved'? "selected='selected'":""}>승인완료</option>
+								<option value="rejected" ${state=='rejected'? "selected='selected'":""}>승인거절</option>
+							</select>
+						</td>
+						<td align="right">
+							구분
+							<select name="gubun" class="selectField" onchange="searchList();">
+								<option value="">전체</option>
+								<option value="petsitter" ${gubun=='petsitter'? "selected='selected'":""}>펫시터</option>
+								<option value="trainer" ${gubun=='trainer'? "selected='selected'":""}>훈련사</option>
+								<option value="company" ${gubun=='company'? "selected='selected'":""}>제휴업체</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
 			<table class="table table-border table-content">
 				<tr>
 					<th style="width: 60px; color: #787878;">번호</th>

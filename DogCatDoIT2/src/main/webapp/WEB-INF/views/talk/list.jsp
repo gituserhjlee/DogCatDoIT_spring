@@ -110,7 +110,7 @@ $(function() {
 						<button type="button" class="btn btnDelete" title="삭제" style="margin-top: 14px; margin-left: -40px;"><i class="fal fa-trash-alt"></i></button>
 					</td>
 					<td align="right">
-						<button type="button" class="btn btn-md btn-dark" style="font-size: 17px;  margin-top: 16px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
+						<button type="button" class="btn btn-md btn-outline-dark" style="font-size: 17px;  margin-top: 16px;" onclick="javascript:location.href='${pageContext.request.contextPath}/talk/write';">쪽지 쓰기</button>
 					</td>
 				</tr>
 			</table>

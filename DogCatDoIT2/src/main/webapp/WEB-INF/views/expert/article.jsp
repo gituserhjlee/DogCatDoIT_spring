@@ -17,7 +17,7 @@ function deleteExpert(){
 
 <div class="container body-container">
 	<div class="body-title">
-		<h2><i class="icofont-ebook"></i> 답변형 게시판 </h2>
+		<h2><i class="icofont-ebook"></i> 동물행동전문가 Q&A 게시판 </h2>
 	</div>
 	
 	<div class="body-main wx-700 ml-30 pt-15">
@@ -46,11 +46,21 @@ function deleteExpert(){
 			
 			<tr>
 				<td colspan="2">
-					이전글
+					이전글 :
 					<c:if test="${not empty preReadDto}">
 						<a href="${pageContext.request.contextPath}/expert/article?expertNum=${preReadDto.expertNum}&${query}">${preReadDto.subject}</a>
 					</c:if>
 				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					다음글 :
+					<c:if test="${not empty nextReadDto}">
+						<a href="${pageContext.request.contextPath}/expert/article?expertNum=${nextReadDto.expertNum}&${query}">${nextReadDto.subject}</a>
+					</c:if>
+				</td>
+			
 			</tr>
 						
 		</table>

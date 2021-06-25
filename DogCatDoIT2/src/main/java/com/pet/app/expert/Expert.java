@@ -12,7 +12,7 @@ public class Expert {
 	private int orderNo; 
 	private int depth; 
 	private int parent;
-	
+
 	public int getExpertNum() {
 		return expertNum;
 	}

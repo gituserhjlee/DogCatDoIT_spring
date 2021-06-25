@@ -117,6 +117,7 @@ public class ExpertController {
 	public String createdSubmit(Expert dto, HttpSession session) throws Exception{
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		try {
+			dto.setName(info.getUserName());
 			dto.setUserId(info.getUserId());;
 			service.insertExpert(dto, "created");
 		} catch (Exception e) {

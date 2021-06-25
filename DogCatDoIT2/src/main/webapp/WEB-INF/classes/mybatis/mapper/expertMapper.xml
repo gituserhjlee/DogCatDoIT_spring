@@ -3,14 +3,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="expert">
 	<select id="seq" resultType="Integer">
-		SELECT expert_seq.NEXTVAL FROM expert
+		SELECT expert_seq.NEXTVAL FROM dual
 	</select>
 	
 	<insert id="insertExpert" parameterType="com.pet.app.expert.Expert">
-		INSERT INTO expert(expertNum, userId, name, content, created,
-			hitCount, groupNum, orderNo, depth)
-			VALUES (#{expertNum}, #{userId}, #{name}, #{content}, SYSDATE, 
-			0, #{groupNum}, #{orderNo}, #{depth}) 
+		INSERT INTO expert(expertNum, userId, name, subject, content, created,
+			hitCount, groupNum, orderNo, depth, parent)
+			VALUES (#{expertNum}, #{userId}, #{name}, #{subject}, #{content}, SYSDATE, 
+			0, #{groupNum}, #{orderNo}, #{depth}, #{parent}) 
 	</insert>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -19,7 +19,7 @@
 	</select>	
 	
 	<select id="listExpert" parameterType="map" resultType="com.pet.app.expert.Expert">
-		SELECT expertNum, userId, name, content, created,
+		SELECT expertNum, userId, name, subject, content, created,
 			hitCount, groupNum, orderNo, depth
 		FROM expert
 		
@@ -27,7 +27,11 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
-	
+	<select id="readExpert" parameterType="Integer" resultType="com.pet.app.expert.Expert">
+		SELECT expertNum, userId, name, subject, content, created, hitCount, groupNum, orderNo, depth
+		FROM expert
+		WHERE expertNum = #{expertNum}
+	</select>
 	
 	
 	

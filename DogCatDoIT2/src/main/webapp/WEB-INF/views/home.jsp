@@ -728,7 +728,7 @@
 
             </div>
         </div>
-    </div>
+    </div> 
     <!-- About us Section End -->
 
     <!-- Category Banner Section Start -->

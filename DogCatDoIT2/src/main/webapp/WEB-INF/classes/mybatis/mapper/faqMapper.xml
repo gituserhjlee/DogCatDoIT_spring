@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+
+	<insert id="insertFaq" parameterType="com.pet.app.faq.Faq">
+		INSERT INTO faq(num, categoryNum, userId, subject, content, created)
+			VALUES (faq_seq.NEXTVAL, #{categoryNum}, #{userId}, #{subject}, #{content}, SYSDATE)
+	</insert>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+			   ( INSTR(subject, #{keyword}) &gt; 0
+		          OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 
+		          OR INSTR(LOWER(category), LOWER(#{keyword})) &gt; 0 )
+			</when>
+			<when test="condition == 'created' ">
+			   ( TO_CHAR(created, 'YYYYMMDD') = #{keyword}
+		          OR TO_CHAR(created, 'YYYY-MM-DD') = #{keyword} )
+			</when>
+			<otherwise>
+			    ( INSTR(${condition}, #{keyword}) &gt; 0 )
+			</otherwise>
+		</choose>
+	</sql>
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM faq f
+		JOIN member m ON f.userId=m.userId
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		<where>
+			<if test="categoryNum!=0">
+				( c.categoryNum = #{categoryNum} )
+			</if>
+			<if test="keyword!=null and keyword!='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND c.enabled = 1
+		</where>
+	</select>
+
+	<select id="listFaq" parameterType="map" resultType="com.pet.app.faq.Faq">
+		SELECT f.num, f.userId, name, subject, 
+			TO_CHAR(f.created, 'YYYY-MM-DD') created, content,
+			c.categoryNum, category, orderNo
+		FROM faq f
+		JOIN member m ON f.userId=m.userId
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		<where>
+			<if test="categoryNum!=0">
+				( c.categoryNum = #{categoryNum} )
+			</if>
+			<if test="keyword!=null and keyword!='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND c.enabled = 1
+		</where>
+		ORDER BY orderNo, num DESC 
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="readFaq" parameterType="Integer" resultType="com.pet.app.faq.Faq">
+		SELECT f.num, f.userId, name, subject, content,
+			 f.created,  
+			 f.categoryNum, c.category
+		FROM faq f
+		JOIN member m ON f.userId=m.userId
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		WHERE f.num = #{num}
+	</select>
+
+	<update id="updateFaq" parameterType="com.pet.app.faq.Faq">
+		UPDATE faq SET categoryNum=#{categoryNum}, subject=#{subject},
+			content=#{content}
+		WHERE num = #{num}
+	</update>
+
+	<delete id="deleteFaq" parameterType="map">
+		DELETE FROM faq WHERE num = #{num}
+	</delete>
+	
+	<!-- 카테고리 -->
+	<insert id="insertCategory" parameterType="com.pet.app.faq.Faq">
+		INSERT INTO faqCategory(categoryNum, category, enabled, orderNo)
+			VALUES (faqCategory_seq.NEXTVAL, #{category}, #{enabled}, #{orderNo})
+	</insert>
+	
+
+	<select id="listCategory" parameterType="map" resultType="com.pet.app.faq.Faq">
+		SELECT categoryNum, category, enabled, orderNo
+		FROM faqCategory
+		<where>
+			<if test="mode=='enabled'">
+				enabled = 1
+			</if>
+		</where>
+		ORDER BY orderNo
+	</select>
+	
+	<update id="updateCategory" parameterType="com.pet.app.faq.Faq">
+		UPDATE faqCategory SET category=#{category}, enabled=#{enabled}, orderNo=#{orderNo}
+		WHERE categoryNum = #{categoryNum}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="Integer">
+		DELETE FROM faqCategory
+		WHERE categoryNum = #{categoryNum}
+	</delete>
+
+</mapper>

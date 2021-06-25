@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zau">
+	<select id="seq" resultType="Integer">
+		SELECT zau_seq.NEXTVAL FROM dual
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.pet.app.zau.Zau">
+		INSERT INTO zau(num,userId,categoryNum,subject,content
+			,regi_date,update_date,read_count)
+		VALUES(zau_seq.NEXTVAL,#{userId},#{categoryNum},#{subject},#{content}
+			,SYSDATE,SYSDATE,0)
+	</insert>
+	
+	<sql id="where-list">
+		<if test="condition=='all'">
+			(INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			</if>
+			<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='name' ">
+			name=#{keyword}
+		</if>
+		<if test="condition=='regi_date' ">
+			( TO_CHAR(b.regi_date, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(b.regi_date, 'YYYYMMDD') = #{keyword} )
+	
+		</if>
+		
+		
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM zau b
+		JOIN member m ON b.userId=m.userId
+		<where>
+			<if test="keyword!=null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	<select id="listBoard" parameterType="map" resultType="com.pet.app.zau.Zau">
+		SELECT num,b.userId,name,b.categoryNum,categoryName,subject,content
+			,TO_CHAR(regi_date, 'YYYY-MM-DD') regi_date,update_date,read_count
+		FROM zau b
+		JOIN member m ON b.userId=m.userId
+		JOIN category c on b.categoryNum=c.categoryNum
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	
+	<select id="readBoard" parameterType="Integer" resultType="com.pet.app.zau.Zau">
+		SELECT num,b.userId,name,b.categoryNum,categoryName,subject,content
+			,regi_date,update_date,read_count
+		FROM zau b
+		JOIN  member m ON b.userId = m.userId
+		JOIN category c on b.categoryNum=c.categoryNum
+		WHERE num = #{num}                       
+	</select>
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE zau SET read_Count = read_Count+1 WHERE num = #{num}
+	</update>
+	
+	<select id="categoryList" parameterType="String" resultType="com.pet.app.zau.Zau">
+		SELECT categoryNum,categoryName
+		FROM category
+	</select>	
+	
+	<update id="updateBoard" parameterType="com.pet.app.zau.Zau">
+		UPDATE zau SET subject=#{subject}, content=#{content}, update_date=SYSDATE
+		WHERE num = #{num}
+	</update>
+	
+		<delete id="deleteBoard" parameterType="Integer">
+		DELETE FROM zau WHERE num = #{num}
+	</delete>
+	
+		<select id="preReadBoard" parameterType="map" resultType="com.pet.app.zau.Zau">
+		SELECT num, subject
+		FROM zau b
+		JOIN member m ON b.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	<select id="nextReadBoard" parameterType="map" resultType="com.pet.app.zau.Zau">
+		SELECT num, subject
+		FROM zau b
+		JOIN member m ON b.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+		<!-- 게시 글 좋아요 추가 -->
+	<insert id="insertBoardLike" parameterType="map">
+		INSERT INTO zauLike(num, userId) VALUES (#{num}, #{userId})
+	</insert>
+      
+	<!-- 게시글 좋아요 개수 -->
+	<select id="boardLikeCount" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(*) FROM zauLike WHERE num=#{num}
+	</select>
+      <!-- 댓글 -->
+	<insert id="insertReply" parameterType="com.pet.app.zau.Reply">
+		INSERT INTO zauReply(replyNum, num, userId, content, answer, regi_date)
+			VALUES (zauReply_seq.NEXTVAL, #{num}, #{userId}, #{content}, #{answer}, SYSDATE)
+	</insert>
+
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM zauReply
+		WHERE num=#{num} AND answer=0
+	</select>
+
+	<!-- 댓글리스트 -->
+	<select id="listReply" parameterType="map" resultType="com.pet.app.zau.Reply">
+		SELECT r.replyNum, r.userId, name, num, content, r.regi_date, 
+		       NVL(answerCount, 0) answerCount,
+		       NVL(likeCount, 0) likeCount,
+		       NVL(disLikeCount, 0) disLikeCount
+		FROM zauReply r
+		JOIN member m ON r.userId = m.userId
+		LEFT OUTER JOIN (
+			SELECT answer, COUNT(*) answerCount
+			FROM zauReply WHERE answer!=0 GROUP BY answer
+		) a ON r.replyNum = a.answer
+		LEFT OUTER JOIN (
+			SELECT replyNum, COUNT(DECODE(replyLike, 1, 1)) likeCount,
+				   COUNT(DECODE(replyLike, 0, 1)) disLikeCount
+			FROM zauReplyLike GROUP BY replyNum
+		) c ON r.replyNum = c.replyNum
+		WHERE num=#{num}  AND r.answer=0
+		ORDER BY r.replyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<!-- 댓글 및 답글 삭제 -->
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM zauReply
+		WHERE replyNum=#{replyNum}
+		<if test="mode=='reply'">
+			OR answer=#{replyNum}
+		</if>
+	</delete>
+	
+	<!-- 댓글의 답글 리스트 -->
+	<select id="listReplyAnswer" parameterType="Integer" resultType="com.pet.app.zau.Reply">
+		SELECT replyNum, num, r.userId, name, content, regi_date, answer
+		FROM zauReply r
+		JOIN member m ON r.userId = m.userId
+		WHERE answer = #{answer}
+		ORDER BY replyNum DESC
+	</select>
+	
+	<!-- 댓글의 답글 개수 -->
+	<select id="replyAnswerCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM zauReply WHERE answer = #{answer}
+	</select>
+	
+	<!-- 좋아요/싫어요 추가 -->
+	<insert id="insertReplyLike" parameterType="map">
+		INSERT INTO zauReplyLike(replyNum, userId, replyLike)
+			VALUES (#{replyNum}, #{userId}, #{replyLike})
+	</insert>
+	
+	<!-- 좋아요/싫어요 개수 -->
+	<select id="replyLikeCount" parameterType="map" resultType="map">
+		SELECT COUNT(DECODE(replyLike, 1, 1)) likeCount,
+			   COUNT(DECODE(replyLike, 0, 1)) disLikeCount
+		FROM zauReplyLike WHERE replyNum = #{replyNum}
+	</select>
+	
+</mapper>

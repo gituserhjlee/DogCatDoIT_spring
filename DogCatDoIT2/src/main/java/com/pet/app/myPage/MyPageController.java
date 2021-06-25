@@ -91,11 +91,27 @@ public class MyPageController {
 			service.insertAttendance(userId);
 			count = service.countAttendance(userId);
 			service.updateAttendancePoint(userId);
+			
 			PointHistory ph = new PointHistory();
 			ph.setAmount(50);
 			ph.setBy_what("출석체크");
 			ph.setUserId(userId);
 			service.insertPointHistory(ph);
+			
+			int accumulation = 0;
+			accumulation = service.readAccumulation(userId);
+			
+			Member vo = mService.readMember(userId);
+			
+			if(accumulation>=5000 && vo.getClevel()==0) {
+				service.updateClevel(userId);
+			} else if(accumulation>=15000 && vo.getClevel()==1) {
+				service.updateClevel(userId);
+			} else if(accumulation>=30000 && vo.getClevel()==2) {
+				service.updateClevel(userId);
+			} else if(accumulation>=50000 && vo.getClevel()==3) {
+				service.updateClevel(userId);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			state = "false";
@@ -329,26 +345,6 @@ public class MyPageController {
 		}
 		
 		return "redirect:/myPage/userProfile";
-	}
-	
-	@RequestMapping(value = "setMasterProfile", method = RequestMethod.GET)
-	public String setMasterProfile() throws Exception{
-		return ".myPage.setMasterProfile";
-	}
-	
-	@RequestMapping(value = "setMasterProfile", method = RequestMethod.POST)
-	public String setMasterProfileSubmit() throws Exception{
-		return ".myPage.setMasterProfile";
-	}
-	
-	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.GET)
-	public String setCompanyProfile() throws Exception{
-		return ".myPage.setCompanyProfile";
-	}
-	
-	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.POST)
-	public String setCompanyProfileSubmit() throws Exception{
-		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "listQualification")
@@ -656,15 +652,5 @@ public class MyPageController {
 	@GetMapping("point")
 	public String point() throws Exception{
 		return ".myPage.point";
-	}
-	
-	@RequestMapping(value = "cupon")
-	public String cupon() throws Exception{
-		return ".myPage.cupon";
-	}
-	
-	@RequestMapping(value = "purchase")
-	public String purchase() throws Exception{
-		return ".myPage.purchase";
 	}
 }

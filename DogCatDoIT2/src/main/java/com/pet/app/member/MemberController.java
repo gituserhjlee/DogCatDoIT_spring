@@ -98,6 +98,7 @@ public class MemberController {
 		info.setUserId(dto.getUserId());
 		info.setUserName(dto.getName());
 		info.setUserIdx(dto.getUserIdx());
+		info.setClevel(dto.getClevel());
 		// 쇼핑몰 세션
 		CartSessionInfo cInfo = orderService.getCartSessionInfo(dto.getUserIdx());
 		session.setAttribute("cart", cInfo);

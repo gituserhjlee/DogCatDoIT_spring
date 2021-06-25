@@ -83,84 +83,12 @@
 	<update id="approveRequestQualification" parameterType="map">
 		UPDATE requestQualification SET state=#{state}
 		WHERE requestNum = #{requestNum}
-	</update>
-	
-	<!-- 펫시터, 훈련사 프로필 입력 -->
-	<insert id="insertMasterProfile" parameterType="com.pet.app.myPage.PetMasterProfile">
-		INSERT INTO petMaster (masterNum, userId, introduce, qualification, reg_date, region, imageFilename)
-		VALUES (master_seq.NEXTVAL, #{userId}, #{introduce}, #{qualification}, SYSDATE, #{region}, #{imageFilename})
-	</insert>
-	
-	<!-- 펫시터, 훈련사 프로필 -->
-	<select id="readMasterProfile" parameterType="String" resultType="com.pet.app.myPage.PetMasterProfile">
-		SELECT masterNum, userName, introduce, qualification, reg_date, region, imageFilename
-		FROM petMaster pm
-		JOIN member m ON m.userId = pm.userId
-		WHERE m.userId = #{userId}
-	</select>
-	
-	<!-- 펫시터, 훈련사 프로필 수정 -->
-	<update id="updateMasterProfile" parameterType="com.pet.app.myPage.PetMasterProfile">
-		UPDATE petMaster SET introduce=#{introduce}, qualification=#{qualification}, region=#{region}, imageFilename=#{imageFilename} 
-		WHERE masterNum = #{masterNum}
-	</update>
-	
-	<!-- 펫시터, 훈련사 프로필 삭제(관리자) -->
-	<delete id="deleteMasterProfile" parameterType="Integer">
-		DELETE petMaster WHERE masterNum = #{masterNum}
-	</delete>
-	
-	<!-- 업체 프로필 입력 -->
-
-	
-	<!-- 업체 프로필 -->
-	
-	
-	<!-- 업체 프로필 수정 -->
-	
-	
-	<!-- 업체 프로필 삭제(관리자) -->
-	
-	
-	<!-- 리뷰, 별점 입력 -->
-	<insert id="insertMasterRnR" parameterType="com.pet.app.myPage.MasterRnR">
-		INSERT INTO masterRnR (reviewNum, review, rating, reserveNum)
-		VALUES (review_seq.NEXTVAL, #{review}, #{rating}, #{reserveNum})
-	</insert>
-	
-	<!-- 리뷰, 별점 조회(업체 측) -->
-	<select id="readMasterRnR1" parameterType="Integer" resultType="com.pet.app.myPage.MasterRnR">
-		SELECT reviewNum, review, rating, userName FROM masterRnR mrr
-		JOIN masterReserve mr ON mr.reserveNum = mrr.reserveNum
-		JOIN masterService ms ON ms.serviceNum = mr.serviceNum
-		JOIN petMaster pm ON pm.masterNum = ms.masterNum
-		WHERE pm.masterNum = #{masterNum}
-	</select>
-	
-	<!-- 리뷰, 별점 조회(사용자 측) -->
-	<select id="readMasterRnR2" parameterType="String" resultType="com.pet.app.myPage.MasterRnR">
-		SELECT reviewNum, review, rating FROM masterRnR
-		WHERE userId = #{userId}
-	</select>
-	
-	
-	<!-- 리뷰, 별점 수정 -->
-	<update id="updateMasterRnR" parameterType="com.pet.app.myPage.MasterRnR">
-		UPDATE masterRnR SET review = #{review}, rating = #{rating} WHERE reviewNum = #{reviewNum}
-	</update>
-	
-	<!-- 리뷰, 별점 삭제 -->
-	<delete id="deleteMasterRnR" parameterType="Integer">
-		DELETE masterRnR WHERE reviewNum = #{reviewNum}
-	</delete>
+	</update>	
 	
 	<!-- 회원 등급 업데이트(member 테이블) -->
 	<update id="updateCLevel" parameterType="String">
 		UPDATE member SET cLevel=cLevel+1 WHERE userId=#{userId}
 	</update>
-	
-	<!-- 자격 업데이트(qualification 테이블) -->
-	
 	
 	<!-- 포인트 지급 (출석) (member 테이블 업데이트) -->
 	<update id="attendancePoint" parameterType="String">

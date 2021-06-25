@@ -395,4 +395,25 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
+
+	@Override
+	public int readAccumulation(String userId) {
+		int result = 0;
+		try {
+			result = dao.selectOne("cAdmin.readAccumulation", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void updateClevel(String userId) throws Exception {
+		try {
+			dao.updateData("myPage.updateCLevel", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

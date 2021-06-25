@@ -31,7 +31,9 @@ public class OrderManagerController {
 			@RequestParam(defaultValue = "orderIdx") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			@RequestParam String sDate,
-			@RequestParam String eDate
+			@RequestParam String eDate,
+			@RequestParam String orderBy,
+			@RequestParam String state
 			) {
 		
 		int total_page, orderCount;
@@ -42,7 +44,8 @@ public class OrderManagerController {
 		paramMap.put("eDate", eDate);
 		paramMap.put("condition", condition);
 		paramMap.put("keyword", keyword);
-		
+		paramMap.put("orderBy", orderBy);
+		paramMap.put("state", state);
 		orderCount = service.orderCount(paramMap);
 		total_page = myUtil.pageCount(rows, orderCount);
 		
@@ -55,7 +58,7 @@ public class OrderManagerController {
 		
 		paramMap.put("offset", offset);
 		paramMap.put("rows", rows);
-		paramMap.put("orderBy", "ASC");
+		
 		List<Order> listOrder = service.listOrder(paramMap);
 		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
 		

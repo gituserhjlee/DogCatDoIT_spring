@@ -33,8 +33,15 @@
 			<if test="userIdx != null">
 				AND m.userIdx=#{userIdx}
 			</if>
+			<if test="state != null and state != 0 and state !=''">
+				AND state=#{state}
+			</if>
 		</where>
-		ORDER BY orderIdx ${orderBy}
+		ORDER BY orderIdx 
+			<choose>
+				<when test="orderBy == null || orderBy == ''">DESC</when>
+				<otherwise>${orderBy}</otherwise>
+			</choose>
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
@@ -48,10 +55,13 @@
 				<include refid="where-list1"/>
 			</if>
 			<if test="sDate != null and eDate != null">
-				<include refid="where-list2"/>
+				AND <include refid="where-list2"/>
 			</if>
 			<if test="userIdx != null">
-				m.userIdx=#{userIdx}
+				AND m.userIdx=#{userIdx}
+			</if>
+			<if test="state != null and state != 0 and state !=''">
+				AND state=#{state}
 			</if>
 		</where>
 	</select>

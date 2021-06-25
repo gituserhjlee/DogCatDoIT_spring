@@ -372,7 +372,7 @@ function changeState(obj) {
 </script>
 
 <div class="container">
-		<h2> 주문조회 </h2>
+		<h2> 구매내역조회 </h2>
 		
 		<div class="row" style="margin: 20px auto; font-size: 110%; font-weight: 600;">
 			<div class="col-sm-6">

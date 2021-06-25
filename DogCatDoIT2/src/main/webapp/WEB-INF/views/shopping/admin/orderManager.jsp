@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util.js"></script>
-
+	
 <style type="text/css">
 .table-striped th, .modal-header, .stateBtn {
 	background: #F79F81;
@@ -48,6 +48,26 @@
 .stateName9 {
 	color: #ff6f00;
 }
+.condition-wrapper {
+	margin-bottom: 15px;
+}
+.form-control {
+	display: inline-block;
+	width: 35%;
+}
+.form-control[name=condition] {
+	width: 25%;
+}
+.form-control[name=keyword] {
+	width: 45%;
+}
+.form-control[name=orderBy],
+.form-control[name=state] {
+	width: 30%;
+}
+.table td, .table th {
+	border: none;
+}
 </style>
 
 <script type="text/javascript">
@@ -84,8 +104,10 @@ $(function() {
 });
 
 function listPage(page) {
+	let state = $(".slt[name=state]").val();
+	let orderBy = $(".slt[name=orderBy]").val();
 	let url = "${pageContext.request.contextPath}/ordermanager/list";
-	let query = "pageNo="+page;
+	let query = "pageNo="+page+"&state="+state+"&orderBy="+orderBy;
 	let params = $("form[name=searchForm]").serialize();
 	query += "&"+params;
 	let fn = function(data) {
@@ -277,6 +299,11 @@ $("body").on("click",".stateBtn", function() {
 	ajaxFun(url, "post", query, "json",fn);
 });
 
+// 상태조건, 정렬방식 select 이벤트
+$("body").on("change",".slt", function() {
+	listPage(1);
+});
+
 </script>
 
 <div class="content-wrapper">
@@ -286,160 +313,103 @@ $("body").on("click",".stateBtn", function() {
 				style="text-align: center;  font-size: x-large; padding: 20px;">
 				<span> 주문조회 </span>
 			</div>
-			
 			<form id="searchForm" class="searchForm" name="searchForm">
-				<div class="container" style="width: 80%; margin-bottom: 50px;">
-					<table class="table table-bordered table-active">
-					    <tbody>
-					    	
-					      	<tr>
-					        	<td scope="row" rowspan="2" class="align-middle" style="width: 20%; font-size: 150%"> 조회기간</td>
-					        	<td >
-					        		<div class="btn-group" role="group">
-										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',1);">오늘</button>
-										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',7);">1주일</button>
-										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('month',1);">1개월</button>
-										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('month',3);">3개월</button>
-									</div>
-					        	</td>
-					     	 </tr>
-					      	 <tr>
-					       		<td>
-					       			<div class="row">
-						       			<div class="col-5">
-							       			<input class="form-control" type="date" name="sDate" value="" id="sDate"> 
-						       			</div>
-						       			<div class="col-1">~</div>
-						       			<div class="col-5">
-							       			<input class="form-control" type="date" name="eDate" value="" id="eDate">
-						       			</div>
-					       			</div>
-					       		</td>
-					      	 </tr>
-					      	 <tr height="5px;">
-					      	 	<td colspan="2">
-					      	 		<hr>
-					      	 	<td>
-					      	 <tr>
-					      	 <tr>
-					        	<td scope="row" style="width: 20%; font-size: 150%">상세조건</td>
-					        	<td>
-					        		<div class="row">
-						        		<div class="col-3">
-						        			<select class="form-control" name="condition">
-						        				<option value="orderIdx">주문번호</option>
-						        				<option value="orName">주문자</option>
-						        				<option value="diName">수령인</option>
-						        			</select>
-						       			</div>
-						       			<div class="col-5">
-						       				<input class="form-control" type="text" name="keyword">
-						       			</div>
-					       			</div>
-					        		<div class="row" style="margin-top: 15px;">
-						        		<div class="col-3">
-						        			<select class="form-control">
-						        				<option value="orderIdx">주문완료</option>
-						        				<option value="orName">주문자</option>
-						        				<option value="diName">수령인</option>
-						        			</select>
-						       			</div>
-					       			</div>
-					       			
-					        	</td>
-					      	 </tr>
-					      	 <tr>
-					      	 	<td colspan="2">
-					      	 		<hr>
-					      	 	<td>
-					      	 <tr>
-					      	 <tr>
-					      		<td colspan="2" align="center">
-					      			<button type="button" class="btn" style="width: 150px; height: 50px; font-size: 120%; background-color: #F79F81;" onclick="listPage(1)">검색</button>
-					      		</td>
-					      	 </tr>
-					    </tbody>
-					</table>
-				</div>
-			</form>
-			
-			<form id="searchForm2" class="searchForm2" name="searchForm2">
 				<div class="container" style="width: 100%; margin-bottom:50px;">
-					<table class="table table-bordered table-active" style="width: 80%">
-					    <tbody>
+					<table class="table" style="width: 70%; margin: 0 auto; border: 1px solid black;">
 					    	
-					      	<tr>
-					        	<td scope="row" rowspan="2" class="align-middle" style="width: 20%; font-size: 150%"> 조회기간</td>
-					        	<td >
-					        		<div class="btn-group" role="group">
-										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',1);">오늘</button>
+					      	 <tr>
+					        	<td scope="row" class="align-middle" style="width: 20%; font-size: 130%"> 조회기간</td>
+					      	 	<td>
+					        		<div class="btn-group" role="group" style="position: relative; bottom: 0;">
+										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',1);">오늘 </button>
 										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',7);">1주일</button>
 										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('month',1);">1개월</button>
 										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('month',3);">3개월</button>
 									</div>
-					        	</td>
-					     	 </tr>
-					      	 <tr>
-					       		<td>
-					       			<div class="row">
-						       			<div class="col-5">
-							       			<input class="form-control" type="date" name="sDate" value="" id="sDate"> 
-						       			</div>
-						       			<div class="col-1">~</div>
-						       			<div class="col-5">
-							       			<input class="form-control" type="date" name="eDate" value="" id="eDate">
-						       			</div>
-					       			</div>
-					       		</td>
+									<div style="margin-top: 5px;">
+						       			<input class="form-control" type="date" name="sDate" value="" id="sDate"> ~
+						       			<input class="form-control" type="date" name="eDate" value="" id="eDate">
+									</div>
+							    </td>
 					      	 </tr>
-					      	 <tr height="5px;">
-					      	 	<td colspan="2">
-					      	 		<hr>
-					      	 	<td>
+					      	 
 					      	 <tr>
-					      	 <tr>
-					        	<td scope="row" style="width: 20%; font-size: 150%">상세조건</td>
+					        	<td scope="row" style="width: 20%; font-size: 130%" valign="middle">상세조건</td>
 					        	<td>
-					        		<div class="row">
-						        		<div class="col-3">
-						        			<select class="form-control" name="condition">
-						        				<option value="orderIdx">주문번호</option>
-						        				<option value="orName">주문자</option>
-						        				<option value="diName">수령인</option>
-						        			</select>
-						       			</div>
-						       			<div class="col-5">
-						       				<input class="form-control" type="text" name="keyword">
-						       			</div>
+					       			<div class="condition-wrapper">
+					        			<select class="form-control" name="condition" style="margin-right: 15px;">
+					        				<option value="orderIdx">주문번호</option>
+					        				<option value="orName">주문자</option>
+					        				<option value="diName">수령인</option>
+					        			</select>
+					        			
+					        			<input class="form-control" type="text" name="keyword">
 					       			</div>
-					        		<div class="row" style="margin-top: 15px;">
-						        		<div class="col-3">
-						        			<select class="form-control">
-						        				<option value="orderIdx">주문완료</option>
-						        				<option value="orName">주문자</option>
-						        				<option value="diName">수령인</option>
-						        			</select>
-						       			</div>
-					       			</div>
-					       			
 					        	</td>
 					      	 </tr>
-					      	 <tr>
-					      	 	<td colspan="2">
-					      	 		<hr>
-					      	 	<td>
-					      	 <tr>
+					      	 
 					      	 <tr>
 					      		<td colspan="2" align="center">
 					      			<button type="button" class="btn" style="width: 150px; height: 50px; font-size: 120%; background-color: #F79F81;" onclick="listPage(1)">검색</button>
 					      		</td>
 					      	 </tr>
-					    </tbody>
 					</table>
 				</div>
 			</form>
 			
 			<hr>
+			<!-- 
+			<div style="margin-bottom: 10px;" align="right">
+				<div style="width: 40%; margin-bottom: 5px;">
+					<span style="font-size: 120%">주문상태 : </span>
+					<select class="form-control" name="state" style="margin-right: 15px;">
+						<option value="">주문상태</option>
+						<option value="0">전체</option>
+						<option value="1">주문완료</option>
+						<option value="2">주문취소</option>
+						<option value="3">결제완료</option>
+						<option value="4">배송준비</option>
+						<option value="5">배송출발</option>
+						<option value="6">구매확정</option>
+						<option value="7">환불신청</option>
+						<option value="8">환불완료</option>
+						<option value="9">교환신청</option>
+						<option value="10">교환완료</option>
+					</select>
+				</div>
+				<div style="width: 40%;">
+					<span style="font-size: 120%">정렬방식 : </span>
+					<select class="form-control" name="orderBy" style="margin-right: 15px;">
+						<option value="">정렬방식</option>
+						<option value="ASC">오름차순</option>
+						<option value="DESC">내림차순</option>
+					</select>
+				</div>
+			</div>
+			 -->
+			<div style="margin-bottom: 10px;" align="right">
+				<div style="width: 40%; margin-bottom: 5px;">
+					<select class="form-control slt" name="state" style="margin-right: 5px;">
+						<option value="">주문상태</option>
+						<option value="0">전체</option>
+						<option value="1">주문완료</option>
+						<option value="2">주문취소</option>
+						<option value="3">결제완료</option>
+						<option value="4">배송준비</option>
+						<option value="5">배송출발</option>
+						<option value="6">구매확정</option>
+						<option value="7">환불신청</option>
+						<option value="8">환불완료</option>
+						<option value="9">교환신청</option>
+						<option value="10">교환완료</option>
+					</select>
+					<select class="form-control slt" name="orderBy" style="margin-right: 15px;">
+						<option value="">정렬방식</option>
+						<option value="ASC">오름차순</option>
+						<option value="DESC">내림차순</option>
+					</select>
+				</div>
+			</div>
 			<div class="row" style="margin-bottom: 20px;">
 				<div class="col-sm-6" style="padding-left: 35px;">
 					목록 (총 <span class="orderCount"></span> 개)

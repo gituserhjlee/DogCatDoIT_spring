@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.pet.app.shopping.OrderService;
 import com.pet.app.shopping.CartSessionInfo;
+import com.pet.app.shopping.OrderService;
 
 @Controller("member.memberController")
 @RequestMapping(value="/member/*")
@@ -99,7 +99,8 @@ public class MemberController {
 		info.setUserName(dto.getName());
 		info.setUserIdx(dto.getUserIdx());
 		info.setClevel(dto.getClevel());
-		// 쇼핑몰 세션
+		info.setShopLevel(orderService.readSlevelInfo(dto.getUserIdx()));
+		// 쇼핑몰 카트 세션
 		CartSessionInfo cInfo = orderService.getCartSessionInfo(dto.getUserIdx());
 		session.setAttribute("cart", cInfo);
 		

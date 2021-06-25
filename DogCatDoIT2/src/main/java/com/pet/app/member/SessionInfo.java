@@ -1,13 +1,15 @@
 package com.pet.app.member;
 
+import com.pet.app.shopping.ShopLevel;
+
 // 세션에 저장할 정보(아이디, 이름, 권한등)
 public class SessionInfo {
 	private Long userIdx;
 	private String userId;
 	private String userName;
 	private Long memberLevel;
-	private int slevel;
 	private int clevel;
+	private ShopLevel shopLevel;
 	
 	public Long getUserIdx() {
 		return userIdx;
@@ -21,8 +23,6 @@ public class SessionInfo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-
 	public String getUserName() {
 		return userName;
 	}
@@ -35,17 +35,17 @@ public class SessionInfo {
 	public void setMemberLevel(Long memberLevel) {
 		this.memberLevel = memberLevel;
 	}
-	public int getSlevel() {
-		return slevel;
-	}
-	public void setSlevel(int slevel) {
-		this.slevel = slevel;
-	}
 	public int getClevel() {
 		return clevel;
 	}
 	public void setClevel(int clevel) {
 		this.clevel = clevel;
+	}
+	public ShopLevel getShopLevel() {
+		return shopLevel;
+	}
+	public void setShopLevel(ShopLevel shopLevel) {
+		this.shopLevel = shopLevel;
 	}
 	
 }

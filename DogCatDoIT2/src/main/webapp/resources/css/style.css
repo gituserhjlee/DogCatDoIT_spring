@@ -492,36 +492,36 @@ ol {
 	display: block;
 }
 
-.header__cart {
+.header__shoppingInfo {
 	text-align: right;
 	padding: 24px 0;
 }
 
-.header__cart ul {
+.header__shoppingInfo ul {
 	display: inline-block;
 	margin-right: 25px;
 }
 
-.header__cart ul li {
+.header__shoppingInfo ul li {
 	list-style: none;
 	display: inline-block;
 	margin-right: 15px;
 }
 
-.header__cart ul li:last-child {
+.header__shoppingInfo ul li:last-child {
 	margin-right: 0;
 }
 
-.header__cart ul li a {
+.header__shoppingInfo ul li a {
 	position: relative;
 }
 
-.header__cart ul li a i {
+.header__shoppingInfo ul li a i {
 	font-size: 18px;
 	color: #1c1c1c;
 }
 
-.header__cart ul li a span {
+.header__shoppingInfo ul li a span {
 	height: 13px;
 	width: 13px;
 	background: #F79F81;
@@ -537,13 +537,13 @@ ol {
 	right: -12px;
 }
 
-.header__cart .header__cart__price {
+.header__shoppingInfo .header__cart__price {
 	font-size: 14px;
 	color: #6f6f6f;
 	display: inline-block;
 }
 
-.header__cart .header__cart__price span {
+.header__shoppingInfo .header__cart__price span {
 	color: #252525;
 	font-weight: 700;
 }
@@ -3153,7 +3153,7 @@ ol {
 	.header__menu {
 		display: none;
 	}
-	.header__cart {
+	.header__shoppingInfo {
 		text-align: center;
 		padding: 10px 0 24px;
 	}

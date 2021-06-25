@@ -156,8 +156,9 @@
 				</div>
 				<c:if test="${not empty sessionScope.cart}">
 					<div class="col-lg-6">
-						<div class="header__cart">
+						<div class="header__shoppingInfo">
 							<ul>
+								<li><h4><span class="badge badge-info" title="혜택: 상품 구매시 ${sessionScope.member.shopLevel.rate}% 할인">${sessionScope.member.shopLevel.levelName }</span></h4></li>
 								<li><a href="${pageContext.request.contextPath}/order/cart"><i class="fa fa-shopping-bag"></i> <span>${sessionScope.cart.cartCount}</span></a></li>
 							</ul>
 							<div class="header__cart__price">

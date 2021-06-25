@@ -31,7 +31,17 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/shopping/{1}.jsp" />
 	</definition>
-
+	
+	<!-- 커뮤니티 관리자 -->
+	<definition name=".cAdminLayout" template="/WEB-INF/views/cAdmin/layout.jsp">
+	  	<put-attribute name="left" value="/WEB-INF/views/cAdmin/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/cAdmin/main.jsp" />
+	</definition>
+	<definition name=".cAdmin.*" extends=".cAdminLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/cAdmin/{1}.jsp" />
+	</definition>
+	
+	<!-- 마이페이지 -->
 	<definition name=".myPageLayout"
 		template="/WEB-INF/views/myPage/layout.jsp">
 		<put-attribute name="header"

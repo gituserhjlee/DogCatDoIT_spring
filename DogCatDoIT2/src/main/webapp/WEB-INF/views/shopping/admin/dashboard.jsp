@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				<!-- 4-blocks row start -->
-				<div class="row dashboard-header">
+				<div class="row dashboard-header" style="font-family: 'JUA';">
 					<div class="col-lg-3 col-md-6">
 						<div class="card dashboard-product">
 							<span>모든 상품 개수</span>
@@ -64,7 +64,7 @@
 				<!-- 1-3-block row start -->
 				<div class="row">
 
-					<div class="col-lg-8" style="margin:0 auto;">
+					<div class="col-lg-8" style="margin:0 auto;font-family: 'JUA';">
 						<div class="card">
 							<div class="card-header">
 								<h5 class="card-header-text">올해 월별 매출액</h5>
@@ -87,7 +87,7 @@
 						<div class="card">
 							<div class="card-block">
 								<div class="table-responsive">
-									<table class="table m-b-0 photo-table">
+									<table class="table m-b-0 photo-table" style="font-family: 'JUA';">
 										<thead>
 											<tr class="text-uppercase">
 												<th>상품명</th>

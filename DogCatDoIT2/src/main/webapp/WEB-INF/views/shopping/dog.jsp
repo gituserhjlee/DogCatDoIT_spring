@@ -37,18 +37,11 @@
 
 					<div class="hero__search__form">
 
-						<form action="#">
-							<div>
-								<select>
-									<option value="">All Categories</option>
-									<option value="dog">강아지</option>
-									<option value="cat">고양이</option>
-								</select>
-
-							</div>
-							<input type="text" placeholder="검색어를 입력하세요" style="width:70%; padding-left: 20px;">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form>
+						<form>	
+							<input type="text" name="searchkeyword" id="searchkeyword" placeholder="검색어를 입력하세요"
+								style="width: 70%; padding-left: 20px;">
+							<button type="button" class="site-btn" onclick="EngCheck()">SEARCH</button>
+						</form>		
 					</div>
 
 				</div>
@@ -130,15 +123,11 @@
 						<c:if test="${d.discountRate!=0}">
 							<div class="product__discount__percent">-${d.discountRate}%</div>
 						</c:if>
-						<ul class="featured__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-						</ul>
+						
 					</div>
 					<div class="featured__item__text">
 						<h6>
-							<a href="#">${d.itemName}</a>
+							<a>${d.itemName}</a>
 						</h6>
 						<c:if test="${d.discountRate!=0}">
 							<h5 style="color: gray; text-decoration: line-through;">${d.itemSalePrice}원</h5>
@@ -160,5 +149,4 @@
 	</div>
 </section>
 <!-- Featured Section End -->
-
 

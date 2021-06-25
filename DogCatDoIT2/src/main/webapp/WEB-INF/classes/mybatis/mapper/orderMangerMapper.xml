@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderManager">
+	
+	<sql id="where-list1">
+		<if test="condition=='orderIdx'">
+			so.orderIdx = #{keyword}
+		</if>
+		<if test="condition=='diName'">
+			diName=#{keyword}
+		</if>
+		<if test="condition=='orName'">
+			name=#{keyword}
+		</if>
+	</sql>
+	<sql id="where-list2">
+		order_date BETWEEN TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD')+0.99999
+	</sql>
+
+	<select id="listOrder" parameterType="map" resultType="com.pet.app.shopping.Order">
+		SELECT so.orderIdx, state, orderName, order_date, totalItemPrice, deliveryPrice, name orName, diName
+		FROM shopOrder so
+		JOIN member m ON so.userIdx=m.userIdx
+		JOIN deliveryInfo di ON so.orderIdx=di.orderIdx
+		<where>
+			<if test="sDate != null and eDate != null">
+				<include refid="where-list2"/>
+			</if>
+			<if test="keyword != null and keyword != ''">
+				AND <include refid="where-list1"/>
+			</if>
+			<if test="userIdx != null">
+				AND m.userIdx=#{userIdx}
+			</if>
+		</where>
+		ORDER BY orderIdx ${orderBy}
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM shopOrder so
+		JOIN member m ON so.userIdx=m.userIdx
+		JOIN deliveryInfo di ON so.orderIdx=di.orderIdx
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list1"/>
+			</if>
+			<if test="sDate != null and eDate != null">
+				<include refid="where-list2"/>
+			</if>
+			<if test="userIdx != null">
+				m.userIdx=#{userIdx}
+			</if>
+		</where>
+	</select>
+	
+	<select id="readOrder" parameterType="Long" resultType="com.pet.app.shopping.Order">
+		SELECT
+			so.orderIdx, orderName, state, order_date, name orName, tel orTel, totalItemPrice, deliveryPrice, 
+			totalPayment, totalDiscount, orderMemo, diName, diTel, diAddr1, diAddr2, diZip
+		FROM shopOrder so
+		JOIN member m ON so.userIdx=m.userIdx
+		JOIN deliveryInfo di ON so.orderIdx=di.orderIdx
+		WHERE so.orderIdx = #{orderIdx}
+	</select>
+	
+	<select id="listOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+		SELECT    
+		    so.orderIdx ,sodIdx ,itemName, optionName, detailName, itemSalePrice, qty count, totalPrice, 
+		    it.itemId, io.optionId, dio.detailId, saveFilename
+		FROM shopOrder so
+		JOIN shopOrderDetail sod ON so.orderIdx=sod.orderIdx
+		JOIN detailItemOption dio ON sod.detailId=dio.detailId
+		JOIN itemOption io ON dio.itemoptionId=io.optionId
+		JOIN item it ON io.itemId=it.itemId
+		WHERE so.orderIdx=#{orderIdx}
+	</select>
+	
+	<update id="updateState" parameterType="map">
+		UPDATE shopOrder SET state=#{state}
+		WHERE orderIdx=#{orderIdx}
+	</update>
+	
+	
+	
+</mapper>

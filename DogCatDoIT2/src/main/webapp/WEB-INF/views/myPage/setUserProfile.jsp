@@ -21,6 +21,7 @@ $(function () {
 		reader.onload = function (e) {
 			$(".setUserProfile-photo").empty();
 			$(".setUserProfile-photo").css("background-image","url("+e.target.result+")");
+			$(".setUserProfile-photo").css("background-size","200px");
 		};
 		reader.readAsDataURL(file);
 	});
@@ -32,36 +33,26 @@ function sendOk() {
 	f.submit();
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			프로필 설정
+			<h4 style="margin-bottom: 30px;">프로필 설정</h4>
 		</div>
 		<div>
 			<form name="userProfileForm" method="post" enctype="multipart/form-data">
-				<div>
-					<div class="setUserProfile-photo">
-						사진
+				<div align="center">
+					<div class="setUserProfile-photo" style="width: 200px; height: 200px; border-radius: 50%; background: #eee; text-align: center;	line-height: 200px; background: #eee; text-align: center;	line-height: 200px; background-image: url(${pageContext.request.contextPath}/uploads/userProfile/${dto.animalPhoto}); background-size: 200px;">
+						<c:if test="${mode=='insert'}">사진</c:if>
 					</div>
-					<input type="file" class="setUserProfile-file" name="upload">
+					<input type="file" class="setUserProfile-file" name="upload" style="display: none;">
 				</div>
-				<ul>
+				<ul style="list-style: none; padding: 0">
 					<li>이름 : <input type="text" name="animalName" value="${dto.getAnimalName()}"></li>
 					<li>생일 : <input type="date" name="animalBirth" value="${dto.getAnimalBirth()}"></li>
 					<li>종 : <input type="text" name="animalKind" value="${dto.getAnimalKind()}"></li>
 					<li>지역 : <input type="text" name="region" value="${dto.getRegion()}"></li>
 					<li>소개 : <textarea name="introduce">${dto.getIntroduce()}</textarea></li>
-					<li>프로필 번호 :
-						<c:if test="${countUserProfile==0}">
-							<input type="text" name="orderNum" value="1" readonly="readonly">
-						</c:if> 
-						<c:if test="${countUserProfile!=0}">
-							<input type="radio" name="orderNum" value="1">1
-							<input type="radio" name="orderNum" value="2">2
-							<input type="radio" name="orderNum" value="3">3
-						</c:if>
-					</li>
-					<li><button type="button" onclick="sendOk();">완료</button></li>
+					<li><button type="button" onclick="sendOk();" style="float: right; background: white; border:1px solid #eee; border-radius: 5px; margin:20px 0;">완료</button></li>
 				</ul>
 				<c:if test="${mode=='update'}">
 					<input type="hidden" name="profileNum" value="${dto.getProfileNum()}">

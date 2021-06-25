@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -262,8 +263,15 @@ public class AdminController {
 	public String deleteItem(@RequestParam long num, @RequestParam int page, HttpSession session) {
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "item";
+		List<ItemOption> options=new ArrayList<ItemOption>();
 		try {
+			//아이템과 연관된 모든 옵션의 기본키 찾기 
+			options=service.listoptions(num);
 			service.deleteItem(num, pathname);
+			for(ItemOption o:options) {
+				service.deleteOptionsbyitemId(num);
+				service.deletedetailoptions(o.getOptionId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ".error.error";
@@ -701,7 +709,7 @@ public class AdminController {
 		List<ShopReview> reviews = new ArrayList<ShopReview>();
 		HttpSession session = req.getSession();
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		if (info.getUserIdx() != useridx) {
+		if (info.getUserIdx()!=1 && info.getUserIdx() != useridx) {
 			model.addAttribute("msg", "자신의 글만 삭제 가능합니다");
 			return "/error/error";
 		}
@@ -749,7 +757,16 @@ public class AdminController {
 
 	@PostMapping("admin/CouponManage")
 	public String couponinsert(Coupon coupon, Model model) throws ParseException {
+		Calendar cal=Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(coupon.getDeadline());
+		Date date=sdf2.parse(coupon.getDeadline());
+		cal.setTime(date);
+		cal.add(Calendar.HOUR, 24);
+		cal.add(Calendar.SECOND, -1);
+		coupon.setDeadline(sdf.format(cal.getTime()));
+		System.out.println(coupon.getDeadline());
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		try {
 			service.insertCoupon(coupon);
@@ -774,4 +791,121 @@ public class AdminController {
 		return "/shopping/admin/CouponList";
 	}
 
+	
+	@PostMapping("admin/couponCheck")
+	@ResponseBody
+	public Map<String, Object> couponCheck(
+			@RequestParam String couponName
+			) throws Exception {
+		
+		String p="true";
+		Coupon dto=service.findByCouponName(couponName);
+		if(dto!=null) {
+			p="false";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("passed", p);
+		return model;
+	}
+	
+	@GetMapping("admin/levelManage")
+	public String levelManage(Model model) {
+		model.addAttribute("mode", "insert");
+		return ".shopping.admin.levelManage";
+	}
+	
+	@GetMapping("admin/LevelList")
+	public String levelList(Model model) {
+		  List<ShopLevel> list=new ArrayList<ShopLevel>();
+		  list=service.selectShopLevels(); 
+		  model.addAttribute("list", list);
+		  return "/shopping/admin/levelList";
+	}
+	
+	@PostMapping("admin/levels")
+	public String insertLevel(ShopLevel level,Model model) {
+		try {
+			service.insertShoplevels(level);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		 List<ShopLevel> list=new ArrayList<ShopLevel>();
+		  list=service.selectShopLevels(); model.addAttribute("list", list);
+		  model.addAttribute("list", list);
+		  return "/shopping/admin/levelList";		
+	}
+	
+	@GetMapping("admin/updatelevels")
+	public String updateLevelForm(@RequestParam long levelId, Model model) {
+		ShopLevel level=service.findByLevelId(levelId);
+		model.addAttribute("mode", "update");
+		model.addAttribute("level", level);
+		return ".shopping.admin.levelManage";
+	}
+	
+	@PostMapping("admin/updatelevels")
+	@ResponseBody
+	public String updateLevel(ShopLevel level) {
+		String result="true";
+		try {
+			service.updateShoplevels(level);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="false";
+		}
+		return result;
+	}
+
+	@PostMapping("admin/deletelevels")
+	@ResponseBody
+	public String deletelevelsLevel(@RequestParam long levelId, Model model) {
+		String result="true";
+		try {
+			service.deleteShoplevels(levelId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result="false";
+		}
+		return result;
+	}
+	
+	@PostMapping("admin/levelCheck")
+	@ResponseBody
+	public Map<String, Object> levelCheck(
+			@RequestParam String levelName
+			) throws Exception {
+		
+		String p="true";
+		ShopLevel dto=service.findByLevelName(levelName);
+		if(dto!=null) {
+			p="false";
+		}
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("passed", p);
+		return model;
+	}
+	
+	@GetMapping("admin/orderManage")
+	public String orderManage() {
+		return ".shopping.admin.orderManager";
+	}
+	
+	@GetMapping("search")
+	public String search(@RequestParam String searchkeyword, @RequestParam String originalkeyword, Model model) {
+		List<Item> list=new ArrayList<Item>();
+		list=service.search(searchkeyword);
+		if(!searchkeyword.equals(originalkeyword)) {//영어로 검색한 경우
+			
+			list.addAll(service.search(originalkeyword.toUpperCase()));
+		}
+		for (Item i : list) {
+			i.setDiscountedPrice((long) (Math.round((100 - i.getDiscountRate()) / 100.0 * i.getItemSalePrice())));
+		}
+		model.addAttribute("list", list);
+		return ".shopping.searchedArticle";
+	}
 }

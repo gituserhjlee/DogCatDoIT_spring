@@ -116,6 +116,15 @@ public class AdminService {
 		}
 	}
 	
+	public void deleteOptionsbyitemId(long itemid) throws Exception{
+		try {
+			dao.deleteData("shop.deleteOptionsbyitemId", itemid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	public void updateOptions(long optionid, String optionname) throws Exception{
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("optionname", optionname);
@@ -423,6 +432,16 @@ public class AdminService {
 		return list;
 	}
 	
+	public Coupon findByCouponName(String couponName) {
+		Coupon c=new Coupon();
+		try {
+			c=dao.selectOne("shop.findByCouponName", couponName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
+	
 	public void insertReview(ShopReview review) throws Exception {
 		try {
 			dao.insertData("shop.insertReview", review);
@@ -604,6 +623,72 @@ public class AdminService {
 		List<BestItemDTO> list=new ArrayList<BestItemDTO>();
 		try {
 			list=dao.selectList("shop.dashboardbestitem");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<ShopLevel> selectShopLevels(){
+		List<ShopLevel> list=new ArrayList<ShopLevel>();
+		try {
+			list=dao.selectList("shop.selectShoplevels");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public void insertShoplevels(ShopLevel level) throws Exception {
+		try {
+			dao.insertData("shop.insertShoplevels", level);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public void updateShoplevels(ShopLevel level) throws Exception {
+		try {
+			dao.insertData("shop.updateShoplevels", level);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public void deleteShoplevels(long levelId) throws Exception {
+		try {
+			dao.deleteData("shop.deleteShoplevels", levelId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;		}
+	}
+	public ShopLevel findByLevelId(long levelId ) {
+		ShopLevel level=null;
+		try {
+			level=dao.selectOne("shop.findByLevelId", levelId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return level;
+	}
+	
+	public ShopLevel findByLevelName(String levelName) {
+		ShopLevel level=new ShopLevel();
+		try {
+			level=dao.selectOne("shop.findByLevelName", levelName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return level;
+	}
+	
+	public List<Item> search(String keyword) {
+		List<Item> list=new ArrayList<Item>();
+		try {
+			list=dao.selectList("shop.search", keyword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

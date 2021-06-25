@@ -1,0 +1,39 @@
+﻿@charset "UTF-8";
+/* 페이징 처리 CSS */
+#paginate {
+	clear: both;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 14px;
+	font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	padding: 15px 5px 10px;
+}
+
+#paginate a {
+	border: 1px solid #ccc;
+	height: 28px;
+	font-weight: 600;
+	text-decoration: none;
+	padding: 3px 7px;
+	margin-left: 3px;
+	vertical-align: middle;
+}
+
+#paginate a:hover, a:active {
+	color: #6771ff;
+}
+
+#paginate span {
+	border: 1px solid #e28d8d;
+	background: #fff;
+	color: #cb3536;
+	font-weight: 600;
+	height: 28px;
+	padding: 3px 7px;
+	margin-left: 3px;
+	vertical-align: middle;
+}
+
+#paginate:first-child {
+	margin-left: 0;
+}

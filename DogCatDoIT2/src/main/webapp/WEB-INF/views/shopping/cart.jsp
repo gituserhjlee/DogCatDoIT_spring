@@ -193,10 +193,23 @@ $(function() {
 	cartList();
 	
 	$(".orderBtn").click(function() {
-		f = document.cartForm;
-		f.action = "${pageContext.request.contextPath}/order/orderForm";
-		if(confirm("선택한 상품을 구매하시겠습니까 ? "))
-			f.submit();
+		let count = $("#cartForm input[name=cartIdx]").filter(function() {
+			return $(this).prop("checked");
+		}).length;
+		if(count==0) {
+			alert("구매할 상품을 1개 이상 선택해주세요.");
+			return false;
+		}		
+		
+		if(confirm("선택한 상품을 구매하시겠습니까 ? ")) {
+			$("#cartForm input[name=cartIdx]").filter(function() {
+				return ! $(this).prop("checked");
+			}).each(function() {
+				$(this).prop("disabled", true);
+			});
+			$("#cartForm").submit();
+		}
+		
 	});
 	
 	$("body").on("change", ".chkBox", function() {
@@ -221,6 +234,14 @@ $(function() {
 			deleteCart(selector);
 	});
 	
+	$(".chkAll").click(function() {
+		let isCheck = $(this).prop("checked");
+		let $chks = $("#cartForm input[name=cartIdx]");
+		$chks.each(function() {
+			$(this).prop("checked", isCheck);
+		});
+	});
+	
 });
 
 function deleteCart(selector) {
@@ -241,6 +262,7 @@ function deleteCart(selector) {
 	ajaxFun(url, "post", query, "json", fn);
 	
 }
+
 
 function calcTotal() {
 	let tp = 0;
@@ -298,12 +320,14 @@ function printGuest(data) {
 </script>
 
 <div class="container">
-	<form id="cartForm" name="cartForm" method="post">
+	<form id="cartForm" name="cartForm" method="post" action="${pageContext.request.contextPath}/order/orderForm">
 	<h2> 장바구니 </h2>
 	<table class="table1">
 			<thead>
 				<tr class="tr-top">
-					<th>선택</th>
+					<th>
+						<input type="checkbox" checked="checked" class="chkAll">
+					</th>
 					<th colspan="2">상품정보</th>
 					<th>판매가</th>
 					<th>수량</th>

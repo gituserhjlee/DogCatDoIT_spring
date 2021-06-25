@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pet.app.common.FileManager;
+import com.pet.app.common.MyUtil;
 import com.pet.app.member.Member;
 import com.pet.app.member.MemberService;
 import com.pet.app.member.SessionInfo;
@@ -37,6 +39,9 @@ public class MyPageController {
 	
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	private MyUtil myUtil;
 	
 	@RequestMapping(value = "main")
 	public String main() throws Exception{
@@ -72,17 +77,29 @@ public class MyPageController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		String userId = info.getUserId();
 		String state = "true";
+		Attendance dto = service.readAttendance(userId);
 		int count = 0;
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		
 		try {
+			if(dto!=null) {
+				model.put("state", "false");
+				return model;
+			}
 			service.insertAttendance(userId);
 			count = service.countAttendance(userId);
-			
+			service.updateAttendancePoint(userId);
+			PointHistory ph = new PointHistory();
+			ph.setAmount(50);
+			ph.setBy_what("출석체크");
+			ph.setUserId(userId);
+			service.insertPointHistory(ph);
 		} catch (Exception e) {
 			e.printStackTrace();
 			state = "false";
 		}
-		
-		Map<String, Object> model = new HashMap<String, Object>();
 		
 		model.put("count", count);
 		model.put("state", state);
@@ -98,6 +115,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="month")
+	@ResponseBody
 	public Map<String, Object> month(
 			@RequestParam String start,
 			@RequestParam String end,
@@ -146,6 +164,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("insertUserCalendar")
+	@ResponseBody
 	public Map<String, Object> insertUserCalendarSubmit(UserCalendar dto,
 			HttpSession session) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
@@ -164,6 +183,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("updateUserCalendar")
+	@ResponseBody
 	public Map<String, Object> updateUserCalendarSubmit(UserCalendar dto,
 			HttpSession session) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
@@ -182,6 +202,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("deleteUserCalendar")
+	@ResponseBody
 	public Map<String, Object> deleteUserCalendar(
 			@RequestParam int userCalendarNum,
 			HttpSession session
@@ -206,7 +227,6 @@ public class MyPageController {
 	
 	@RequestMapping(value = "userProfile", method = RequestMethod.GET)
 	public String userProfile(
-			@RequestParam int orderNum,
 			HttpSession session,
 			Model model) throws Exception{
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -220,23 +240,13 @@ public class MyPageController {
 			return ".myPage.setUserProfile";
 		}
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		map.put("orderNum", orderNum);
+		List<UserProfile> list = service.listUserProfile(userId);
+		for(UserProfile dto : list) {
+			dto.setAnimalAge(service.setAge(dto.getProfileNum()));
+		}
 		
-		UserProfile dto = service.readUserProfile(map);
-		dto.setAnimalAge(service.setAge(dto.getProfileNum()));
-		
-		model.addAttribute("profileNum", dto.getProfileNum());
-		model.addAttribute("orderNum", dto.getOrderNum());
 		model.addAttribute("countUserProfile", countUserProfile);
-		model.addAttribute("animalName", dto.getAnimalName());
-		model.addAttribute("animalBirth", dto.getAnimalBirth());
-		model.addAttribute("animalAge", dto.getAnimalAge());
-		model.addAttribute("animalKind", dto.getAnimalKind());
-		model.addAttribute("region", dto.getRegion());
-		model.addAttribute("introduce", dto.getIntroduce());
-		model.addAttribute("animalPhoto", dto.getAnimalPhoto());
+		model.addAttribute("list", list);
 
 		return ".myPage.userProfile";
 	}
@@ -251,19 +261,12 @@ public class MyPageController {
 	
 	@RequestMapping(value = "updateUserProfile", method = RequestMethod.GET)
 	public String updateUserProfile(
-			@RequestParam int orderNum,
+			@RequestParam int profileNum,
 			HttpSession session,
 			Model model
 			) throws Exception{
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String userId = info.getUserId();
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("userId", userId);
-		map.put("orderNum", orderNum);
-		
-		UserProfile dto = service.readUserProfile(map);
+		UserProfile dto = service.readUserProfile(profileNum);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode","update");
@@ -288,7 +291,7 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/myPage/userProfile?orderNum=1";
+		return "redirect:/myPage/userProfile";
 	}
 	
 	@RequestMapping(value = "updateUserProfile", method = RequestMethod.POST)
@@ -305,7 +308,7 @@ public class MyPageController {
 			throw e;
 		}
 		
-		return "redirect:/myPage/userProfile?orderNum=1";
+		return "redirect:/myPage/userProfile";
 	}
 	
 	@RequestMapping(value = "deleteUserProfile")
@@ -325,27 +328,27 @@ public class MyPageController {
 			throw e;
 		}
 		
-		return "redirect:/myPage/userProfile?orderNum=1";
+		return "redirect:/myPage/userProfile";
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.GET)
 	public String setMasterProfile() throws Exception{
-		return "myPage/setMasterProfile";
+		return ".myPage.setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setMasterProfile", method = RequestMethod.POST)
 	public String setMasterProfileSubmit() throws Exception{
-		return "myPage/setMasterProfile";
+		return ".myPage.setMasterProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.GET)
 	public String setCompanyProfile() throws Exception{
-		return "myPage/setCompanyProfile";
+		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "setCompanyProfile", method = RequestMethod.POST)
 	public String setCompanyProfileSubmit() throws Exception{
-		return "myPage/setCompanyProfile";
+		return ".myPage.setCompanyProfile";
 	}
 	
 	@RequestMapping(value = "listQualification")
@@ -356,6 +359,11 @@ public class MyPageController {
 		String userId = info.getUserId();
 		try {
 			List<Qualification> list = service.listRequestQualification(userId);
+			int n=1;
+			for(Qualification dto : list) {
+				dto.setListNum(n);
+				n++;
+			}
 			
 			model.addAttribute("list", list);
 		} catch (Exception e) {
@@ -591,36 +599,72 @@ public class MyPageController {
 	
 	@RequestMapping(value = "written")
 	public String written() throws Exception{
-		return "myPage/written";
+		return ".myPage.written";
 	}
 	
 	@RequestMapping(value = "reserve")
 	public String reserve() throws Exception{
-		return "myPage/reserve";
+		return ".myPage.reserve";
 	}
 	
-	@RequestMapping(value = "point")
+	@RequestMapping(value = "point/HistoryList", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> pointHistoryList(
+			@RequestParam(value = "pageNum", defaultValue = "1") int current_page,
+			@RequestParam(defaultValue = "1") int month,
+			HttpSession session
+			) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		int total_page, dataCount, offset;
+		int point;
+		String paging;
+		int rows = 10;
+		
+		map.put("userId", info.getUserId());
+		map.put("month", month);
+		dataCount = service.pointHistoryCount(map);
+		
+		total_page = myUtil.pageCount(rows, dataCount);
+		if(current_page > total_page)
+			current_page = total_page;
+		
+		offset = (current_page - 1) * rows;
+		if(offset < 0)
+			offset = 0;
+		
+		map.put("offset", offset);
+		map.put("rows", rows);
+		List<PointHistory> list = service.readPointHistory(map);
+		
+		paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+		
+		point = service.readPoint(info.getUserId());
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("pageNum", current_page);
+		model.put("total_page", total_page);
+		model.put("dataCount", dataCount);
+		model.put("list", list);
+		model.put("offset", offset);
+		model.put("paging", paging);
+		model.put("point", point);
+		
+		return model;
+	}
+	
+	@GetMapping("point")
 	public String point() throws Exception{
-		return "myPage/point";
+		return ".myPage.point";
 	}
 	
 	@RequestMapping(value = "cupon")
 	public String cupon() throws Exception{
-		return "myPage/cupon";
+		return ".myPage.cupon";
 	}
 	
 	@RequestMapping(value = "purchase")
 	public String purchase() throws Exception{
-		return "myPage/purchase";
-	}
-	
-	@RequestMapping(value = "zzim")
-	public String zzim() throws Exception{
-		return "myPage/zzim";
-	}
-	
-	@RequestMapping(value = "cart")
-	public String cart() throws Exception{
-		return "myPage/cart";
+		return ".myPage.purchase";
 	}
 }

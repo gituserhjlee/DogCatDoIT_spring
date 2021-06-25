@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pet.app.shopping.OrderService;
+import com.pet.app.shopping.CartSessionInfo;
+
 @Controller("member.memberController")
 @RequestMapping(value="/member/*")
 public class MemberController {
 	@Autowired
 	private MemberService service;
-	
+	@Autowired
+	private OrderService orderService;
+
 	@RequestMapping(value="member", method = RequestMethod.GET)
 	public String memberForm(Model model) {
 		model.addAttribute("mode", "member");
@@ -35,6 +40,8 @@ public class MemberController {
 			Model model) {
 		try {
 			service.insertMember(dto);
+			String userId = dto.getUserId();
+			service.insertQualification(userId);
 		} catch (DuplicateKeyException e) {
 			model.addAttribute("mode", "member");
 			model.addAttribute("message", "아이디 중복으로 회원가입을 실패했습니다.");
@@ -86,11 +93,15 @@ public class MemberController {
 		}
 	
 		// 로그인 부분 시작(세션에 로그인 정보 저장)
+		// 회원 세션
 		SessionInfo info = new SessionInfo();
 		info.setUserId(dto.getUserId());
 		info.setUserName(dto.getName());
 		info.setUserIdx(dto.getUserIdx());
-	
+		// 쇼핑몰 세션
+		CartSessionInfo cInfo = orderService.getCartSessionInfo(dto.getUserIdx());
+		session.setAttribute("cart", cInfo);
+		
 		session.setMaxInactiveInterval(30*60); // 세션 유지 : 30분간 
 		
 		session.setAttribute("member", info);

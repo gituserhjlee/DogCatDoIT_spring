@@ -502,10 +502,10 @@ function updateDrag(calEvent) {
 	ajaxFun(url, "post", query, "json", fn);
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 	  	<div>
-	  		<h4>일정</h4>
+	  		<h4 style="height: 30px; margin-bottom: 30px;">일정</h4>
 	  	</div>
 	  	<div class="body-main pt-15">
 			<div>    
@@ -518,7 +518,7 @@ function updateDrag(calEvent) {
 				</ul>
 			</div>
 			<div id="tab-content" style="padding: 25px 10px 15px; clear: both;">
-				<div id="calendar"></div>
+				<div id="calendar" style="width: 100%"></div>
 			</div>
 			<div id='scheduleLoading' style="display: none;">loading...</div>
 		</div>

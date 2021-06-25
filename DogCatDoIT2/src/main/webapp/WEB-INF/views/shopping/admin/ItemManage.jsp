@@ -5,10 +5,10 @@
 
 <div class="content-wrapper">
 	<div class="container-fluid">
-		<div class="Itemmain">
+		<div class="Itemmain" style="font-family: Jua;">
 
 			
-				<div style="text-align: center; font-family: Jua; font-size: x-large; padding: 20px;">
+				<div style="text-align: center;  font-size: x-large; padding: 20px;">
 					${dataCount}개(${page}/${total_page} 페이지)</div>
 				<div
 					style="display: flex; flex-wrap: wrap; justify-content: space-around;">
@@ -24,7 +24,7 @@
 								
 							</ul>
 							<div
-								style="display: flex; flex-direction: row; justify-content: center; padding: 5px; font-family: Cairo, sans-serif;  ">
+								style="display: flex; flex-direction: row; justify-content: center; padding: 5px; ">
 								<form method="post"
 									action="${pageContext.request.contextPath}/shopping/admin/item/delete"
 									onsubmit="return deletecheck();">

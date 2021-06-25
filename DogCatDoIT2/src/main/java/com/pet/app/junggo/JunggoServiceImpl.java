@@ -59,7 +59,6 @@ public class JunggoServiceImpl implements JunggoService {
 			throw e;
 		}
 	}
-	
 	@Override
 	public Junggo readJunggo(int num) {
 		Junggo dto = null;

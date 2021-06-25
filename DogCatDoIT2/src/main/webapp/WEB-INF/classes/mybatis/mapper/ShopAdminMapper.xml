@@ -62,6 +62,10 @@
 	update itemoption set enabled='0' where optionid=#{optionid}
 	</update>
 	
+	<update id="deleteOptionsbyitemId" parameterType="long">
+	update itemoption set enabled='0' where itemId=#{itemid}
+	</update>
+	
 	<update id="updateOptions" parameterType="map">
 	update itemoption set optionname=#{optionname} where optionid=#{optionid}
 	</update>
@@ -142,7 +146,7 @@
 		resultType="com.pet.app.shopping.ShopStore">
 		select
 		shopStoreId,shopStoreName,shopStoreTel,shopStoreAddress1,shopStoreAddress2,enabled
-		from shopStore where enabled='1'
+		from shopStore where enabled='1' 
 	</select>
 	
 	<select id="findByShopStoreId"
@@ -264,7 +268,7 @@
 	<select id="selectAllShopStore" resultType="com.pet.app.shopping.ShopStore">
 	select shopStoreId,shopStoreName,shopStoreTel,zip,shopStoreAddress1,shopStoreAddress2,enabled
 	 from shopStore 
-	 order by shopStoreId
+	 order by enabled desc, shopStoreName
 	</select>
 	
 	<select id="selectShopStoreOrder" resultType="com.pet.app.shopping.ShopStoreOrder">
@@ -281,13 +285,20 @@
 	
 	<insert id="insertCoupon" parameterType="com.pet.app.shopping.Coupon">
 	insert into shopcoupon(couponNum,couponName,deadline,stock,rate) 
-	values (shopcoupon_seq.NEXTVAL, #{couponName},#{deadline},#{stock},#{rate})
+	values (shopcoupon_seq.NEXTVAL, #{couponName},to_date(#{deadline},'yyyy-mm-dd hh24:mi:ss'),#{stock},#{rate})
+	
 	</insert>
 	
 	<select id="selectCouponList" resultType="com.pet.app.shopping.Coupon">
 	select couponNum,couponName, deadline ,stock,rate 
 	from shopcoupon 
 	order by deadline desc
+	</select>
+	
+	<select id="findByCouponName" parameterType="String" resultType="com.pet.app.shopping.Coupon">
+	select couponNum,couponName, deadline ,stock,rate 
+	from shopcoupon
+	where couponName=#{couponName}
 	</select>
 	
 	<insert id="insertReview" parameterType="com.pet.app.shopping.ShopReview">
@@ -313,7 +324,7 @@
 	</select>
 	
 	<delete id="deletereview" parameterType="map">
-	delete from review where reviewnum=#{reviewNum} and useridx=#{useridx}
+	delete from review where reviewnum=#{reviewNum}
 	</delete>
 	
 	<select id="findByReviewId" parameterType="long" resultType="com.pet.app.shopping.ShopReview">
@@ -332,7 +343,7 @@
 	from shoporder so join shoporderdetail sod on so.orderidx=sod.orderidx
 	join detailitemoption d on sod.detailid=d.detailid
 	join itemoption i on d.itemoptionid=i.optionid
-	where so.useridx=#{useridx} and i.itemid=#{itemId} and so.state=2
+	where so.useridx=#{useridx} and i.itemid=#{itemId} and so.state=6
 	
 	</select>
 	
@@ -347,6 +358,7 @@
 	<select id="AllshoporderCount" resultType="Integer">
 	select count(*)
 	from shoporder
+	where state not in (2, 8)
 	</select>	
 	
 	<select id="AllShopCustomerCount" resultType="Integer">
@@ -363,12 +375,14 @@
 	join detailitemoption d on sod.detailid=d.detailid
 	join itemoption i on d.itemoptionid=i.optionid
 	join item it on i.itemid=it.itemid
+	where so.state not in (2, 8)
 	</select>
 	
 	<!-- 총 매출액 -->
 	<select id="sumsalesPrice" resultType="long">
 	select sum(totalpayment)
 	from shoporder
+	where state not in (2, 8)
 	</select>
 	
 	<!-- 월별 매출액 -->
@@ -392,6 +406,7 @@ from
                 decode(to_char(order_date, 'yyyy-mm'), #{m11}, sum(totalpayment), 0) m11,
                 decode(to_char(order_date, 'yyyy-mm'), #{m12}, sum(totalpayment), 0) m12
         from shoporder
+        where state not in (2, 8)
         group by to_char(order_date, 'yyyy-mm')
     )
 	</select>
@@ -402,8 +417,59 @@ from
 	select d.detailid detailid , i.itemname itemname, io.optionname optionname,d.detailname detailname, sum(qty) qty 
 	from shoporderdetail sod join detailitemoption d on sod.detailid=d.detailid
 	join itemoption io on d.itemoptionid=io.optionid
-	join item i on io.itemid=i.itemid
-	group by d.detailid , i.itemname, io.optionname,d.detailname)
-	where rownum &lt;=10
+	join item i on io.itemid=i.itemid 
+	join shoporder so on sod.orderidx=so.orderidx
+	where  so.state not in (2, 8) and d.enabled='1'
+	group by d.detailid , i.itemname, io.optionname,d.detailname
+	order by qty desc)
+	where rownum &lt;=10 
+	</select>
+	
+	<select id="selectShoplevels" resultType="com.pet.app.shopping.ShopLevel">
+	select levelId,levelName,moneyStart,moneyEnd,rate
+	from shoplevel
+	order by moneystart
+	
+	</select>
+	
+	<insert id="insertShoplevels" parameterType="com.pet.app.shopping.ShopLevel">
+	insert into ShopLevel(levelId,levelName,moneyStart,moneyEnd,rate) 
+	values(shoplevel_seq.NEXTVAL,#{levelName},#{moneyStart},#{moneyEnd},#{rate})
+	
+	</insert>
+	
+	<update id="updateShoplevels" parameterType="com.pet.app.shopping.ShopLevel">
+	update ShopLevel set levelName=#{levelName}, moneyStart=#{moneyStart}, moneyEnd=#{moneyEnd}, rate=#{rate}
+	where levelId=#{levelId}
+	</update>
+	
+	<delete id="deleteShoplevels" parameterType="long">
+	delete from ShopLevel
+	where levelId=#{levelId}
+	</delete>
+	
+	<select id="findByLevelId" parameterType="long" resultType="com.pet.app.shopping.ShopLevel">
+	select levelId,levelName,moneyStart,moneyEnd,rate
+	from ShopLevel
+	where levelId=#{levelId}
+	
+	</select>
+	
+	<select id="findByLevelName" parameterType="String" resultType="com.pet.app.shopping.ShopLevel">
+	select levelId,levelName,moneyStart,moneyEnd,rate
+	from ShopLevel
+	where levelName=#{levelName}
+	
+	</select>
+	
+	<select id="search" parameterType="String" resultType="com.pet.app.shopping.Item">
+	select itemId,itemCategoryId,shopStoreId,itemName,itemOriginalPrice,
+		itemSalePrice,discountRate,registered,saveFilename,
+		des,content,enabled,manufacturer
+	from item 
+	where (UPPER(itemname) LIKE  '%' || UPPER(#{keyword}) || '%'
+	or UPPER(des) LIKE '%' || UPPER(#{keyword}) || '%' 
+	or DBMS_LOB.INSTR(UPPER(content), UPPER(#{keyword})) &gt; 0 )
+	and enabled='1'
 	</select>
 </mapper>

@@ -110,5 +110,15 @@ public class MemberServiceImpl implements MemberService{
 		return list;
 	}
 
+	@Override
+	public void insertQualification(String userId) throws Exception {
+		try {
+			dao.insertData("member.insertQualification", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 	
 }

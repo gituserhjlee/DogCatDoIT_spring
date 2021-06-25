@@ -4,9 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:forEach  var="r" items="${reviews}">
 	<div style="font-family: Jua; font-size: x-large; padding: 20px; border:2px solid #F79F81;">
+	<c:if test="${sessionScope.member.userIdx eq r.useridx || sessionScope.member.userIdx eq '1' }">
+		<a onclick="deleteReview(${r.reviewNum}, ${r.useridx}, ${r.itemId})">삭제 </a>
+	</c:if>
 	<c:if test="${sessionScope.member.userIdx eq r.useridx}">
-		<a onclick="deleteReview(${r.reviewNum}, ${r.useridx}, ${r.itemId})">삭제 |</a>
-		<a href="${pageContext.request.contextPath}/shopping/updatereview?reviewNum=${r.reviewNum}&useridx=${r.useridx}&itemId=${r.itemId}">수정</a>
+		<a href="${pageContext.request.contextPath}/shopping/updatereview?reviewNum=${r.reviewNum}&useridx=${r.useridx}&itemId=${r.itemId}">| 수정</a>
 	</c:if>
 		<br>
 		<span>작성자: ${r.name }</span>

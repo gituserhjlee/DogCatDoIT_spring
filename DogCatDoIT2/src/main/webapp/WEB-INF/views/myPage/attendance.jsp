@@ -22,7 +22,7 @@ html, body {
 /* ======== Calendar ======== */
 .my-calendar {
   width: 700px;
-  margin: 30px;
+  margin: 30px 0;
   padding: 20px 20px 10px;
   text-align: center;
   font-weight: 800;
@@ -121,12 +121,12 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 </script>
-<div class="myPage-body">
-	<div class="myPage-insideBody">
+<div style="width: 800px; min-height: 800px; float: left;">
+	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 	  	<div>
 	  		<h4>출석체크</h4>
 	  	</div>
-	    <div class="container">
+	    <div class="container" style="padding: 0;">
   <div class="my-calendar clearfix">
     <div class="clicked-date">
       <div class="cal-day"></div>
@@ -258,7 +258,7 @@ const init = {
 				alert("이미 출석하셨습니다.");
 				return;
 			}
-			alert("출석완료");
+			alert("출석완료!! 50포인트 적립되셨습니다.");
 			location.reload();
 		}
 </script>

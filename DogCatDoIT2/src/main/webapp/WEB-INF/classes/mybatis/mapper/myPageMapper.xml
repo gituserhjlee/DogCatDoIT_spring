@@ -4,8 +4,8 @@
 <mapper namespace="myPage">
 	<!-- 유저프로필 입력 -->
 	<insert id="insertUserProfile" parameterType="com.pet.app.myPage.UserProfile">
-		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, orderNum, userId, animalPhoto)
-		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{orderNum}, #{userId}, #{animalPhoto})
+		INSERT INTO userProfile (profileNum, animalName, animalBirth, region, animalKind, introduce, userId, animalPhoto)
+		VALUES (userProfile_seq.NEXTVAL, #{animalName}, #{animalBirth}, #{region}, #{animalKind}, #{introduce}, #{userId}, #{animalPhoto})
 	</insert>
 	
 	<!-- 생일로 나이 구하기(1살 이상) -->
@@ -24,15 +24,22 @@
 	</select>
 	
 	<!-- 유저프로필 -->
-	<select id="readUserProfile" parameterType="map" resultType="com.pet.app.myPage.UserProfile">
-		SELECT profileNum, animalName, TO_CHAR(animalBirth, 'YYYY-MM-DD') animalBirth, region, animalKind, introduce, orderNum, userId, animalPhoto 
+	<select id="readUserProfile" parameterType="Integer" resultType="com.pet.app.myPage.UserProfile">
+		SELECT profileNum, animalName, TO_CHAR(animalBirth, 'YYYY-MM-DD') animalBirth, region, animalKind, introduce, userId, animalPhoto 
 		FROM userProfile 
-		WHERE userId = #{userId} AND orderNum = #{orderNum}
+		WHERE profileNum = #{profileNum}
+	</select>
+	
+	<!-- 유저프로필 리스트 -->
+	<select id="listUserProfile" parameterType="String" resultType="com.pet.app.myPage.UserProfile">
+		SELECT profileNum, animalName, TO_CHAR(animalBirth, 'YYYY-MM-DD') animalBirth, region, animalKind, introduce, userId, animalPhoto 
+		FROM userProfile 
+		WHERE userId = #{userId}
 	</select>
 	
 	<!-- 유저프로필 수정 -->
 	<update id="updateUserProfile" parameterType="com.pet.app.myPage.UserProfile">
-		UPDATE userProfile SET animalName=#{animalName}, animalBirth=#{animalBirth}, region=#{region}, animalKind=#{animalKind}, introduce=#{introduce}, orderNum=#{orderNum}, animalPhoto=#{animalPhoto} 
+		UPDATE userProfile SET animalName=#{animalName}, animalBirth=#{animalBirth}, region=#{region}, animalKind=#{animalKind}, introduce=#{introduce}, animalPhoto=#{animalPhoto} 
 		WHERE profileNum = #{profileNum}
 	</update>
 	
@@ -156,8 +163,8 @@
 	
 	
 	<!-- 포인트 지급 (출석) (member 테이블 업데이트) -->
-	<update id="attendancePoint" parameterType="map">
-		UPDATE member SET point=#{point}
+	<update id="attendancePoint" parameterType="String">
+		UPDATE member SET point=point+50 WHERE userId=#{userId}
 	</update>
 	
 	<!-- 포인트 지급 (게시글 좋아요 10 달성시) (member 테이블 업데이트) -->
@@ -165,16 +172,30 @@
 		UPDATE member SET point=point+500 WHERE userId=#{userId}
 	</update>
 	
-	
-	<!-- 포인트 사용(member 테이블 업데이트) -->
-	<update id="usePoint" parameterType="map">
-		UPDATE member SET point=#{point} WHERE userId=#{userId}
-	</update>
-	
 	<!-- 포인트 조회 -->
 	<select id="readPoint" parameterType="String" resultType="Integer">
 		SELECT point FROM member WHERE userId=#{userId}
 	</select>
+	
+	<!-- 포인트 내역 저장 -->
+	<insert id="insertPointHistory" parameterType="com.pet.app.myPage.PointHistory">
+		INSERT INTO pointHistory (pointNum, userId, amount, by_what, get_date) 
+		VALUES (pointHistory_seq.NEXTVAL, #{userId}, #{amount}, #{by_what}, SYSDATE)
+	</insert>
+	
+	<!-- 포인트 내역 -->
+	<select id="readPointHistory" parameterType="map" resultType="com.pet.app.myPage.PointHistory">
+		SELECT pointNum, userId, amount, by_what, TO_CHAR(get_date, 'YYYY-MM-DD') get_date FROM pointHistory 
+		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= #{month}
+		ORDER BY get_date DESC
+		OFFSET #{offset} rows FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	<!-- 포인트 내역 갯수 -->
+	<select id="pointHistoryCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(pointNum) FROM pointHistory
+		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= #{month}
+	</select>
+	
 	
 	<!-- 쿠폰 지급 -->
 	

@@ -26,14 +26,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap4/css/bootstrap-icons.css"
 	type="text/css">
-
-<!-- Favicon icon -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/shopAdmin/images/favicon.png"
-	type="image/x-icon">
-<link rel="icon"
-	href="${pageContext.request.contextPath}/resources/shopAdmin/images/favicon.ico"
-	type="image/x-icon">
+  
+    <!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <!-- Google font-->
  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"
@@ -108,7 +104,7 @@
 							<i class="icon-speedometer"></i><span> Dashboard</span>
 					</a></li>
 					<li class="treeview" id="orderManage"><a class="waves-effect waves-dark"
-						href="#!"><i class="icon-book-open"></i><span> 주문조회</span></a></li>
+						href="${pageContext.request.contextPath}/shopping/admin/orderManage"><i class="icon-book-open"></i><span> 주문조회</span></a></li>
 					<li class="treeview" id="ItemManage"><a
 						class="waves-effect waves-dark"
 						href="${pageContext.request.contextPath}/shopping/admin/ItemManage"><i
@@ -119,20 +115,35 @@
 							class="icon-briefcase"></i><span> 상품등록</span></a></li>
 
 					<li class="treeview" id="couponManage"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/CouponManage"><i class="icon-list"></i><span> 쿠폰관리</span></a></li>
+						href="${pageContext.request.contextPath}/shopping/admin/CouponManage">
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/coupon.png"
+				alt="Theme-logo">
+						&nbsp;<span> 쿠폰관리</span></a></li>
 
 
 
 					<li class="treeview" id="balju"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/Balju"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/Balju"> 
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/balju.png"
+				alt="Theme-logo">
+						&nbsp;
+						<span>
 								발주 업체 관리</span>
 					</a></li>
 					<li class="treeview" id="stockManage"><a class="waves-effect waves-dark"
-						href="${pageContext.request.contextPath}/shopping/admin/stockManage"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/stockManage">
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/order.png"
+				alt="Theme-logo">
+						&nbsp;
+						<span>
 								발주</span>
 					</a></li>
 					<li class="treeview" id="levelManage"><a class="waves-effect waves-dark"
-						href="basic-table.html"> <i class="icon-list"></i><span>
+						href="${pageContext.request.contextPath}/shopping/admin/levelManage">
+						<img src="${pageContext.request.contextPath}/resources/shopAdmin/images/level.png"
+				alt="Theme-logo">
+						&nbsp;
+						<span>
 								쇼핑몰 등급 관리</span>
 					</a></li>
 

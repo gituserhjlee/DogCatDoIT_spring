@@ -8,11 +8,11 @@
 
 	<insert id="insertOrder" parameterType="com.pet.app.shopping.Order">
 		INSERT INTO shopOrder(orderIdx, userIdx, state, order_date, 
-			totalItemPrice, deliveryPrice, couponDiscount, pointDiscount,
-			totalDiscount, totalPayment, orderMemo)
-		VALUES(#{orderIdx}, #{userIdx}, 1, SYSDATE, #{totalItemPrice}, 
+			totalItemPrice, deliveryPrice, couponDiscount, pointDiscount, 
+			totalDiscount, totalPayment, orderMemo, orderName)
+		VALUES(#{orderIdx}, #{userIdx}, ${state}, TO_DATE(#{order_date}, 'YYYY-MM-DD HH24:MI:SS'), #{totalItemPrice}, 
 			#{deliveryPrice}, #{couponDiscount}, #{pointDiscount}, 
-			#{totalDiscount}, #{totalPayment}, #{orderMemo})
+			#{totalDiscount}, #{totalPayment}, #{orderMemo, jdbcType=VARCHAR}, #{orderName})
 	</insert>
 	
 	<insert id="insertDeliveryInfo" parameterType="com.pet.app.shopping.Order">
@@ -21,8 +21,8 @@
 	</insert>
 	
 	<insert id="insertPayInfo" parameterType="com.pet.app.shopping.Order">
-		INSERT INTO payInfo(payIdx, orderIdx, pay_date, payCondition)
-		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE, #{payCondition})
+		INSERT INTO payInfo(payIdx, orderIdx, pay_date)
+		VALUES(payInfo_seq.NEXTVAL, #{orderIdx}, SYSDATE)
 	</insert>
 	
 	<update id="insertSod" parameterType="com.pet.app.shopping.Order">
@@ -32,6 +32,11 @@
 			VALUES (FN_GET_SEQ('sod_seq'), #{orderIdx}, #{item.totalPrice}, #{item.detailId}, #{item.count})
 		</foreach>
         
+	</update>
+	
+	<update id="itemStockDown" parameterType="com.pet.app.shopping.OrderDetail">
+		UPDATE detailItemOption SET stock=stock-#{count}
+		WHERE detailId=#{detailId}
 	</update>
 	
 	
@@ -44,30 +49,18 @@
 		JOIN detailItemoption do ON io.optionId=do.itemoptionId
 		WHERE detailId = #{detailId}
 	</select>
-	<!-- 찜, 장바구니 -->
 	
+	<!-- 장바구니 -->
 	<insert id="insertCart" parameterType="com.pet.app.shopping.Cart">
 		INSERT INTO cart(cartIdx, userIdx, cart_date, count, detailId)
 		VALUES (cart_seq.NEXTVAL, #{userIdx}, SYSDATE, #{count}, #{detailId})
 	</insert>
 	
-	<insert id="insertWish" parameterType="com.pet.app.shopping.Wish">
-		INSERT INTO wish(wishIdx, userIdx, wish_date, detailId)
-		VALUES (wish_seq.NEXTVAL, #{userIdx}, SYSDATE, #{detailId})
-	</insert>
-	
-	<select id="wishListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
-		SELECT
-		    i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
-		    optionId, optionName, detailId, detailName
-		FROM item i 
-		JOIN itemOption io ON i.itemId=io.itemId
-		JOIN detailItemoption do ON io.optionId=do.itemoptionId
-		JOIN cart c ON c.detailId=do.detailId
-		WHERE userIdx=#{userIdx}
+	<select id="cartCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM cart WHERE userIdx=#{userIdx}
 	</select>
 	
-	<select id="cartListOrderDetail" parameterType="Long" resultType="com.pet.app.shopping.OrderDetail">
+	<select id="cartListOrderDetail" parameterType="map" resultType="com.pet.app.shopping.OrderDetail">
 		SELECT
 		    cartIdx, i.itemId, itemName, saveFilename, itemSalePrice, discountRate, 
 		    optionName, detailName, count, do.detailId
@@ -75,13 +68,30 @@
 		JOIN itemOption io ON i.itemId=io.itemId
 		JOIN detailItemoption do ON io.optionId=do.itemoptionId
 		JOIN cart c ON c.detailId=do.detailId
-		WHERE userIdx=#{userIdx}
+		WHERE 
+		<if test="userIdx != null">
+		userIdx=#{userIdx}
+		</if>
+		<if test="cartIdxs != null">
+		cartIdx IN 
+			<foreach collection="cartIdxs" item="cartIdx" open="(" close=")" separator=",">
+			${cartIdx}
+			</foreach>
+		</if>
 		ORDER BY cart_date DESC
 	</select>
 	
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM cart
 		WHERE userIdx=#{userIdx} AND cartIdx IN (${cartIdxs})
+	</delete>
+	
+	<delete id="deleteCart2" parameterType="com.pet.app.shopping.Order">
+		DELETE FROM cart
+		WHERE userIdx=#{userIdx} AND cartIdx IN 
+		<foreach collection="itemList" item="item" open="(" close=")" separator=",">
+			#{item.cartIdx}
+		</foreach>
 	</delete>
 	
 	<select id="readCart" parameterType="com.pet.app.shopping.Cart" resultType="com.pet.app.shopping.Cart">
@@ -96,5 +106,42 @@
 		WHERE userIdx=#{userIdx} AND detailId=#{detailId}
 	</update>
 	
+	<select id="getCartSessionInfo" parameterType="Long" resultType="com.pet.app.shopping.CartSessionInfo">
+		SELECT NVL(SUM(count), 0) cartCount, NVL(SUM(count * itemSalePrice), 0) cartTotalItemPrice
+		FROM cart c
+		JOIN detailItemOption dio ON c.detailId=dio.detailId
+		JOIN itemOption io ON dio.itemOptionId=io.optionId
+		JOIN item i ON io.itemId=i.itemId
+		WHERE userIdx=#{userIdx}
+	</select>
+	
+	<!-- 쿠폰 -->
+	<select id="readCoupon" parameterType="String" resultType="com.pet.app.shopping.Coupon">
+		SELECT couponNum, couponName, deadline, stock, rate
+		FROM shopCoupon
+		WHERE deadline - SYSDATE > 0 AND stock > 0 AND couponName=#{couponName}
+	</select>
+	
+	<update id="couponStockDown" parameterType="String">
+		UPDATE shopCoupon SET stock=stock-1
+		WHERE couponName=#{couponName}
+	</update>
+	
+	<!-- 쇼핑몰 등급 -->
+	<select id="readSlevelInfo" parameterType="Long" resultType="com.pet.app.shopping.ShopLevel">
+		SELECT levelName, rate 
+		FROM shopLevel
+		<where>
+	    	moneyStart &lt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
+	    	AND
+	    	moneyEnd &gt;= (SELECT NVL(SUM(totalItemPrice), 0) FROM shoporder WHERE userIdx=#{userIdx})
+    	</where>
+	</select>
+	
+	<!-- 포인트 내역 저장 -->
+	<insert id="insertPointHistory" parameterType="map">
+	 	INSERT INTO pointHistory (pointNum, userId, amount, by_what, get_date) 
+		VALUES (pointHistory_seq.NEXTVAL, (SELECT userId FROM member WHERE userIdx=#{userIdx}), #{amount}, #{by_what}, SYSDATE)
+	</insert>
 	
 </mapper>

@@ -83,13 +83,25 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	// 프로필 읽기
 	@Override
-	public UserProfile readUserProfile(Map<String, Object> map) {
+	public UserProfile readUserProfile(int profileNum) {
 		UserProfile dto = null;
 		try {
-			dto = dao.selectOne("myPage.readUserProfile", map);
+			dto = dao.selectOne("myPage.readUserProfile", profileNum);
 		} catch (Exception e) {
 		}
 		return dto;
+	}
+	
+	// 프로필 리스트
+	@Override
+	public List<UserProfile> listUserProfile(String userId) {
+		List<UserProfile> list = null;
+		try {
+			list = dao.selectList("myPage.listUserProfile", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	// 프로필 개수 구하기
@@ -142,7 +154,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return dto;
 	}
-
+	
+	// 자격신청 수정
 	@Override
 	public void updateRequestQualification(Qualification dto, String pathname) throws Exception {
 		try {
@@ -161,7 +174,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 자격신청 삭제
 	@Override
 	public void deleteRequestQualification(int requestNum, String pathname) throws Exception {
 		try {
@@ -176,7 +190,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 회원정보 수정
 	@Override
 	public void setMember(Member dto) throws Exception {
 		try {
@@ -194,7 +209,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 	}
-
+	
+	// 회원정보 삭제
 	@Override
 	public void deleteMember(String userId) throws Exception {
 		try {
@@ -204,7 +220,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 출석체크
 	@Override
 	public void insertAttendance(String userId) throws Exception {
 		try {
@@ -214,7 +231,8 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 출석 카운트
 	@Override
 	public int countAttendance(String userId) {
 		int count = 0;
@@ -225,7 +243,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return count;
 	}
-
+	
+	// 출석내역
 	@Override
 	public Attendance readAttendance(String userId) {
 		Attendance dto = null;
@@ -236,7 +255,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return dto;
 	}
-
+	
+	// 일정추가
 	@Override
 	public void insertUserCalendar(UserCalendar dto) throws Exception {
 		try {
@@ -260,7 +280,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		
 	}
-
+	
+	// 달력
 	@Override
 	public List<UserCalendar> listMonth(Map<String, Object> map) throws Exception {
 		List<UserCalendar> list=null;
@@ -271,7 +292,8 @@ public class MyPageServiceImpl implements MyPageService{
 		}
 		return list;
 	}
-
+	
+	// 일정 불러오기
 	@Override
 	public UserCalendar readUserCalendar(int userCalendarNum) throws Exception {
 		UserCalendar dto = null;
@@ -283,6 +305,7 @@ public class MyPageServiceImpl implements MyPageService{
 		return dto;
 	}
 
+	// 일정 업데이트
 	@Override
 	public void updateUserCalendar(UserCalendar dto) throws Exception {
 		try {
@@ -304,12 +327,71 @@ public class MyPageServiceImpl implements MyPageService{
 			throw e;
 		}
 	}
-
+	
+	// 일정 삭제
 	@Override
 	public void deleteUserCalendar(Map<String, Object> map) throws Exception {
 		try {
 			dao.deleteData("myPage.deleteUserCalendar", map);
 		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	// 포인트 내역 등록
+	@Override
+	public void insertPointHistory(PointHistory dto) throws Exception {
+		try {
+			dao.insertData("myPage.insertPointHistory", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	// 포인트 내역 리스트
+	@Override
+	public List<PointHistory> readPointHistory(Map<String, Object> map){
+		List<PointHistory> list = null;
+		try {
+			list = dao.selectList("myPage.readPointHistory", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 포인트 내역 갯수
+	@Override
+	public int pointHistoryCount(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = dao.selectOne("myPage.pointHistoryCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// 포인트
+	@Override
+	public int readPoint(String userId) {
+		int result = 0;
+		try {
+			result = dao.selectOne("myPage.readPoint", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 출석 포인트 지급
+	@Override
+	public void updateAttendancePoint(String userId) throws Exception {
+		try {
+			dao.updateData("myPage.attendancePoint", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 	}

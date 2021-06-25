@@ -4,6 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
+
+
+
 <!-- Hero Section Begin -->
 <section class="hero hero-normal">
 	<div class="container">
@@ -39,19 +42,11 @@
 
 					<div class="hero__search__form">
 
-						<form action="#">
-							<div>
-								<select>
-									<option value="">All Categories</option>
-									<option value="dog">강아지</option>
-									<option value="cat">고양이</option>
-								</select>
-
-							</div>
-							<input type="text" placeholder="검색어를 입력하세요"
+						<form>	
+							<input type="text" name="searchkeyword" id="searchkeyword" placeholder="검색어를 입력하세요"
 								style="width: 70%; padding-left: 20px;">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form>
+							<button type="button" class="site-btn" onclick="EngCheck()">SEARCH</button>
+						</form>		
 					</div>
 
 				</div>
@@ -101,8 +96,7 @@
 					</div>
 					<div>${item.des}</div>
 
-					<form name="oform">
-						<input type="hidden" id="str" name="str">
+					<form name="oform" action="${pageContext.request.contextPath}/order/orderForm" method="get">
 						<div>
 							<select name="detailId" id="cartdetailId">
 								<c:forEach var="o" items="${options}">
@@ -116,7 +110,7 @@
 						<div class="product__details__quantity" style="clear: both;">
 							<div class="quantity">
 								<div class="pro-qty" style="background: white">
-									<input type="text" name="cartcount" id="cartcount" value="1"
+									<input type="text" name="count" id="cartcount" value="1"
 										style="border: none; background: #F79F81; color: white;">
 								</div>
 							</div>
@@ -124,9 +118,8 @@
 						<div style="margin-top: 10px;">
 							<button type="button" class="primary-btn" style="border: 2px solid #F79F81;"
 								onclick="addCart()">ADD TO CART</button>
-							<button type="button" style="border: 2px solid #F79F81;"  class="primary-btn" onclick="addCart('buy')">BUY NOW</button>
-							<a class="heart-icon" > <span
-								class="icon_heart_alt"></span></a>
+							<button type="submit" style="border: 2px solid #F79F81;"  class="primary-btn" >BUY NOW</button>
+							
 						</div>
 					</form>
 
@@ -305,8 +298,6 @@ function addCart(){
 	
 	var detailId=$("#cartdetailId").val()
 	var count=$("#cartcount").val()
-	console.log(detailId)
-	console.log(count)
 	
 	$.ajax({
 		url:"${pageContext.request.contextPath}/order/insertCart",

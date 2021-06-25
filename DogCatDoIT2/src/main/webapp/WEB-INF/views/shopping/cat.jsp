@@ -37,18 +37,11 @@
 
 					<div class="hero__search__form">
 
-						<form action="#">
-							<div>
-								<select>
-									<option value="">All Categories</option>
-									<option value="dog">강아지</option>
-									<option value="cat">고양이</option>
-								</select>
-
-							</div>
-							<input type="text" placeholder="검색어를 입력하세요" style="width:70%; padding-left: 20px;">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form>
+						<form>	
+							<input type="text" name="searchkeyword" id="searchkeyword" placeholder="검색어를 입력하세요"
+								style="width: 70%; padding-left: 20px;">
+							<button type="button" class="site-btn" onclick="EngCheck()">SEARCH</button>
+						</form>		
 					</div>
 
 				</div>
@@ -107,19 +100,19 @@
 		<div class="row featured__filter">
 			<c:forEach var="d" items="${items}">
 				<c:if test="${5 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix saro">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix products">
 				</c:if>
 				<c:if test="${10 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix gansic">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix saro">
 				</c:if>
 				<c:if test="${11 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix clean">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix gansic">
 				</c:if>
 				<c:if test="${12 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix yak">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix clean">
 				</c:if>
 				<c:if test="${13 eq d.itemCategoryId}">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix products">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix yak ">
 				</c:if>
 				<c:if test="${14 eq d.itemCategoryId}">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix fashion">
@@ -132,15 +125,11 @@
 						<c:if test="${d.discountRate!=0}">
 							<div class="product__discount__percent">-${d.discountRate}%</div>
 						</c:if>
-						<ul class="featured__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-						</ul>
+					
 					</div>
 					<div class="featured__item__text">
 						<h6>
-							<a href="#">${d.itemName}</a>
+							<a>${d.itemName}</a>
 						</h6>
 						<c:if test="${d.discountRate!=0}">
 							<h5 style="color: gray; text-decoration: line-through;">${d.itemSalePrice}원</h5>
@@ -162,5 +151,4 @@
 	</div>
 </section>
 <!-- Featured Section End -->
-
 

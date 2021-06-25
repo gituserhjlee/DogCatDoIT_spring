@@ -10,14 +10,15 @@
 
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>독캣두잇</title>
+<title>독캣두잇-독캣몰</title>
 <meta name="robots" content="noindex, follow" />
 <meta name="description" content="">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-<title>Ogani | Template</title>
-
+    <!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/mainResources/images/favicon.png">
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
@@ -89,7 +90,6 @@
 	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/magnific-popup.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/mainResources/css/plugins/slick.css">
-
 <style>
 .starR{
   background: url('${pageContext.request.contextPath}/resources/shopAdmin/images/star.png') no-repeat right 0;
@@ -121,7 +121,6 @@
 }
 </style>
 
-<title>Insert title here</title>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
@@ -155,17 +154,21 @@
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-6">
-					<div class="header__cart">
-						<ul>
-							<li><a href="${pageContext.request.contextPath}/order/wishlist"><i class="fa fa-heart"></i> <span>10</span></a></li>
-							<li><a href="${pageContext.request.contextPath}/order/cart"><i class="fa fa-shopping-bag"></i> <span>2</span></a></li>
-						</ul>
-						<div class="header__cart__price">
-							담긴금액: <span>56000원</span>
+				<c:if test="${not empty sessionScope.cart}">
+					<div class="col-lg-6">
+						<div class="header__cart">
+							<ul>
+								<li><a href="${pageContext.request.contextPath}/order/cart"><i class="fa fa-shopping-bag"></i> <span>${sessionScope.cart.cartCount}</span></a></li>
+							</ul>
+							<div class="header__cart__price">
+								담긴금액:
+								<span>
+									<fmt:formatNumber type="number" value="${sessionScope.cart.cartTotalItemPrice}" maxFractionDigits="3"/> 원
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 			<div class="humberger__open">
 				<i class="fa fa-bars"></i>
@@ -264,6 +267,60 @@
 		});
 	
 	</script>
+
+<script src="${pageContext.request.contextPath}/resources/jquery/js/jquery-ui.min.js"></script>	
+<script>
+$(function(){
+	var words=["사료", "내구성","캣타워", "간식", "옷","배변패드","영양제", "장난감", "모래", "고양이","고양이 모래", "고양이 캣타워", "집사", "귀여운", "흡수력","국산", "해외", "강아지","강아지 영양제", "강아지 사료", "건강","배변","츄르","알레르기", "다회용", "프리미엄", "저렴한", "냥이","아기","애기", "강력한", "튼튼한"];
+	
+	$("#searchkeyword").autocomplete({
+		source:words,
+		select: function(event, ui) {
+            console.log(ui.item);
+        },
+        focus: function(event, ui) {
+            return false;
+
+        }
+	});
+});
+	
+</script>
+<script>
+
+var convertEngToKor = function(args) {
+	var engChosung = "rRseEfaqQtTdwWczxvg"
+	var engChosungReg = "[" + engChosung + "]";
+	var engJungsung = {k:0,o:1,i:2,O:3,j:4,p:5,u:6,P:7,h:8,hk:9,ho:10,hl:11,y:12,n:13,nj:14,np:15,nl:16,b:17,m:18,ml:19,l:20};
+	var engJungsungReg = "hk|ho|hl|nj|np|nl|ml|k|o|i|O|j|p|u|P|h|y|n|b|m|l";
+	var engJongsung = {"":0,r:1,R:2,rt:3,s:4,sw:5,sg:6,e:7,f:8,fr:9,fa:10,fq:11,ft:12,fx:13,fv:14,fg:15,a:16,q:17,qt:18,t:19,T:20,d:21,w:22,c:23,z:24,x:25,v:26,g:27};
+	var engJongsungReg = "rt|sw|sg|fr|fa|fq|ft|fx|fv|fg|qt|r|R|s|e|f|a|q|t|T|d|w|c|z|x|v|g|";
+	var regExp = new RegExp("("+engChosungReg+")("+engJungsungReg+")(("+engJongsungReg+")(?=("+engChosungReg+")("+engJungsungReg+"))|("+engJongsungReg+"))","g");
+
+	var converter = function (args, cho, jung, jong) {
+		return String.fromCharCode(engChosung.indexOf(cho) * 588 + engJungsung[jung] * 28 + engJongsung[jong] + 44032);
+	};
+
+	var result = args.replace(regExp, converter);
+	console.log(result);
+	return result;
+}
+
+function run(engStr) {
+	return convertEngToKor(engStr);	
+}
+
+</script>
+<script>
+function EngCheck(){
+	var a=$("#searchkeyword").val();
+	var s=run(a);
+	url="${pageContext.request.contextPath}/shopping/search?searchkeyword="+s+"&originalkeyword="+a;
+	window.location.href=url;
+	
+}
+
+</script>
 	
 </body>
 </html>

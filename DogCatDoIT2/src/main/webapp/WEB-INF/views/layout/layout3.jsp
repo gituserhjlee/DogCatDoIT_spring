@@ -45,7 +45,12 @@
     <!-- 독캣두잇 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Jua:400" rel="stylesheet">
 	<script type="text/javascript">
+<<<<<<< HEAD
+/*	
+	$(function(){
+=======
 	/* $(function(){
+>>>>>>> branch 'master' of https://github.com/gituserhjlee/DogCatDoIT_spring.git
 		$(document)
 		   .ajaxStart(function(){ // AJAX 시작
 			   $("#loadingImage").center();
@@ -55,7 +60,11 @@
 			   $("#loadingLayout").hide();
 		   });
 	});
+<<<<<<< HEAD
+*/	
+=======
 	*/
+>>>>>>> branch 'master' of https://github.com/gituserhjlee/DogCatDoIT_spring.git
 	</script>
 </head>
 

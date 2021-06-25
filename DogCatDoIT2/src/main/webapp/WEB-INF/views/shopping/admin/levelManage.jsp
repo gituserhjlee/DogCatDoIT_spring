@@ -152,10 +152,10 @@ function levelNameCheck() {
 		,success:function(data) {
 			var p=data.passed;
 			if(p==="true") {
-				var s="<span style='color:blue;font-weight:bold;'>"+str+"</span> 쿠폰명이 사용 가능합니다.";
+				var s="<span style='color:blue;font-weight:bold;'>"+str+"</span> 등급명이 사용 가능합니다.";
 				$("#levelName").next(".help-block").html(s);
 			} else {
-				var s="<span style='color:red;font-weight:bold;'>"+str+"</span> 쿠폰명을 사용할 수 없습니다.";
+				var s="<span style='color:red;font-weight:bold;'>"+str+"</span> 등급명을 사용할 수 없습니다.";
 				$("#levelName").next(".help-block").html(s);
 				$("#levelName").val("");
 				$("#levelName").focus();

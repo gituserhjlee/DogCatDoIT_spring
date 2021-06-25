@@ -61,7 +61,7 @@ function printList(data) {
 	
 	if(dataCount==0) {
 		$(".list").empty();
-		$(".paging").html("등록된 게시물이 없습니다.");
+		$(".paging").html("조회된 포인트 내역이 없습니다.");
 		return false;
 	}
 	

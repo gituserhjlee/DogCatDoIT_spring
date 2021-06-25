@@ -27,6 +27,27 @@
 .listOrderPaging {
 	padding-bottom: 30px;
 }
+.orderName:hover, .orderName:active {
+	text-decoration: underline;
+	font-weight: 800;
+	cursor: pointer;
+}
+.stateName1,
+.stateName3,
+.stateName4,
+.stateName5 {
+	color: #007fc8;
+}
+.stateName2,
+.stateName6,
+.stateName8,
+.stateName10 {
+	color: #1faa00;
+}
+.stateName7,
+.stateName9 {
+	color: #ff6f00;
+}
 </style>
 
 <script type="text/javascript">
@@ -86,7 +107,7 @@ function printList(data) {
 	
 	if(orderCount==0) {
 		$(".listOrderResult").empty();
-		$(".listOrderPaging").html("등록된 게시물이 없습니다.");
+		$(".listOrderPaging").html("조회된 주문 내역이 없습니다.");
 		return false;
 	}
 	
@@ -101,14 +122,16 @@ function printList(data) {
 		let deliveryPrice = data.listOrder[idx].deliveryPrice;
 		let strTotalItemPrice = toLocaleString(totalItemPrice);
 		let strDeliveryPrice = toLocaleString(deliveryPrice);
+		let state = data.listOrder[idx].state;
+		let stateName = data.listOrder[idx].stateName;
 		
 		out += "<tr>";
 		out += "<td class='text-center'>" + orderIdx + "</td>";
-		out += "<td>" + order_date + "</td>";
-		out += "<td>" + orderName + "</td>";
-		out += "<td>" + orName + " / " + diName + "</td>";
-		out += "<td>" + strTotalItemPrice + " / " + strDeliveryPrice + "</td>";
-		out += "<td class='text-center'><button type='button' class='detailBtn' data-orderIdx='" + orderIdx + "'>상세</button></td>";
+		out += "<td class='text-center'>" + order_date + "</td>";
+		out += "<td><span class='orderName' data-orderIdx='" + orderIdx + "'>" + orderName + "<span></td>";
+		out += "<td class='text-center'>" + orName + " / " + diName + "</td>";
+		out += "<td class='text-center'>" + strTotalItemPrice + " / " + strDeliveryPrice + "</td>";
+		out += "<td class='stateName" + state + " text-center'>" + stateName + "</td>";
 		out += "</tr>";
 		
 	}
@@ -142,7 +165,7 @@ function getFormatDate(date) {
 
 // 주문관리 상세 관련
 $(function() {
-	$("body").on('click',".detailBtn",function() {
+	$("body").on('click',".orderName",function() {
 		let orderIdx = $(this).attr("data-orderIdx");
 		loadModal(orderIdx);
  		$('#detailModal').modal('show');
@@ -188,6 +211,7 @@ function printOrderInfo(data) {
 		let itemId = data.order.itemList[idx].itemId;
 		let optionId = data.order.itemList[idx].optionId;
 		let detailId = data.order.itemList[idx].detailId;
+		
 		out += "<tr>";
 		out += "<td class='text-center'>" + itemId + "</td>";
 		out += "<td>" + itemName + "</td>";
@@ -292,7 +316,7 @@ $("body").on("click",".stateBtn", function() {
 					       			</div>
 					       		</td>
 					      	 </tr>
-					      	 <tr>
+					      	 <tr height="5px;">
 					      	 	<td colspan="2">
 					      	 		<hr>
 					      	 	<td>
@@ -312,6 +336,16 @@ $("body").on("click",".stateBtn", function() {
 						       				<input class="form-control" type="text" name="keyword">
 						       			</div>
 					       			</div>
+					        		<div class="row" style="margin-top: 15px;">
+						        		<div class="col-3">
+						        			<select class="form-control">
+						        				<option value="orderIdx">주문완료</option>
+						        				<option value="orName">주문자</option>
+						        				<option value="diName">수령인</option>
+						        			</select>
+						       			</div>
+					       			</div>
+					       			
 					        	</td>
 					      	 </tr>
 					      	 <tr>
@@ -328,13 +362,90 @@ $("body").on("click",".stateBtn", function() {
 					</table>
 				</div>
 			</form>
+			
+			<form id="searchForm2" class="searchForm2" name="searchForm2">
+				<div class="container" style="width: 100%; margin-bottom:50px;">
+					<table class="table table-bordered table-active" style="width: 80%">
+					    <tbody>
+					    	
+					      	<tr>
+					        	<td scope="row" rowspan="2" class="align-middle" style="width: 20%; font-size: 150%"> 조회기간</td>
+					        	<td >
+					        		<div class="btn-group" role="group">
+										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',1);">오늘</button>
+										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('date',7);">1주일</button>
+										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('month',1);">1개월</button>
+										<button type="button" class="btn btn-secondary btn-light" onclick="setDays('month',3);">3개월</button>
+									</div>
+					        	</td>
+					     	 </tr>
+					      	 <tr>
+					       		<td>
+					       			<div class="row">
+						       			<div class="col-5">
+							       			<input class="form-control" type="date" name="sDate" value="" id="sDate"> 
+						       			</div>
+						       			<div class="col-1">~</div>
+						       			<div class="col-5">
+							       			<input class="form-control" type="date" name="eDate" value="" id="eDate">
+						       			</div>
+					       			</div>
+					       		</td>
+					      	 </tr>
+					      	 <tr height="5px;">
+					      	 	<td colspan="2">
+					      	 		<hr>
+					      	 	<td>
+					      	 <tr>
+					      	 <tr>
+					        	<td scope="row" style="width: 20%; font-size: 150%">상세조건</td>
+					        	<td>
+					        		<div class="row">
+						        		<div class="col-3">
+						        			<select class="form-control" name="condition">
+						        				<option value="orderIdx">주문번호</option>
+						        				<option value="orName">주문자</option>
+						        				<option value="diName">수령인</option>
+						        			</select>
+						       			</div>
+						       			<div class="col-5">
+						       				<input class="form-control" type="text" name="keyword">
+						       			</div>
+					       			</div>
+					        		<div class="row" style="margin-top: 15px;">
+						        		<div class="col-3">
+						        			<select class="form-control">
+						        				<option value="orderIdx">주문완료</option>
+						        				<option value="orName">주문자</option>
+						        				<option value="diName">수령인</option>
+						        			</select>
+						       			</div>
+					       			</div>
+					       			
+					        	</td>
+					      	 </tr>
+					      	 <tr>
+					      	 	<td colspan="2">
+					      	 		<hr>
+					      	 	<td>
+					      	 <tr>
+					      	 <tr>
+					      		<td colspan="2" align="center">
+					      			<button type="button" class="btn" style="width: 150px; height: 50px; font-size: 120%; background-color: #F79F81;" onclick="listPage(1)">검색</button>
+					      		</td>
+					      	 </tr>
+					    </tbody>
+					</table>
+				</div>
+			</form>
+			
 			<hr>
 			<div class="row" style="margin-bottom: 20px;">
 				<div class="col-sm-6" style="padding-left: 35px;">
 					목록 (총 <span class="orderCount"></span> 개)
 				</div>
 				<div class="col-sm-6" align="right" style="padding-right: 35px;">
-					페이지 (<span class="page"></span> / <span class="totalPage"></span>)
+					(<span class="page"></span> / <span class="totalPage"></span>)
 				</div>
 			</div>
 			
@@ -343,10 +454,10 @@ $("body").on("click",".stateBtn", function() {
 				    <tr>
 					    <th scope="col" class="text-center" style="width: 8%;">주문번호</th>
 					    <th scope="col" class="text-center" style="width: 18%;">주문일시</th>
-					    <th scope="col" style="width: 38%;">주문상품</th>
-					    <th scope="col" style="width: 13%;">주문자 / 수령인</th>
-					    <th scope="col" style="width: 15%;">주문금액 / 배송비</th>
-					    <th scope="col" style="width: 8%;">주문관리</th>
+					    <th scope="col" class="text-center" style="width: 35%;">주문상품</th>
+					    <th scope="col" class="text-center" style="width: 13%;">주문자 / 수령인</th>
+					    <th scope="col" class="text-center" style="width: 15%;">주문금액 / 배송비</th>
+					    <th scope="col" class="text-center" style="width: 11%;">주문상태</th>
 				    </tr>
 				</thead>
 				<tbody class="listOrderResult">

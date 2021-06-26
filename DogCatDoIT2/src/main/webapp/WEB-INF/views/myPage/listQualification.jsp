@@ -27,7 +27,7 @@ function deleteRequest(requestNum) {
 				</tr>
 				<c:if test="${empty list}">
 					<tr>
-						<td colspan="6">신청 내역이 없습니다.</td>
+						<td colspan="7" align="center">신청 내역이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var="dto" items="${list}">

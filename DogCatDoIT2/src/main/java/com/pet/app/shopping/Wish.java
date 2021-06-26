@@ -5,6 +5,7 @@ public class Wish {
 	private long userIdx;
 	private long detailId;
 	private String wish_date;
+	
 	public long getWishIdx() {
 		return wishIdx;
 	}
@@ -29,6 +30,5 @@ public class Wish {
 	public void setWish_date(String wish_date) {
 		this.wish_date = wish_date;
 	}
-	
 	
 }

@@ -12,7 +12,6 @@ public interface OrderService {
 	// 주문상세 가져오기
 	public OrderDetail findOrderDetail(long detailId, int count);
 	
-	
 	// 장바구니
 	public void insertCart(Cart cart) throws Exception;
 	public int cartCount(long userIdx);

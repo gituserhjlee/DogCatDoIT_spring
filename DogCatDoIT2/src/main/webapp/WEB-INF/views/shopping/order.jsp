@@ -301,11 +301,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 		$("#pointDiscount").change(function() {
 			if ($(this).val() == "")
 				$(this).val(0);
-			let userPoint = $
-			{
-				mdto.point
-			}
-			;
+			let userPoint = ${mdto.point};
 			if ($(this).val() > userPoint) {
 				alert("포인트가 부족합니다.");
 				$(this).val(0);
@@ -518,9 +514,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			pay_method : 'card',
 			merchant_uid : 'dogcatdoit_' + new Date().getTime(),
 			name : name,
-			//		    amount : totalPayment,
-			// for test
-			amount : 100,
+		    amount : totalPayment,
 			buyer_email : '${mdto.email}',
 			buyer_name : '${mdto.name}',
 			buyer_tel : '${mdto.tel}',
@@ -874,9 +868,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 		<div class="btn-container" align="center">
 			<button type="button" class="btnConfirm">결제하기</button>
-			<button type="button" class="btn testBtn">결제생략 테스트</button>
 			<input type="hidden" name="from" value="${from}"> <input
 				type="hidden" name="orderName">
+
+			<div class="testBox">
+				<button type="button" class="btn testBtn">결제생략 테스트</button>
+			</div>
+
 		</div>
 
 	</form>

@@ -435,14 +435,14 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">상품주문정보 조회</h5>
+				<h5 class="modal-title">주문 상세정보</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal();">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 
 			<div class="modal-body">
-				<h4>주문정보</h4>
+				<h4>주문</h4>
 				<table class="table table-bordered">
 					<tr>
 						<td class="gray">주문명</td>
@@ -457,7 +457,7 @@
 						<td colspan="3">
 							<div class="row stateChangeContainer">
 								<div class="col-5">
-									<select class="form-control" name="m-state">
+									<select class="form-control" name="m-state" style="width: 95%">
 										<option value="1" disabled="disabled">주문완료 (고객)</option>
 										<option value="2">주문취소</option>
 										<option value="3" disabled="disabled">결제완료 (고객)</option>
@@ -507,7 +507,7 @@
 					</tr>
 				</table>
 
-				<h4>주문상품정보</h4>
+				<h4>주문상품</h4>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -523,7 +523,7 @@
 					</tbody>
 				</table>
 
-				<h4>배송지정보</h4>
+				<h4>배송</h4>
 				<table class="table table-bordered">
 					<tr>
 						<td class="gray" width="20%">수취인명</td>

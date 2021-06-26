@@ -14,39 +14,9 @@
 	padding: 0;
 }
 
-#cartForm {
-	box-sizing: border-box;
-}
-
 .container {
 	width: 1110px;
 	margin: 30px auto 60px;
-}
-
-#cartForm input, #cartForm label {
-	display: inline-block;
-}
-
-#cartForm .boxTF {
-	border: 1px solid #999;
-	padding: 3px 5px 5px;
-	border-radius: 4px;
-	background-color: #fff;
-	font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
-}
-
-#cartForm .boxTF[readonly] {
-	background-color: #eee;
-}
-
-#cartForm .btn {
-	width: 150px;
-	height: 45px;
-}
-
-#cartForm .orderBtn {
-	background-color: #F79F81;
-	color: #fff;
 }
 
 table {
@@ -83,6 +53,10 @@ table {
 
 .table1 .gray {
 	background: #eee;
+}
+
+.container .btnConfirm {
+	background: #F79F81;
 }
 </style>
 

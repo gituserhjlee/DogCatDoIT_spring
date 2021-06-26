@@ -348,7 +348,6 @@ table {
 		const conditionOfOc = [ 1, 3, 4 ];
 		const conditionOfEaRa = [ 4, 5, 8, 10 ];
 		if (conditionOfOc.indexOf(state) >= 0) {
-			console.log("조건1");
 			$(".orderCancelBtn").removeClass("display-none");
 			$(".exchangeApplyBtn, .refundApplyBtn").addClass("display-none");
 			return;
@@ -369,9 +368,6 @@ table {
 		let orderIdx = $("#detailModal").attr("data-orderIdx");
 		let pageNo = $(".page").text();
 		let state = obj.getAttribute("data-state");
-		console.log(orderIdx);
-		console.log(pageNo);
-		console.log(state);
 		let url = "${pageContext.request.contextPath}/ordermanager/updateState";
 		let query = "orderIdx=" + orderIdx + "&state=" + state;
 		let fn = function(data) {

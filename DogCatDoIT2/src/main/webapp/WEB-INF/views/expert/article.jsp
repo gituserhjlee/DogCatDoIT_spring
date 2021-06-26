@@ -24,36 +24,40 @@ function deleteExpert(){
 		<table class="table table-border table-content">
 			<tr>
 				<th width="60">번호</th>
-				<th>제목</th>
-				<th width="100">작성자</th>
-				<th width="80">작성일</th>
+				<th width="80">제목</th>
+				<th width="60">작성자</th>
+				<th width="60">작성일</th>
 				<th width="60">조회수</th>				
 			</tr>
 		
+			
 			<tr>
-				<td colspan="2" align="center">
+				<td  width="20%" align="left">
+				 	${dto.expertNum}
+				</td>
+				<td width="20%"  align="center">
 					<c:if test="${dto.depth!=0}">[Re]</c:if>
 					${dto.subject}
 				</td>
+				<td width="20%" align="center">
+					${dto.name}
+				</td>
+				<td width="20%" align="center">
+					${dto.created}
+				</td>
+				<td width="20%" align="right">
+					${dto.hitCount}
+				</td>
 			</tr>
 			
 			<tr>
-				<td width="50%" align="left">
-					이름 : ${dto.name}
-				</td>
-				<td width="50%" align="right">
-					${dto.created} | 조회${dto.hitCount}
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2" valign="top" height="200">
+				<td colspan="5" valign="top" height="200">
 					${dto.content}
 				</td>
 			</tr>
 			
 			<tr>
-				<td colspan="2">
+				<td colspan="5">
 					이전글 :
 					<c:if test="${not empty preReadDto}">
 						<a href="${pageContext.request.contextPath}/expert/article?expertNum=${preReadDto.expertNum}&${query}">${preReadDto.subject}</a>
@@ -62,7 +66,7 @@ function deleteExpert(){
 			</tr>
 			
 			<tr>
-				<td colspan="2">
+				<td colspan="5">
 					다음글 :
 					<c:if test="${not empty nextReadDto}">
 						<a href="${pageContext.request.contextPath}/expert/article?expertNum=${nextReadDto.expertNum}&${query}">${nextReadDto.subject}</a>
@@ -75,30 +79,34 @@ function deleteExpert(){
 		
 		<table class="table">
 			<tr>
-				<td class="text-center" width="50%" align="left">
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/reply?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">답변</button>
+				<td class="text-left" width="50%" align="left">
+					<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/reply?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">답변</button>
+				
+				</td>
+			
+				<td class="text-center" width="50%" align="center">
 					<c:choose>
 						<c:when test="${sessionScope.member.userId== dto.userId}">
-							<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/update?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">수정</button>
+							<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/update?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">수정</button>
 						</c:when>
 						<c:otherwise>
-							<button type="button" class="btn" disabled="disabled">수정</button>
+							<button type="button"class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" disabled="disabled">수정</button>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
 						<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
-							<button type="button" class="btn" onclick="deleteExpert();">삭제</button>
+							<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="deleteExpert();">삭제</button>
 						</c:when>
 						<c:otherwise>
-							<button type="button" class="btn" disabled="disabled">삭제</button>
+							<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" disabled="disabled">삭제</button>
 						</c:otherwise>
 					</c:choose>
 				
 				</td>
 				
 				<td align="right">
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list?${query}';">리스트</button>
+					<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list?${query}';">리스트</button>
 				</td>
 			</tr>
 		</table>

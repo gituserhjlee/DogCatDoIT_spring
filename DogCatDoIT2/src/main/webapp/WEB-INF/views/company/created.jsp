@@ -63,32 +63,6 @@
 					${sessionScope.member.userName}
 				</td>
 			</tr>
-			
-			<tr> 
-				<td>메뉴이름</td>
-				<td> 
-					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.itemName}">
-				</td>
-			</tr>
-			<tr> 
-				<td>메뉴가격</td>
-				<td> 
-					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.itemPrice}">
-				</td>
-			</tr>
-			<tr> 
-				<td>옵션이름</td>
-				<td> 
-					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.optionName}">
-				</td>
-			</tr>
-			<tr> 
-				<td>옵션가격</td>
-				<td> 
-					<input type="text" name="subject" maxlength="100" class="boxTF" value="${dto.optionPrice}">
-				</td>
-			</tr>
-			
 			<tr> 
 				<td valign="top">상세정보</td>
 				<td valign="top"> 
@@ -124,7 +98,7 @@
 					<button type="submit" class="btn btn-md btn-success" style="font-size: 17px;">${mode=='update'?'수정완료':'등록하기'}</button>
 					<button type="button" class="btn btn-md btn-outline-primary" onclick="javascript:location.href='${pageContext.request.contextPath}/company/list';" style="font-size: 17px;">${mode=='update'?'수정취소':'등록취소'}</button>
 					<c:if test="${mode=='update'}">
-						<input type="hidden" name="num" value="${dto.num}">
+						<input type="hidden" name="boardnum" value="${dto.boardnum}">
 						<input type="hidden" name="saveFilename" value="${dto.saveFilename}">
 						<input type="hidden" name="originalFilename" value="${dto.originalFilename}">
 						<input type="hidden" name="page" value="${page}">

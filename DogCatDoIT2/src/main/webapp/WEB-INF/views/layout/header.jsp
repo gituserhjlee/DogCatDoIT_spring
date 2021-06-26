@@ -112,15 +112,7 @@
                                        
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
-                                    <ul>
-                                        <li><a href="${pageContext.request.contextPath}/company/article"><span class="menu-text">미용</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">훈련사</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">펫시터</span></a></li>
-                                    </ul>
-                                </li>
+                                
                                 <li>
                                     <a href="index-2.html" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
                                     <ul>
@@ -128,6 +120,10 @@
                                         <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
                                     </ul>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
+                                    
                                 </li>
                             </ul>
                         </li>
@@ -168,34 +164,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="has-children"><a href="#"><span class="menu-text">제휴업체</span></a>
-                            <ul class="sub-menu mega-menu">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/company/article" class="mega-menu-title"><span class="menu-text">미용</span></a>
-                                    <ul>
-                                        <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">펫시터</span></a>
-                                    <ul>
-                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">애견호텔</span></a>
-                                    <ul>
-                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+                        
                         <li class="has-children"><a href="#"><span class="menu-text">커뮤니티</span></a>
                             <ul class="sub-menu">
                                 <li class="has-children"><a href="blog-right-sidebar.html"><span class="menu-text">자유게시판</span></a>
@@ -214,6 +183,9 @@
                                 <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="no-children"><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
+     
                         </li>
                     </ul>
                 </nav>
@@ -253,15 +225,7 @@
                                         <li><a href="${pageContext.request.contextPath}/shopping/cat"><span class="menu-text">고양이 용품</span></a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
-                                    <ul>
-                                        <li><a href="${pageContext.request.contextPath}/company/article"><span class="menu-text">미용</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">애견 호텔</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">훈련사</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">펫시터</span></a></li>
-                                    </ul>
-                                </li>
+                                
                                 <li>
                                     <a href="index-2.html" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
                                     <ul>
@@ -269,6 +233,10 @@
                                         <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
                                     </ul>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">제휴업체</span></a>
+                                    
                                 </li>
                             </ul>
                             </li>
@@ -309,34 +277,7 @@
                                 </li>
                             </ul>
                             </li>
-                            <li class="has-children"><a href="#"><span class="menu-text">제휴업체</span></a>
-                                <ul class="sub-menu mega-menu">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/company/article" class="mega-menu-title"><span class="menu-text">미용</span></a>
-                                    <ul>
-                                        <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">펫시터</span></a>
-                                    <ul>
-                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="mega-menu-title"><span class="menu-text">애견호텔</span></a>
-                                    <ul>
-                                       <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                        <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            </li>
+                            
                             <li class="has-children"><a href="#"><span class="menu-text">커뮤니티</span></a>
                                 <ul class="sub-menu">
                                 <li class="has-children"><a href="blog-right-sidebar.html"><span class="menu-text">자유게시판</span></a>
@@ -355,6 +296,9 @@
                                 <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
                                 </li>
                             </ul>
+                            </li>
+                            <li class="no-children"><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
+                                
                             </li>
                         </ul>
                     </nav>
@@ -505,16 +449,7 @@
                                     <li><a href="index-4.html"><span class="menu-text">장난감</span></a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#"><span class="menu-text">제휴업체</span></a>
-                                <ul class="sub-menu">
-                                	<li><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">모두보기</span></a></li>
-                                    <li><a href="${pageContext.request.contextPath}/company/article"><span class="menu-text">미용</span></a></li>
-                                    <li><a href="index-6.html"><span class="menu-text">펫시터</span></a></li>
-                                    <li><a href="index-7.html"><span class="menu-text">훈련사</span></a></li>
-                                    <li><a href="index-8.html"><span class="menu-text">애견 호텔</span></a></li>
-                                </ul>
-                            </li>
+                            
                             <li>
                                 <a href="#"><span class="menu-text">커뮤니티</span></a>
                                 <ul class="sub-menu">
@@ -522,6 +457,10 @@
                                     <li><a href="index-10.html"><span class="menu-text">중고거래게시판</span></a></li>
                                     <li><a href="index-11.html"><span class="menu-text">정보공유게시판</span></a></li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
+                                
                             </li>
                         </ul>
                     </li>
@@ -564,34 +503,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="#"><span class="menu-text">제휴업체</span></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/company/list" class="mega-menu-title"><span class="menu-text">모두보기</span></a>
-                            </li>
-                            <li>
-                                <a href="${pageContext.request.contextPath}/company/article" class="mega-menu-title"><span class="menu-text">미용</span></a>
-                                <ul class="sub-menu">
-                                    <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                    <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" class="mega-menu-title"><span class="menu-text">펫시터</span></a>
-                                <ul class="sub-menu">
-                                    <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                    <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" class="mega-menu-title"><span class="menu-text">애견 호텔</span></a>
-                                <ul class="sub-menu">
-                                    <li><a href="elements-category-banner.html"><span class="menu-text">둘러보기</span></a></li>
-                                    <li><a href="elements-team.html"><span class="menu-text">후기 및 평점</span></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     <li><a href="#"><span class="menu-text">커뮤니티</span></a>
                         <ul class="sub-menu">
                             <li><a href="#"><span class="menu-text">자유게시판</span></a>
@@ -610,6 +522,9 @@
                             <li><a href="#"><span class="menu-text">반려동물행사</span></a>
                             </li>
                         </ul>
+                    </li>
+                    <li><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
+     
                     </li>
                     <li><a href="#"><span class="menu-text">마이페이지</span></a>
                         <ul class="sub-menu">

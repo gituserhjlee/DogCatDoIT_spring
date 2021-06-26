@@ -194,7 +194,7 @@ $(function(){
                             <a href="#reviews" class="review-link">(<span class="count">3</span> 리뷰)</a>
                         </div>
                         <h3 class="product-title">${dto.subject}</h3>
-                        <div class="product-price">${dto.itemPrice}₩</div>
+                        <div class="product-price">50,000₩</div>
                         <div class="product-description">
                             ${dto.content}
                         </div>
@@ -205,21 +205,18 @@ $(function(){
                                     <tr>
                                         <td class="choose"><input type="checkbox" checked="" disabled=""></td>
                                         <td class="quantity"></td>
-                                        <td class="thumb"><img src="${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/group-product-1.jpg" alt=""></td>
                                         <td class="title">기본 커트: <span>단모</span></td>
                                         <td class="price"><span class="pro-price"><span>50,000₩</span></span></td>
                                     </tr>
                                     <tr>
                                         <td class="choose"><input type="checkbox"></td>
-                                        <td class="quantity">1</td>
-                                        <td class="thumb"><img src="${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/group-product-2.jpg" alt=""></td>
+                                        <td class="quantity">-</td>
                                         <td class="title"><a href="#">장모 추가 비용</a></td>
                                         <td class="price"><span class="pro-price"><span class="new">10,000₩</span></span></td>
                                     </tr>
                                     <tr>
                                         <td class="choose"><input type="checkbox"></td>
-                                        <td class="quantity">1</td>
-                                        <td class="thumb"><img src="${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/group-product-3.jpg" alt=""></td>
+                                        <td class="quantity">-</td>
                                         <td class="title"><a href="#">목욕 추가 비용</a></td>
                                         <td class="price"><span class="pro-price"><span class="new">15,000₩</span></span></td>
                                     </tr>
@@ -322,7 +319,7 @@ $(function(){
             <ul class="nav product-info-tab-list">
                 <li><a class="active" data-toggle="tab" href="#tab-description">상세정보</a></li>
                 <li><a data-toggle="tab" href="#tab-pwb_tab">업체정보</a></li>
-                <li><a data-toggle="tab" href="#tab-reviews">후기 (3)</a></li>
+                <li><a data-toggle="tab" href="#tab-reviews">후기 (1)</a></li>
             </ul>
             <div class="tab-content product-infor-tab-content">
                 <div class="tab-pane fade show active" id="tab-description">
@@ -336,8 +333,7 @@ $(function(){
                     <div class="row learts-mb-n30">
                         <div class="col-12 learts-mb-30">
                             <div class="row learts-mb-n10">
-                                <div class="col-lg-2 col-md-3 col-12 learts-mb-10"><img src="${pageContext.request.contextPath}/resources/mainResources/images/brands/brand-6.png" alt=""></div>
-                                <div class="col learts-mb-10">
+                                <div class="col learts-mb-10" style="text-align: center;">
                                     <p>100% 예약제로 운영되는 통유리 오픈형 반려동물 미용실 독캣 바버샵입니다.<br>소중한 가족과 교감하며 미용 스트레스 최소화를 지향합니다.</p>
                                 </div>
                             </div>
@@ -347,7 +343,7 @@ $(function(){
                 <div class="tab-pane fade" id="tab-reviews">
                 	<!-- <div id="listReply"></div> --> 
                     <div class="product-review-wrapper">
-                        <span class="title">3개의 독캣 바버샵 이용 후기</span>
+                        <span class="title">1개의 독캣 바버샵 이용 후기</span>
                         <ul class="product-review-list">
                             <li>
                                 <div class="product-review">
@@ -366,48 +362,11 @@ $(function(){
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="product-review">
-                                    <div class="thumb"><img src="${pageContext.request.contextPath}/resources/mainResources/images/review/review-2.jpeg" alt=""></div>
-                                    <div class="content">
-                                        <div class="ratings">
-                                            <span class="star-rating">
-                                                <span class="rating-active" style="width: 100%;">ratings</span>
-                                            </span>
-                                        </div>
-                                        <div class="meta">
-                                            <h5 class="title">김감자</h5>
-                                            <span class="date">2021년 6월 1일</span>
-                                        </div>
-                                        <p>친절하고 좋았습니다.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="product-review">
-                                    <div class="thumb"><img src="${pageContext.request.contextPath}/resources/mainResources/images/review/review-3.jpeg" alt=""></div>
-                                    <div class="content">
-                                        <div class="ratings">
-                                            <span class="star-rating">
-                                                <span class="rating-active" style="width: 100%;">ratings</span>
-                                            </span>
-                                        </div>
-                                        <div class="meta">
-                                            <h5 class="title">김감자</h5>
-                                            <span class="date">2021년 6월 1일</span>
-                                        </div>
-                                        <p>친절하고 좋았습니다.</p>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                         <span class="title">후기 작성하기</span>
                         <div class="review-form">
-                            <p class="note">이메일 주소와 같은 개인정보는 저장되지 않습니다. * 표시 된 부분은 필수 기재 부탁드립니다.</p>
                             <form action="#">
                                 <div class="row learts-mb-n30">
-                                    <div class="col-md-6 col-12 learts-mb-30"><input type="text" placeholder="아이디 *"></div>
-                                    <div class="col-md-6 col-12 learts-mb-30"><input type="email" placeholder="이메일 주소 *"></div>
                                     <div class="col-12 learts-mb-10">
                                         <div class="form-rating">
                                             <span class="title">별점 주기</span>
@@ -471,22 +430,25 @@ $(function(){
         </div>
     </div>
     <!-- Contact Information & Map Section End -->
-	<c:choose>
-						<c:when test="${sessionScope.member.userId==dto.userId}">
-			    			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/company/update?boardnum=${dto.boardnum}&page=${page}';">수정</button>
-			    		</c:when>
-			    		<c:otherwise>
-			    			<button type="button" class="btn" disabled="disabled">수정</button>
-			    		</c:otherwise>
-			    	</c:choose>
+    <div style="text-align: center; margin-bottom: 50px;">
+    	<c:choose>
+			<c:when test="${sessionScope.member.userId==dto.userId}">
+			    <button type="button" class="btn btn-info btn-outline-info" onclick="javascript:location.href='${pageContext.request.contextPath}/company/update?boardnum=${dto.boardnum}&page=${page}';">수정</button>
+			   </c:when>
+			   <c:otherwise>
+			    <button type="button" class="btn btn-info btn-outline-info" disabled="disabled">수정</button>
+			   </c:otherwise>
+			  </c:choose>
 			    	
-			    	<c:choose>
-			    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
-			    			<button type="button" class="btn" onclick="deleteCompany();">삭제</button>
-			    		</c:when>
-			    		<c:otherwise>
-			    			<button type="button" class="btn" disabled="disabled">삭제</button>
-			    		</c:otherwise>
-			    	</c:choose>
+			  <c:choose>
+			   <c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
+			    <button type="button" class="btn btn-primary btn-outline-primary" onclick="deleteCompany();">삭제</button>
+			   </c:when>
+			   <c:otherwise>
+			    <button type="button" class="btn btn-primary btn-outline-primary" disabled="disabled">삭제</button>
+			   </c:otherwise>
+			  </c:choose>
+    </div>
+					
 </body>
 </html>

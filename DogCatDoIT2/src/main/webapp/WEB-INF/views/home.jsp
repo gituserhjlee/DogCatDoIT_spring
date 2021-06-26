@@ -701,7 +701,7 @@
     <!-- Slider main container Start -->
     <div class="home1-slider swiper-container">
         <div class="swiper-wrapper">
-            <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="resources/mainResources/images/slider/home1/slide-1.jpg">
+            <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="resources/mainResources/images/slider/home1/slide-2.jpg">
                 <div class="home1-slide1-content">
                     <span class="bg"></span>
                     <span class="slide-border"></span>
@@ -711,7 +711,7 @@
                     <div class="link"><a href="${pageContext.request.contextPath}/shopping/mainPage" style="font-family: Jua;">지금 바로 구매하기</a></div>
                 </div>
             </div>
-            <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="resources/mainResources/images/slider/home1/slide-2.jpg">
+            <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="resources/mainResources/images/slider/home1/slide-1.jpg">
                 <div class="home1-slide2-content">
                     <span class="bg" data-bg-image="resources/mainResources/images/slider/home1/slide-2-1.png"></span>
                     <span class="slide-border"></span>
@@ -721,7 +721,7 @@
                     </span>
                     <h2 class="title" style="font-family: Jua;">신제품 출시</h2>
                     <h3 class="sub-title" style="font-family: Jua;">기간한정 할인<br>10%</h3>
-                    <div class="link"><a href="${pageContext.request.contextPath}/shopping/mainPage" style="font-family: Jua;">지금 바로 구매하기</a></div>
+                    <div class="link"><a href="${pageContext.request.contextPath}/shopping/article?num=43" style="font-family: Jua;">지금 바로 구매하기</a></div>
                 </div>
             </div>
             <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="${pageContext.request.contextPath}/resources/mainResources/images/slider/home1/slide-3.jpg">

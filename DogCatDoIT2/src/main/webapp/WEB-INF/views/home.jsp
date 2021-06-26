@@ -673,7 +673,7 @@
 
                 <div class="col learts-mb-40">
                     <div class="category-banner4">
-                        <a href="shop.html" class="inner">
+                        <a href="${pageContext.request.contextPath}/shopping/mainPage" class="inner">
                             <div class="image"><img src="resources/mainResources/images/banner/category/banner-s4-3.jpg" alt=""></div>
                             <div class="content" data-bg-color="#e3e4f5">
                                 <h3 class="title">두잇몰</h3>
@@ -708,7 +708,7 @@
                     <span class="icon"><img src="resources/mainResources/images/slider/home1/slide-1-1.png" alt="Slide Icon"></span>
                     <h2 class="title" style="font-family: Jua;">독캣두잇</h2>
                     <h3 class="sub-title" style="font-family: Jua;">독점상품</h3>
-                    <div class="link"><a href="shop.html" style="font-family: Jua;">지금 바로 구매하기</a></div>
+                    <div class="link"><a href="${pageContext.request.contextPath}/shopping/mainPage" style="font-family: Jua;">지금 바로 구매하기</a></div>
                 </div>
             </div>
             <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="resources/mainResources/images/slider/home1/slide-2.jpg">
@@ -721,7 +721,7 @@
                     </span>
                     <h2 class="title" style="font-family: Jua;">신제품 출시</h2>
                     <h3 class="sub-title" style="font-family: Jua;">기간한정 할인<br>10%</h3>
-                    <div class="link"><a href="shop.html" style="font-family: Jua;">지금 바로 구매하기</a></div>
+                    <div class="link"><a href="${pageContext.request.contextPath}/shopping/mainPage" style="font-family: Jua;">지금 바로 구매하기</a></div>
                 </div>
             </div>
             <div class="home1-slide-item swiper-slide" data-swiper-autoplay="5000" data-bg-image="${pageContext.request.contextPath}/resources/mainResources/images/slider/home1/slide-3.jpg">
@@ -758,20 +758,20 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=42" class="image">
                                 <span class="product-badges">
-                                    <span class="onsale">-10%</span>
+                                    <span class="onsale">-4%</span>
                                 </span>
-                                <img src="resources/mainResources/images/product/s328/product-1.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-1-hover.jpg" alt="Product Image">
+                                <img src="resources/mainResources/images/product/s328/1.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/1.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">그레인프리 10kg</a></h6>
+                            <h6 class="title"><a href="product-details.html">강아지 칫솔</a></h6>
                             <span class="price">
-                                <span class="old">₩20,000</span>
-                            <span class="new">₩18,000</span>
+                                <span class="old">₩15,000</span>
+                            <span class="new">₩14,400</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -784,16 +784,20 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="resources/mainResources/images/product/s328/product-2.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-2-hover.jpg" alt="Product Image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=40" class="image">
+                            	<span class="product-badges">
+                                    <span class="onsale">-5%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/2.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/2.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">수제 사료</a></h6>
+                            <h6 class="title"><a href="product-details.html">다회용 배변 패드</a></h6>
                             <span class="price">
-                                ₩20,000
+                                <span class="old">₩31,000</span>
+                            <span class="new">₩29,450</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -809,42 +813,20 @@
                             <span class="product-badges">
                                 <span class="hot">hot</span>
                             </span>
-                            <a href="product-details.html" class="image">
-                                <img src="resources/mainResources/images/product/s328/product-3.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-3-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">소프트츄 10개입</a></h6>
-                            <span class="price">
-                                ₩20,000
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="장바구니 담기"><i class="fal fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <span class="product-badges">
-                                    <span class="onsale">-20%</span>
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=38" class="image">
+                            	<span class="product-badges">
+                                    <span class="onsale">-2%</span>
                                 </span>
-                                <img src="resources/mainResources/images/product/s328/product-4.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-4-hover.jpg" alt="Product Image">
+                                <img src="resources/mainResources/images/product/s328/3.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/3.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">닭고기말이 껌</a></h6>
+                            <h6 class="title"><a href="product-details.html">아이맛있어 사료</a></h6>
                             <span class="price">
-                                <span class="old">₩20,000</span>
-                            <span class="new">₩16,000</span>
+                                <span class="old">₩22,000</span>
+                            <span class="new">₩21,560</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -857,16 +839,20 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="resources/mainResources/images/product/s328/product-5.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-5-hover.jpg" alt="Product Image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=37" class="image">
+                                <span class="product-badges">
+                                    <span class="onsale">-4%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/4.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/4.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">프리미엄 리드줄</a></h6>
+                            <h6 class="title"><a href="product-details.html">강아지 공주님 옷</a></h6>
                             <span class="price">
-                                ₩20,000
+                                <span class="old">₩12,000</span>
+                            <span class="new">₩11,520</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -879,16 +865,20 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="resources/mainResources/images/product/s328/product-6.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-6-hover.jpg" alt="Product Image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=26" class="image">
+                            	<span class="product-badges">
+                                    <span class="onsale">-1%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/5.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/5.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">스텐 식기</a></h6>
+                            <h6 class="title"><a href="product-details.html">뼈건강 마이본</a></h6>
                             <span class="price">
-                                ₩20,000
+                                <span class="old">₩6,666</span>
+                            <span class="new">₩6,599</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -901,45 +891,49 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=44" class="image">
+                            	<span class="product-badges">
+                                    <span class="onsale">-1%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/6.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/6.jpg" alt="Product Image">
+                            </a>
+                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
+                        </div>
+                        <div class="product-info">
+                            <h6 class="title"><a href="product-details.html">고양이 식기</a></h6>
+                            <span class="price">
+                                <span class="old">₩17,000</span>
+                            <span class="new">₩16,320</span>
+                            </span>
+                            <div class="product-buttons">
+                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
+                                <a href="#" class="product-button hintT-top" data-hint="장바구니 담기"><i class="fal fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="product">
+                        <div class="product-thumb">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=43" class="image">
                                 <span class="product-badges">
                                     <span class="hot">hot</span>
                                 </span>
-                                <img src="resources/mainResources/images/product/s328/product-7.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-7-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">오트밀 샴푸</a></h6>
-                            <span class="price">
-                                ₩20,000
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="장바구니 담기"><i class="fal fa-shopping-cart"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
                                 <span class="product-badges">
-                                    <span class="outofstock"><i class="fal fa-frown"></i></span>
-                                <span class="hot">hot</span>
+                                    <span class="onsale">-10%</span>
                                 </span>
-                                <img src="resources/mainResources/images/product/s328/product-8.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-8-hover.jpg" alt="Product Image">
+                                <img src="resources/mainResources/images/product/s328/7.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/7.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">고무 신발</a></h6>
+                            <h6 class="title"><a href="product-details.html">고양이 장난감 모음</a></h6>
                             <span class="price">
-                                ₩20,000
+                                <span class="old">₩5,000</span>
+                            <span class="new">₩4,500</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -952,16 +946,23 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="resources/mainResources/images/product/s328/product-9.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-9-hover.jpg" alt="Product Image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=41" class="image">
+                                <span class="product-badges">
+                                    <span class="hot">hot</span>
+                                </span>
+                                <span class="product-badges">
+                                    <span class="onsale">-3%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/8.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/8.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">구름 매트</a></h6>
+                            <h6 class="title"><a href="product-details.html">고양이 귀여운 옷</a></h6>
                             <span class="price">
-                                ₩20,000
+                                <span class="old">₩6,000</span>
+                            <span class="new">₩5,820</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
@@ -974,16 +975,49 @@
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="resources/mainResources/images/product/s328/product-10.jpg" alt="Product Image">
-                                <img class="image-hover " src="resources/mainResources/images/product/s328/product-10-hover.jpg" alt="Product Image">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=39" class="image">
+                                <span class="product-badges">
+                                    <span class="onsale">-4%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/9.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/9.jpg" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">볼던지기 도구</a></h6>
+                            <h6 class="title"><a href="product-details.html">고양이 배변용 모래</a></h6>
                             <span class="price">
-                                ₩20,000
+                                <span class="old">₩15,000</span>
+                            <span class="new">₩14,400</span>
+                            </span>
+                            <div class="product-buttons">
+                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>
+                                <a href="#" class="product-button hintT-top" data-hint="장바구니 담기"><i class="fal fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="product">
+                        <div class="product-thumb">
+                            <a href="${pageContext.request.contextPath}/shopping/article?num=33" class="image">
+                                <span class="product-badges">
+                                    <span class="hot">hot</span>
+                                </span>
+                                <span class="product-badges">
+                                    <span class="onsale">-1%</span>
+                                </span>
+                                <img src="resources/mainResources/images/product/s328/10.jpg" alt="Product Image">
+                                <img class="image-hover " src="resources/mainResources/images/product/s328/10.jpg" alt="Product Image">
+                            </a>
+                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="찜 목록에 추가"><i class="far fa-heart"></i></a>
+                        </div>
+                        <div class="product-info">
+                            <h6 class="title"><a href="product-details.html">정말 높은 캣타워</a></h6>
+                            <span class="price">
+                                <span class="old">₩55,000</span>
+                            <span class="new">₩54,995</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="미리보기"><i class="fal fa-search"></i></a>

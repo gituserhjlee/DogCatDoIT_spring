@@ -182,6 +182,19 @@ public class CompanyController {
         return ".company.article";
 	}
 	
+	@RequestMapping(value = "article2")
+	public String article2() throws Exception{
+		return ".company.article2";
+	}
+	@RequestMapping(value = "article3")
+	public String article3() throws Exception{
+		return ".company.article3";
+	}
+	@RequestMapping(value = "article4")
+	public String article4() throws Exception{
+		return ".company.article4";
+	}
+	
 	@RequestMapping(value="update", method=RequestMethod.GET)
 	public String updateForm(
 			@RequestParam int boardnum,

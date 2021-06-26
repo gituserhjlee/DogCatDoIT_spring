@@ -107,14 +107,14 @@ function searchList() {
                         <div class="col-md-6 col-12 learts-mb-40">
                             <div class="blog">
                                 <div class="image">
-                                    <a href="${articleUrl}&boardnum=9"><img src="${pageContext.request.contextPath}/resources/mainResources/images/blog/s370/blog-2.jpg" alt="Blog Image"></a>
+                                    <a href="${pageContext.request.contextPath}/company/article2"><img src="${pageContext.request.contextPath}/resources/mainResources/images/blog/s370/blog-2.jpg" alt="Blog Image"></a>
                                 </div>
                                 <div class="content">
                                     <ul class="meta">
                                         <li><i class="far fa-dog-leashed"></i><a href="#">펫시터</a></li>
                                         <li><i class="far fa-eye"></i>3 </li>
                                     </ul>
-                                    <h5 class="title"><a href="${articleUrl}&boardnum=9">두잇 케어</a></h5>
+                                    <h5 class="title"><a href="${pageContext.request.contextPath}/company/article2">두잇 케어</a></h5>
                                     <div class="desc">
                                         <p>100% 예약제로 운영되는 반려동물 케어 플랫폼 두잇 케어입니다. 소중한 가족과 교감하며 고객님의 충분한 휴식과 즐거운 여가 시간을 보장합니다.</p>
                                     </div>
@@ -124,14 +124,14 @@ function searchList() {
                         <div class="col-md-6 col-12 learts-mb-40">
                             <div class="blog">
                                 <div class="image">
-                                    <a href="${articleUrl}&boardnum=6"><img src="${pageContext.request.contextPath}/resources/mainResources/images/blog/s370/blog-3.jpg" alt="Blog Image"></a>
+                                    <a href="${pageContext.request.contextPath}/company/article3"><img src="${pageContext.request.contextPath}/resources/mainResources/images/blog/s370/blog-3.jpg" alt="Blog Image"></a>
                                 </div>
                                 <div class="content">
                                     <ul class="meta">
                                         <li><i class="far fa-hotel"></i><a href="#">애견호텔</a></li>
                                         <li><i class="far fa-eye"></i>2</li>
                                     </ul>
-                                    <h5 class="title"><a href="${articleUrl}&boardnum=6">독캣 스테이</a></h5>
+                                    <h5 class="title"><a href="${pageContext.request.contextPath}/company/article3">독캣 스테이</a></h5>
                                     <div class="desc">
                                         <p>100% 예약제로 운영되는 오픈형 반려동물 호텔 독캣 스테이입니다. 소중한 가족과 교감하며 고객님의 충분한 휴식과 즐거운 여가 시간을 보장합니다.</p>
                                     </div>
@@ -141,14 +141,14 @@ function searchList() {
                         <div class="col-md-6 col-12 learts-mb-40">
                             <div class="blog">
                                 <div class="image">
-                                    <a href="${articleUrl}&boardnum=7"><img src="${pageContext.request.contextPath}/resources/mainResources/images/blog/s370/blog-4.jpg" alt="Blog Image"></a>
+                                    <a href="${pageContext.request.contextPath}/company/article4"><img src="${pageContext.request.contextPath}/resources/mainResources/images/blog/s370/blog-4.jpg" alt="Blog Image"></a>
                                 </div>
                                 <div class="content">
                                     <ul class="meta">
                                         <li><i class="far fa-hotel"></i><a href="#">애견호텔</a></li>
                                         <li><i class="far fa-eye"></i>5 </li>
                                     </ul>
-                                    <h5 class="title"><a href="${articleUrl}&boardnum=7">두잇 스테이</a></h5>
+                                    <h5 class="title"><a href="${pageContext.request.contextPath}/company/article4">두잇 스테이</a></h5>
                                     <div class="desc">
                                         <p>100% 예약제로 운영되는 오픈형 반려동물 호텔 두잇 스테이입니다. 소중한 가족과 교감하며 고객님의 충분한 휴식과 즐거운 여가 시간을 보장합니다.</p>
                                     </div>

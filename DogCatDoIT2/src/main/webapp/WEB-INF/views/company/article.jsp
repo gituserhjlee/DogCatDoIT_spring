@@ -194,7 +194,6 @@ $(function(){
                             <a href="#reviews" class="review-link">(<span class="count">3</span> 리뷰)</a>
                         </div>
                         <h3 class="product-title">${dto.subject}</h3>
-                        <div class="product-price">50,000₩</div>
                         <div class="product-description">
                             ${dto.content}
                         </div>
@@ -203,7 +202,7 @@ $(function(){
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class="choose"><input type="checkbox" checked="" disabled=""></td>
+                                        <td class="choose"><input type="checkbox"></td>
                                         <td class="quantity"></td>
                                         <td class="title">기본 커트: <span>단모</span></td>
                                         <td class="price"><span class="pro-price"><span>50,000₩</span></span></td>

@@ -71,10 +71,9 @@ function searchList() {
                     <!-- Categories End -->
                     <div class="row learts-mt-50">
                         <div class="col text-center">
-                        	<c:if test="${sessionScope.member.userId=='admin'}">
+                            <c:if test="${sessionScope.member.userId=='admin'}">
                             <a href="${pageContext.request.contextPath}/company/created" class="btn btn-dark btn-md btn-outline-dark" style="font-size: 17px; margin-bottom: 50px;">업체등록하기</a>
-                        	</c:if>
-                        </div>
+                        	</c:if>                        </div>
                     </div>
                     
 

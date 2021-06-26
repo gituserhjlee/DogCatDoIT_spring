@@ -47,6 +47,7 @@
 					  OR (groupNum > #{groupNum}))
 			]]>
 		</where>
+		
 		ORDER BY groupNum ASC, orderNo DESC
 		FETCH FIRST 1 ROWS ONLY
 		

@@ -94,7 +94,7 @@ function searchList() {
                                 	<ul class="meta">
                                       	<li><i class="far fa-cut"></i><a href="#">미용</a></li>
                                       	
-                                        <li><i class="far fa-eye"></i>${dto.hitCount} </li>
+                                        <li><i class="far fa-eye"></i>14</li>
                                     </ul>
                                     <h5 class="title"><a href="${articleUrl}&boardnum=8">독캣 바버샵</a></h5>
                                 	

@@ -73,7 +73,7 @@
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">새로고침</button>
+					<button type="button" class="btn btn-dark btn-outline-hover-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">새로고침</button>
 				</td>
 				
 				<td align="center">
@@ -87,11 +87,11 @@
 						</select>
 						<input type="text" name="keyword" value="${keyword}" class="boxTF">
 						<input type="hidden" name="rows" value="${rows}">
-						<button type="button" class="btn" onclick="seacrchList()">검색</button>
+						<button class="btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
 					</form>
 				</td>
 				<td align="right" width="100">
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/created';">글올리기</button>
+					<button type="button" class="btn btn-dark btn-outline-hover-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/created';">글올리기</button>
 				</td>
 			</tr>
 		</table>

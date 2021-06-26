@@ -33,6 +33,44 @@
 		WHERE expertNum = #{expertNum}
 	</select>
 	
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE expert SET hitCount = hitCount+1 WHERE expertNum = #{expertNum}
+	</update>
+	
+	<select id="preReadExpert" parameterType="map" resultType="com.pet.app.expert.Expert">
+		SELECT expertNum, subject
+		FROM expert
+		
+		<where>
+			<![CDATA[
+				AND ( (groupNum = #{groupNum} AND orderNo < #{orderNo})
+					  OR (groupNum > #{groupNum}))
+			]]>
+		</where>
+		ORDER BY groupNum ASC, orderNo DESC
+		FETCH FIRST 1 ROWS ONLY
+		
+	</select>
+		
+	<select id="nextReadExpert" parameterType="map" resultType="com.pet.app.expert.Expert">
+		SELECT expertNum, subject
+		FROM expert
+		<where>
+			<![CDATA[
+				AND ( (groupNum = #{groupNum} AND orderNo > #{orderNo})
+					  OR (groupNum < #{groupNum}) )
+			]]>
+		</where>
+ 		ORDER BY groupNum DESC, orderNo ASC
+	    FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+<!-- 	<select id="listArticleExpert" parameterType="Integer" resultType="com.pet.app.expert.Expert">
+		SELECT ROWNUM 
+	</select>
+ -->	
+	
+	
 	
 	
 	

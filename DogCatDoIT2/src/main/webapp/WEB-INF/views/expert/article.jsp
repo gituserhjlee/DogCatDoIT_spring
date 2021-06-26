@@ -23,6 +23,14 @@ function deleteExpert(){
 	<div class="body-main wx-700 ml-30 pt-15">
 		<table class="table table-border table-content">
 			<tr>
+				<th width="60">번호</th>
+				<th>제목</th>
+				<th width="100">작성자</th>
+				<th width="80">작성일</th>
+				<th width="60">조회수</th>				
+			</tr>
+		
+			<tr>
 				<td colspan="2" align="center">
 					<c:if test="${dto.depth!=0}">[Re]</c:if>
 					${dto.subject}
@@ -67,7 +75,7 @@ function deleteExpert(){
 		
 		<table class="table">
 			<tr>
-				<td width="50%" align="left">
+				<td class="text-center" width="50%" align="left">
 					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/reply?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">답변</button>
 					<c:choose>
 						<c:when test="${sessionScope.member.userId== dto.userId}">
@@ -96,13 +104,7 @@ function deleteExpert(){
 		</table>
 		
 		<table class="table table-border table-list">
-			<tr>
-				<th width="60">번호</th>
-				<th>제목</th>
-				<th width="100">작성자</th>
-				<th width="80">작성일</th>
-				<th width="60">조회수</th>				
-			</tr>
+			
 			
 			<c:forEach var="vo" items="${listArticle}">
 			<tr>

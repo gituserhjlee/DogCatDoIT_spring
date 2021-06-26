@@ -79,7 +79,7 @@ public class ExpertController {
 	String cp = req.getContextPath();
 	String query = "rows="+rows;
 	String listUrl = cp + "/expert/list";
-	String articleUrl = cp + "expert/article?page=" + current_page;
+	String articleUrl = cp + "/expert/article?page=" + current_page;
 	
 	if (keyword.length() !=0) {
 		query += "&condition="+ condition + "&keyword="

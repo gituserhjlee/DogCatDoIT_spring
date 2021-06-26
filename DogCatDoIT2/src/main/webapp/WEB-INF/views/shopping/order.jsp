@@ -383,11 +383,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	// 회원등급 할인액 반영
 	function calcMemberDiscount() {
 		let totalItemPrice = $("input[name=totalItemPrice]").val();
-		let rate = $
-		{
-			slevelInfo.rate
-		}
-		;
+		let rate = ${slevelInfo.rate};
 		let memberDiscount = parseInt(totalItemPrice * rate / 100);
 		$(".memberDiscount").text(toLocaleString(memberDiscount));
 		$("input[name=memberDiscount]").val(memberDiscount);

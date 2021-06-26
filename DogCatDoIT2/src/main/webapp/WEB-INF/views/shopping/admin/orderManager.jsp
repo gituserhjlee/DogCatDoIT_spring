@@ -311,6 +311,11 @@
 	$("body").on("change", ".slt", function() {
 		listPage(1);
 	});
+	
+	function closeModal() {
+		let page = $("page").text();
+		listPage(page);
+	}
 </script>
 
 <div class="content-wrapper">
@@ -407,8 +412,8 @@
 			<thead>
 				<tr>
 					<th scope="col" class="text-center" style="width: 8%;">주문번호</th>
-					<th scope="col" class="text-center" style="width: 18%;">주문일시</th>
-					<th scope="col" class="text-center" style="width: 35%;">주문상품</th>
+					<th scope="col" class="text-center" style="width: 19%;">주문일시</th>
+					<th scope="col" class="text-center" style="width: 34%;">주문상품</th>
 					<th scope="col" class="text-center" style="width: 13%;">주문자 / 수령인</th>
 					<th scope="col" class="text-center" style="width: 15%;">주문금액 / 배송비</th>
 					<th scope="col" class="text-center" style="width: 11%;">주문상태</th>
@@ -431,7 +436,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">상품주문정보 조회</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal();">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>

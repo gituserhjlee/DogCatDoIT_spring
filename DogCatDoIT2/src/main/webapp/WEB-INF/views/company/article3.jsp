@@ -147,11 +147,6 @@ $(function(){
                 <!-- Product Images Start -->
                 <div class="col-lg-6 col-12 learts-mb-40">
                     <div class="product-images">
-                        <button class="product-gallery-popup hintT-left" data-hint="Click to enlarge" data-images='[
-                            {"src": "${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/product-zoom-1.jpg", "w": 700, "h": 1100},
-                            {"src": "${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/product-zoom-2.jpg", "w": 700, "h": 1100},
-                            {"src": "${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/product-zoom-3.jpg", "w": 700, "h": 1100}
-                        ]'><i class="far fa-expand"></i></button>
                         <a href="https://www.youtube.com/watch?v=1jSsy7DtYgc" class="product-video-popup video-popup hintT-left" data-hint="Click to see video"><i class="fal fa-play"></i></a>
                         <div class="product-gallery-slider">
                             <div class="product-zoom" data-image="${pageContext.request.contextPath}/resources/mainResources/images/product/single/6/product-zoom-1.jpg">

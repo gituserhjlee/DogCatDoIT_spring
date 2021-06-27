@@ -124,16 +124,6 @@
 		WHERE userId = #{userId} AND MONTHS_BETWEEN(SYSDATE, get_Date) &lt;= #{month}
 	</select>
 	
-	
-	<!-- 쿠폰 지급 -->
-	
-	
-	<!-- 쿠폰 사용 -->
-	
-	
-	<!-- 쿠폰 조회 -->
-	
-	
 	<!-- 출석체크 내역입력 -->
 	<insert id="insertAttendance" parameterType="String">
 		INSERT INTO attendance (attendanceNum, userId, attendanceDate) 
@@ -228,7 +218,30 @@
 	
 	
 	<!-- 글 쓴 내역 -->
+	<select id="listPosting" parameterType="map" resultType="com.pet.app.myPage.Posting">
+		SELECT * FROM
+		(SELECT num, subject, TO_CHAR(regi_date) reg_date, userId from zau  
+		UNION ALL
+		SELECT num, subject, TO_CHAR(regi_date) reg_date, userId from junggo
+		UNION ALL
+		SELECT num, subject, TO_CHAR(created) reg_date, userId from faq 
+		UNION ALL
+		SELECT expertNum num, subject, TO_CHAR(created) reg_date, userId from expert) WHERE userId = #{userId}
+		ORDER BY reg_date DESC
+		OFFSET #{offset} rows FETCH FIRST #{rows} ROWS ONLY
+	</select>
 	
+	<!-- 글 쓴 갯수 -->
+	<select id="countPosting" parameterType="String" resultType="Integer">
+		SELECT count(*) FROM
+		(SELECT num, subject, regi_date reg_date,userId from zau  
+		UNION ALL
+		SELECT num, subject, regi_date reg_date,userId from junggo
+		UNION ALL
+		SELECT num, subject, created reg_date,userId from faq 
+		UNION ALL
+		SELECT expertNum num, subject, created reg_date,userId from expert) WHERE userId = #{userId}
+	</select>
 	
 	<!-- 회원 정보 수정 -->
 	<update id="setMember" parameterType="com.pet.app.member.Member">

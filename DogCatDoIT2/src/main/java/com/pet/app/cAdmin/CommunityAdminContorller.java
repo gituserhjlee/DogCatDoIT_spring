@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pet.app.common.MyUtil;
+import com.pet.app.common.MyUtilGeneral;
 import com.pet.app.myPage.MyPageService;
 import com.pet.app.myPage.PointHistory;
 import com.pet.app.myPage.Qualification;
@@ -30,7 +30,7 @@ public class CommunityAdminContorller {
 	private MyPageService mService;
 	
 	@Autowired
-	private MyUtil myUtil;
+	private MyUtilGeneral myUtil;
 	
 	@RequestMapping("main")
 	public String main() throws Exception{

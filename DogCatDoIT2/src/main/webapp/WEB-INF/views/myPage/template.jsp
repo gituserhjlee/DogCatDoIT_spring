@@ -24,7 +24,7 @@ $(function () {
 			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/userProfile">프로필</a></li>
 			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/insertRequestQualification">자격신청</a></li>
 			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/listQualification">자격신청내역</a></li>
-			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/written">내가 쓴 글</a></li>
+			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/posting">내가 쓴 글</a></li>
 			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/reserve">예약 내역</a></li>	
 			<li style="padding: 5px;"><a href="${pageContext.request.contextPath}/myPage/point">포인트</a></li>
 			<li style="padding: 5px;">

@@ -47,7 +47,7 @@
 <div class="wrapper">
 	<tiles:insertAttribute name="left"/>
 </div>
-<div style="margin: 100px 0 0 300px;">
+<div style="margin: 100px 0 0 400px;">
 	<tiles:insertAttribute name="body"/>
 </div>
 <div id="loadingLayout" style="display: none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eee;">

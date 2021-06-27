@@ -35,4 +35,6 @@ public interface MyPageService {
 	public void updateAttendancePoint(String userId) throws Exception;
 	public int readAccumulation(String userId);
 	public void updateClevel(String userId) throws Exception;
+	public List<Posting> listPosting(Map<String, Object> map);
+	public int countPosting(String userId);
 }

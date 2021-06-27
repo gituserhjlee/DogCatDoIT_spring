@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -653,4 +654,58 @@ public class MyPageController {
 	public String point() throws Exception{
 		return ".myPage.point";
 	}
+	
+	@RequestMapping("posting")
+	public String posting(
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
+			Model model,
+			HttpServletRequest req,
+			HttpSession session
+			) throws Exception{
+		String cp = req.getContextPath();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		int total_page=0;
+		int dataCount=0;
+		int offset;
+		String paging;
+		int rows = 10;
+		
+		map.put("userId", info.getUserId());
+		dataCount = service.countPosting(info.getUserId());
+		
+		if(dataCount!=0)
+			total_page = myUtil.pageCount(rows, dataCount);
+		if(current_page > total_page)
+			current_page = total_page;
+		
+		offset = (current_page - 1) * rows;
+		if(offset < 0)
+			offset = 0;
+		
+		map.put("offset", offset);
+		map.put("rows", rows);
+		
+		List<Posting> list = service.listPosting(map);
+		int listNum, n = 0;
+        for(Posting dto : list) {
+            listNum = dataCount - (offset + n);
+            dto.setListNum(listNum);
+            n++;
+        }
+        
+        String listUrl = cp+"/myPage/posting";
+        
+        paging = myUtil.paging(current_page, total_page, listUrl);
+        
+        model.addAttribute("list", list);
+        model.addAttribute("page", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("paging", paging);
+        
+		return ".myPage.posting";
+	}
+	
 }

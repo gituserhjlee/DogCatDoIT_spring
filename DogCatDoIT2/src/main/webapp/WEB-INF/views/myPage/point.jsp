@@ -131,7 +131,7 @@ $("body").on("change", ".month", function() {
 				</tbody>
 			</table>
 			
-			<div class="paging" style="text-align: center; margin: 60px auto 30px;">
+			<div class="paging pagination-sm" style="text-align: center; margin: 60px auto 30px;">
 			</div>
 		</div>
 	</div>

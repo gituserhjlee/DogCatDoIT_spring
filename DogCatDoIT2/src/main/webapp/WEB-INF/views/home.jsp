@@ -156,7 +156,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="index-2.html" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
+                                    <a href="#" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
                                     <ul>
                                         <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
@@ -212,13 +212,13 @@
                                 </li>
                                 <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
                                 </li>
-                                <li class="has-children"><a href=""><span class="menu-text">정보공유게시판</span></a>
-                                    <ul class="sub-menu">
+                                <li class="has-children"><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a>
+<!--                                     <ul class="sub-menu">
                                         <li><a href="blog-list-right-sidebar.html"><span class="menu-text">훈련정보</span></a></li>
                                         <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
                                         <li><a href="blog-list-fullwidth.html"><span class="menu-text">꿀팁모음</span></a></li>
                                     </ul>
-                                </li>
+ -->                                </li>
                                 <li class="has-children"><a href="blog-masonry-right-sidebar.html"><span class="menu-text">산책메이트게시판</span></a>
                                 </li>
                                 <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
@@ -272,7 +272,7 @@
                                     <ul>
                                         <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -325,13 +325,13 @@
                                 </li>
                                 <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
                                 </li>
-                                <li class="has-children"><a href="blog-list-right-sidebar.html"><span class="menu-text">정보공유게시판</span></a>
-                                    <ul class="sub-menu">
+                                <li class="has-children"><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a>
+<%--                                     <ul class="sub-menu">
                                         <li><a href="${pageContext.request.contextPath}/expert/list" class="mega-menu-title"><span class="menu-text">동물행동전문가 Q&A 게시판</span></a></li>
                                         <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
                                         <li><a href="blog-list-fullwidth.html"><span class="menu-text">꿀팁모음</span></a></li>
                                     </ul>
-                                </li>
+ --%>                                </li>
                                 <li class="has-children"><a href="blog-masonry-right-sidebar.html"><span class="menu-text">산책메이트게시판</span></a>
                                 </li>
                                 <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
@@ -494,7 +494,7 @@
                                 <ul class="sub-menu">
                                     <li><a href="index-9.html"><span class="menu-text">자유게시판</span></a></li>
                                     <li><a href="index-10.html"><span class="menu-text">중고거래게시판</span></a></li>
-                                    <li><a href="index-11.html"><span class="menu-text">정보공유게시판</span></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a></li>
                                 </ul>
                             </li>
                             <li>
@@ -547,12 +547,12 @@
                             </li>
                             <li><a href="#"><span class="menu-text">중고거래게시판</span></a>
                             </li>
-                            <li><a href="#"><span class="menu-text">정보공유게시판</span></a>
-                                <ul class="sub-menu">
+                            <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a>
+                            <!--     <ul class="sub-menu">
                                     <li><a href="blog-list-right-sidebar.html"><span class="menu-text">훈련정보</span></a></li>
                                     <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
                                     <li><a href="blog-list-fullwidth.html"><span class="menu-text">꿀팁모음</span></a></li>
-                                </ul>
+                                </ul> -->
                             </li>
                             <li><a href="#"><span class="menu-text">산책메이트게시판</span></a>
                             </li>

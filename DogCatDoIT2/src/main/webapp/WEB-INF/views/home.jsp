@@ -160,7 +160,7 @@
                                     <ul>
                                         <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동전문가 Q&A 게시판</span></a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -212,7 +212,7 @@
                                 </li>
                                 <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
                                 </li>
-                                <li class="has-children"><a href="blog-list-right-sidebar.html"><span class="menu-text">정보공유게시판</span></a>
+                                <li class="has-children"><a href=""><span class="menu-text">정보공유게시판</span></a>
                                     <ul class="sub-menu">
                                         <li><a href="blog-list-right-sidebar.html"><span class="menu-text">훈련정보</span></a></li>
                                         <li><a href="blog-list-left-sidebar.html"><span class="menu-text">사료정보</span></a></li>
@@ -225,7 +225,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="no-children"><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
+                        <li class="no-children"><a href="vcompany/list"><span class="menu-text">제휴업체</span></a>
 
                         </li>
                     </ul>

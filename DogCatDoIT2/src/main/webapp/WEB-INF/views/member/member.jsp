@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+
+
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dateUtil.js"></script>
 <script type="text/javascript">
 function memberOk(){
@@ -151,7 +154,7 @@ function userIdCheck(){
 		<h3><i class="fas fa-user"></i> ${mode=="member"?"회원가입":"회원 정보 수정"} </h3>
 	</div>
 	
-	<div class="body-main">
+	<div class="body-main wx-750 content-center pt-15">
 		<form name="memberForm" method="post">
 		<table class="table table-content">
 			<tr>
@@ -166,8 +169,8 @@ function userIdCheck(){
 							${mode=="update" ? "readonly='readonly' ":""}
 							placeholder="아이디는 5~10자이며 첫글자는 영문자이어야 합니다.">
 					</p>
-		<!-- 			<p class="help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</p>
-		 -->		</td>
+<!-- 					<p class="help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</p>
+ -->		 		</td>
 			</tr>
 			
 			<tr>
@@ -227,19 +230,29 @@ function userIdCheck(){
 					<label>이메일</label>
 				</td>
 				<td>
-					<p>
-						<select name="selectEmail" onchange="changeEmail();" class="selectField">
-							<option value="">선택</option>
-							<option value="naver.com" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>네이버 메일</option>
-							<option value="hanmail.net" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>한 메일</option>
-							<option value="hotmail.com" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>핫 메일</option>
-							<option value="gmail.com" ${dto.email2=="gmail.com" ? "selected='selected'" : ""}>지 메일</option>
-							<option value="direct">직접입력</option>
-						</select>
-						<input type="text" name="email1" maxlength="30" class="boxTF md" value="${dto.email1}">
-						<span>@</span>
-						<input type="text" name="email2" maxlength="30" class="boxTF md" value="${dto.email2}" readonly="readonly">						
-					</p>
+					 <div class="form-row">
+					 	<div>
+								<input type="text" name="email1" class="form-control sm" value="${dto.email1}">
+						</div>
+						<div>
+								<p class="form-control-plaintext text-center">@</p>
+						</div>
+						<div class="col col-sm-2">
+							<select class="form-control" id ="selectEmail" name="selectEmail" onchange="changeEmail();">
+								<option value="">선택</option>
+								<option value="naver.com" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>네이버 메일</option>
+								<option value="hanmail.net" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>한 메일</option>
+								<option value="hotmail.com" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>핫 메일</option>
+								<option value="gmail.com" ${dto.email2=="gmail.com" ? "selected='selected'" : ""}>지 메일</option>
+								<option value="direct">직접입력</option>
+							</select>
+						</div>
+						<div>
+							<input type="text" name="email2" class="form-control sm" value="${dto.email2}" readonly="readonly">						
+						</div>
+					
+					</div>
+						
 				</td>
 			</tr>
 			
@@ -248,36 +261,47 @@ function userIdCheck(){
 					<label>전화번호</label>
 				</td>
 				<td>
-					<p>
-						<select class="selectField" id="tel1" name="tel1">
-							<option value="">선택</option>
-							<option value="010" ${dto.tel1=="010" ? "selected='selected'" : ""}>010</option>
-							<option value="02" ${dto.tel1=="02" ? "selected='selected'" : ""}>02</option>
-							<option value="031" ${dto.tel1=="031" ? "selected='selected'" : ""}>031</option>
-							<option value="032" ${dto.tel1=="032" ? "selected='selected'" : ""}>032</option>
-							<option value="033" ${dto.tel1=="033" ? "selected='selected'" : ""}>033</option>
-							<option value="041" ${dto.tel1=="041" ? "selected='selected'" : ""}>041</option>
-							<option value="042" ${dto.tel1=="042" ? "selected='selected'" : ""}>042</option>
-							<option value="043" ${dto.tel1=="043" ? "selected='selected'" : ""}>043</option>
-							<option value="044" ${dto.tel1=="044" ? "selected='selected'" : ""}>044</option>
-							<option value="051" ${dto.tel1=="051" ? "selected='selected'" : ""}>051</option>
-							<option value="052" ${dto.tel1=="052" ? "selected='selected'" : ""}>052</option>
-							<option value="053" ${dto.tel1=="053" ? "selected='selected'" : ""}>053</option>
-							<option value="054" ${dto.tel1=="054" ? "selected='selected'" : ""}>054</option>
-							<option value="055" ${dto.tel1=="055" ? "selected='selected'" : ""}>055</option>
-							<option value="061" ${dto.tel1=="061" ? "selected='selected'" : ""}>061</option>
-							<option value="062" ${dto.tel1=="062" ? "selected='selected'" : ""}>062</option>
-							<option value="063" ${dto.tel1=="063" ? "selected='selected'" : ""}>063</option>
-							<option value="064" ${dto.tel1=="064" ? "selected='selected'" : ""}>064</option>
-							<option value="070" ${dto.tel1=="070" ? "selected='selected'" : ""}>070</option>
-						
-						</select>
-						<span>-</span>
-						<input type="text" name="tel2" class="boxTF sm" maxlength="4" value="${dto.tel2}">
-						<span>-</span>
-						<input type="text" name="tel3" class="boxTF sm" maxlength="4" value="${dto.tel3}">
-						 
-					</p>
+					 <div class="form-row">
+					 	<div class="col col-sm-3">
+							<select class="form-control" id="tel1" name="tel1" >
+								<option value="">선택</option>
+								<option value="010" ${dto.tel1=="010" ? "selected='selected'" : ""}>010</option>
+								<option value="02" ${dto.tel1=="02" ? "selected='selected'" : ""}>02</option>
+								<option value="031" ${dto.tel1=="031" ? "selected='selected'" : ""}>031</option>
+								<option value="032" ${dto.tel1=="032" ? "selected='selected'" : ""}>032</option>
+								<option value="033" ${dto.tel1=="033" ? "selected='selected'" : ""}>033</option>
+								<option value="041" ${dto.tel1=="041" ? "selected='selected'" : ""}>041</option>
+								<option value="042" ${dto.tel1=="042" ? "selected='selected'" : ""}>042</option>
+								<option value="043" ${dto.tel1=="043" ? "selected='selected'" : ""}>043</option>
+								<option value="044" ${dto.tel1=="044" ? "selected='selected'" : ""}>044</option>
+								<option value="051" ${dto.tel1=="051" ? "selected='selected'" : ""}>051</option>
+								<option value="052" ${dto.tel1=="052" ? "selected='selected'" : ""}>052</option>
+								<option value="053" ${dto.tel1=="053" ? "selected='selected'" : ""}>053</option>
+								<option value="054" ${dto.tel1=="054" ? "selected='selected'" : ""}>054</option>
+								<option value="055" ${dto.tel1=="055" ? "selected='selected'" : ""}>055</option>
+								<option value="061" ${dto.tel1=="061" ? "selected='selected'" : ""}>061</option>
+								<option value="062" ${dto.tel1=="062" ? "selected='selected'" : ""}>062</option>
+								<option value="063" ${dto.tel1=="063" ? "selected='selected'" : ""}>063</option>
+								<option value="064" ${dto.tel1=="064" ? "selected='selected'" : ""}>064</option>
+								<option value="070" ${dto.tel1=="070" ? "selected='selected'" : ""}>070</option>
+							
+							</select>
+						</div>
+						<div class="col col-sm-1">
+							<p class="form-control-plaintext text-center">-</p>
+						</div>
+						<div class="col col-sm-2">
+							<input type="text" name="tel2" class="form-control sm" value="${dto.tel2}">
+						</div>
+						<div class="col col-sm-1">
+	 						<p class="form-control-plaintext text-center">-</p>
+	 					</div>
+	 					<div class="col col-sm-2">
+							<input type="text" name="tel3" class="form-control sm" value="${dto.tel3}">
+						</div>
+
+					</div>
+
 				</td>
 			</tr>
 			
@@ -287,7 +311,7 @@ function userIdCheck(){
 				</td>
 				<td>
 					<p>
-						<input type="text" name="zip" id="zip" class="boxTF sm" value="${dto.zip}"
+						<input type="text" name="zip" id="zip" class="form-control sm" value="${dto.zip}"
 							readonly="readonly">
 						<button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
 					</p>

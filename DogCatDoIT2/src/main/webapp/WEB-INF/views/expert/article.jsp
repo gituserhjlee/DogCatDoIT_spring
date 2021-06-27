@@ -84,7 +84,7 @@ function deleteExpert(){
 				
 				</td>
 			
-				<td class="text-center" width="50%" align="center">
+				<td class="text-center" width="50%" >
 					<c:choose>
 						<c:when test="${sessionScope.member.userId== dto.userId}">
 							<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/update?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">수정</button>

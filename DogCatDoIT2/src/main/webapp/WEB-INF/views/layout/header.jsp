@@ -231,7 +231,7 @@
                                     <ul>
                                         <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
                                         <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">훈련정보공유</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동전문가 Q&A 게시판</span></a></li>
                                     </ul>
                                 </li>
                                 <li>

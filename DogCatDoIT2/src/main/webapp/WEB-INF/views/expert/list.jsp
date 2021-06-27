@@ -72,27 +72,41 @@
 		
 		<table class="table">
 			<tr>
-				<td align="left" width="100">
-					<button type="button" class="btn btn-dark btn-outline-hover-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">새로고침</button>
-				</td>
+<%-- 				<td align="left" width="100">
+					<button type="button" style="font-family: Jua; font-size: 18px;" class="btn btn-dark btn-outline-hover-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">새로고침</button>
+				</td> --%>
 				
-				<td align="center">
+				<td align="left" >
 					<form name="searchForm" action="${pageContext.request.contextPath}/expert/list" method="post">
-						<select name="condition" class="selectField">
-							<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
-							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
-							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
-							<option value="name" ${condition=="name"?"selected='selected'":""}>작성자</option>
-							<option value="created" ${condition=="created"?"selected='selected'":""}>등록일</option>
-						</select>
-						<input type="text" name="keyword" value="${keyword}" class="boxTF">
-						<input type="hidden" name="rows" value="${rows}">
-						<button class="btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
+						<div class="form-row">
+							<div class="col col-sm-3">
+								<select class="form-control" name="condition" >
+									<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
+									<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+									<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+									<option value="name" ${condition=="name"?"selected='selected'":""}>작성자</option>
+									<option value="created" ${condition=="created"?"selected='selected'":""}>등록일</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="col col-sm-4">
+							<input class="form-control sm" type="text" name="keyword" value="${keyword}" >
+						</div>
+						<div class="col col-sm-4">
+							<input class="form-control sm" type="hidden" name="rows" value="${rows}"  >
+						</div>
+						<div class="col col-sm-4">
+							<button class="form-control sm btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
+						</div>
 					</form>
 				</td>
 				<td align="right" width="100">
-					<button type="button" class="btn btn-dark btn-outline-hover-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/created';">글올리기</button>
+					<div >
+						<button class="form-control sm btn btn-dark btn-outline-hover-dark"  type="button" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/created';">글올리기</button>
+					</div>
 				</td>
+				
 			</tr>
 		</table>
 		

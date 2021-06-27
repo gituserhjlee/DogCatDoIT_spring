@@ -32,7 +32,7 @@
 		<h2><i class="icofont-ebook"></i> 동물행동전문가 Q&A 게시판 </h2>
 	</div>
 	
-	<div class="body-main wx-700 ml-30 pt-15">
+	<div class="body-main wx-700 ml-40 pt-20">
 		<form name="expertForm" method="post">
 			<table class="table table-border table-content">
 				<tr>
@@ -76,8 +76,8 @@
 						</c:if>
 						
 						<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
-						<button type="reset" class="btn">다시입력</button>
-			        	<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">${mode=='update'?'수정취소':'등록취소'}</button>					
+<!-- 						<button type="reset" class="btn">다시입력</button>
+ -->			        	<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">${mode=='update'?'수정취소':'등록취소'}</button>					
 					</td>
 				</tr>
 			</table>

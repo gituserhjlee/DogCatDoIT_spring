@@ -225,7 +225,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="no-children"><a href="vcompany/list"><span class="menu-text">제휴업체</span></a>
+                        <li class="no-children"><a href="company/list"><span class="menu-text">제휴업체</span></a>
 
                         </li>
                     </ul>

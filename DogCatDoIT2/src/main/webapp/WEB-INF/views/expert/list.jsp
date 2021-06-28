@@ -97,13 +97,14 @@
 							<input class="form-control sm" type="hidden" name="rows" value="${rows}"  >
 						</div>
 						<div class="col col-sm-4">
-							<button class="form-control sm btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
+<!-- 							<button class="form-control sm btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
+ -->							<button class="btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
 						</div>
 					</form>
 				</td>
 				<td align="right" width="100">
 					<div >
-						<button class="form-control sm btn btn-dark btn-outline-hover-dark"  type="button" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/created';">글올리기</button>
+						<button class="btn btn-dark btn-outline-hover-dark"  type="button" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/created';">글올리기</button>
 					</div>
 				</td>
 				

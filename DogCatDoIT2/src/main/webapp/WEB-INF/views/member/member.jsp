@@ -237,6 +237,9 @@ function userIdCheck(){
 						<div>
 								<p class="form-control-plaintext text-center">@</p>
 						</div>
+						<div>
+							<input type="text" name="email2" class="form-control sm" value="${dto.email2}" readonly="readonly">						
+						</div>
 						<div class="col col-sm-2">
 							<select class="form-control" id ="selectEmail" name="selectEmail" onchange="changeEmail();">
 								<option value="">선택</option>
@@ -247,9 +250,7 @@ function userIdCheck(){
 								<option value="direct">직접입력</option>
 							</select>
 						</div>
-						<div>
-							<input type="text" name="email2" class="form-control sm" value="${dto.email2}" readonly="readonly">						
-						</div>
+
 					
 					</div>
 						

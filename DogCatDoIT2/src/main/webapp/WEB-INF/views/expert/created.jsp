@@ -70,14 +70,14 @@
 							<input type="hidden" name="depth" value="${dto.depth}">
 							<input type="hidden" name="parent" value="${dto.parent}">
 							<input type="hidden" name="expertNum" value="${dto.expertNum}">
-							<input type="hidden" name="page" value="${dto.page}">
-							<input type="hidden" name="rows" value="${dto.rows}">
+							<input type="hidden" name="page" value="${page}">
+							<input type="hidden" name="rows" value="${rows}">
 														
 						</c:if>
 						
-						<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+						<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 <!-- 						<button type="reset" class="btn">다시입력</button>
- -->			        	<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">${mode=='update'?'수정취소':'등록취소'}</button>					
+ -->			        	<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">${mode=='update'?'수정취소':'등록취소'}</button>					
 					</td>
 				</tr>
 			</table>

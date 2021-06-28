@@ -2,6 +2,7 @@ package com.pet.app.expert;
 
 public class Expert {
 	private int expertNum;
+	private int listNum;
 	private String userId;
 	private String name;
 	private String subject;
@@ -13,6 +14,12 @@ public class Expert {
 	private int depth; 
 	private int parent;
 
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	public int getExpertNum() {
 		return expertNum;
 	}

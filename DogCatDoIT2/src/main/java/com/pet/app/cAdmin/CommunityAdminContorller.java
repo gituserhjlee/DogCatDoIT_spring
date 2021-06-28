@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pet.app.common.MyUtilGeneral;
 import com.pet.app.myPage.MyPageService;
 import com.pet.app.myPage.PointHistory;
+import com.pet.app.myPage.Posting;
 import com.pet.app.myPage.Qualification;
 import com.pet.app.shopping.Order;
 
@@ -109,6 +110,17 @@ public class CommunityAdminContorller {
 		
 		List<Order> list = service.listOrder(dto.getUserIdx());
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("offset", 0);
+		map.put("rows", 10);
+		map.put("userId", userId);
+		List<Posting> postingList = mService.listPosting(map);
+		int n = 1;
+		for(Posting vo : postingList) {
+			vo.setListNum(n);
+			n++;
+		}
+		
 		Map<String, Object> map2 = new HashMap<String, Object>();
         map2.put("0", "신규회원");
         map2.put("1", "일반회원");
@@ -116,6 +128,7 @@ public class CommunityAdminContorller {
         map2.put("3", "우수회원");
         map2.put("4", "대표회원");
         
+        model.addAttribute("postingList", postingList);
         model.addAttribute("list", list);
 		model.addAttribute("dto", dto);
 		model.addAttribute("map", map2);

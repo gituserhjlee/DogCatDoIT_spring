@@ -65,7 +65,25 @@
 	<input type="hidden" name="userId" value="${dto.userId}">
 </form>
 <h3 style="font-size: 15px;">게시글 내역</h3>
-게시글 내역
+<table style="width: 100%; border-collapse: collapse; border-spacing: 0; font-size: 15px;">
+	<c:if test="${empty postingList}">
+		게시글 내역이 없습니다.
+	</c:if>
+	<c:if test="${not empty postingList}">
+		<tr style="border-top: 0.5px solid #eee; border-bottom: 0.5px solid #eee;" height="30">
+			<td width="20%">번호</td>
+			<td width="50%">제목</td>
+			<td width="30%">등록일자</td>
+		</tr>
+	</c:if>
+	<c:forEach var="vo" items="${postingList}">
+		<tr style="border-bottom: 0.5px solid #eee;" height="30">
+			<td>${vo.listNum}</td>
+			<td>${vo.subject}</td>
+			<td>${vo.reg_date}</td>
+		</tr>	
+	</c:forEach>
+</table>
 <h3 style="font-size: 15px;">최근 구매 내역</h3>
 <table style="width: 100%; border-collapse: collapse; border-spacing: 0; font-size: 15px;">
 	<c:if test="${empty list}">

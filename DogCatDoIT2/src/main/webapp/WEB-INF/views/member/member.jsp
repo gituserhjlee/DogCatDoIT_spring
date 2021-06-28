@@ -306,19 +306,40 @@ function userIdCheck(){
 				</td>
 			</tr>
 			
-			<tr>
+<%-- 			<tr>
 				<td>
 					<label>우편번호</label>
 				</td>
-				<td>
-					<p>
-						<input type="text" name="zip" id="zip" class="form-control sm" value="${dto.zip}"
+	<!-- 			<td>			
+					<button type="button" class="btn" onclick="daumPostcode();" style="display: inline;">우편번호</button>          
+				</td>
+	 -->			<td width="20%">
+	 				<button type="button" class="btn" onclick="daumPostcode();" style="display: inline;">우편번호</button>          
+	
+						<input maxlength="boxTF lg" type="text" name="zip" id="zip" class="form-control" value="${dto.zip}"
 							readonly="readonly">
-						<button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
-					</p>
 				</td>
 			</tr>
-			
+			 --%>
+			 
+			<tr>
+            <td>
+               <label>우편번호</label>
+            </td>
+            <td>
+            <div class="form-row">
+               <div>
+                  <input type="text" name="zip" id="zip" class="form-control sm" value="${dto.zip}"
+                     readonly="readonly">
+               </div>
+               <div>
+                  <button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="daumPostcode();" >우편번호</button>             
+               </div>
+         
+            </div>
+               
+            </td>
+         </tr>
 			
 			<tr>
 				<td>

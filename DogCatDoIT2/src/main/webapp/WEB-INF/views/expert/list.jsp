@@ -2,6 +2,31 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap4/css/bootstrap-icons.css" type="text/css">
+
+<style type="text/css">
+.table-content tr {
+	text-align: center;
+}
+.table-content tr:first-child {
+	background: #eee;
+}
+.table-content tr > th {
+	color: #777;
+}
+.table-content tr > td:nth-child(2) {
+	box-sizing: border-box;
+	padding-left: 10px;
+	text-align: left;
+}
+</style>
+
+<script type="text/javascript">
+function searchList() {
+	var f=document.searchForm;
+	f.submit();
+}
+</script>
 
 <div class="container body-container">
 	<div class="body-title">
@@ -72,13 +97,16 @@
 		
 		<table class="table">
 			<tr>
-<%-- 				<td align="left" width="100">
+<%-- 			<td align="left" width="100">
 					<button type="button" style="font-family: Jua; font-size: 18px;" class="btn btn-dark btn-outline-hover-dark" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list';">새로고침</button>
 				</td> --%>
 				
 				<td align="left" >
 					<form name="searchForm" action="${pageContext.request.contextPath}/expert/list" method="post">
 						<div class="form-row">
+						 	<div class="col col-sm-2">
+								<input class="form-control sm" type="hidden" name="rows" value="${rows}"  >
+							</div>
 							<div class="col col-sm-3">
 								<select class="form-control" name="condition" >
 									<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
@@ -88,17 +116,16 @@
 									<option value="created" ${condition=="created"?"selected='selected'":""}>등록일</option>
 								</select>
 							</div>
-						</div>
-						
+							
 						<div class="col col-sm-4">
 							<input class="form-control sm" type="text" name="keyword" value="${keyword}" >
 						</div>
-						<div class="col col-sm-4">
-							<input class="form-control sm" type="hidden" name="rows" value="${rows}"  >
-						</div>
-						<div class="col col-sm-4">
+
+						<div class="col col-sm-2">
 <!-- 							<button class="form-control sm btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
- -->							<button class="btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
+ -->						<button class="btn btn-dark btn-outline-hover-dark" onclick="moveMember();return false;" style="font-family: Jua; font-size: 18px;">검색</button>
+
+ 						</div>
 						</div>
 					</form>
 				</td>

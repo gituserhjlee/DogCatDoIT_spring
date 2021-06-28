@@ -36,7 +36,10 @@ function sendOk() {
 <div style="width: 800px; min-height: 800px; float: left;">
 	<div style="width: 100%; height: 100%; padding-left: 100px; padding-top: 30px;">
 		<div>
-			<h4 style="margin-bottom: 30px;">프로필 설정</h4>
+			<h4 style="margin-bottom: 30px;">
+				<c:if test="${mode=='insert'}">프로필 설정</c:if>
+				<c:if test="${mode=='update'}">프로필 수정</c:if>
+			</h4>
 		</div>
 		<div>
 			<form name="userProfileForm" method="post" enctype="multipart/form-data">

@@ -62,6 +62,16 @@ public class ExpertController {
 	
 	List<Expert> list = service.listExpert(map);
 	
+	int listNum;
+	
+	int n = 0;
+	
+	
+	 for(Expert dto : list) { listNum = dataCount - (offset + n);
+	
+	 dto.setListNum(listNum);
+	 n++;
+	 }
 	/*
 	 * // 글번호 만드는 부분 Date endDate = new Date(); long gap; int listNum, n = 0;
 	 * for(Expert dto : list) { listNum = dataCount - (offset + n);

@@ -22,17 +22,17 @@ function deleteExpert(){
 	
 	<div class="body-main wx-700 ml-30 pt-15">
 		<table class="table table-border table-content">
-			<tr>
-				<th width="60">번호</th>
-				<th width="80">제목</th>
-				<th width="60">작성자</th>
-				<th width="60">작성일</th>
-				<th width="60">조회수</th>				
+			<tr align="center">
+				<th width="15%" align="center">번호</th>
+				<th width="30%"  align="center">제목</th>
+				<th width="15%"  align="center">작성자</th>
+				<th width="20%"  align="center">작성일</th>
+				<th width="20%"  align="center">조회수</th>				
 			</tr>
 		
 			
 			<tr>
-				<td  width="20%" align="left">
+				<td  width="20%" align="center">
 				 	${dto.expertNum}
 				</td>
 				<td width="20%"  align="center">
@@ -45,7 +45,7 @@ function deleteExpert(){
 				<td width="20%" align="center">
 					${dto.created}
 				</td>
-				<td width="20%" align="right">
+				<td width="20%" align="center">
 					${dto.hitCount}
 				</td>
 			</tr>
@@ -79,7 +79,7 @@ function deleteExpert(){
 		
 		<table class="table">
 			<tr>
-				<td class="text-left" width="50%" align="left">
+				<td class="text-left" width="15%" align="left">
 					<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/reply?expertNum=${dto.expertNum}&page=${page}&rows=${rows}';">답변</button>
 				
 				</td>
@@ -105,7 +105,7 @@ function deleteExpert(){
 				
 				</td>
 				
-				<td align="right">
+				<td class="text-right" align="right" width="25%">
 					<button type="button" class="btn btn-dark btn-outline-hover-dark" style="font-family: Jua; font-size: 18px;" onclick="javascript:location.href='${pageContext.request.contextPath}/expert/list?${query}';">리스트</button>
 				</td>
 			</tr>

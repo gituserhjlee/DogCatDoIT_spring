@@ -32,16 +32,16 @@
 		</table>
 		
 		<table class="table table-boarder table-content">
-			<tr>
-				<th width="60">번호</th>
-				<th>제목</th>
-				<th width="80">작성자</th>
-				<th width="80">작성일</th>
-				<th width="60">조회수</th>
+			<tr align="center">
+				<th width="15%">번호</th>
+				<th width="35%">제목</th>
+				<th width="15%">작성자</th>
+				<th width="20%">작성일</th>
+				<th width="15%">조회수</th>
 			</tr>
 			
 			<c:forEach var="dto" items="${list}">
-			<tr>
+			<tr align="center">
 				<td>${dto.expertNum}</td>
 				<td>
 					<c:forEach var="n" begin="1" end="${dto.depth}">

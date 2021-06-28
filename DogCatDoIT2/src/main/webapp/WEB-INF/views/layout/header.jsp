@@ -46,7 +46,7 @@
                         </li>
                     </ul>
                     <p style="display: inline; color: lightgray;">&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-                    <a href="#" style="display: inline; font-size: 16px; font-weight: 400; color: gray;">고객센터</a>
+                    <a href="${pageContext.request.contextPath}/faq/main" style="display: inline; font-size: 16px; font-weight: 400; color: gray;">고객센터</a>
                 </div>
                 <!-- Header Language & Currency End -->
 
@@ -116,8 +116,9 @@
                                 <li>
                                     <a href="#" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
                                     <ul>
-                                        <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/notice/list"><span class="menu-text">공지사항</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/zau/list"><span class="menu-text">자유게시판</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/junggo/main"><span class="menu-text">중고거래게시판</span></a></li>
                                         <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a></li>
                                     </ul>
                                 </li>
@@ -167,15 +168,13 @@
                         
                         <li class="has-children"><a href="#"><span class="menu-text">커뮤니티</span></a>
                             <ul class="sub-menu">
-                                <li class="has-children"><a href="blog-right-sidebar.html"><span class="menu-text">자유게시판</span></a>
+                            <li class="no-children"><a href="${pageContext.request.contextPath}/notice/list"><span class="menu-text">공지사항</span></a></li>
+                                <li class="no-children"><a href="${pageContext.request.contextPath}/zau/list"><span class="menu-text">자유게시판</span></a>
                                 </li>
-                                <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
+                                <li class="no-children"><a href="${pageContext.request.contextPath}/junggo/main"><span class="menu-text">중고거래게시판</span></a>
                                 </li>
                                 <li class="no-children"><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a></li>
-                                <li class="has-children"><a href="blog-masonry-right-sidebar.html"><span class="menu-text">산책메이트게시판</span></a>
-                                </li>
-                                <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
-                                </li>
+                                
                             </ul>
                         </li>
                         <li class="no-children"><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
@@ -223,8 +222,9 @@
                                 <li>
                                     <a href="index-2.html" class="mega-menu-title"><span class="menu-text">커뮤니티</span></a>
                                     <ul>
-                                        <li><a href="index-5.html"><span class="menu-text">자유게시판</span></a></li>
-                                        <li><a href="index-5.html"><span class="menu-text">중고거래게시판</span></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/notice/list"><span class="menu-text">공지사항</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/zau/list"><span class="menu-text">자유게시판</span></a></li>
+                                        <li><a href="${pageContext.request.contextPath}/junggo/main"><span class="menu-text">중고거래게시판</span></a></li>
                                         <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동전문가 Q&A 게시판</span></a></li>
                                     </ul>
                                 </li>
@@ -274,15 +274,13 @@
                             
                             <li class="has-children"><a href="#"><span class="menu-text">커뮤니티</span></a>
                                 <ul class="sub-menu">
-                                <li class="has-children"><a href="blog-right-sidebar.html"><span class="menu-text">자유게시판</span></a>
+                                <li class="no-children"><a href="${pageContext.request.contextPath}/notice/list"><span class="menu-text">공지사항</span></a></li>
+                                <li class="no-children"><a href="${pageContext.request.contextPath}/zau/list"><span class="menu-text">자유게시판</span></a>
                                 </li>
-                                <li class="has-children"><a href="blog-grid-right-sidebar.html"><span class="menu-text">중고거래게시판</span></a>
+                                <li class="no-children"><a href="${pageContext.request.contextPath}/junggo/main"><span class="menu-text">중고거래게시판</span></a>
                                 </li>
                                 <li class="no-children"><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a></li>
-                                <li class="has-children"><a href="blog-masonry-right-sidebar.html"><span class="menu-text">산책메이트게시판</span></a>
-                                </li>
-                                <li class="has-children"><a href="blog-details-right-sidebar.html"><span class="menu-text">반려동물행사</span></a>
-                                </li>
+                                
                             </ul>
                             </li>
                             <li class="no-children"><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
@@ -441,8 +439,9 @@
                             <li>
                                 <a href="#"><span class="menu-text">커뮤니티</span></a>
                                 <ul class="sub-menu">
-                                    <li><a href="index-9.html"><span class="menu-text">자유게시판</span></a></li>
-                                    <li><a href="index-10.html"><span class="menu-text">중고거래게시판</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/notice/list"><span class="menu-text">공지사항</span></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/zau/list"><span class="menu-text">자유게시판</span></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/junggo/main"><span class="menu-text">중고거래게시판</span></a></li>
                                     <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동전문가 Q&A 게시판</span></a></li>
                                 </ul>
                             </li>
@@ -494,15 +493,13 @@
                     
                     <li><a href="#"><span class="menu-text">커뮤니티</span></a>
                         <ul class="sub-menu">
-                            <li><a href="#"><span class="menu-text">자유게시판</span></a>
+                        <li><a href="${pageContext.request.contextPath}/notice/list"><span class="menu-text">공지사항</span></a></li>
+                            <li><a href="${pageContext.request.contextPath}/zau/list"><span class="menu-text">자유게시판</span></a>
                             </li>
-                            <li><a href="#"><span class="menu-text">중고거래게시판</span></a>
+                            <li><a href="${pageContext.request.contextPath}/junggo/main"><span class="menu-text">중고거래게시판</span></a>
                             </li>
                             <li><a href="${pageContext.request.contextPath}/expert/list"><span class="menu-text">동물행동 전문가 Q&A 게시판</span></a></li>
-                            <li><a href="#"><span class="menu-text">산책메이트게시판</span></a>
-                            </li>
-                            <li><a href="#"><span class="menu-text">반려동물행사</span></a>
-                            </li>
+                            
                         </ul>
                     </li>
                     <li><a href="${pageContext.request.contextPath}/company/list"><span class="menu-text">제휴업체</span></a>
@@ -525,6 +522,7 @@
                             </li>
                         </ul>
                     </li>
+                    <li><a href="${pageContext.request.contextPath}/faq/main"><span class="menu-text">자주 묻는 질문</span></a></li>
                 </ul>
             </div>
             <div class="offcanvas-buttons">
